@@ -40,4 +40,20 @@ jobs:
           echo "Deploy response: $RESPONSE"
 
         
+  unitTestApp:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.app == 'true'
+    runs-on: ubuntu-latest
+    permissions: write-all
+
+    steps:
+      - name: Deploy_Project_APP
+        id: Deploy_Project_APP
+        run: |
+          RESPONSE=$(curl --request GET \
+               --url ${{ secrets.DEPLOY_APP_HOOK }} \
+               --header 'accept: application/json' \
+               --header 'content-type: application/json') 
+  
+          echo "Deploy response: $RESPONSE"
 
