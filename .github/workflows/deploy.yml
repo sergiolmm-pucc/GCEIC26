@@ -39,6 +39,5 @@ jobs:
   
           echo "Deploy response: $RESPONSE"
 
-          DEPLOY_ID=$(echo $RESPONSE | jq -r '.id')
-          echo "deploy_id=$DEPLOY_ID" >> $GITHUB_OUTPUT
-          echo "Deploy ID: $DEPLOY_ID"        ß
+        
+
