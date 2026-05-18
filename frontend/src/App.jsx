@@ -6,6 +6,7 @@ import CalculoMarkup from './pages/CalculoMarkup'
 import Help from './pages/Help'
 import Sobre from './pages/Sobre'
 import './styles/App.css'
+import Splash from './components/Splash'
 
 import PrivateRoute from './components/PrivateRoute'
 
@@ -17,7 +18,8 @@ function App() {
 
       <Routes>
 
-        <Route path="/" element={<Login />} />
+          <Route path="/" element={<Splash />} />
+          <Route path="/login" element={<Login />} />
 
         <Route
           path="/home"
