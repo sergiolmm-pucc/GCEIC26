@@ -1,91 +1,461 @@
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+/* ========================================
+   MARKUP CALCULATOR — Design System
+   Tema: Financeiro / Profissional / Clean
+   ======================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap');
+
+/* ── Variáveis ── */
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface-2: #22263a;
+  --border: #2e3250;
+  --border-light: #3d4168;
+
+  --accent: #4ade80;        /* verde — lucro, positivo */
+  --accent-dim: #16a34a33;
+  --accent-text: #bbf7d0;
+
+  --text: #e8eaf6;
+  --text-muted: #7b82a8;
+  --text-faint: #4a5070;
+
+  --danger: #f87171;
+  --danger-dim: #7f1d1d33;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --transition: 180ms ease;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-/* Container principal */
-.container {
-  max-width: 450px;
-  margin: 60px auto;
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+/* ── Base ── */
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Títulos */
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-h2 {
-  margin-top: 20px;
-  color: #444;
-}
-
-/* Inputs */
-input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  transition: 0.2s;
-}
-
-input:focus {
-  border-color: #667eea;
-  outline: none;
-}
-
-/* Botão */
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 15px;
-  background: linear-gradient(90deg, #667eea, #764ba2);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-button:hover {
-  transform: scale(1.03);
-}
-
-/* Resultado */
-.resultado {
-  background: #f1f3f6;
-  padding: 15px;
-  border-radius: 8px;
-  margin-top: 20px;
-}
-
-/* Navbar */
+/* ─────────────────────────────────────
+   NAVBAR
+───────────────────────────────────── */
 .navbar {
   display: flex;
-  justify-content: center;
-  gap: 15px;
-  background: #1f1f1f;
-  padding: 12px;
+  align-items: center;
+  gap: 4px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
 }
 
 .navbar a {
-  color: white;
+  color: var(--text-muted);
   text-decoration: none;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition), background var(--transition);
+  letter-spacing: 0.01em;
 }
 
+.navbar a:hover {
+  color: var(--text);
+  background: var(--surface-2);
+}
+
+/* Botão Sair empurrado para a direita */
 .navbar button {
+  margin-left: auto;
   width: auto;
-  padding: 6px 12px;
-  background: red;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--danger-dim);
+  color: var(--danger);
+  border: 1px solid #7f1d1d55;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.navbar button:hover {
+  background: #7f1d1d55;
+  border-color: var(--danger);
+  transform: none;
+}
+
+/* ─────────────────────────────────────
+   PAGE WRAPPER (usado nas páginas internas)
+───────────────────────────────────── */
+.page {
+  max-width: 680px;
+  margin: 48px auto;
+  padding: 0 24px;
+}
+
+/* ─────────────────────────────────────
+   CONTAINER (Markup form)
+───────────────────────────────────── */
+.container {
+  max-width: 480px;
+  margin: 48px auto;
+  padding: 0 24px;
+}
+
+/* ── Títulos de página ── */
+h1 {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 28px;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 16px;
+}
+
+p {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+ul {
+  color: var(--text-muted);
+  font-size: 15px;
+  padding-left: 20px;
+  margin-bottom: 12px;
+}
+
+ul li {
+  margin-bottom: 4px;
+}
+
+/* ── Labels (para usar nas páginas que quiserem) ── */
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+
+/* ─────────────────────────────────────
+   INPUTS
+───────────────────────────────────── */
+input {
+  width: 100%;
+  padding: 11px 14px;
+  margin-top: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  transition: border-color var(--transition), box-shadow var(--transition);
+  outline: none;
+}
+
+input::placeholder {
+  color: var(--text-faint);
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+/* Remove setas nos inputs numéricos */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────
+   BOTÃO PRINCIPAL
+───────────────────────────────────── */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background: var(--accent);
+  color: #0a1a0f;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+button:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────
+   RESULTADO
+───────────────────────────────────── */
+.resultado {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-top: 24px;
+}
+
+.resultado h2 {
+  margin-bottom: 16px;
+}
+
+.resultado p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.resultado p:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+  color: var(--accent-text);
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* Valor à direita em fonte mono */
+.resultado p span,
+.resultado p strong {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.resultado p:last-child span {
+  color: var(--accent);
+  font-size: 16px;
+}
+
+/* ─────────────────────────────────────
+   LOGIN PAGE
+───────────────────────────────────── */
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 40px 32px;
+}
+
+.login-card .logo {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+
+.login-card h1 {
+  font-size: 24px;
+  margin-bottom: 32px;
+  color: var(--text);
+}
+
+.login-card input {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.login-card button {
+  margin-top: 8px;
+}
+
+/* ─────────────────────────────────────
+   HOME PAGE
+───────────────────────────────────── */
+.home-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 64px 24px 0;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.home-hero .tag {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+  border: 1px solid #16a34a44;
+}
+
+.home-hero h1 {
+  font-size: 32px;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+
+.home-hero p {
+  font-size: 16px;
+  max-width: 440px;
+  margin-bottom: 32px;
+}
+
+.home-hero .cta {
+  display: inline-block;
+  padding: 11px 24px;
+  background: var(--accent);
+  color: #0a1a0f;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: opacity var(--transition);
+  width: auto;
+  margin-top: 0;
+  border: none;
+  cursor: pointer;
+}
+
+.home-hero .cta:hover {
+  opacity: 0.85;
+  transform: none;
+}
+
+/* ─────────────────────────────────────
+   HELP PAGE
+───────────────────────────────────── */
+.help-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.help-card h2 {
+  margin-bottom: 12px;
+}
+
+/* ─────────────────────────────────────
+   SOBRE PAGE
+───────────────────────────────────── */
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.sobre-grid .sobre-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  max-width: 50%;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.sobre-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+.sobre-card .label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 8px;
+}
+
+.sobre-card .value {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* ─────────────────────────────────────
+   FORM GROUP (helper opcional)
+───────────────────────────────────── */
+.form-group {
+  margin-top: 14px;
+}
+
+.form-group label {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.form-group input {
+  margin-top: 0;
+}
+
+/* ─────────────────────────────────────
+   SCROLLBAR
+───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+  border-radius: 3px;
 }

@@ -4,20 +4,39 @@ function Help() {
   return (
     <>
       <Navbar />
-      
-      <h1>Help</h1>
 
-      <p>Este sistema calcula markup de produtos.</p>
+      <div className="page">
+        <h1>Como usar</h1>
 
-      <p>Informe:</p>
-      <ul>
-        <li>Custo do produto</li>
-        <li>Despesas (%)</li>
-        <li>Lucro desejado (%)</li>
-      </ul>
+        <div className="help-card">
+          <h2>O que é Markup?</h2>
+          <p>
+            Markup é o índice aplicado sobre o custo de um produto para
+            determinar o preço de venda, cobrindo despesas e garantindo lucro.
+          </p>
+        </div>
 
-      <p>Clique em calcular para obter o preço de venda.</p>
+        <div className="help-card">
+          <h2>O que informar</h2>
+          <p>Para calcular, você precisa de três valores:</p>
+          <ul>
+            <li>Custo do produto (R$)</li>
+            <li>Despesas operacionais (%)</li>
+            <li>Lucro desejado (%)</li>
+          </ul>
+        </div>
 
+        <div className="help-card">
+          <h2>Fórmula utilizada</h2>
+          <p>
+            Preço de Venda = Custo ÷ (1 − (Despesas% + Lucro%) ÷ 100)
+          </p>
+          <p>
+            A soma de despesas e lucro não pode atingir 100% — o sistema
+            irá avisar caso isso aconteça.
+          </p>
+        </div>
+      </div>
     </>
   )
 }

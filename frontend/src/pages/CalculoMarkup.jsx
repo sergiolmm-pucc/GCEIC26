@@ -3,7 +3,6 @@ import Navbar from '../components/Navbar'
 import api from '../services/api'
 
 function CalculoMarkup() {
-
   const [custo, setCusto] = useState('')
   const [despesas, setDespesas] = useState('')
   const [lucro, setLucro] = useState('')
@@ -14,14 +13,19 @@ function CalculoMarkup() {
       const response = await api.post('/MKP/markup', {
         custo: Number(custo),
         despesas: Number(despesas),
-        lucro: Number(lucro)
+        lucro: Number(lucro),
       })
-
       setResultado(response.data)
-
     } catch (error) {
-      alert('Erro ao calcular')
+      alert('Erro ao calcular. Verifique os valores informados.')
     }
+  }
+
+  function fmt(value) {
+    return Number(value).toLocaleString('pt-BR', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
   }
 
   return (
@@ -33,7 +37,7 @@ function CalculoMarkup() {
 
         <input
           type="number"
-          placeholder="Custo"
+          placeholder="Custo (R$)"
           value={custo}
           onChange={(e) => setCusto(e.target.value)}
         />
@@ -47,21 +51,40 @@ function CalculoMarkup() {
 
         <input
           type="number"
-          placeholder="Lucro (%)"
+          placeholder="Lucro desejado (%)"
           value={lucro}
           onChange={(e) => setLucro(e.target.value)}
         />
 
-        <button onClick={calcular}>
-          Calcular
-        </button>
+        <button onClick={calcular}>Calcular</button>
 
         {resultado && (
           <div className="resultado">
             <h2>Resultado</h2>
-            <p>Preço venda: {resultado.preco_venda}</p>
-            <p>Lucro valor: {resultado.lucro_valor}</p>
-            <p>Markup: {resultado.markup_multiplicador}</p>
+            <p>
+              Custo
+              <span>R$ {fmt(resultado.custo)}</span>
+            </p>
+            <p>
+              Despesas
+              <span>{resultado.despesas_percentual}%</span>
+            </p>
+            <p>
+              Lucro
+              <span>{resultado.lucro_percentual}%</span>
+            </p>
+            <p>
+              Markup multiplicador
+              <span>{resultado.markup_multiplicador}×</span>
+            </p>
+            <p>
+              Lucro em valor
+              <span>R$ {fmt(resultado.lucro_valor)}</span>
+            </p>
+            <p>
+              Preço de venda
+              <span>R$ {fmt(resultado.preco_venda)}</span>
+            </p>
           </div>
         )}
       </div>
