@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Cypress artifacts
+cypress/videos
+cypress/screenshots
+cypress/downloadsgit add frontend/.gitignore
+git commit -m "chore: ignora videos e screenshots do cypress"
+git push origin feat/ci-cd
