@@ -1,10 +1,10 @@
-# 📊 Projeto GCEIC26 - Sistema de Cálculo de MarkUp
+# Projeto GCEIC26 - Sistema de Cálculo de MarkUp
 
 Este projeto foi desenvolvido para a disciplina **GCEIC26**, composto por uma **API REST em Node.js** (Backend) e uma **Aplicação Web em React** (Frontend). O objetivo principal é automatizar a gestão financeira de produtos através de três cálculos essenciais: **MarkUp**, **Lucro Real** e **Ponto de Equilíbrio**.
 
 ---
 
-## 📝 Do que se trata o projeto?
+## Do que se trata o projeto?
 
 O sistema realiza os seguintes cálculos financeiros:
 1. **Preço de Venda via MarkUp (`/MKP/markup`):** Define o preço ideal de venda baseado no custo do produto, despesas operacionais e margem de lucro desejada.
@@ -13,7 +13,7 @@ O sistema realiza os seguintes cálculos financeiros:
 
 ---
 
-## 🛠️ Pré-requisitos
+## Pré-requisitos
 
 Antes de iniciar, certifique-se de ter instalado:
 * [Node.js](https://nodejs.org/) (versão 18 ou superior)
@@ -21,7 +21,7 @@ Antes de iniciar, certifique-se de ter instalado:
 
 ---
 
-## 🚀 Como iniciar o Backend (API)
+## Como iniciar o Backend (API)
 
 1. Abra o terminal e navegue até a pasta do backend:
 bash
@@ -37,7 +37,7 @@ Inicie o servidor de desenvolvimento:
 Bash
 npm run dev
 
-## 💻 Como iniciar o Frontend (Interface Web)
+## Como iniciar o Frontend (Interface Web)
 
 Abra um segundo terminal (mantenha o terminal do backend rodando) e navegue até a pasta do frontend:
 
