@@ -9,15 +9,29 @@ function CalculoMarkup() {
   const [resultado, setResultado] = useState(null)
 
   async function calcular() {
-    try {
-      const response = await api.post('/MKP/markup', {
-        custo: Number(custo),
-        despesas: Number(despesas),
-        lucro: Number(lucro),
-      })
-      setResultado(response.data)
+
+  if (Number(despesas) + Number(lucro) >= 100) {
+    alert('A soma de "despesas + lucro" não pode ser 100% ou mais.')
+    return
+  }
+
+  try {
+    const response = await api.post('/MKP/markup', {
+      custo: Number(custo),
+      despesas: Number(despesas),
+      lucro: Number(lucro),
+    })
+
+    setResultado(response.data)
+
     } catch (error) {
-      alert('Erro ao calcular. Verifique os valores informados.')
+
+    if (error.response?.data?.erro) {
+      alert(error.response.data.erro)
+    } else {
+      alert('Erro ao calcular')
+    }
+
     }
   }
 
