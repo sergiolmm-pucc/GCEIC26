@@ -1,0 +1,19 @@
+# Dependências
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Variáveis de ambiente
+.env
+
+# Pastas de cobertura de testes (que vamos gerar em breve)
+coverage/
+
+# Arquivos de sistema operacional (Mac/Windows)
+.DS_Store
+Thumbs.db
