@@ -51,8 +51,8 @@ body {
 ───────────────────────────────────── */
 .navbar {
   display: flex;
+  justify-content: space-between; /* separa esquerda e direita */
   align-items: center;
-  gap: 4px;
   background: var(--surface);
   border-bottom: 1px solid var(--border);
   padding: 0 24px;
@@ -63,6 +63,13 @@ body {
   backdrop-filter: blur(8px);
 }
 
+/* container dos links */
+.navbar-links {
+  display: flex;
+  gap: 8px;
+}
+
+/* links */
 .navbar a {
   color: var(--text-muted);
   text-decoration: none;
@@ -79,9 +86,8 @@ body {
   background: var(--surface-2);
 }
 
-/* Botão Sair empurrado para a direita */
+/* botão sair */
 .navbar button {
-  margin-left: auto;
   width: auto;
   padding: 6px 14px;
   font-size: 13px;
@@ -98,7 +104,6 @@ body {
 .navbar button:hover {
   background: #7f1d1d55;
   border-color: var(--danger);
-  transform: none;
 }
 
 /* ─────────────────────────────────────
@@ -458,4 +463,19 @@ button:active {
 ::-webkit-scrollbar-thumb {
   background: var(--border-light);
   border-radius: 3px;
+}
+
+.btn-danger {
+  background: linear-gradient(90deg, #ff4d4d, #cc0000);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-danger:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #e60000, #990000);
 }

@@ -6,16 +6,18 @@ function Navbar() {
 
   function sair() {
     localStorage.removeItem('auth')
-    navigate('/')
+    navigate('/login')
   }
 
   return (
     <div className="navbar">
 
-      <Link to="/home">Home</Link>
-      <Link to="/markup">Markup</Link>
-      <Link to="/help">Help</Link>
-      <Link to="/sobre">Sobre</Link>
+      <div className="navbar-links">
+        <Link to="/home">Home</Link>
+        <Link to="/markup">Markup</Link>
+        <Link to="/help">Help</Link>
+        <Link to="/sobre">Sobre</Link>
+      </div>
 
       <button onClick={sair}>
         Sair
