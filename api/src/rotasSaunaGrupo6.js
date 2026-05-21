@@ -34,7 +34,7 @@ router.post('/materiais', (req, res) => {
     });
 });
 
-// Endpoint 2 Cálculo de Equipamentos (Aluno 2)
+// Endpoint 2 Cálculo de Equipamentos (Pedro Facine Nery)
 router.post('/equipamentos', (req, res) => {
     const { volumeM3, tipo } = req.body;
 
@@ -69,7 +69,7 @@ router.post('/equipamentos', (req, res) => {
     });
 });
 
-// Endpoint 3 Cálculo de Manutenção (Aluno 3)
+// Endpoint 3 Cálculo de Manutenção (William Kenzo Nakao)
 router.post('/manutencao', (req, res) => {
     const { potenciaGeradorKW, horasUsoMes, precoKWh } = req.body;
 
