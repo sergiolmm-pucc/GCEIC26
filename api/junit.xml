@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="26" failures="0" errors="0" time="10.854">
+  <testsuite name="Teste de unitario" errors="0" failures="0" skipped="0" timestamp="2026-05-21T14:18:17" time="0.375" tests="1">
+    <testcase classname="Teste de unitario deve retornar calculos" name="Teste de unitario deve retornar calculos" time="0.01">
+    </testcase>
+  </testsuite>
+  <testsuite name="calcularConsumo" errors="0" failures="0" skipped="0" timestamp="2026-05-21T14:18:17" time="0.411" tests="17">
+    <testcase classname="calcularConsumo calcula kWh corretamente para lista de aparelhos" name="calcularConsumo calcula kWh corretamente para lista de aparelhos" time="0.004">
+    </testcase>
+    <testcase classname="calcularConsumo usa 30 dias por padrão" name="calcularConsumo usa 30 dias por padrão" time="0">
+    </testcase>
+    <testcase classname="calcularConsumo aceita número de dias personalizado" name="calcularConsumo aceita número de dias personalizado" time="0">
+    </testcase>
+    <testcase classname="calcularConsumo lança erro para lista vazia" name="calcularConsumo lança erro para lista vazia" time="0.009">
+    </testcase>
+    <testcase classname="calcularConsumo lança erro para aparelho com dados incompletos" name="calcularConsumo lança erro para aparelho com dados incompletos" time="0">
+    </testcase>
+    <testcase classname="calcularConsumo lança erro para valores negativos" name="calcularConsumo lança erro para valores negativos" time="0">
+    </testcase>
+    <testcase classname="calcularConta calcula corretamente com bandeira verde (sem adicional)" name="calcularConta calcula corretamente com bandeira verde (sem adicional)" time="0.004">
+    </testcase>
+    <testcase classname="calcularConta aplica adicional de bandeira amarela" name="calcularConta aplica adicional de bandeira amarela" time="0">
+    </testcase>
+    <testcase classname="calcularConta aplica adicional de bandeira vermelha1" name="calcularConta aplica adicional de bandeira vermelha1" time="0.001">
+    </testcase>
+    <testcase classname="calcularConta aplica adicional de bandeira vermelha2" name="calcularConta aplica adicional de bandeira vermelha2" time="0">
+    </testcase>
+    <testcase classname="calcularConta lança erro para kWh negativo" name="calcularConta lança erro para kWh negativo" time="0.001">
+    </testcase>
+    <testcase classname="calcularConta lança erro para tarifa zero ou negativa" name="calcularConta lança erro para tarifa zero ou negativa" time="0.001">
+    </testcase>
+    <testcase classname="calcularConta lança erro para bandeira inválida" name="calcularConta lança erro para bandeira inválida" time="0">
+    </testcase>
+    <testcase classname="simularComparacao retorna cenário mais econômico corretamente" name="simularComparacao retorna cenário mais econômico corretamente" time="0.001">
+    </testcase>
+    <testcase classname="simularComparacao calcula diferença de kWh entre cenários" name="simularComparacao calcula diferença de kWh entre cenários" time="0">
+    </testcase>
+    <testcase classname="simularComparacao calcula economia em reais" name="simularComparacao calcula economia em reais" time="0.001">
+    </testcase>
+    <testcase classname="simularComparacao lança erro se cenários estão vazios" name="simularComparacao lança erro se cenários estão vazios" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Teste de Saude -&gt; GET /health" errors="0" failures="0" skipped="0" timestamp="2026-05-21T14:18:17" time="0.534" tests="2">
+    <testcase classname="Teste de Saude -&gt; GET /health deve retornar status ok" name="Teste de Saude -&gt; GET /health deve retornar status ok" time="0.018">
+    </testcase>
+    <testcase classname="GET /api/tabelas deve retornar a tebela de constantes " name="GET /api/tabelas deve retornar a tebela de constantes " time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="POST /ENRG/consumo" errors="0" failures="0" skipped="0" timestamp="2026-05-21T14:18:17" time="0.578" tests="6">
+    <testcase classname="POST /ENRG/consumo retorna 200 com resultado correto" name="POST /ENRG/consumo retorna 200 com resultado correto" time="0.024">
+    </testcase>
+    <testcase classname="POST /ENRG/consumo retorna 400 sem corpo" name="POST /ENRG/consumo retorna 400 sem corpo" time="0.004">
+    </testcase>
+    <testcase classname="POST /ENRG/conta retorna 200 com valor da conta" name="POST /ENRG/conta retorna 200 com valor da conta" time="0.003">
+    </testcase>
+    <testcase classname="POST /ENRG/conta retorna 400 sem tarifa" name="POST /ENRG/conta retorna 400 sem tarifa" time="0.003">
+    </testcase>
+    <testcase classname="POST /ENRG/simular retorna 200 com comparação" name="POST /ENRG/simular retorna 200 com comparação" time="0.003">
+    </testcase>
+    <testcase classname="POST /ENRG/simular retorna 400 sem cenários" name="POST /ENRG/simular retorna 400 sem cenários" time="0.004">
+    </testcase>
+  </testsuite>
+</testsuites>
