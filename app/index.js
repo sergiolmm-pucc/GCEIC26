@@ -1,6 +1,3 @@
-    console.log("Iniciando...");
-    console.log("Deu certo");
-
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -15,8 +12,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// Sessão (Professor's base)
 app.use(session({
-  secret: 'domestic-worker-secret-2025',
+  secret: 'piscina-secret-2025',
   resave: false,
   saveUninitialized: false,
   cookie: { maxAge: 3600000 },
@@ -28,56 +27,82 @@ function requireAuth(req, res, next) {
   res.redirect('/login');
 }
 
+// Redirect root to home or login
 app.get('/', (req, res) => {
-  if (req.session.user) return res.redirect('/dashboard');
-  res.render('login', { error: null });
+  if (req.session.user) return res.redirect('/home');
+  res.redirect('/login');
 });
 
+// Login Page
 app.get('/login', (req, res) => {
-  if (req.session.user) return res.redirect('/dashboard');
+  if (req.session.user) return res.redirect('/home');
   res.render('login', { error: null });
 });
 
+// Login POST Action
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  // Admin only logic
+  if (username === 'admin' && password === '1234') {
+    req.session.user = { username: 'admin', nome: 'Administrador' };
+    return res.redirect('/home');
+  }
+  res.render('login', { error: 'Usuário ou senha incorretos.' });
+});
+
+// Logout
 app.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/login');
 });
 
-
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  if (username === 'admin' && password === 'admin') {
-    req.session.user = { username: 'admin', nome: 'Administrador' };
-    return res.redirect('/calculo');
-  }
-  res.render('login', { error: 'Usuário ou senha inválidos' });
+// Dashboard / Home Page
+app.get('/home', requireAuth, (req, res) => {
+  res.render('home', { user: req.session.user });
 });
 
-// Dashboard
-app.get('/calculo', requireAuth, (req, res) => {
-  res.render('calculo', { user: req.session.user });
+// Calculadoras Page
+app.get('/calculadora/:tipo', requireAuth, (req, res) => {
+  const tipo = req.params.tipo;
+  const validTipos = ['volume', 'agua', 'materiais', 'manutencao', 'mao-de-obra'];
+  if(!validTipos.includes(tipo)) return res.redirect('/home');
+  res.render('calculadoras', { user: req.session.user, tipo: tipo, resultado: null, error: null });
 });
 
-// Calcular encargos (proxy para API)
-app.post('/calcular', requireAuth, async (req, res) => {
+// Proxy route to calculate via the Pool API
+app.post('/api/calcular/:tipo', requireAuth, async (req, res) => {
+  const tipo = req.params.tipo;
   try {
     const fetch = (await import('node-fetch')).default;
-    console.log("passou 1");
-    const response = await fetch(`${API_URL}/api/calcular`, {
+    const response = await fetch(`${API_URL}/PISCINA/${tipo}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req.body),
     });
-    console.log("passou 1a");
+    
     const data = await response.json();
-    res.json(data);
+    if (!response.ok) {
+       return res.status(response.status).json({ success: false, error: data.erro || 'Erro na API' });
+    }
+    
+    res.json({ success: true, data });
   } catch (err) {
-    console.log(err.message)
-    res.status(400).json({ success: false, error: err.message});  
+    console.error(err);
+    res.status(500).json({ success: false, error: 'Erro de comunicação com o servidor.' });  
   }
 });
 
+// Sobre Page
+app.get('/sobre', requireAuth, (req, res) => {
+  res.render('sobre', { user: req.session.user });
+});
+
+// Ajuda Page
+app.get('/help', requireAuth, (req, res) => {
+  res.render('ajuda', { user: req.session.user });
+});
+
 app.listen(PORT, () => {
-  console.log(`✅ App Doméstica rodando: http://localhost:${PORT}`);
+  console.log(`✅ App EJS rodando: http://localhost:${PORT}`);
 });
 module.exports = app;
