@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ grupo7/calc_piscina ]
   pull_request:
-    branches: [ main, master ]
+    branches: [grupo7/calc_piscina ]
 
 jobs:
   build-and-test:
