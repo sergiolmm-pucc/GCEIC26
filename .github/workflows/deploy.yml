@@ -2,7 +2,9 @@ name: Teste and Deploy
 
 on:
   push:
-    branches: [main, dev]
+    branches: [main, dev, grupo5/calculo_energia]
+  pull_request:
+    branches: [grupo5/calculo_energia]
 
   
 jobs:
