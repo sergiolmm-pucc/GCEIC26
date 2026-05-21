@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarkUp Calc</title>
+  <style>
+    body {
+      align-items: center;
+      background: #f5f7fb;
+      color: #172033;
+      display: flex;
+      font-family: Arial, sans-serif;
+      justify-content: center;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    main {
+      max-width: 720px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: #42526e;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      margin: 0 auto 28px;
+      max-width: 560px;
+    }
+
+    a {
+      background: #1155cc;
+      border-radius: 6px;
+      color: #ffffff;
+      display: inline-block;
+      font-weight: 700;
+      padding: 12px 18px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>MarkUp Calc</h1>
+    <p>Aplicação para calcular o preço de venda de produtos a partir de custos, despesas, impostos e margem de lucro.</p>
+
+    <% if (user) { %>
+      <a href="/calculo">Abrir cálculo</a>
+    <% } else { %>
+      <a href="/login">Entrar no sistema</a>
+    <% } %>
+  </main>
+</body>
+</html>

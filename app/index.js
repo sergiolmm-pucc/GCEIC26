@@ -1,6 +1,3 @@
-    console.log("Iniciando...");
-    console.log("Deu certo");
-
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -16,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
-  secret: 'domestic-worker-secret-2025',
+  secret: 'markup-secret-2026',
   resave: false,
   saveUninitialized: false,
   cookie: { maxAge: 3600000 },
@@ -29,12 +26,16 @@ function requireAuth(req, res, next) {
 }
 
 app.get('/', (req, res) => {
-  if (req.session.user) return res.redirect('/dashboard');
-  res.render('login', { error: null });
+  if (req.session.user) return res.redirect('/calculo');
+  res.redirect('/splash');
+});
+
+app.get('/splash', (req, res) => {
+  res.render('splash', { user: req.session.user || null });
 });
 
 app.get('/login', (req, res) => {
-  if (req.session.user) return res.redirect('/dashboard');
+  if (req.session.user) return res.redirect('/calculo');
   res.render('login', { error: null });
 });
 
@@ -53,31 +54,35 @@ app.post('/login', (req, res) => {
   res.render('login', { error: 'Usuário ou senha inválidos' });
 });
 
-// Dashboard
 app.get('/calculo', requireAuth, (req, res) => {
   res.render('calculo', { user: req.session.user });
 });
 
-// Calcular encargos (proxy para API)
+app.get('/sobre', requireAuth, (req, res) => {
+  res.render('sobre', { user: req.session.user });
+});
+
+app.get('/help', requireAuth, (req, res) => {
+  res.render('help', { user: req.session.user });
+});
+
+// Proxy para a API de calculo de MarkUp.
 app.post('/calcular', requireAuth, async (req, res) => {
   try {
     const fetch = (await import('node-fetch')).default;
-    console.log("passou 1");
     const response = await fetch(`${API_URL}/api/calcular`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req.body),
     });
-    console.log("passou 1a");
     const data = await response.json();
-    res.json(data);
+    res.status(response.status).json(data);
   } catch (err) {
-    console.log(err.message)
     res.status(400).json({ success: false, error: err.message});  
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`✅ App Doméstica rodando: http://localhost:${PORT}`);
+  console.log(`App MarkUp rodando: http://localhost:${PORT}`);
 });
 module.exports = app;
