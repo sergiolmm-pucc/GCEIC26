@@ -1,4 +1,4 @@
-name: Teste and Deploy
+name: Teste Automatizado (CI)
 
 on:
   push:
@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       api: ${{ steps.changes.outputs.api }}
-      web: ${{ steps.changes.outputs.web }}
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
@@ -19,12 +18,10 @@ jobs:
           filters: |
             api:
               - 'api/**'
-            web:
-              - 'web/**'
               
   unitTestApi:
     needs: detect-changes
-    if: needs.detect-changes.outputs.api == 'true'
+    if: needs.detect-changes.outputs.api == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     permissions: write-all
 
@@ -51,25 +48,3 @@ jobs:
       - name: verifica se fez corretamente
         working-directory: api 
         run: ls -la        
-
-  deployVercel:
-    needs: [detect-changes, unitTestApi]
-    # Executa se houver alterações na web ou na api, contanto que os testes da api não tenham falhado
-    if: |
-      always() && 
-      !contains(needs.unitTestApi.result, 'failure') && 
-      !contains(needs.unitTestApi.result, 'cancelled') && 
-      (needs.detect-changes.outputs.web == 'true' || needs.detect-changes.outputs.api == 'true')
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get Code from repository
-        uses: actions/checkout@v4
-
-      - name: Deploy to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args: ${{ github.ref == 'refs/heads/main' && '--prod' || '' }}
-          working-directory: ./web
