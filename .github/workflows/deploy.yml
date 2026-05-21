@@ -2,8 +2,7 @@ name: Teste and Deploy
 
 on:
   push:
-    branches: [main, dev]
-
+    branches: [ grupo12/markup ]
   
 jobs:
   detect-changes:
