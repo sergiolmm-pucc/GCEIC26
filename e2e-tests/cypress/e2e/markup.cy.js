@@ -9,7 +9,7 @@ describe('Testes Funcionais - Sistema de MarkUp', () => {
     // Simula a digitação nos campos da tela de Login.jsx
     // Troque 'admin' pelos valores fixos que vocês usaram!
     cy.get('input[type="text"]').type('admin') 
-    cy.get('input[type="password"]').type('1234')
+    cy.get('input[type="password"]').type('123')
     
     // Simula o clique no botão de entrar
     cy.get('button').contains('Entrar').click()
@@ -21,7 +21,7 @@ describe('Testes Funcionais - Sistema de MarkUp', () => {
   it('Deve calcular o preço de venda via MarkUp corretamente', () => {
     // Primeiro faz o login para acessar a tela de cálculo
     cy.get('input[type="text"]').type('admin') 
-    cy.get('input[type="password"]').type('1234')
+    cy.get('input[type="password"]').type('123')
     cy.get('button').contains('Entrar').click()
 
     // Navega para a tela de cálculo (caso haja um menu)
