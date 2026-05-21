@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import fotoPelaes from '../assets/pelaes.jpeg';
+import fotoNakao from '../assets/nakao.jpeg';
+import fotoNery from '../assets/nery.jpeg';
 
 export default function Sobre() {
   return (
@@ -14,32 +17,29 @@ export default function Sobre() {
       </p>
       
       <div style={{ display: 'flex', justifyContent: 'center', gap: '3rem', flexWrap: 'wrap' }}>
-        {/* Membro 1 */}
         <div>
           <div style={{ width: '150px', height: '150px', backgroundColor: '#e0e0e0', borderRadius: '50%', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-            {/*Trocar span de placeholder <img src="/caminho/foto.jpg" alt="Pedro" style={{width: '100%'}} /> */}
-            <span style={{ color: '#666', fontSize: '0.9rem' }}>Foto Pedro</span>
+            <img src={fotoPelaes} alt="Pedro" style={{width: '100%'}} /> 
           </div>
           <h3 style={{ marginTop: '1rem' }}>Pedro Pelaes Malinconico</h3>
-          <p style={{ margin: '0', color: '#666' }}>API Materiais / Front-end</p>
+          <p style={{ margin: '0', color: '#666' }}>API Materiais / Front-end / CI CD / Testes</p>
         </div>
 
-        {/* Membro 2 */}
         <div>
           <div style={{ width: '150px', height: '150px', backgroundColor: '#e0e0e0', borderRadius: '50%', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-            <span style={{ color: '#666', fontSize: '0.9rem' }}>Foto Aluno 2</span>
+            <img src={fotoNakao} alt="Pedro" style={{width: '100%'}} /> 
           </div>
-          <h3 style={{ marginTop: '1rem' }}>Nome do Aluno 2</h3>
+          <h3 style={{ marginTop: '1rem' }}>William Kenzo Nakao</h3>
           <p style={{ margin: '0', color: '#666' }}>API Equipamentos / Testes</p>
         </div>
 
-        {/* Membro 3 */}
         <div>
-          <div style={{ width: '150px', height: '150px', backgroundColor: '#e0e0e0', borderRadius: '50%', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-            <span style={{ color: '#666', fontSize: '0.9rem' }}>Foto Aluno 3</span>
+          <div style={{ width: '150px', height: '150px', backgroundColor: '#e0e0e0', borderRadius: '50%', margin: '0 auto', display: 'flex', 
+            alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+            <img src={fotoNery} alt="Pedro" style={{width: '100%'}} /> 
           </div>
-          <h3 style={{ marginTop: '1rem' }}>Nome do Aluno 3</h3>
-          <p style={{ margin: '0', color: '#666' }}>API Manutenção / CI-CD</p>
+          <h3 style={{ marginTop: '1rem' }}>Pedro Facine Nery</h3>
+          <p style={{ margin: '0', color: '#666' }}>API Manutenção / Front-End</p>
         </div>
       </div>
     </div>
