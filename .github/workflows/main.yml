@@ -1,0 +1,28 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v5
+
+    - name: Use Node.js
+      uses: actions/setup-node@v5
+      with:
+        node-version: '24'
+        cache: 'npm'
+        cache-dependency-path: api-piscina/package-lock.json
+
+    - name: Instalar dependências e Rodar Testes
+      run: |
+        cd api-piscina
+        npm install
+        npm test

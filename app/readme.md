@@ -1,24 +1,16 @@
-cria o diretorio api e app
-no diretorio app via terminal 
-npm init -y
-cria o arquivo principal
+# React + Vite
 
-instala o nodemon para mexer no codigo e nao precisar reiniciar o app. ( Dev dependencies)
-npm install -D nodemon
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-no package.json adicione
-"dev": "nodemon index.js"
-para rodar
-npm run dev
+Currently, two official plugins are available:
 
-instala dependencia 
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-npm install express-session
-npm install body-parser
-npm install ejs
-npm install bcryptjs
+## React Compiler
 
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-npm install express
+## Expanding the ESLint configuration
 
-npm install node-fetch
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
