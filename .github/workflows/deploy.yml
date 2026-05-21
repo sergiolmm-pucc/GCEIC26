@@ -2,7 +2,7 @@ name: Teste and Deploy
 
 on:
   push:
-    branches: [main, dev]
+    branches: [main, dev, "grupo23/calc_autonomia"]
 
   
 jobs:
