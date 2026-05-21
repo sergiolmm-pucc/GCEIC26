@@ -91,7 +91,7 @@ function Login({ onLogin }) {
 
   function submit(event) {
     event.preventDefault();
-    if (usuario === credenciais.usuario && senha === credenciais.senha) {
+    if (usuario.trim() === credenciais.usuario && senha === credenciais.senha) {
       setErro('');
       onLogin();
       return;
@@ -119,6 +119,10 @@ function Login({ onLogin }) {
         </label>
         {erro && <p className="error">{erro}</p>}
         <button type="submit">Acessar</button>
+        <p className="test-credentials">
+          Acesso para teste: usuario <strong>{credenciais.usuario}</strong> / senha{' '}
+          <strong>{credenciais.senha}</strong>
+        </p>
       </form>
     </section>
   );

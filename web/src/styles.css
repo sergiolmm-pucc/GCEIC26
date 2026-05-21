@@ -87,6 +87,19 @@ input {
   margin-top: 16px;
 }
 
+.test-credentials {
+  margin: 16px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid #dce5ea;
+  color: #53616c;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.test-credentials strong {
+  color: #14212b;
+}
+
 .login-panel button,
 .actions button {
   min-height: 42px;

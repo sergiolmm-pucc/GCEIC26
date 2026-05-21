@@ -45,3 +45,9 @@ npm run dev:web
 npm test        # executa os testes
 npm run build   # gera os artefatos de produção
 ```
+
+## Deploy na Vercel
+
+Use a raiz do repositorio como projeto da Vercel. O arquivo `vercel.json` da raiz publica o app React em `web/dist` e envia as chamadas `/PBL` para a API Express serverless em `api/api/index.js`.
+
+Em producao, o app usa `/PBL` automaticamente. Para apontar para outra API, configure `VITE_API_URL`.

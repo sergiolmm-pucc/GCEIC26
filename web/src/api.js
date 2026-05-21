@@ -1,4 +1,5 @@
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001/PBL';
+export const API_URL =
+  import.meta.env.VITE_API_URL ?? (import.meta.env.PROD ? '/PBL' : 'http://localhost:3001/PBL');
 
 export async function calcularPrecoLiquido(payload) {
   return postJson('/preco-liquido', payload);
