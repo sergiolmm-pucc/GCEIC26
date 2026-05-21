@@ -3,6 +3,8 @@ name: Teste and Deploy
 on:
   push:
     branches: [main, dev, "grupo9/calc_nf"]
+  pull_request:
+    branches: [grupo9/calc_nf]
 
   
 jobs:
