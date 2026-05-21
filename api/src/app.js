@@ -9,43 +9,86 @@ app.use(cors());
 app.use(express.json());
 
 
-// checa se api no ar
+// checa se api está no ar
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM28', turma:'101'});
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString()
+  });
 });
 
-app.get('/api/tabelas', (req, res) => {
-  const { TABELA, calcular } = require('./funcoes');
+
+// retorna tabela padrão de impostos
+app.get('/NF/tabelas', (req, res) => {
+
+  const { TABELA } = require('./funcoes');
+
   res.json({
-	success: true,
-	data: {
-		base: TABELA.BASE_CALC.faixas,
-		referencia: `${TABELA.REFERENCIA * 100}%`,
-	},
+    success: true,
+    data: TABELA.IMPOSTOS_PADRAO,
   });
 
 });
 
-// POST /api/calcular
-app.post('/api/calcular', (req, res) => {
+
+// POST /NF/calcular
+app.post('/NF/calcular', (req, res) => {
+
   try {
-	const { TABELA, calcular } = require('./funcoes');
+
+    const { calcularNF } = require('./funcoes');
+
     const dados = req.body;
-	console.log(dados);
 
     if (!dados || typeof dados !== 'object') {
-      return res.status(400).json({ error: 'Corpo da requisição inválido' });
+      return res.status(400).json({
+        success: false,
+        error: 'Corpo da requisição inválido'
+      });
     }
-    
-    const resultado = calcular(dados);
-	console.log(resultado);
+
+    const resultado = calcularNF(dados);
+
+    return res.status(200).json({
+      success: true,
+      data: resultado
+    });
+
+  } catch (err) {
+
+    return res.status(400).json({
+      success: false,
+      error: err.message
+    });
+
+  }
+
+});
+
+app.post('/NF/calcular-inverso', (req, res) => {
+  try {
+    const { calcularNFInverso } = require('./funcoes');
+    if (!req.body || typeof req.body !== 'object') {
+      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
+    }
+    const resultado = calcularNFInverso(req.body);
     return res.status(200).json({ success: true, data: resultado });
   } catch (err) {
-	console.log(err.message);
     return res.status(400).json({ success: false, error: err.message });
   }
 });
 
-module.exports = app
+app.post('/NF/comparar', (req, res) => {
+  try {
+    const { compararAliquotas } = require('./funcoes');
+    if (!req.body || typeof req.body !== 'object') {
+      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
+    }
+    const resultado = compararAliquotas(req.body);
+    return res.status(200).json({ success: true, data: resultado });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
+});
 
-
+module.exports = app;
