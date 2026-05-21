@@ -1,7 +1,7 @@
 {
   "name": "gceic",
   "version": "1.0.0",
-  "description": "Exemplo para testes",
+  "description": "API para calculo de MarkUp",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
