@@ -1,10 +1,6 @@
 import { useState } from 'react'
 
-interface Props {
-  onLogin: () => void
-}
-
-export default function LoginScreen({ onLogin }: Props) {
+export default function LoginScreen({ onLogin }) {
   const [user, setUser] = useState('')
   const [pass, setPass] = useState('')
   const [error, setError] = useState(false)

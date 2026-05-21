@@ -1,8 +1,6 @@
-import type { Appliance, ConsumoResult, ContaResult, Flag, SimularResult } from '../types'
-
 const API = 'http://localhost:3001'
 
-export async function fetchConsumo(appliances: Appliance[], days: number): Promise<ConsumoResult> {
+export async function fetchConsumo(appliances, days) {
   const payload = appliances.map(a => ({
     name: a.name || 'Aparelho',
     watts: parseFloat(a.watts),
@@ -18,7 +16,7 @@ export async function fetchConsumo(appliances: Appliance[], days: number): Promi
   return data
 }
 
-export async function fetchConta(totalKwh: number, tarifa: number, bandeira: Flag): Promise<ContaResult> {
+export async function fetchConta(totalKwh, tarifa, bandeira) {
   const r = await fetch(`${API}/ENRG/conta`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -29,13 +27,8 @@ export async function fetchConta(totalKwh: number, tarifa: number, bandeira: Fla
   return data
 }
 
-export async function fetchSimular(
-  cenarioA: Appliance[],
-  cenarioB: Appliance[],
-  tarifa: number,
-  bandeira: Flag
-): Promise<SimularResult> {
-  const toPayload = (arr: Appliance[]) => arr.map(a => ({
+export async function fetchSimular(cenarioA, cenarioB, tarifa, bandeira) {
+  const toPayload = arr => arr.map(a => ({
     name: a.name || 'Aparelho',
     watts: parseFloat(a.watts),
     hoursPerDay: parseFloat(a.hoursPerDay),

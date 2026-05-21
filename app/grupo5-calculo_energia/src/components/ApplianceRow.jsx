@@ -1,15 +1,4 @@
-import type { Appliance } from '../types'
-
-interface Props {
-  appliance: Appliance
-  index: number
-  showLabels: boolean
-  onUpdate: (i: number, field: keyof Appliance, val: string) => void
-  onRemove: (i: number) => void
-  small?: boolean
-}
-
-export default function ApplianceRow({ appliance, index, showLabels, onUpdate, onRemove, small = false }: Props) {
+export default function ApplianceRow({ appliance, index, showLabels, onUpdate, onRemove, small = false }) {
   return (
     <div className={small ? 'sim-appliance-row' : 'appliance-row'}>
       <div className="field">

@@ -1,15 +1,9 @@
 import { useState } from 'react'
-import type { Screen, Tab } from '../types'
 import TabConsumo from './tabs/TabConsumo'
 import TabConta from './tabs/TabConta'
 import TabSimular from './tabs/TabSimular'
 
-interface Props {
-  onLogout: () => void
-  onNavigate: (s: Screen) => void
-}
-
-const TABS: { key: Tab; label: string; icon: React.ReactNode }[] = [
+const TABS = [
   {
     key: 'consumo',
     label: 'Consumo kWh',
@@ -39,8 +33,8 @@ const TABS: { key: Tab; label: string; icon: React.ReactNode }[] = [
   },
 ]
 
-export default function HomeScreen({ onLogout, onNavigate }: Props) {
-  const [tab, setTab] = useState<Tab>('consumo')
+export default function HomeScreen({ onLogout, onNavigate }) {
+  const [tab, setTab] = useState('consumo')
 
   const handleLogout = () => {
     if (window.confirm('Deseja realmente sair do sistema?')) onLogout()

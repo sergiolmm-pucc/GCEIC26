@@ -1,16 +1,12 @@
 import fotoequipe from '../assets/fotoequipe.jpeg'
 
-interface Props {
-  onBack: () => void
-}
-
 const members = [
   { name: 'Enzo Garofalo Pampana', ra: '24008914', initials: 'EG' },
   { name: 'Pedro Ximenes Costa', ra: '24000763', initials: 'PX' },
   { name: 'Yuri Cardoso Balieiro', ra: '24011525', initials: 'YC' },
 ]
 
-export default function SobreScreen({ onBack }: Props) {
+export default function SobreScreen({ onBack }) {
   return (
     <div className="page-body">
       <div className="page-container">

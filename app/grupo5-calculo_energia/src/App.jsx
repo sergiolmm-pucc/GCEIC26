@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import './App.css'
-import type { Screen } from './types'
 import SplashScreen from './pages/SplashScreen'
 import LoginScreen from './pages/LoginScreen'
 import HomeScreen from './pages/HomeScreen'
@@ -8,8 +7,8 @@ import SobreScreen from './pages/SobreScreen'
 import HelpScreen from './pages/HelpScreen'
 
 export default function App() {
-  const [screen, setScreen] = useState<Screen>('splash')
-  const [prevScreen, setPrevScreen] = useState<Screen>('home')
+  const [screen, setScreen] = useState('splash')
+  const [prevScreen, setPrevScreen] = useState('home')
 
   useEffect(() => {
     if (screen === 'splash') {
@@ -18,7 +17,7 @@ export default function App() {
     }
   }, [screen])
 
-  const navigate = (s: Screen) => {
+  const navigate = (s) => {
     setPrevScreen(screen)
     setScreen(s)
   }

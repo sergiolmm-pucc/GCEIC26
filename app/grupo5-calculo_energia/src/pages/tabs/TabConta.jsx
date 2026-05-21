@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import { fetchConta } from '../../services/api'
-import type { ContaResult, Flag } from '../../types'
 import { FLAG_LABELS } from '../../types'
 
-const FLAGS: { key: Flag; color: string; desc: string }[] = [
+const FLAGS = [
   { key: 'verde', color: 'flag-verde', desc: 'Sem adicional' },
   { key: 'amarela', color: 'flag-amarela', desc: '+R$0,01874/kWh' },
   { key: 'vermelha1', color: 'flag-vermelha1', desc: '+R$0,03971/kWh' },
@@ -13,10 +12,10 @@ const FLAGS: { key: Flag; color: string; desc: string }[] = [
 export default function TabConta() {
   const [kwh, setKwh] = useState('')
   const [tarifa, setTarifa] = useState('')
-  const [flag, setFlag] = useState<Flag>('verde')
+  const [flag, setFlag] = useState('verde')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState<ContaResult | null>(null)
+  const [result, setResult] = useState(null)
 
   const calcular = async () => {
     setError(''); setResult(null)
@@ -25,7 +24,7 @@ export default function TabConta() {
     try {
       const data = await fetchConta(parseFloat(kwh), parseFloat(tarifa), flag)
       setResult(data)
-    } catch (e: any) {
+    } catch (e) {
       setError(e.message || 'Não foi possível conectar à API.')
     } finally {
       setLoading(false)

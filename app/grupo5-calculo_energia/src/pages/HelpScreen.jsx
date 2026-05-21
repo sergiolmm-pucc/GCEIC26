@@ -1,7 +1,3 @@
-interface Props {
-  onBack: () => void
-}
-
 const steps = [
   {
     num: 1,
@@ -46,7 +42,7 @@ const faqs = [
   },
 ]
 
-export default function HelpScreen({ onBack }: Props) {
+export default function HelpScreen({ onBack }) {
   return (
     <div className="page-body">
       <div className="page-container">

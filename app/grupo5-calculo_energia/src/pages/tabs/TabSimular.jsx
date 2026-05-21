@@ -1,24 +1,23 @@
 import { useState } from 'react'
 import ApplianceRow from '../../components/ApplianceRow'
 import { fetchSimular } from '../../services/api'
-import type { Appliance, Flag, SimularResult } from '../../types'
 import { FLAG_LABELS, emptyAppliance } from '../../types'
 
-const FLAGS: Flag[] = ['verde', 'amarela', 'vermelha1', 'vermelha2']
+const FLAGS = ['verde', 'amarela', 'vermelha1', 'vermelha2']
 
 export default function TabSimular() {
-  const [simA, setSimA] = useState<Appliance[]>([emptyAppliance()])
-  const [simB, setSimB] = useState<Appliance[]>([emptyAppliance()])
+  const [simA, setSimA] = useState([emptyAppliance()])
+  const [simB, setSimB] = useState([emptyAppliance()])
   const [tarifa, setTarifa] = useState('')
-  const [bandeira, setBandeira] = useState<Flag>('verde')
+  const [bandeira, setBandeira] = useState('verde')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState<SimularResult | null>(null)
+  const [result, setResult] = useState(null)
 
-  const updateSim = (setter: typeof setSimA) => (i: number, field: keyof Appliance, val: string) =>
+  const updateSim = (setter) => (i, field, val) =>
     setter(prev => prev.map((a, idx) => idx === i ? { ...a, [field]: val } : a))
 
-  const removeSim = (setter: typeof setSimA, arr: Appliance[]) => (i: number) => {
+  const removeSim = (setter, arr) => (i) => {
     if (arr.length > 1) setter(prev => prev.filter((_, idx) => idx !== i))
   }
 
@@ -29,7 +28,7 @@ export default function TabSimular() {
     try {
       const data = await fetchSimular(simA, simB, parseFloat(tarifa), bandeira)
       setResult(data)
-    } catch (e: any) {
+    } catch (e) {
       setError(e.message || 'Não foi possível conectar à API.')
     } finally {
       setLoading(false)
@@ -39,12 +38,10 @@ export default function TabSimular() {
   return (
     <div className="tab-content">
       <div className="sim-scenarios">
-        {(
-          [
-            { label: 'Cenário A', sim: simA, setter: setSimA },
-            { label: 'Cenário B', sim: simB, setter: setSimB },
-          ] as const
-        ).map(({ label, sim, setter }) => (
+        {[
+          { label: 'Cenário A', sim: simA, setter: setSimA },
+          { label: 'Cenário B', sim: simB, setter: setSimB },
+        ].map(({ label, sim, setter }) => (
           <div className="sim-scenario-card" key={label}>
             <div className="sim-scenario-header">
               <span className="sim-scenario-badge">{label}</span>
@@ -99,7 +96,7 @@ export default function TabSimular() {
           </div>
           <div className="field">
             <label>Bandeira tarifária</label>
-            <select value={bandeira} onChange={e => setBandeira(e.target.value as Flag)}>
+            <select value={bandeira} onChange={e => setBandeira(e.target.value)}>
               {FLAGS.map(f => <option key={f} value={f}>{FLAG_LABELS[f]}</option>)}
             </select>
           </div>
@@ -133,7 +130,7 @@ export default function TabSimular() {
           </div>
 
           <div className="sim-result-grid">
-            {(['A', 'B'] as const).map(c => {
+            {['A', 'B'].map(c => {
               const data = c === 'A' ? result.cenarioA : result.cenarioB
               const isWinner = result.cenarioMaisEconomico === c
               return (

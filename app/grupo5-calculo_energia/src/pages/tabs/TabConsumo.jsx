@@ -1,20 +1,19 @@
 import { useState } from 'react'
 import ApplianceRow from '../../components/ApplianceRow'
 import { fetchConsumo } from '../../services/api'
-import type { Appliance, ConsumoResult } from '../../types'
 import { emptyAppliance } from '../../types'
 
 export default function TabConsumo() {
-  const [appliances, setAppliances] = useState<Appliance[]>([emptyAppliance()])
+  const [appliances, setAppliances] = useState([emptyAppliance()])
   const [days, setDays] = useState(30)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [result, setResult] = useState<ConsumoResult | null>(null)
+  const [result, setResult] = useState(null)
 
-  const update = (i: number, field: keyof Appliance, val: string) =>
+  const update = (i, field, val) =>
     setAppliances(prev => prev.map((a, idx) => idx === i ? { ...a, [field]: val } : a))
 
-  const remove = (i: number) => {
+  const remove = (i) => {
     if (appliances.length > 1) setAppliances(prev => prev.filter((_, idx) => idx !== i))
   }
 
@@ -23,7 +22,7 @@ export default function TabConsumo() {
     try {
       const data = await fetchConsumo(appliances, days)
       setResult(data)
-    } catch (e: any) {
+    } catch (e) {
       setError(e.message || 'Não foi possível conectar à API.')
     } finally {
       setLoading(false)
