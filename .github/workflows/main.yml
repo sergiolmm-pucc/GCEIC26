@@ -19,10 +19,10 @@ jobs:
       with:
         node-version: '24'
         cache: 'npm'
-        cache-dependency-path: api-piscina/package-lock.json
+        cache-dependency-path: api/package-lock.json
 
     - name: Instalar dependências e Rodar Testes
       run: |
-        cd api-piscina
+        cd api
         npm install
         npm test
