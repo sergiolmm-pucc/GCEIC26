@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajuda — SaunaCalc Elite</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; color: #1a1a2e; }
+    nav {
+      background: #1a1a2e; color: white;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    nav .brand { font-size: 1.2rem; font-weight: 700; }
+    nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; }
+    nav a:hover { color: white; }
+    .container { max-width: 600px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+      background: white; border-radius: 14px;
+      padding: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      margin-bottom: 1.2rem;
+    }
+    h2 { margin-bottom: 1.2rem; }
+    h3 { font-size: 1rem; margin-bottom: 0.5rem; color: #e74c3c; }
+    p  { font-size: 0.95rem; color: #444; line-height: 1.6; margin-bottom: 0.8rem; }
+    .tipos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 0.5rem; }
+    .tipo-card {
+      background: #f8f8f8; border-radius: 10px; padding: 1rem; text-align: center;
+    }
+    .tipo-card .emoji { font-size: 1.8rem; }
+    .tipo-card h4 { font-size: 0.9rem; margin: 0.4rem 0 0.3rem; }
+    .tipo-card p  { font-size: 0.78rem; color: #777; margin: 0; }
+    .aviso {
+      background: #fef0ee; border-left: 4px solid #e74c3c;
+      padding: 1rem 1.2rem; border-radius: 0 8px 8px 0;
+      font-size: 0.9rem; color: #c0392b;
+    }
+    ol { padding-left: 1.3rem; }
+    ol li { margin-bottom: 0.5rem; font-size: 0.95rem; color: #444; line-height: 1.5; }
+  </style>
+</head>
+<body>
+<nav>
+  <span class="brand">🧖 SaunaCalc Elite</span>
+  <a href="/simulacao">← Voltar</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <h2>Tipos de sauna</h2>
+    <div class="tipos">
+      <div class="tipo-card">
+        <div class="emoji">🔥</div>
+        <h4>Seca</h4>
+        <p>Pedras aquecidas. 80–100°C. Baixa umidade.</p>
+      </div>
+      <div class="tipo-card">
+        <div class="emoji">💨</div>
+        <h4>A vapor</h4>
+        <p>Gerador de vapor. 40–60°C. Alta umidade.</p>
+      </div>
+      <div class="tipo-card">
+        <div class="emoji">☀️</div>
+        <h4>Infravermelha</h4>
+        <p>Aquece o corpo diretamente. 40–55°C.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Como usar o simulador</h2>
+    <ol>
+      <li>Selecione o tipo de sauna que deseja instalar.</li>
+      <li>Informe o volume do ambiente em metros cúbicos (m³).</li>
+      <li>Informe quantas horas por dia e dias por mês a sauna será usada.</li>
+      <li>Confirme ou ajuste a tarifa de energia elétrica (padrão: R$ 0,85/kWh — Campinas/SP).</li>
+      <li>Clique em <strong>Calcular</strong> para ver a estimativa completa.</li>
+    </ol>
+  </div>
+
+  <div class="aviso">
+    ⚠️ Os valores apresentados são estimativas de referência para fins acadêmicos.
+    Consulte sempre um profissional habilitado para instalações elétricas e hidráulicas.
+    Limite de uso recomendado: 15 a 20 minutos por sessão.
+  </div>
+</div>
+</body>
+</html>
