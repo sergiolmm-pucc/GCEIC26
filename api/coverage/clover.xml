@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1779323954276" clover="3.2.0">
-  <project timestamp="1779323954276" name="All files">
+<coverage generated="1779364453973" clover="3.2.0">
+  <project timestamp="1779364453973" name="All files">
     <metrics statements="83" coveredstatements="63" conditionals="45" coveredconditionals="27" methods="8" coveredmethods="6" elements="136" coveredelements="96" complexity="0" loc="83" ncloc="83" packages="1" files="3" classes="3"/>
     <file name="app.js" path="/home/ppm/Documents/GCEIC26/api/src/app.js">
       <metrics statements="27" coveredstatements="16" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="2"/>

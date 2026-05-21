@@ -77,6 +77,29 @@ app.post('/calcular', requireAuth, async (req, res) => {
   }
 });
 
+
+// ROTAS GRUPO 6 ------------------------------------ //
+app.get('/sauna6', (req, res) => {
+  res.render('sauna_grupo6/splash'); 
+});
+
+app.get('/sauna6/login', (req, res) => {
+  res.render('sauna_grupo6/login');
+});
+
+app.get('/sauna6/calculadora', (req, res) => {
+  res.render('sauna_grupo6/calculadora_sauna');
+});
+
+app.get('/sauna6/sobre', (req, res) => {
+  res.render('sauna_grupo6/about');
+});
+
+app.get('/sauna6/help', (req, res) => {
+  res.render('sauna_grupo6/help');
+});
+// --------------------------------------------------- //
+
 app.listen(PORT, () => {
   console.log(`✅ App Doméstica rodando: http://localhost:${PORT}`);
 });
