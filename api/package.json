@@ -1,27 +1,30 @@
 {
-  "name": "gceic",
+  "name": "mkp",
   "version": "1.0.0",
-  "description": "Exemplo para testes",
+  "description": "API de Calculo de MarkUp - Preco de Venda",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "jest --coverage --verbose --ci --reporters=default --testResultsProcessor=jest-junit"
   },
-  "keywords": [
-    "teste",
-    "CI",
-    "CD"
-  ],
-  "author": "SLMM",
+  "keywords": ["markup", "preco-venda", "CI", "CD"],
+  "author": "Equipe MKP",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^2.2.2",
     "cors": "^2.8.6",
+    "ejs": "^5.0.2",
     "express": "^5.2.1",
-    "helmet": "^8.1.0"
+    "express-session": "^1.19.0",
+    "helmet": "^8.1.0",
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "jest": "^30.3.0",
     "jest-junit": "^17.0.0",
+    "nodemon": "^3.1.14",
     "supertest": "^7.2.2"
   }
 }

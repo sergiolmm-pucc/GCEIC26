@@ -1,24 +1,40 @@
-cria o diretorio api e app
-no diretorio app via terminal 
+## App MKP — React
+
+Cria o diretório `api` e `app` no diretório raiz.
+
+No diretório `app` via terminal:
+```
 npm init -y
-cria o arquivo principal
+```
 
-instala o nodemon para mexer no codigo e nao precisar reiniciar o app. ( Dev dependencies)
-npm install -D nodemon
+Instala o Vite + React:
+```
+npm install react react-dom react-router-dom
+npm install -D vite @vitejs/plugin-react
+```
 
-no package.json adicione
-"dev": "nodemon index.js"
-para rodar
+Para rodar em desenvolvimento:
+```
 npm run dev
+```
 
-instala dependencia 
+Para buildar:
+```
+npm run build
+```
 
-npm install express-session
-npm install body-parser
-npm install ejs
-npm install bcryptjs
+Para servir o build (produção local):
+```
+npm start
+```
 
+### Variáveis de ambiente
 
-npm install express
+Crie um arquivo `.env` baseado em `.env.example`:
+```
+VITE_API_URL=http://localhost:3001
+```
 
-npm install node-fetch
+### Login
+- Usuário: `admin`
+- Senha: `admin`

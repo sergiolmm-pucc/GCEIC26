@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="28" failures="0" errors="0" time="3.351">
-  <testsuite name="GET /health" errors="0" failures="0" skipped="0" timestamp="2026-05-21T13:05:02" time="2.479" tests="11">
-    <testcase classname="GET /health deve retornar status ok" name="GET /health deve retornar status ok" time="0.112">
+<testsuites name="jest tests" tests="28" failures="0" errors="0" time="1.559">
+  <testsuite name="Testes unitarios - calcularPrecoVenda" errors="0" failures="0" skipped="0" timestamp="2026-05-21T00:58:53" time="0.376" tests="17">
+    <testcase classname="Testes unitarios - calcularPrecoVenda deve calcular corretamente com custo 100 e markup 50%" name="Testes unitarios - calcularPrecoVenda deve calcular corretamente com custo 100 e markup 50%" time="0.005">
     </testcase>
-    <testcase classname="GET /MKP/tabelas deve retornar a tabela de constantes" name="GET /MKP/tabelas deve retornar a tabela de constantes" time="0.044">
+    <testcase classname="Testes unitarios - calcularPrecoVenda deve calcular com markup 0%" name="Testes unitarios - calcularPrecoVenda deve calcular com markup 0%" time="0">
     </testcase>
-    <testcase classname="POST /MKP/calcular - precoVenda deve retornar preco de venda correto" name="POST /MKP/calcular - precoVenda deve retornar preco de venda correto" time="0.191">
+    <testcase classname="Testes unitarios - calcularPrecoVenda deve calcular com casas decimais" name="Testes unitarios - calcularPrecoVenda deve calcular com casas decimais" time="0">
     </testcase>
-    <testcase classname="POST /MKP/calcular - precoVenda deve retornar 400 se custo for zero" name="POST /MKP/calcular - precoVenda deve retornar 400 se custo for zero" time="0.034">
+    <testcase classname="Testes unitarios - calcularPrecoVenda deve lancar erro se custo for zero" name="Testes unitarios - calcularPrecoVenda deve lancar erro se custo for zero" time="0.016">
     </testcase>
-    <testcase classname="POST /MKP/calcular - markupDivisor deve retornar PV pelo metodo divisor" name="POST /MKP/calcular - markupDivisor deve retornar PV pelo metodo divisor" time="0.032">
+    <testcase classname="Testes unitarios - calcularPrecoVenda deve lancar erro se custo for negativo" name="Testes unitarios - calcularPrecoVenda deve lancar erro se custo for negativo" time="0.001">
     </testcase>
-    <testcase classname="POST /MKP/calcular - markupDivisor deve retornar 400 se soma &gt;= 100%" name="POST /MKP/calcular - markupDivisor deve retornar 400 se soma &gt;= 100%" time="0.032">
-    </testcase>
-    <testcase classname="POST /MKP/calcular - markup deve calcular markup 50%" name="POST /MKP/calcular - markup deve calcular markup 50%" time="0.029">
-    </testcase>
-    <testcase classname="POST /MKP/calcular - margem deve calcular margem 33.33%" name="POST /MKP/calcular - margem deve calcular margem 33.33%" time="0.037">
-    </testcase>
-    <testcase classname="POST /MKP/calcular - pontoEquilibrio deve calcular 250 unidades" name="POST /MKP/calcular - pontoEquilibrio deve calcular 250 unidades" time="0.023">
-    </testcase>
-    <testcase classname="POST /MKP/calcular - erros gerais deve retornar 400 sem campo tipo" name="POST /MKP/calcular - erros gerais deve retornar 400 sem campo tipo" time="0.034">
-    </testcase>
-    <testcase classname="POST /MKP/calcular - erros gerais deve retornar 400 com tipo desconhecido" name="POST /MKP/calcular - erros gerais deve retornar 400 com tipo desconhecido" time="0.028">
-    </testcase>
-  </testsuite>
-  <testsuite name="Testes unitarios - calcularPrecoVenda" errors="0" failures="0" skipped="0" timestamp="2026-05-21T13:05:05" time="0.281" tests="17">
-    <testcase classname="Testes unitarios - calcularPrecoVenda deve calcular corretamente com custo 100 e markup 50%" name="Testes unitarios - calcularPrecoVenda deve calcular corretamente com custo 100 e markup 50%" time="0.007">
-    </testcase>
-    <testcase classname="Testes unitarios - calcularPrecoVenda deve calcular com markup 0%" name="Testes unitarios - calcularPrecoVenda deve calcular com markup 0%" time="0.001">
-    </testcase>
-    <testcase classname="Testes unitarios - calcularPrecoVenda deve calcular com casas decimais" name="Testes unitarios - calcularPrecoVenda deve calcular com casas decimais" time="0.001">
-    </testcase>
-    <testcase classname="Testes unitarios - calcularPrecoVenda deve lancar erro se custo for zero" name="Testes unitarios - calcularPrecoVenda deve lancar erro se custo for zero" time="0.049">
-    </testcase>
-    <testcase classname="Testes unitarios - calcularPrecoVenda deve lancar erro se custo for negativo" name="Testes unitarios - calcularPrecoVenda deve lancar erro se custo for negativo" time="0.003">
-    </testcase>
-    <testcase classname="Testes unitarios - calcularPrecoVenda deve lancar erro se markup for negativo" name="Testes unitarios - calcularPrecoVenda deve lancar erro se markup for negativo" time="0.002">
+    <testcase classname="Testes unitarios - calcularPrecoVenda deve lancar erro se markup for negativo" name="Testes unitarios - calcularPrecoVenda deve lancar erro se markup for negativo" time="0.001">
     </testcase>
     <testcase classname="Testes unitarios - calcularMarkupDivisor deve calcular PV corretamente" name="Testes unitarios - calcularMarkupDivisor deve calcular PV corretamente" time="0.001">
     </testcase>
     <testcase classname="Testes unitarios - calcularMarkupDivisor deve lancar erro se totalPercentual &gt;= 100" name="Testes unitarios - calcularMarkupDivisor deve lancar erro se totalPercentual &gt;= 100" time="0.001">
     </testcase>
-    <testcase classname="Testes unitarios - calcularMarkupDivisor deve lancar erro se custo for zero" name="Testes unitarios - calcularMarkupDivisor deve lancar erro se custo for zero" time="0.003">
+    <testcase classname="Testes unitarios - calcularMarkupDivisor deve lancar erro se custo for zero" name="Testes unitarios - calcularMarkupDivisor deve lancar erro se custo for zero" time="0.001">
     </testcase>
     <testcase classname="Testes unitarios - calcularMarkup deve calcular markup 50% e margem 33.33%" name="Testes unitarios - calcularMarkup deve calcular markup 50% e margem 33.33%" time="0.001">
     </testcase>
-    <testcase classname="Testes unitarios - calcularMarkup deve lancar erro se precoVenda &lt;= custo" name="Testes unitarios - calcularMarkup deve lancar erro se precoVenda &lt;= custo" time="0.002">
+    <testcase classname="Testes unitarios - calcularMarkup deve lancar erro se precoVenda &lt;= custo" name="Testes unitarios - calcularMarkup deve lancar erro se precoVenda &lt;= custo" time="0">
     </testcase>
-    <testcase classname="Testes unitarios - calcularMargem deve calcular margem de 33.33%" name="Testes unitarios - calcularMargem deve calcular margem de 33.33%" time="0.001">
+    <testcase classname="Testes unitarios - calcularMargem deve calcular margem de 33.33%" name="Testes unitarios - calcularMargem deve calcular margem de 33.33%" time="0">
     </testcase>
-    <testcase classname="Testes unitarios - calcularMargem deve lancar erro se custo maior que PV" name="Testes unitarios - calcularMargem deve lancar erro se custo maior que PV" time="0.013">
+    <testcase classname="Testes unitarios - calcularMargem deve lancar erro se custo maior que PV" name="Testes unitarios - calcularMargem deve lancar erro se custo maior que PV" time="0.003">
     </testcase>
-    <testcase classname="Testes unitarios - calcularPontoEquilibrio deve calcular 250 unidades de PE" name="Testes unitarios - calcularPontoEquilibrio deve calcular 250 unidades de PE" time="0.002">
+    <testcase classname="Testes unitarios - calcularPontoEquilibrio deve calcular 250 unidades de PE" name="Testes unitarios - calcularPontoEquilibrio deve calcular 250 unidades de PE" time="0.001">
     </testcase>
-    <testcase classname="Testes unitarios - calcularPontoEquilibrio deve arredondar unidades para cima" name="Testes unitarios - calcularPontoEquilibrio deve arredondar unidades para cima" time="0.001">
+    <testcase classname="Testes unitarios - calcularPontoEquilibrio deve arredondar unidades para cima" name="Testes unitarios - calcularPontoEquilibrio deve arredondar unidades para cima" time="0">
     </testcase>
-    <testcase classname="Testes unitarios - calcularPontoEquilibrio deve lancar erro se PV &lt;= custo variavel" name="Testes unitarios - calcularPontoEquilibrio deve lancar erro se PV &lt;= custo variavel" time="0.003">
+    <testcase classname="Testes unitarios - calcularPontoEquilibrio deve lancar erro se PV &lt;= custo variavel" name="Testes unitarios - calcularPontoEquilibrio deve lancar erro se PV &lt;= custo variavel" time="0.001">
     </testcase>
-    <testcase classname="Testes unitarios - calcularPontoEquilibrio deve lancar erro se custos fixos negativos" name="Testes unitarios - calcularPontoEquilibrio deve lancar erro se custos fixos negativos" time="0.003">
+    <testcase classname="Testes unitarios - calcularPontoEquilibrio deve lancar erro se custos fixos negativos" name="Testes unitarios - calcularPontoEquilibrio deve lancar erro se custos fixos negativos" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="GET /health" errors="0" failures="0" skipped="0" timestamp="2026-05-21T00:58:53" time="0.954" tests="11">
+    <testcase classname="GET /health deve retornar status ok" name="GET /health deve retornar status ok" time="0.028">
+    </testcase>
+    <testcase classname="GET /MKP/tabelas deve retornar a tabela de constantes" name="GET /MKP/tabelas deve retornar a tabela de constantes" time="0.013">
+    </testcase>
+    <testcase classname="POST /MKP/calcular - precoVenda deve retornar preco de venda correto" name="POST /MKP/calcular - precoVenda deve retornar preco de venda correto" time="0.074">
+    </testcase>
+    <testcase classname="POST /MKP/calcular - precoVenda deve retornar 400 se custo for zero" name="POST /MKP/calcular - precoVenda deve retornar 400 se custo for zero" time="0.021">
+    </testcase>
+    <testcase classname="POST /MKP/calcular - markupDivisor deve retornar PV pelo metodo divisor" name="POST /MKP/calcular - markupDivisor deve retornar PV pelo metodo divisor" time="0.024">
+    </testcase>
+    <testcase classname="POST /MKP/calcular - markupDivisor deve retornar 400 se soma &gt;= 100%" name="POST /MKP/calcular - markupDivisor deve retornar 400 se soma &gt;= 100%" time="0.018">
+    </testcase>
+    <testcase classname="POST /MKP/calcular - markup deve calcular markup 50%" name="POST /MKP/calcular - markup deve calcular markup 50%" time="0.024">
+    </testcase>
+    <testcase classname="POST /MKP/calcular - margem deve calcular margem 33.33%" name="POST /MKP/calcular - margem deve calcular margem 33.33%" time="0.019">
+    </testcase>
+    <testcase classname="POST /MKP/calcular - pontoEquilibrio deve calcular 250 unidades" name="POST /MKP/calcular - pontoEquilibrio deve calcular 250 unidades" time="0.016">
+    </testcase>
+    <testcase classname="POST /MKP/calcular - erros gerais deve retornar 400 sem campo tipo" name="POST /MKP/calcular - erros gerais deve retornar 400 sem campo tipo" time="0.024">
+    </testcase>
+    <testcase classname="POST /MKP/calcular - erros gerais deve retornar 400 com tipo desconhecido" name="POST /MKP/calcular - erros gerais deve retornar 400 com tipo desconhecido" time="0.015">
     </testcase>
   </testsuite>
 </testsuites>

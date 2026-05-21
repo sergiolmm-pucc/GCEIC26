@@ -1,23 +1,24 @@
 {
-  "name": "app",
+  "name": "mkp-app",
   "version": "1.0.0",
-  "description": "cria o diretorio api e app no diretorio app via terminal  npm init -y cria o arquivo principal",
+  "description": "App React - Cálculo de MarkUp (Preço de Venda de Produtos)",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "vite build && vite preview --port 3000",
+    "dev": "vite --port 3000",
+    "build": "vite build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["markup", "react", "preco-venda"],
+  "author": "Equipe MKP",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
-    "body-parser": "^2.2.2",
-    "ejs": "^5.0.2",
-    "express": "^5.2.1",
-    "express-session": "^1.19.0",
-    "node-fetch": "^3.3.2",
-    "nodemon": "^3.1.14"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.23.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.2.11"
   }
 }

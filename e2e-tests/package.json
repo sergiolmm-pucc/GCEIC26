@@ -1,13 +1,13 @@
 {
   "name": "e2e-tests",
   "version": "1.0.0",
-  "description": "",
+  "description": "Testes funcionais E2E com Selenium - Projeto MKP",
   "main": "index.js",
   "scripts": {
     "test": "node tests/base.test.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Equipe MKP",
   "license": "ISC",
   "dependencies": {
     "selenium-webdriver": "^4.43.0"
