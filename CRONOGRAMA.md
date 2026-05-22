@@ -32,7 +32,7 @@
 
 | Feature | Responsável | Status |
 |---|---|---|
-| Testes E2E: fluxo de simulação | Rafael | 🔲 Planejado |
-| Testes E2E: fluxo de capacidade | Felipe | 🔲 Planejado |
-| CI/CD: integração dos testes E2E no pipeline | Todos | 🔲 Planejado |
+| Testes E2E: fluxo de simulação | Rafael | ✅ Entregue |
+| Testes E2E: fluxo de capacidade | Felipe | ✅ Entregue |
+| CI/CD: integração dos testes E2E no pipeline | Todos | ✅ Entregue |
 | Apresentação para o professor e sala | Todos | 🔲 Planejado |

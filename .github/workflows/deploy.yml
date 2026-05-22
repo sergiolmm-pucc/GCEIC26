@@ -131,3 +131,48 @@ jobs:
   
           echo "Deploy response: $RESPONSE"
 
+
+  e2eTests:
+    runs-on: ubuntu-latest
+    needs: detect-changes
+
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v6
+
+      - name: Instala o Node
+        uses: actions/setup-node@v6
+
+      - name: Instala dependências da API
+        working-directory: api
+        run: npm ci
+
+      - name: Inicia a API em background
+        working-directory: api
+        run: npm start &
+
+      - name: Instala dependências do App
+        working-directory: app
+        run: npm ci
+
+      - name: Build do App
+        working-directory: app
+        run: CI=false npm run build
+
+      - name: Serve o App em background
+        run: npx serve -s app/build -p 3000 &
+
+      - name: Instala dependências E2E
+        working-directory: e2e-tests
+        run: npm ci
+
+      - name: Aguarda API e App estarem prontos
+        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 60000
+
+      - name: Roda testes E2E — Simulação
+        working-directory: e2e-tests
+        run: npm run test:simulacao
+
+      - name: Roda testes E2E — Capacidade
+        working-directory: e2e-tests
+        run: npm run test:capacidade
