@@ -153,7 +153,7 @@ jobs:
 
       - name: Instala dependências do App
         working-directory: app
-        run: npm ci
+        run: npm install
 
       - name: Build do App
         working-directory: app
