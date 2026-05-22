@@ -21,28 +21,34 @@ export default function Login({ onLogin }) {
       return;
     }
 
-    setErro('Usuario ou senha invalido.');
+    setErro('Usuario ou senha invalidos.');
   }
 
   return (
     <section className="login-page">
-      <form className="login-panel" onSubmit={submit}>
+      <form id="loginForm" className="login-panel" onSubmit={submit}>
         <UserRound size={34} />
         <h1>Entrar</h1>
         <label>
           Usuario
-          <input value={usuario} onChange={(event) => setUsuario(event.target.value)} autoComplete="username" />
+          <input
+            id="username"
+            value={usuario}
+            onChange={(event) => setUsuario(event.target.value)}
+            autoComplete="username"
+          />
         </label>
         <label>
           Senha
           <input
             value={senha}
+            id="password"
             onChange={(event) => setSenha(event.target.value)}
             type="password"
             autoComplete="current-password"
           />
         </label>
-        {erro ? <p className="error">{erro}</p> : null}
+        {erro ? <p className="error erro">{erro}</p> : null}
         <button type="submit">Acessar</button>
         <p className="test-credentials">
           Acesso para teste: usuario <strong>{credenciais.usuario}</strong> / senha{' '}

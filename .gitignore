@@ -6,3 +6,5 @@ docs/
 .env.local
 npm-debug.log*
 *.log
+api/j*.xml
+e2e-tests/screenshots/*.png

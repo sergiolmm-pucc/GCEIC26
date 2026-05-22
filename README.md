@@ -1,67 +1,47 @@
-# Simulador de Preço Bruto e Líquido
+# Simulador de Preco Bruto e Liquido
 
-> Projeto acadêmico — Gerência de Configuração, Entrega e Integração Contínua
+Projeto academico de Gerencia de Configuracao, Entrega e Integracao Continua.
 
-## O que faz
+## Estrutura
 
-- Calcula o preço líquido a partir do preço bruto
-- Determina o preço bruto necessário para atingir um líquido desejado
-- Estima margem e lucro a partir do custo do produto
-
-## Stack
-
-| Camada | Tecnologias |
-|--------|-------------|
-| API    | Node.js · Express · Vitest |
-| Web    | React · Vite · Vitest |
-| CI/CD  | GitHub Actions |
+- `api`: API Node.js/Express com os calculos de preco, impostos, lucro e margem.
+- `app`: frontend React/Vite para uso do simulador.
+- `e2e-tests`: testes end-to-end com Selenium.
 
 ## Como executar
 
 ```bash
 npm install
 npm run dev:api
-npm run dev:web
+npm run dev:app
 ```
 
-## Credenciais de acesso
+O app abre em `http://localhost:5173` e a API em `http://localhost:3001/PBL`.
 
-| Campo   | Valor    |
-|---------|----------|
-| Usuário | `admin`  |
-| Senha   | `123456` |
+Credenciais do app:
 
-## Endpoint base
+- Usuario: `admin`
+- Senha: `123456`
 
-```
-/PBL
-```
-
-> Se outra equipe usar o mesmo tema, altere o prefixo para `/PBL2` em `api/src/routes/pricingRoutes.js`.
-
-## Comandos úteis
-
-```bash
-npm test        # executa os testes
-npm run build   # gera os artefatos de produção
-```
-
-## Entrega
-
-Antes de entregar ou publicar, valide o projeto com:
+## Validacao
 
 ```bash
 npm test
 npm run build
 ```
 
-Para demonstrar localmente, abra dois terminais:
+Para testar somente a API no formato usado pelo workflow:
 
 ```bash
-npm run dev:api
-npm run dev:web
+cd api
+npm ci
+npm run test
 ```
 
-O app abre em `http://localhost:5173` e a API em `http://localhost:3001/PBL`.
+Para rodar os testes e2e, deixe o app aberto em `http://localhost:5173` e execute:
 
-Para deploy em qualquer plataforma, publique o build do app em `web/dist` e configure a API Node/Express para responder no prefixo `/PBL`. Em producao, o app usa `/PBL` automaticamente. Para apontar para outra API, configure `VITE_API_URL`.
+```bash
+cd e2e-tests
+npm install
+npm run test
+```

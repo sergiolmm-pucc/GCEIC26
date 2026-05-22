@@ -5,15 +5,15 @@
   "description": "Projeto acadêmico CI/CD: API Node e app React para simular preço bruto e líquido.",
   "workspaces": [
     "api",
-    "web"
+    "app"
   ],
   "scripts": {
     "dev": "npm run dev --workspace api",
     "dev:api": "npm run dev --workspace api",
-    "dev:web": "npm run dev --workspace web",
+    "dev:app": "npm run dev --workspace app",
     "test": "npm run test --workspaces --if-present",
     "test:api": "npm run test --workspace api",
-    "test:web": "npm run test --workspace web",
-    "build": "npm run build --workspace web"
+    "test:app": "npm run test --workspace app",
+    "build": "npm run build --workspace app"
   }
 }
