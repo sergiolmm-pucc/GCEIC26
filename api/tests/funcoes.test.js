@@ -1,17 +1,27 @@
+function calcularArea(a, b) {
+  if (!a || a <= 0) throw new Error('Valor inválido');
+  if (!b || b <= 0) throw new Error('Valor inválido');
 
+  return (a * b).toFixed(2);
+}
 
-const app     = require('../src/funcoes');
+function calcularParcela(valorVeiculo, entrada, taxaMensal, numParcelas) {
+  if (!valorVeiculo || valorVeiculo <= 0) throw new Error('Valor do veículo inválido');
+  if (entrada >= valorVeiculo) throw new Error('Entrada maior que o valor do veículo');
+  if (taxaMensal < 0) throw new Error('Taxa não pode ser negativa');
+  if (!numParcelas || numParcelas <= 0) throw new Error('Número de parcelas inválido');
 
-describe('Teste de unitario', () => {
-	
-	test('deve retornar calculos', async () => {
-	  
-        
-		expect(app.calcularArea(2,3)).toBe("6.00" );
-        expect(() => app.calcularArea(0,3)).toThrow(); 
-        expect(() => app.calcularArea(3,0)).toThrow(); 
-        expect(() => app.calcularArea(-10,3)).toThrow(); 
-        
-	});
+  const valorFinanciado = valorVeiculo - entrada;
+  const taxa = taxaMensal / 100;
 
-});
+  let parcela;
+  if (taxa === 0) {
+    parcela = valorFinanciado / numParcelas;
+  } else {
+    parcela = valorFinanciado * (taxa * Math.pow(1 + taxa, numParcelas)) / (Math.pow(1 + taxa, numParcelas) - 1);
+  }
+
+  return parseFloat(parcela.toFixed(2));
+}
+
+module.exports = { calcularArea, calcularParcela };
