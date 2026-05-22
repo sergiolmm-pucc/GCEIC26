@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import fotoGrupo from '../assets/fotoGrupo.jpeg';
 
 function Sobre() {
   const integrantes = [
@@ -23,12 +24,13 @@ function Sobre() {
           <p style={styles.subtitle}>Projeto GCEIC - GCEIC2026</p>
         </div>
 
-        {/* Simulador de imagem real / Frame elegante */}
+        {/* Container da foto limpo e sem cortes */}
         <div style={styles.photoContainer}>
-          <div style={styles.photoPlaceholder}>
-            <span style={styles.photoIcon}>📸</span>
-            <p style={styles.photoText}>Foto da Equipe GCEIC-07</p>
-          </div>
+          <img 
+            src={fotoGrupo} 
+            alt="Foto da Equipe GCEIC-07" 
+            style={styles.photo} 
+          />
         </div>
 
         <div style={styles.section}>
@@ -120,31 +122,24 @@ const styles = {
     color: '#64748b',
     margin: 0,
   },
+  // O container agora não tem altura limitante, ele apenas molda a largura
   photoContainer: {
     width: '100%',
-    height: '240px',
     backgroundColor: '#f8fafc',
     borderRadius: '12px',
-    border: '2px dashed #cbd5e1',
+    boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: '32px',
     overflow: 'hidden',
   },
-  photoPlaceholder: {
-    textAlign: 'center',
-  },
-  photoIcon: {
-    fontSize: '36px',
-    marginBottom: '8px',
+  // Mudanças fundamentais aqui:
+  photo: {
+    width: '100%',
+    height: 'auto',        // Garante que a proporção original da foto seja mantida
+    objectFit: 'contain',  // Impede qualquer tipo de corte nas extremidades
     display: 'block',
-  },
-  photoText: {
-    margin: 0,
-    color: '#94a3b8',
-    fontWeight: '500',
-    fontSize: '14px',
   },
   section: {
     marginBottom: '24px',
