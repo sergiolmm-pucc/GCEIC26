@@ -1,56 +1,24 @@
 function calcularParcela(valorVeiculo, entrada, taxaMensal, numParcelas) {
-  if (valorVeiculo <= 0) throw new Error('Valor do veículo inválido');
-  if (entrada < 0) throw new Error('Entrada inválida');
-  if (taxaMensal < 0) throw new Error('Taxa mensal inválida');
-  if (numParcelas <= 0) throw new Error('Número de parcelas inválido');
+  if (!valorVeiculo || valorVeiculo <= 0) throw new Error('Valor do veículo inválido');
+  if (entrada >= valorVeiculo) throw new Error('Entrada maior que o valor do veículo');
+  if (taxaMensal < 0) throw new Error('Taxa não pode ser negativa');
+  if (!numParcelas || numParcelas <= 0) throw new Error('Número de parcelas inválido');
 
   const valorFinanciado = valorVeiculo - entrada;
-  if (valorFinanciado <= 0) throw new Error('Entrada maior que o valor do veículo');
+  const taxa = taxaMensal / 100;
 
-  const i = taxaMensal / 100;
-  let parcela;
+  if (taxa === 0) return valorFinanciado / numParcelas;
 
-  if (i === 0) {
-    parcela = valorFinanciado / numParcelas;
-  } else {
-    parcela = valorFinanciado * (i * Math.pow(1 + i, numParcelas)) / (Math.pow(1 + i, numParcelas) - 1);
-  }
-
-  const totalPago = parcela * numParcelas;
-  const jurosTotais = totalPago - valorFinanciado;
-
-  return {
-    valorFinanciado: parseFloat(valorFinanciado.toFixed(2)),
-    parcela: parseFloat(parcela.toFixed(2)),
-    totalPago: parseFloat(totalPago.toFixed(2)),
-    jurosTotais: parseFloat(jurosTotais.toFixed(2)),
-    numParcelas,
-    taxaMensal,
-  };
+  const parcela = valorFinanciado * (taxa * Math.pow(1 + taxa, numParcelas)) / (Math.pow(1 + taxa, numParcelas) - 1);
+  return parseFloat(parcela.toFixed(2));
 }
 
-function calcularCapacidade(rendaMensal, taxaMensal, numParcelas, entradaPercent) {
-  if (rendaMensal <= 0) throw new Error('Renda mensal inválida');
-  if (entradaPercent < 0 || entradaPercent >= 100) throw new Error('Percentual de entrada inválido');
+function calcularCapacidade(rendaMensal, percentualEntrada) {
+  if (!rendaMensal || rendaMensal <= 0) throw new Error('Renda inválida');
+  if (percentualEntrada >= 100) throw new Error('Percentual de entrada não pode ser 100%');
 
-  const parcelaMaxima = rendaMensal * 0.30;
-  const i = taxaMensal / 100;
-
-  let valorFinanciadoMax;
-  if (i === 0) {
-    valorFinanciadoMax = parcelaMaxima * numParcelas;
-  } else {
-    valorFinanciadoMax = parcelaMaxima * (Math.pow(1 + i, numParcelas) - 1) / (i * Math.pow(1 + i, numParcelas));
-  }
-
-  const valorVeiculoMax = valorFinanciadoMax / (1 - entradaPercent / 100);
-
-  return {
-    parcelaMaxima: parseFloat(parcelaMaxima.toFixed(2)),
-    valorFinanciadoMax: parseFloat(valorFinanciadoMax.toFixed(2)),
-    valorVeiculoMax: parseFloat(valorVeiculoMax.toFixed(2)),
-    entradaPercent,
-  };
+  const capacidade = rendaMensal * 0.3 * 48;
+  return parseFloat(capacidade.toFixed(2));
 }
 
 module.exports = { calcularParcela, calcularCapacidade };

@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-
 const { calcularParcela, calcularCapacidade } = require('./funcoes');
 
 const app = express();
@@ -10,46 +9,27 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-// health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString(), by: 'FINV' });
+  res.json({ status: 'ok' });
 });
 
-// POST /api/parcela
-app.post('/api/parcela', (req, res) => {
+app.post('/FINV/parcela', (req, res) => {
   try {
-    const dados = req.body;
-    if (!dados || typeof dados !== 'object') {
-      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
-    }
-    const resultado = calcularParcela(
-      Number(dados.valorVeiculo),
-      Number(dados.entrada),
-      Number(dados.taxaMensal),
-      Number(dados.numParcelas)
-    );
-    return res.status(200).json({ success: true, data: resultado });
+    const { valorVeiculo, entrada, taxaMensal, numParcelas } = req.body;
+    const parcela = calcularParcela(valorVeiculo, entrada, taxaMensal, numParcelas);
+    res.json({ parcela });
   } catch (err) {
-    return res.status(400).json({ success: false, error: err.message });
+    res.status(400).json({ erro: err.message });
   }
 });
 
-// POST /api/capacidade
-app.post('/api/capacidade', (req, res) => {
+app.post('/FINV/capacidade', (req, res) => {
   try {
-    const dados = req.body;
-    if (!dados || typeof dados !== 'object') {
-      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
-    }
-    const resultado = calcularCapacidade(
-      Number(dados.rendaMensal),
-      Number(dados.taxaMensal),
-      Number(dados.numParcelas),
-      Number(dados.entradaPercent)
-    );
-    return res.status(200).json({ success: true, data: resultado });
+    const { rendaMensal, percentualEntrada } = req.body;
+    const capacidade = calcularCapacidade(rendaMensal, percentualEntrada);
+    res.json({ capacidade });
   } catch (err) {
-    return res.status(400).json({ success: false, error: err.message });
+    res.status(400).json({ erro: err.message });
   }
 });
 
