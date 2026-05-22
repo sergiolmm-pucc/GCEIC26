@@ -2,6 +2,8 @@ const express = require('express');
 const cors    = require('cors');
 const helmet  = require('helmet');
 
+const financiamentoRoutes = require('./routes/financiamento');
+
 const app = express();
 
 app.use(helmet());
@@ -13,6 +15,26 @@ app.use(express.json());
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM28', turma:'101'});
 });
+
+app.get('/', (req, res) => {
+  res.json({
+    nome: 'API Financiamento Imobiliário',
+    versao: '1.0.0',
+    endpoints: {
+      'POST /FIN/sac': 'Calcula financiamento pelo Sistema SAC',
+      'POST /FIN/price': 'Calcula financiamento pela Tabela PRICE',
+      'POST /FIN/comparar': 'Compara SAC x PRICE',
+      'POST /FIN/capacidade': 'Simula capacidade de financiamento pela renda',
+      'GET /FIN/health': 'Status da API',
+    },
+  });
+});
+
+/** ------------------------------------------------
+ * Rotas grupo 19 - Cálculo de Financiamento Imobiliário
+ */
+app.use('/FIN', financiamentoRoutes);
+// ------------------------------------------------ */
 
 app.get('/api/tabelas', (req, res) => {
   const { TABELA, calcular } = require('./funcoes');

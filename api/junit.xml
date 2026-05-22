@@ -1,17 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="53" failures="0" errors="0" time="1.394">
-  <testsuite name="Teste de unitario" errors="0" failures="0" skipped="0" timestamp="2026-05-22T17:19:08" time="0.404" tests="1">
-    <testcase classname="Teste de unitario deve retornar calculos" name="Teste de unitario deve retornar calculos" time="0.012">
+<testsuites name="jest tests" tests="53" failures="0" errors="0" time="1.555">
+  <testsuite name="GET /" errors="0" failures="0" skipped="0" timestamp="2026-05-22T17:36:39" time="0.983" tests="18">
+    <testcase classname="GET / retorna 200 com informações da API" name="GET / retorna 200 com informações da API" time="0.023">
+    </testcase>
+    <testcase classname="GET /FIN/health retorna status ok" name="GET /FIN/health retorna status ok" time="0.004">
+    </testcase>
+    <testcase classname="POST /FIN/sac retorna 200 com dados do SAC para body válido" name="POST /FIN/sac retorna 200 com dados do SAC para body válido" time="0.018">
+    </testcase>
+    <testcase classname="POST /FIN/sac parcelas têm amortização constante" name="POST /FIN/sac parcelas têm amortização constante" time="0.008">
+    </testcase>
+    <testcase classname="POST /FIN/sac retorna 400 para parâmetros inválidos" name="POST /FIN/sac retorna 400 para parâmetros inválidos" time="0.003">
+    </testcase>
+    <testcase classname="POST /FIN/sac retorna 400 quando entrada &gt;= valor do imóvel" name="POST /FIN/sac retorna 400 quando entrada &gt;= valor do imóvel" time="0.003">
+    </testcase>
+    <testcase classname="POST /FIN/sac retorna 400 para taxa de juros zero" name="POST /FIN/sac retorna 400 para taxa de juros zero" time="0.003">
+    </testcase>
+    <testcase classname="POST /FIN/price retorna 200 com dados do PRICE para body válido" name="POST /FIN/price retorna 200 com dados do PRICE para body válido" time="0.004">
+    </testcase>
+    <testcase classname="POST /FIN/price parcelas PRICE têm prestação fixa" name="POST /FIN/price parcelas PRICE têm prestação fixa" time="0.008">
+    </testcase>
+    <testcase classname="POST /FIN/price retorna 400 para parâmetros inválidos" name="POST /FIN/price retorna 400 para parâmetros inválidos" time="0.003">
+    </testcase>
+    <testcase classname="POST /FIN/comparar retorna 200 com comparação SAC x PRICE" name="POST /FIN/comparar retorna 200 com comparação SAC x PRICE" time="0.004">
+    </testcase>
+    <testcase classname="POST /FIN/comparar SAC tem total pago menor que PRICE" name="POST /FIN/comparar SAC tem total pago menor que PRICE" time="0.003">
+    </testcase>
+    <testcase classname="POST /FIN/comparar sistema recomendado é SAC" name="POST /FIN/comparar sistema recomendado é SAC" time="0.003">
+    </testcase>
+    <testcase classname="POST /FIN/comparar retorna 400 para parâmetros inválidos" name="POST /FIN/comparar retorna 400 para parâmetros inválidos" time="0.003">
+    </testcase>
+    <testcase classname="POST /FIN/capacidade retorna 200 com cálculo de capacidade" name="POST /FIN/capacidade retorna 200 com cálculo de capacidade" time="0.003">
+    </testcase>
+    <testcase classname="POST /FIN/capacidade parcela máxima é 30% da renda" name="POST /FIN/capacidade parcela máxima é 30% da renda" time="0.002">
+    </testcase>
+    <testcase classname="POST /FIN/capacidade retorna 400 para renda menor ou igual a zero" name="POST /FIN/capacidade retorna 400 para renda menor ou igual a zero" time="0.002">
+    </testcase>
+    <testcase classname="POST /FIN/capacidade retorna 400 para parâmetros ausentes" name="POST /FIN/capacidade retorna 400 para parâmetros ausentes" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="Classe Abstrata Financiamento" errors="0" failures="0" skipped="0" timestamp="2026-05-22T17:19:08" time="0.452" tests="18">
-    <testcase classname="Classe Abstrata Financiamento Não deve permitir instância direta" name="Classe Abstrata Financiamento Não deve permitir instância direta" time="0.014">
+  <testsuite name="Teste de Saude -&gt; GET /health" errors="0" failures="0" skipped="0" timestamp="2026-05-22T17:36:40" time="0.153" tests="2">
+    <testcase classname="Teste de Saude -&gt; GET /health deve retornar status ok" name="Teste de Saude -&gt; GET /health deve retornar status ok" time="0.004">
     </testcase>
-    <testcase classname="FinanciamentoSAC Deve calcular o valor financiado corretamente" name="FinanciamentoSAC Deve calcular o valor financiado corretamente" time="0.002">
+    <testcase classname="GET /api/tabelas deve retornar a tebela de constantes " name="GET /api/tabelas deve retornar a tebela de constantes " time="0.01">
+    </testcase>
+  </testsuite>
+  <testsuite name="Classe Abstrata Financiamento" errors="0" failures="0" skipped="0" timestamp="2026-05-22T17:36:41" time="0.075" tests="18">
+    <testcase classname="Classe Abstrata Financiamento Não deve permitir instância direta" name="Classe Abstrata Financiamento Não deve permitir instância direta" time="0.01">
+    </testcase>
+    <testcase classname="FinanciamentoSAC Deve calcular o valor financiado corretamente" name="FinanciamentoSAC Deve calcular o valor financiado corretamente" time="0">
     </testcase>
     <testcase classname="FinanciamentoSAC Deve retornar 120 parcelas" name="FinanciamentoSAC Deve retornar 120 parcelas" time="0">
     </testcase>
-    <testcase classname="FinanciamentoSAC Amortização deve ser constante" name="FinanciamentoSAC Amortização deve ser constante" time="0.007">
+    <testcase classname="FinanciamentoSAC Amortização deve ser constante" name="FinanciamentoSAC Amortização deve ser constante" time="0.004">
     </testcase>
     <testcase classname="FinanciamentoSAC Primeira parcela deve ser maior que a última" name="FinanciamentoSAC Primeira parcela deve ser maior que a última" time="0.001">
     </testcase>
@@ -19,33 +59,33 @@
     </testcase>
     <testcase classname="FinanciamentoSAC Deve lançar erro para entrada maior que valor do imóvel" name="FinanciamentoSAC Deve lançar erro para entrada maior que valor do imóvel" time="0.002">
     </testcase>
-    <testcase classname="FinanciamentoSAC Deve lançar erro para taxa de juros zero" name="FinanciamentoSAC Deve lançar erro para taxa de juros zero" time="0">
+    <testcase classname="FinanciamentoSAC Deve lançar erro para taxa de juros zero" name="FinanciamentoSAC Deve lançar erro para taxa de juros zero" time="0.001">
     </testcase>
-    <testcase classname="FinanciamentoSAC Resumo deve conter todos os campos esperados" name="FinanciamentoSAC Resumo deve conter todos os campos esperados" time="0.005">
+    <testcase classname="FinanciamentoSAC Resumo deve conter todos os campos esperados" name="FinanciamentoSAC Resumo deve conter todos os campos esperados" time="0">
     </testcase>
-    <testcase classname="FinanciamentoPRICE Todas as parcelas devem ter o mesmo valor (prestação fixa)" name="FinanciamentoPRICE Todas as parcelas devem ter o mesmo valor (prestação fixa)" time="0.009">
+    <testcase classname="FinanciamentoPRICE Todas as parcelas devem ter o mesmo valor (prestação fixa)" name="FinanciamentoPRICE Todas as parcelas devem ter o mesmo valor (prestação fixa)" time="0.006">
     </testcase>
-    <testcase classname="FinanciamentoPRICE Deve retornar 120 parcelas" name="FinanciamentoPRICE Deve retornar 120 parcelas" time="0.001">
+    <testcase classname="FinanciamentoPRICE Deve retornar 120 parcelas" name="FinanciamentoPRICE Deve retornar 120 parcelas" time="0">
     </testcase>
     <testcase classname="FinanciamentoPRICE Saldo devedor final deve ser zero" name="FinanciamentoPRICE Saldo devedor final deve ser zero" time="0.001">
     </testcase>
     <testcase classname="FinanciamentoPRICE Amortização deve crescer ao longo do tempo" name="FinanciamentoPRICE Amortização deve crescer ao longo do tempo" time="0">
     </testcase>
-    <testcase classname="FinanciamentoPRICE Juros devem diminuir ao longo do tempo" name="FinanciamentoPRICE Juros devem diminuir ao longo do tempo" time="0">
+    <testcase classname="FinanciamentoPRICE Juros devem diminuir ao longo do tempo" name="FinanciamentoPRICE Juros devem diminuir ao longo do tempo" time="0.001">
     </testcase>
     <testcase classname="ComparadorFinanciamento Deve retornar dados de SAC e PRICE" name="ComparadorFinanciamento Deve retornar dados de SAC e PRICE" time="0.001">
     </testcase>
-    <testcase classname="ComparadorFinanciamento SAC deve ter total pago menor que PRICE" name="ComparadorFinanciamento SAC deve ter total pago menor que PRICE" time="0">
+    <testcase classname="ComparadorFinanciamento SAC deve ter total pago menor que PRICE" name="ComparadorFinanciamento SAC deve ter total pago menor que PRICE" time="0.001">
     </testcase>
-    <testcase classname="ComparadorFinanciamento Deve recomendar SAC quando mais barato" name="ComparadorFinanciamento Deve recomendar SAC quando mais barato" time="0.001">
+    <testcase classname="ComparadorFinanciamento Deve recomendar SAC quando mais barato" name="ComparadorFinanciamento Deve recomendar SAC quando mais barato" time="0">
     </testcase>
     <testcase classname="ComparadorFinanciamento Primeira parcela do SAC deve ser maior que do PRICE" name="ComparadorFinanciamento Primeira parcela do SAC deve ser maior que do PRICE" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="FinanciamentoController._extrairParams" errors="0" failures="0" skipped="0" timestamp="2026-05-22T17:19:08" time="0.45" tests="14">
-    <testcase classname="FinanciamentoController._extrairParams extrai e converte parâmetros numéricos corretamente" name="FinanciamentoController._extrairParams extrai e converte parâmetros numéricos corretamente" time="0.006">
+  <testsuite name="FinanciamentoController._extrairParams" errors="0" failures="0" skipped="0" timestamp="2026-05-22T17:36:41" time="0.057" tests="14">
+    <testcase classname="FinanciamentoController._extrairParams extrai e converte parâmetros numéricos corretamente" name="FinanciamentoController._extrairParams extrai e converte parâmetros numéricos corretamente" time="0.001">
     </testcase>
-    <testcase classname="FinanciamentoController._extrairParams lança erro quando algum parâmetro não é numérico" name="FinanciamentoController._extrairParams lança erro quando algum parâmetro não é numérico" time="0.015">
+    <testcase classname="FinanciamentoController._extrairParams lança erro quando algum parâmetro não é numérico" name="FinanciamentoController._extrairParams lança erro quando algum parâmetro não é numérico" time="0.007">
     </testcase>
     <testcase classname="FinanciamentoController._extrairParams lança erro quando prazoMeses está ausente" name="FinanciamentoController._extrairParams lança erro quando prazoMeses está ausente" time="0.001">
     </testcase>
@@ -59,61 +99,21 @@
     </testcase>
     <testcase classname="FinanciamentoController.calcularPRICE retorna 400 para parâmetros inválidos" name="FinanciamentoController.calcularPRICE retorna 400 para parâmetros inválidos" time="0">
     </testcase>
-    <testcase classname="FinanciamentoController.comparar retorna 200 com comparação SAC x PRICE" name="FinanciamentoController.comparar retorna 200 com comparação SAC x PRICE" time="0.002">
+    <testcase classname="FinanciamentoController.comparar retorna 200 com comparação SAC x PRICE" name="FinanciamentoController.comparar retorna 200 com comparação SAC x PRICE" time="0.001">
     </testcase>
-    <testcase classname="FinanciamentoController.comparar retorna 400 para body vazio" name="FinanciamentoController.comparar retorna 400 para body vazio" time="0.001">
+    <testcase classname="FinanciamentoController.comparar retorna 400 para body vazio" name="FinanciamentoController.comparar retorna 400 para body vazio" time="0">
     </testcase>
-    <testcase classname="FinanciamentoController.simularCapacidade retorna 200 com capacidade calculada corretamente" name="FinanciamentoController.simularCapacidade retorna 200 com capacidade calculada corretamente" time="0">
+    <testcase classname="FinanciamentoController.simularCapacidade retorna 200 com capacidade calculada corretamente" name="FinanciamentoController.simularCapacidade retorna 200 com capacidade calculada corretamente" time="0.001">
     </testcase>
-    <testcase classname="FinanciamentoController.simularCapacidade retorna 400 para renda mensal zero" name="FinanciamentoController.simularCapacidade retorna 400 para renda mensal zero" time="0.001">
+    <testcase classname="FinanciamentoController.simularCapacidade retorna 400 para renda mensal zero" name="FinanciamentoController.simularCapacidade retorna 400 para renda mensal zero" time="0">
     </testcase>
     <testcase classname="FinanciamentoController.simularCapacidade retorna 400 para renda mensal negativa" name="FinanciamentoController.simularCapacidade retorna 400 para renda mensal negativa" time="0">
     </testcase>
     <testcase classname="FinanciamentoController.simularCapacidade retorna 400 para parâmetros ausentes" name="FinanciamentoController.simularCapacidade retorna 400 para parâmetros ausentes" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="Teste de Saude -&gt; GET /health" errors="0" failures="0" skipped="0" timestamp="2026-05-22T17:19:08" time="0.693" tests="2">
-    <testcase classname="Teste de Saude -&gt; GET /health deve retornar status ok" name="Teste de Saude -&gt; GET /health deve retornar status ok" time="0.021">
-    </testcase>
-    <testcase classname="GET /api/tabelas deve retornar a tebela de constantes " name="GET /api/tabelas deve retornar a tebela de constantes " time="0.007">
-    </testcase>
-  </testsuite>
-  <testsuite name="GET /" errors="0" failures="0" skipped="0" timestamp="2026-05-22T17:19:08" time="0.772" tests="18">
-    <testcase classname="GET / retorna 200 com informações da API" name="GET / retorna 200 com informações da API" time="0.022">
-    </testcase>
-    <testcase classname="GET /FIN/health retorna status ok" name="GET /FIN/health retorna status ok" time="0.003">
-    </testcase>
-    <testcase classname="POST /FIN/sac retorna 200 com dados do SAC para body válido" name="POST /FIN/sac retorna 200 com dados do SAC para body válido" time="0.015">
-    </testcase>
-    <testcase classname="POST /FIN/sac parcelas têm amortização constante" name="POST /FIN/sac parcelas têm amortização constante" time="0.007">
-    </testcase>
-    <testcase classname="POST /FIN/sac retorna 400 para parâmetros inválidos" name="POST /FIN/sac retorna 400 para parâmetros inválidos" time="0.004">
-    </testcase>
-    <testcase classname="POST /FIN/sac retorna 400 quando entrada &gt;= valor do imóvel" name="POST /FIN/sac retorna 400 quando entrada &gt;= valor do imóvel" time="0.003">
-    </testcase>
-    <testcase classname="POST /FIN/sac retorna 400 para taxa de juros zero" name="POST /FIN/sac retorna 400 para taxa de juros zero" time="0.002">
-    </testcase>
-    <testcase classname="POST /FIN/price retorna 200 com dados do PRICE para body válido" name="POST /FIN/price retorna 200 com dados do PRICE para body válido" time="0.003">
-    </testcase>
-    <testcase classname="POST /FIN/price parcelas PRICE têm prestação fixa" name="POST /FIN/price parcelas PRICE têm prestação fixa" time="0.007">
-    </testcase>
-    <testcase classname="POST /FIN/price retorna 400 para parâmetros inválidos" name="POST /FIN/price retorna 400 para parâmetros inválidos" time="0.002">
-    </testcase>
-    <testcase classname="POST /FIN/comparar retorna 200 com comparação SAC x PRICE" name="POST /FIN/comparar retorna 200 com comparação SAC x PRICE" time="0.003">
-    </testcase>
-    <testcase classname="POST /FIN/comparar SAC tem total pago menor que PRICE" name="POST /FIN/comparar SAC tem total pago menor que PRICE" time="0.003">
-    </testcase>
-    <testcase classname="POST /FIN/comparar sistema recomendado é SAC" name="POST /FIN/comparar sistema recomendado é SAC" time="0.002">
-    </testcase>
-    <testcase classname="POST /FIN/comparar retorna 400 para parâmetros inválidos" name="POST /FIN/comparar retorna 400 para parâmetros inválidos" time="0.002">
-    </testcase>
-    <testcase classname="POST /FIN/capacidade retorna 200 com cálculo de capacidade" name="POST /FIN/capacidade retorna 200 com cálculo de capacidade" time="0.002">
-    </testcase>
-    <testcase classname="POST /FIN/capacidade parcela máxima é 30% da renda" name="POST /FIN/capacidade parcela máxima é 30% da renda" time="0.002">
-    </testcase>
-    <testcase classname="POST /FIN/capacidade retorna 400 para renda menor ou igual a zero" name="POST /FIN/capacidade retorna 400 para renda menor ou igual a zero" time="0.002">
-    </testcase>
-    <testcase classname="POST /FIN/capacidade retorna 400 para parâmetros ausentes" name="POST /FIN/capacidade retorna 400 para parâmetros ausentes" time="0.001">
+  <testsuite name="Teste de unitario" errors="0" failures="0" skipped="0" timestamp="2026-05-22T17:36:41" time="0.057" tests="1">
+    <testcase classname="Teste de unitario deve retornar calculos" name="Teste de unitario deve retornar calculos" time="0.006">
     </testcase>
   </testsuite>
 </testsuites>
