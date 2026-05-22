@@ -2,8 +2,9 @@ name: Teste and Deploy
 
 on:
   push:
-    branches: [main, dev]
-
+    branches: [main, dev, "grupo1/calculo_finv"]
+  pull_request:
+    branches: [grupo1/calculo_finv]
   
 jobs:
   detect-changes:

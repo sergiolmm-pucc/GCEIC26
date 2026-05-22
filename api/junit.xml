@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="13" failures="0" errors="0" time="0.888">
+  <testsuite name="Teste unitário - calcularParcela" errors="0" failures="0" skipped="0" timestamp="2026-05-21T01:44:54" time="0.358" tests="8">
+    <testcase classname="Teste unitário - calcularParcela deve calcular parcela corretamente" name="Teste unitário - calcularParcela deve calcular parcela corretamente" time="0.004">
+    </testcase>
+    <testcase classname="Teste unitário - calcularParcela deve lançar erro se valor do veículo for inválido" name="Teste unitário - calcularParcela deve lançar erro se valor do veículo for inválido" time="0.006">
+    </testcase>
+    <testcase classname="Teste unitário - calcularParcela deve lançar erro se entrada for maior que valor do veículo" name="Teste unitário - calcularParcela deve lançar erro se entrada for maior que valor do veículo" time="0.001">
+    </testcase>
+    <testcase classname="Teste unitário - calcularParcela deve lançar erro se taxa for negativa" name="Teste unitário - calcularParcela deve lançar erro se taxa for negativa" time="0">
+    </testcase>
+    <testcase classname="Teste unitário - calcularParcela deve lançar erro se parcelas for inválido" name="Teste unitário - calcularParcela deve lançar erro se parcelas for inválido" time="0.001">
+    </testcase>
+    <testcase classname="Teste unitário - calcularCapacidade deve calcular capacidade corretamente" name="Teste unitário - calcularCapacidade deve calcular capacidade corretamente" time="0">
+    </testcase>
+    <testcase classname="Teste unitário - calcularCapacidade deve lançar erro se renda for inválida" name="Teste unitário - calcularCapacidade deve lançar erro se renda for inválida" time="0.001">
+    </testcase>
+    <testcase classname="Teste unitário - calcularCapacidade deve lançar erro se entrada for 100%" name="Teste unitário - calcularCapacidade deve lançar erro se entrada for 100%" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Teste de API - health" errors="0" failures="0" skipped="0" timestamp="2026-05-21T01:44:54" time="0.421" tests="5">
+    <testcase classname="Teste de API - health GET /health deve retornar status ok" name="Teste de API - health GET /health deve retornar status ok" time="0.02">
+    </testcase>
+    <testcase classname="Teste de API - /api/parcela deve retornar parcela para dados válidos" name="Teste de API - /api/parcela deve retornar parcela para dados válidos" time="0.012">
+    </testcase>
+    <testcase classname="Teste de API - /api/parcela deve retornar erro 400 para dados inválidos" name="Teste de API - /api/parcela deve retornar erro 400 para dados inválidos" time="0.003">
+    </testcase>
+    <testcase classname="Teste de API - /api/capacidade deve retornar capacidade para dados válidos" name="Teste de API - /api/capacidade deve retornar capacidade para dados válidos" time="0.003">
+    </testcase>
+    <testcase classname="Teste de API - /api/capacidade deve retornar erro 400 para renda inválida" name="Teste de API - /api/capacidade deve retornar erro 400 para renda inválida" time="0.007">
+    </testcase>
+  </testsuite>
+</testsuites>

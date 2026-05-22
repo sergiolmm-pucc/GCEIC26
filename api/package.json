@@ -1,26 +1,19 @@
 {
-  "name": "gceic",
+  "name": "api",
   "version": "1.0.0",
-  "description": "Exemplo para testes",
+  "description": "API de Financiamento de Veículos - GCEIC26",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "jest --coverage --verbose --ci --reporters=default --testResultsProcessor=jest-junit"
   },
-  "keywords": [
-    "teste",
-    "CI",
-    "CD"
-  ],
-  "author": "SLMM",
-  "license": "ISC",
   "dependencies": {
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "helmet": "^8.1.0"
   },
   "devDependencies": {
-    "jest": "^30.3.0",
+    "jest": "^30.0.0",
     "jest-junit": "^17.0.0",
     "supertest": "^7.2.2"
   }

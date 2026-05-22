@@ -1,39 +1,56 @@
+function calcularParcela(valorVeiculo, entrada, taxaMensal, numParcelas) {
+  if (valorVeiculo <= 0) throw new Error('Valor do veículo inválido');
+  if (entrada < 0) throw new Error('Entrada inválida');
+  if (taxaMensal < 0) throw new Error('Taxa mensal inválida');
+  if (numParcelas <= 0) throw new Error('Número de parcelas inválido');
 
+  const valorFinanciado = valorVeiculo - entrada;
+  if (valorFinanciado <= 0) throw new Error('Entrada maior que o valor do veículo');
 
-const TABELA = {
-	BASE_CALC: {
-		faixas: [
-		 { ate: 15, alicota: 0.01 },
-		 { ate: 30, alicota: 0.03 },
-		],
-	},
-	REFERENCIA : 20/100,
-};
+  const i = taxaMensal / 100;
+  let parcela;
 
-function calcularArea(base,altura) {
-	
-  if (base <= 0) throw new Error('Base com valor errado');
-  if (altura <=0) throw new Error('Altura com valor errado');
-  let resultado = 0;
-  resultado = base * altura;
-  return resultado.toFixed(2);
+  if (i === 0) {
+    parcela = valorFinanciado / numParcelas;
+  } else {
+    parcela = valorFinanciado * (i * Math.pow(1 + i, numParcelas)) / (Math.pow(1 + i, numParcelas) - 1);
+  }
 
+  const totalPago = parcela * numParcelas;
+  const jurosTotais = totalPago - valorFinanciado;
+
+  return {
+    valorFinanciado: parseFloat(valorFinanciado.toFixed(2)),
+    parcela: parseFloat(parcela.toFixed(2)),
+    totalPago: parseFloat(totalPago.toFixed(2)),
+    jurosTotais: parseFloat(jurosTotais.toFixed(2)),
+    numParcelas,
+    taxaMensal,
+  };
 }
 
-function calcular(dados) {
-  console.log(dados);	
-  const {altura = 0, largura = 0 ,} = dados;	 
-  if (altura <= 0) throw new Error('Base com valor errado');
-  if (largura <=0) throw new Error('Altura com valor errado');
-  let resultado = 0;
-  resultado = largura * altura;
-  return resultado.toFixed(2);
+function calcularCapacidade(rendaMensal, taxaMensal, numParcelas, entradaPercent) {
+  if (rendaMensal <= 0) throw new Error('Renda mensal inválida');
+  if (entradaPercent < 0 || entradaPercent >= 100) throw new Error('Percentual de entrada inválido');
 
+  const parcelaMaxima = rendaMensal * 0.30;
+  const i = taxaMensal / 100;
+
+  let valorFinanciadoMax;
+  if (i === 0) {
+    valorFinanciadoMax = parcelaMaxima * numParcelas;
+  } else {
+    valorFinanciadoMax = parcelaMaxima * (Math.pow(1 + i, numParcelas) - 1) / (i * Math.pow(1 + i, numParcelas));
+  }
+
+  const valorVeiculoMax = valorFinanciadoMax / (1 - entradaPercent / 100);
+
+  return {
+    parcelaMaxima: parseFloat(parcelaMaxima.toFixed(2)),
+    valorFinanciadoMax: parseFloat(valorFinanciadoMax.toFixed(2)),
+    valorVeiculoMax: parseFloat(valorVeiculoMax.toFixed(2)),
+    entradaPercent,
+  };
 }
 
-
-module.exports = {
-	calcularArea,
-	TABELA,
-	calcular,
-};
+module.exports = { calcularParcela, calcularCapacidade };
