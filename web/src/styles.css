@@ -56,16 +56,21 @@ button {
   font-size: 30px;
 }
 
+.login-panel,
+.panel {
+  border-radius: 16px;
+  background: #fff;
+  color: #1b2630;
+  box-shadow: 0 18px 44px rgb(15 23 42 / 8%);
+}
+
 .login-panel {
   width: min(100%, 390px);
   padding: 28px;
-  border-radius: 8px;
-  background: #fff;
-  color: #1b2630;
-  box-shadow: 0 22px 55px rgb(0 0 0 / 20%);
 }
 
-label {
+label,
+.campo {
   display: grid;
   gap: 7px;
   font-weight: 700;
@@ -76,10 +81,16 @@ input {
   width: 100%;
   min-height: 42px;
   border: 1px solid #c9d4dc;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 9px 11px;
   color: #14212b;
   background: #fff;
+}
+
+.campo small {
+  color: #677784;
+  font-size: 12px;
+  font-weight: 500;
 }
 
 .login-panel label + label,
@@ -101,12 +112,38 @@ input {
 }
 
 .login-panel button,
-.actions button {
-  min-height: 42px;
-  padding: 0 16px;
+.actions button,
+.secondary-button,
+.pill-button,
+.mode-card {
+  min-height: 44px;
+}
+
+.login-panel button,
+.actions button,
+.mode-card.selected {
   background: #0f766e;
   color: #fff;
   font-weight: 800;
+}
+
+.secondary-button,
+.pill-button {
+  padding: 0 16px;
+  background: #ecf4f5;
+  color: #124559;
+  font-weight: 700;
+}
+
+.secondary-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pill-button.selected {
+  background: #124559;
+  color: #fff;
 }
 
 .app-shell {
@@ -131,17 +168,21 @@ input {
   line-height: 1.15;
 }
 
-.eyebrow {
+.eyebrow,
+.step-label {
   margin: 0;
   color: #0f766e;
   font-size: 12px;
   font-weight: 900;
-  letter-spacing: 0;
   text-transform: uppercase;
 }
 
 .sidebar .eyebrow {
   color: #7dd3c7;
+}
+
+.step-label {
+  color: #7c3aed;
 }
 
 nav {
@@ -177,13 +218,38 @@ nav button:hover,
 }
 
 .workspace {
-  max-width: 1120px;
+  max-width: 1180px;
 }
 
 .workspace h2 {
-  margin: 4px 0 24px;
+  margin: 4px 0 12px;
   font-size: clamp(28px, 4vw, 42px);
   line-height: 1.05;
+}
+
+.workspace-copy {
+  max-width: 700px;
+  margin: 0;
+  color: #53616c;
+}
+
+.workspace-header,
+.panel-header,
+.mode-card,
+.uf-cell,
+.tributos-federais div {
+  display: flex;
+}
+
+.workspace-header,
+.panel-header {
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.header-button {
+  white-space: nowrap;
 }
 
 .calculator-grid {
@@ -192,15 +258,54 @@ nav button:hover,
   gap: 20px;
 }
 
+.guided-grid {
+  margin-top: 24px;
+}
+
+.guided-stack {
+  display: grid;
+  gap: 20px;
+}
+
 .panel {
   padding: 22px;
   border: 1px solid #dce5ea;
-  border-radius: 8px;
-  background: #fff;
 }
 
 .panel h3 {
   margin: 0 0 18px;
+}
+
+.mode-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.mode-card {
+  min-height: 150px;
+  padding: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+  border: 1px solid #dce5ea;
+  background: #f9fbfc;
+  color: #1b2630;
+  text-align: left;
+}
+
+.mode-card strong {
+  font-size: 18px;
+}
+
+.mode-card span {
+  color: #53616c;
+  line-height: 1.5;
+}
+
+.mode-card.selected span {
+  color: #dff7f2;
 }
 
 .field-grid {
@@ -251,6 +356,12 @@ nav button:hover,
   text-align: right;
 }
 
+.result-panel {
+  position: sticky;
+  top: 30px;
+  align-self: start;
+}
+
 .about-layout {
   display: grid;
   grid-template-columns: minmax(260px, 380px) minmax(0, 1fr);
@@ -260,7 +371,7 @@ nav button:hover,
 
 .about-layout img {
   width: 100%;
-  border-radius: 8px;
+  border-radius: 16px;
   border: 1px solid #dce5ea;
   background: #fff;
 }
@@ -273,8 +384,106 @@ nav button:hover,
   max-width: 720px;
 }
 
-@media (max-width: 860px) {
-  .app-shell {
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgb(15 23 42 / 45%);
+}
+
+.modal-panel {
+  width: min(100%, 880px);
+  max-height: min(88vh, 760px);
+  overflow: auto;
+  padding: 24px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 28px 80px rgb(15 23 42 / 25%);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.modal-copy {
+  max-width: 660px;
+  margin: 8px 0 0;
+  color: #53616c;
+}
+
+.regime-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.tributos-federais {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.tributos-federais div {
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid #dce5ea;
+  border-radius: 12px;
+  background: #f8fbfc;
+}
+
+.table-wrapper {
+  overflow: auto;
+  border: 1px solid #dce5ea;
+  border-radius: 14px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #edf2f4;
+}
+
+tbody tr {
+  cursor: pointer;
+}
+
+tbody tr:hover {
+  background: #f4fbfa;
+}
+
+.uf-cell {
+  align-items: center;
+  gap: 10px;
+}
+
+.uf-badge {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+@media (max-width: 960px) {
+  .app-shell,
+  .calculator-grid,
+  .about-layout {
     grid-template-columns: 1fr;
   }
 
@@ -282,21 +491,32 @@ nav button:hover,
     min-height: auto;
   }
 
-  .calculator-grid,
-  .about-layout {
+  .result-panel {
+    position: static;
+  }
+
+  .mode-grid {
     grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
   .content,
   .sidebar,
   .panel,
-  .login-panel {
+  .login-panel,
+  .modal-panel {
     padding: 18px;
   }
 
-  .field-grid {
+  .field-grid,
+  .tributos-federais {
     grid-template-columns: 1fr;
+  }
+
+  .workspace-header,
+  .panel-header,
+  .modal-header {
+    flex-direction: column;
   }
 }

@@ -17,11 +17,12 @@ pricingRouter.get('/health', (_request, response) => {
 pricingRouter.post('/preco-liquido', (request, response, next) => {
   try {
     const entrada = normalizarEntrada(request.body, {
-      precoBruto: true,
-      quantidade: false,
-      descontoPercentual: false,
-      impostoPercentual: false,
-      taxaFixa: false
+      precoBruto: { obrigatorio: true },
+      quantidade: { obrigatorio: false },
+      icmsPercentual: { obrigatorio: false, maximo: 100 },
+      pisPercentual: { obrigatorio: false, maximo: 100 },
+      cofinsPercentual: { obrigatorio: false, maximo: 100 },
+      ipiPercentual: { obrigatorio: false, maximo: 100 }
     });
 
     response.json(calcularPrecoLiquido(entrada));
@@ -34,11 +35,12 @@ pricingRouter.post('/preco-liquido', (request, response, next) => {
 pricingRouter.post('/preco-bruto', (request, response, next) => {
   try {
     const entrada = normalizarEntrada(request.body, {
-      precoLiquidoDesejado: true,
-      quantidade: false,
-      descontoPercentual: false,
-      impostoPercentual: false,
-      taxaFixa: false
+      precoLiquido: { obrigatorio: true, aliases: ['precoLiquidoDesejado'] },
+      quantidade: { obrigatorio: false },
+      icmsPercentual: { obrigatorio: false, maximo: 100 },
+      pisPercentual: { obrigatorio: false, maximo: 100 },
+      cofinsPercentual: { obrigatorio: false, maximo: 100 },
+      ipiPercentual: { obrigatorio: false, maximo: 100 }
     });
 
     response.json(calcularPrecoBrutoNecessario(entrada));
@@ -51,12 +53,13 @@ pricingRouter.post('/preco-bruto', (request, response, next) => {
 pricingRouter.post('/margem', (request, response, next) => {
   try {
     const entrada = normalizarEntrada(request.body, {
-      precoVenda: true,
-      custoUnitario: true,
-      quantidade: false,
-      descontoPercentual: false,
-      impostoPercentual: false,
-      taxaFixa: false
+      precoVenda: { obrigatorio: true },
+      custoUnitario: { obrigatorio: true },
+      quantidade: { obrigatorio: false },
+      icmsPercentual: { obrigatorio: false, maximo: 100 },
+      pisPercentual: { obrigatorio: false, maximo: 100 },
+      cofinsPercentual: { obrigatorio: false, maximo: 100 },
+      ipiPercentual: { obrigatorio: false, maximo: 100 }
     });
 
     response.json(calcularLucroMargem(entrada));
@@ -67,9 +70,13 @@ pricingRouter.post('/margem', (request, response, next) => {
 
 // Função para normalizar e validar a entrada dos dados
 function normalizarEntrada(body, campos) {
-  return Object.entries(campos).reduce((acc, [campo, obrigatorio]) => {
+  return Object.entries(campos).reduce((acc, [campo, configuracao]) => {
+    const { obrigatorio = false, aliases = [], maximo } = configuracao;
     const valorPadrao = campo === 'quantidade' ? 1 : 0;
-    acc[campo] = validarNumero(campo, body[campo] ?? valorPadrao, { obrigatorio });
+    const valorRecebido = [body[campo], ...aliases.map((alias) => body[alias])].find(
+      (valor) => valor !== undefined && valor !== null && valor !== ''
+    );
+    acc[campo] = validarNumero(campo, valorRecebido ?? valorPadrao, { obrigatorio, maximo });
     return acc;
   }, {});
 }

@@ -21,6 +21,8 @@ export function createApp() {
   app.use((error, _request, response, _next) => {
     const statusCode = error.statusCode ?? 500;
     response.status(statusCode).json({
+      statusCode,
+      message: error.message ?? 'Erro interno do servidor',
       error: error.message ?? 'Erro interno do servidor'
     });
   });

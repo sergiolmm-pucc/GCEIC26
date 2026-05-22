@@ -25,7 +25,7 @@ async function postJson(path, payload) {
   const data = await response.json();
 
   if (!response.ok) {
-    throw new Error(data.error ?? 'Erro ao consultar API');
+    throw new Error(data.message ?? data.error ?? 'Erro ao consultar API');
   }
 
   return data;

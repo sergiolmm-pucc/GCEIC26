@@ -3,57 +3,77 @@ const CASAS_DECIMAIS = 2;
 export function calcularPrecoLiquido({
   precoBruto,
   quantidade = 1,
-  descontoPercentual = 0,
-  impostoPercentual = 0,
-  taxaFixa = 0
+  icmsPercentual = 0,
+  pisPercentual = 0,
+  cofinsPercentual = 0,
+  ipiPercentual = 0
 }) {
   const totalBruto = precoBruto * quantidade;
-  const desconto = percentual(totalBruto, descontoPercentual);
-  const baseComDesconto = totalBruto - desconto;
-  const impostos = percentual(baseComDesconto, impostoPercentual);
-  const taxas = taxaFixa * quantidade;
-  const totalLiquido = baseComDesconto - impostos - taxas;
+  const cargaTributaria = calcularCargaTributaria({
+    icmsPercentual,
+    pisPercentual,
+    cofinsPercentual
+  });
+
+  validarCargaTributaria(cargaTributaria);
+
+  const totalLiquido = totalBruto * (1 - cargaTributaria);
+  const valorIpi = percentual(totalBruto, ipiPercentual);
+  const totalBrutoComIpi = totalBruto + valorIpi;
 
   return arredondarResultado({
     precoBruto,
     quantidade,
     totalBruto,
-    desconto,
-    impostos,
-    taxas,
+    icmsPercentual,
+    pisPercentual,
+    cofinsPercentual,
+    ipiPercentual,
+    cargaTributaria,
     totalLiquido,
-    precoLiquidoUnitario: totalLiquido / quantidade
+    precoLiquido: totalLiquido / quantidade,
+    valorIpi,
+    totalBrutoComIpi,
+    precoBrutoComIpi: totalBrutoComIpi / quantidade
   });
 }
 
 export function calcularPrecoBrutoNecessario({
-  precoLiquidoDesejado,
+  precoLiquido,
   quantidade = 1,
-  descontoPercentual = 0,
-  impostoPercentual = 0,
-  taxaFixa = 0
+  icmsPercentual = 0,
+  pisPercentual = 0,
+  cofinsPercentual = 0,
+  ipiPercentual = 0
 }) {
-  const fatorDesconto = 1 - descontoPercentual / 100;
-  const fatorImposto = 1 - impostoPercentual / 100;
-  const fatorLiquido = fatorDesconto * fatorImposto;
+  const cargaTributaria = calcularCargaTributaria({
+    icmsPercentual,
+    pisPercentual,
+    cofinsPercentual
+  });
 
-  if (fatorLiquido <= 0) {
-    const error = new Error('A soma dos percentuais inviabiliza o calculo do preco bruto.');
-    error.statusCode = 400;
-    throw error;
-  }
+  validarCargaTributaria(cargaTributaria);
 
-  const totalLiquidoDesejado = precoLiquidoDesejado * quantidade;
-  const taxas = taxaFixa * quantidade;
-  const totalBrutoNecessario = (totalLiquidoDesejado + taxas) / fatorLiquido;
+  const fatorLiquido = 1 - cargaTributaria;
+  const totalLiquido = precoLiquido * quantidade;
+  const totalBruto = totalLiquido / fatorLiquido;
+  const valorIpi = percentual(totalBruto, ipiPercentual);
+  const totalBrutoComIpi = totalBruto + valorIpi;
 
   return arredondarResultado({
-    precoLiquidoDesejado,
+    precoLiquido,
     quantidade,
-    taxas,
-    totalLiquidoDesejado,
-    totalBrutoNecessario,
-    precoBrutoUnitarioNecessario: totalBrutoNecessario / quantidade
+    icmsPercentual,
+    pisPercentual,
+    cofinsPercentual,
+    ipiPercentual,
+    cargaTributaria,
+    totalLiquido,
+    totalBruto,
+    precoBruto: totalBruto / quantidade,
+    valorIpi,
+    totalBrutoComIpi,
+    precoBrutoComIpi: totalBrutoComIpi / quantidade
   });
 }
 
@@ -61,16 +81,18 @@ export function calcularLucroMargem({
   precoVenda,
   custoUnitario,
   quantidade = 1,
-  descontoPercentual = 0,
-  impostoPercentual = 0,
-  taxaFixa = 0
+  icmsPercentual = 0,
+  pisPercentual = 0,
+  cofinsPercentual = 0,
+  ipiPercentual = 0
 }) {
   const venda = calcularPrecoLiquido({
     precoBruto: precoVenda,
     quantidade,
-    descontoPercentual,
-    impostoPercentual,
-    taxaFixa
+    icmsPercentual,
+    pisPercentual,
+    cofinsPercentual,
+    ipiPercentual
   });
   const custoTotal = custoUnitario * quantidade;
   const lucro = venda.totalLiquido - custoTotal;
@@ -88,7 +110,19 @@ export function calcularLucroMargem({
 }
 
 function percentual(valor, taxa) {
-  return valor * (taxa / 100);
+  return valor * taxa;
+}
+
+function calcularCargaTributaria({ icmsPercentual, pisPercentual, cofinsPercentual }) {
+  return icmsPercentual + pisPercentual * (1 - icmsPercentual) + cofinsPercentual * (1 - icmsPercentual);
+}
+
+function validarCargaTributaria(cargaTributaria) {
+  if (cargaTributaria >= 1) {
+    const error = new Error('A carga tributaria informada inviabiliza o calculo.');
+    error.statusCode = 400;
+    throw error;
+  }
 }
 
 function arredondarResultado(resultado) {
