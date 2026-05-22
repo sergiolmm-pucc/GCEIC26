@@ -1,26 +1,66 @@
 const request = require('supertest');
-const app     = require('../src/app');
+const app = require('../src/app');
 
 describe('Teste de Saude -> GET /health', () => {
-	
-	test('deve retornar status ok', async () => {
-	  
-		const res = await request(app).get('/health');
-		expect(res.statusCode).toBe(200);
-		expect(res.body.status).toBe('ok');
 
-	});
+  test('deve retornar status ok', async () => {
+    const res = await request(app).get('/health');
+    expect(res.statusCode).toBe(200);
+    expect(res.body.status).toBe('ok');
+  });
 
 });
 
-describe('GET /api/tabelas', () => {
-  test('deve retornar a tebela de constantes ', async () => {
-    const res = await request(app).get('/api/tabelas');
- 
+describe('POST /api/parcela', () => {
+
+  test('deve retornar parcela para dados válidos', async () => {
+    const res = await request(app).post('/api/parcela').send({
+      valorVeiculo: 30000,
+      entrada: 6000,
+      taxaMensal: 1.29,
+      numParcelas: 48,
+    });
     expect(res.statusCode).toBe(200);
     expect(res.body.success).toBe(true);
-    expect(res.body.data).toHaveProperty('base');
-    expect(res.body.data).toHaveProperty('referencia');
-
+    expect(res.body.data.parcela).toBeGreaterThan(0);
   });
+
+  test('deve retornar erro 400 para dados inválidos', async () => {
+    const res = await request(app).post('/api/parcela').send({
+      valorVeiculo: 0,
+      entrada: 0,
+      taxaMensal: 1,
+      numParcelas: 12,
+    });
+    expect(res.statusCode).toBe(400);
+    expect(res.body.success).toBe(false);
+  });
+
+});
+
+describe('POST /api/capacidade', () => {
+
+  test('deve retornar capacidade para dados válidos', async () => {
+    const res = await request(app).post('/api/capacidade').send({
+      rendaMensal: 5000,
+      taxaMensal: 1,
+      numParcelas: 48,
+      entradaPercent: 20,
+    });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data.parcelaMaxima).toBe(1500);
+  });
+
+  test('deve retornar erro 400 para renda inválida', async () => {
+    const res = await request(app).post('/api/capacidade').send({
+      rendaMensal: 0,
+      taxaMensal: 1,
+      numParcelas: 48,
+      entradaPercent: 20,
+    });
+    expect(res.statusCode).toBe(400);
+    expect(res.body.success).toBe(false);
+  });
+
 });
