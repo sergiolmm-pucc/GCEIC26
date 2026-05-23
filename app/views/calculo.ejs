@@ -1,66 +1,176 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo — AguaCalc</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f9ff; color: #1a1a2e; }
+    nav {
+      background: #0077b6; color: #fff;
+      padding: 14px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    nav .brand { font-size: 1.2rem; font-weight: 700; }
+    nav .user-info { font-size: 0.9rem; display: flex; gap: 16px; align-items: center; }
+    nav a { color: #cde; text-decoration: none; }
+    nav a:hover { color: #fff; }
+    .container { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+      background: #fff; border-radius: 16px;
+      padding: 2rem; box-shadow: 0 4px 20px rgba(0,119,182,0.08);
+      margin-bottom: 1.5rem;
+    }
+    h2 { color: #0077b6; margin-bottom: 1.5rem; font-size: 1.4rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    label { display: block; margin-bottom: 0.4rem; font-size: 0.9rem; font-weight: 500; color: #444; }
+    .hint { font-size: 0.8rem; color: #888; margin-top: 0.2rem; }
+    input[type=number] {
+      width: 100%; padding: 10px 14px;
+      border: 1.5px solid #d0e8f5; border-radius: 8px;
+      font-size: 1rem; outline: none; transition: border-color 0.2s;
+    }
+    input[type=number]:focus { border-color: #0077b6; }
+    .btn {
+      width: 100%; padding: 13px;
+      background: #0077b6; color: #fff;
+      border: none; border-radius: 8px;
+      font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn:hover { background: #005f8e; }
+    .btn:disabled { background: #90cde8; cursor: not-allowed; }
+    .resultado { display: none; }
+    .resultado.visivel { display: block; }
+    .resultado-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-bottom: 1rem;
+    }
+    .resultado-item {
+      background: #f0f9ff; border-radius: 10px;
+      padding: 1rem; text-align: center;
+    }
+    .resultado-item .valor { font-size: 1.5rem; font-weight: 700; color: #0077b6; }
+    .resultado-item .label { font-size: 0.8rem; color: #666; margin-top: 0.3rem; }
+    .total-card {
+      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      color: #fff; border-radius: 12px; padding: 1.2rem;
+      text-align: center;
+    }
+    .total-card .total-valor { font-size: 2.2rem; font-weight: 700; }
+    .total-card .total-label { font-size: 0.9rem; opacity: 0.85; }
+    .erro-msg { color: #b91c1c; background: #fef2f2; border-radius: 8px; padding: 10px; font-size: 0.9rem; }
+    .loading { text-align: center; color: #0077b6; font-size: 0.9rem; }
+  </style>
 </head>
 <body>
   <nav>
-    <div ">🏠 Exemplo<span>Calc</span></div>
-    <div >
+    <div class="brand">💧 AguaCalc</div>
+    <div class="user-info">
       Olá, <strong><%= user.nome %></strong>
+      <a href="/sobre">Sobre</a>
+      <a href="/help">Ajuda</a>
       <a href="/logout">Sair</a>
     </div>
   </nav>
 
-    <form method="POST" action="/calcular" id="calculoForm">
-      <div >
-        <label for="altura">altura</label>
-        <input type="text" id="altura" name="altura" placeholder="Digite altura" required>
-      </div>
-      <div >
-        <label for="largura">largura</label>
-        <input type="largura" id="largura" name="largura" placeholder="Digite largura"  required>
-      </div>
-      <!-- <button type="submit"  id="btnCalculo">Entrar</button> -->
-      
-    </form>
-    <button id="btnCalcular" onclick="calcular()">Calculo</button>
-    <div ><span>Resultado</span><span id="data">-</span></div>
-</body>
-<script>
+  <div class="container">
+    <div class="card">
+      <h2>💧 Cálculo de Consumo de Água</h2>
 
+      <div class="form-group">
+        <label for="pessoas">Número de moradores</label>
+        <input type="number" id="pessoas" min="1" max="50" value="4" placeholder="Ex: 4">
+        <p class="hint">Quantas pessoas moram na residência?</p>
+      </div>
+
+      <div class="form-group">
+        <label for="litrosPorPessoa">Consumo por pessoa (litros/dia)</label>
+        <input type="number" id="litrosPorPessoa" min="50" max="500" value="150" placeholder="Ex: 150">
+        <p class="hint">Média: 150 L/pessoa/dia (ONU recomenda 110–200 L)</p>
+      </div>
+
+      <div class="form-group">
+        <label for="dias">Dias do mês</label>
+        <input type="number" id="dias" min="28" max="31" value="30" placeholder="Ex: 30">
+      </div>
+
+      <button class="btn" id="btnCalcular" onclick="calcular()">Calcular consumo</button>
+      <p class="loading" id="loadingMsg" style="display:none;margin-top:0.8rem">Calculando...</p>
+    </div>
+
+    <div class="card resultado" id="resultado">
+      <h2>📊 Resultado</h2>
+      <div id="erroMsg" class="erro-msg" style="display:none"></div>
+
+      <div class="resultado-grid">
+        <div class="resultado-item">
+          <div class="valor" id="res-litrosDia">-</div>
+          <div class="label">Litros por dia</div>
+        </div>
+        <div class="resultado-item">
+          <div class="valor" id="res-litrosMes">-</div>
+          <div class="label">Litros por mês</div>
+        </div>
+        <div class="resultado-item">
+          <div class="valor" id="res-m3Mes">-</div>
+          <div class="label">m³ por mês</div>
+        </div>
+        <div class="resultado-item">
+          <div class="valor" id="res-tarifa">-</div>
+          <div class="label">Tarifa (R$/m³)</div>
+        </div>
+      </div>
+
+      <div class="total-card">
+        <div class="total-label">Valor estimado da conta mensal</div>
+        <div class="total-valor" id="res-valorTotal">R$ -</div>
+        <div class="total-label" style="margin-top:0.3rem;font-size:0.8rem">inclui margem de segurança de 30%</div>
+      </div>
+    </div>
+  </div>
+
+<script>
 async function calcular() {
-  console.log("valor"+ document.getElementById('altura').value);
-  const altura1 = parseFloat(document.getElementById('altura').value);
-  const largura1 = parseFloat(document.getElementById('largura').value);
-  const payload = {
-    altura: altura1,
-    largura: largura1,
-  };
-  alert(JSON.stringify(payload));
+  const pessoas = parseFloat(document.getElementById('pessoas').value);
+  const litrosPorPessoa = parseFloat(document.getElementById('litrosPorPessoa').value);
+  const dias = parseFloat(document.getElementById('dias').value);
+
+  document.getElementById('btnCalcular').disabled = true;
+  document.getElementById('loadingMsg').style.display = 'block';
+  document.getElementById('erroMsg').style.display = 'none';
+
   try {
     const res = await fetch('/calcular', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ pessoas, litrosPorPessoa, dias }),
     });
-    
-    const json = await res.json();
-    
-    alert(JSON.stringify(json));
 
-    if (!json.success) { alert('Erro: ' + json.error); return; }
+    const json = await res.json();
+
+    if (!json.success) {
+      document.getElementById('erroMsg').textContent = 'Erro: ' + json.error;
+      document.getElementById('erroMsg').style.display = 'block';
+      document.getElementById('resultado').classList.add('visivel');
+      return;
+    }
 
     const d = json.data;
-    alert(d);
-    document.getElementById('data').textContent = d.toString();
+    document.getElementById('res-litrosDia').textContent = d.litrosDia.toLocaleString('pt-BR') + ' L';
+    document.getElementById('res-litrosMes').textContent = d.litrosMes.toLocaleString('pt-BR') + ' L';
+    document.getElementById('res-m3Mes').textContent = d.m3Mes.toLocaleString('pt-BR') + ' m³';
+    document.getElementById('res-tarifa').textContent = 'R$ ' + d.tarifaM3.toFixed(2);
+    document.getElementById('res-valorTotal').textContent = 'R$ ' + d.valorTotal.toFixed(2);
+    document.getElementById('resultado').classList.add('visivel');
   } catch (e) {
     alert('Erro ao comunicar com o servidor: ' + e.message);
   } finally {
-
+    document.getElementById('btnCalcular').disabled = false;
+    document.getElementById('loadingMsg').style.display = 'none';
   }
 }
 </script>
+</body>
 </html>

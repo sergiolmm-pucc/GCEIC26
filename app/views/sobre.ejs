@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre — AguaCalc</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f9ff; color: #1a1a2e; }
+    nav {
+      background: #0077b6; color: #fff;
+      padding: 14px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    nav .brand { font-size: 1.2rem; font-weight: 700; }
+    nav a { color: #cde; text-decoration: none; margin-left: 16px; }
+    nav a:hover { color: #fff; }
+    .container { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+      background: #fff; border-radius: 16px;
+      padding: 2rem; box-shadow: 0 4px 20px rgba(0,119,182,0.08);
+      margin-bottom: 1.5rem; text-align: center;
+    }
+    h2 { color: #0077b6; margin-bottom: 1rem; }
+    p { color: #555; line-height: 1.7; margin-bottom: 1rem; }
+    .team {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .member {
+      background: #f0f9ff; border-radius: 12px;
+      padding: 1.2rem 1.5rem; min-width: 140px;
+    }
+    .member-avatar { font-size: 3rem; margin-bottom: 0.5rem; }
+    .member-name { font-weight: 600; color: #0077b6; font-size: 1rem; }
+    .member-role { font-size: 0.8rem; color: #888; margin-top: 0.2rem; }
+    .projeto-info { background: #e0f3fb; border-radius: 10px; padding: 1rem; margin-top: 1rem; font-size: 0.9rem; color: #0077b6; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="brand">💧 AguaCalc</div>
+    <div>
+      <a href="/calculo">← Calcular</a>
+      <a href="/help">Ajuda</a>
+      <a href="/logout">Sair</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="card">
+      <h2>💧 Sobre o AguaCalc</h2>
+      <p>
+        O AguaCalc é uma ferramenta desenvolvida para calcular o consumo de água residencial
+        com base no número de moradores e hábitos de consumo, estimando o valor da conta mensal
+        segundo as faixas de tarifação.
+      </p>
+      <p>
+        Projeto desenvolvido para a disciplina de <strong>Gerência de Configuração, Entrega e Integração Contínua</strong>
+        — GCEIC26, Escola Politécnica PUCCAMP, 1º Semestre 2026.
+      </p>
+
+      <div class="projeto-info">
+        Tema: Cálculo de Consumo de Água &nbsp;|&nbsp; Endpoint: <strong>/AGUA/</strong>
+      </div>
+
+      <h2 style="margin-top:2rem">👥 Nossa equipe</h2>
+
+      <%-- Substitua pelos dados reais da equipe --%>
+      <div class="team">
+        <div class="member">
+          <div class="member-avatar">👤</div>
+          <div class="member-name">Aluno 1</div>
+          <div class="member-role">API & Backend</div>
+        </div>
+        <div class="member">
+          <div class="member-avatar">👤</div>
+          <div class="member-name">Aluno 2</div>
+          <div class="member-role">Frontend & App</div>
+        </div>
+        <div class="member">
+          <div class="member-avatar">👤</div>
+          <div class="member-name">Aluno 3</div>
+          <div class="member-role">Testes & CI/CD</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

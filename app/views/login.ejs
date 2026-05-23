@@ -1,28 +1,60 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo 1</title>
-    <style>
-      .erro {
-        background: #fef2f2;
-        border: 1px solid #fca5a5;
-        color: #b91c1c;
-        border-radius: 8px;
-        padding: 10px 14px;
-        font-size: 0.85rem;
-        margin-bottom: 20px;
-        display: flex; align-items: center; gap: 8px;
-      }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — AguaCalc</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f9ff;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card {
+      background: #fff; border-radius: 16px;
+      padding: 2.5rem 2rem;
+      width: 100%; max-width: 380px;
+      box-shadow: 0 4px 30px rgba(0,119,182,0.1);
+    }
+    .logo { text-align: center; margin-bottom: 1.5rem; }
+    .logo span { font-size: 3rem; }
+    h1 { font-size: 1.6rem; color: #0077b6; margin-top: 0.5rem; }
+    p  { font-size: 0.9rem; color: #666; }
+    label { display: block; margin-bottom: 0.3rem; font-size: 0.9rem; color: #444; font-weight: 500; }
+    input {
+      width: 100%; padding: 10px 14px;
+      border: 1.5px solid #d0e8f5; border-radius: 8px;
+      font-size: 1rem; margin-bottom: 1rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    input:focus { border-color: #0077b6; }
+    .btn {
+      width: 100%; padding: 12px;
+      background: #0077b6; color: #fff;
+      border: none; border-radius: 8px;
+      font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn:hover { background: #005f8e; }
+    .erro {
+      background: #fef2f2; border: 1px solid #fca5a5;
+      color: #b91c1c; border-radius: 8px;
+      padding: 10px 14px; font-size: 0.85rem;
+      margin-bottom: 1rem;
+    }
+    .dica { text-align: center; margin-top: 1rem; font-size: 0.8rem; color: #999; }
+    .nav-links { text-align: center; margin-top: 0.8rem; }
+    .nav-links a { color: #0077b6; font-size: 0.85rem; text-decoration: none; margin: 0 6px; }
+  </style>
 </head>
 <body>
-     <div >
-    <div >
-      <div >🏠</div>
-      <h1>Exemplo<span>  Calculo </span></h1>
-      <p>Sistema de Calculo</p>
+  <div class="card">
+    <div class="logo">
+      <span>💧</span>
+      <h1>AguaCalc</h1>
+      <p>Sistema de Cálculo de Consumo de Água</p>
     </div>
 
     <% if (error) { %>
@@ -30,17 +62,21 @@
     <% } %>
 
     <form method="POST" action="/login" id="loginForm">
-      <div >
-        <label for="username">Usuário</label>
-        <input type="text" id="username" name="username" placeholder="Digite seu usuário" autocomplete="username" required>
-      </div>
-      <div >
-        <label for="password">Senha</label>
-        <input type="password" id="password" name="password" placeholder="Digite sua senha" autocomplete="current-password" required>
-      </div>
-      <button type="submit"  id="btnLogin">Entrar</button>
+      <label for="username">Usuário</label>
+      <input type="text" id="username" name="username" placeholder="Digite seu usuário" autocomplete="username" required>
+
+      <label for="password">Senha</label>
+      <input type="password" id="password" name="password" placeholder="Digite sua senha" autocomplete="current-password" required>
+
+      <button type="submit" id="btnLogin" class="btn">Entrar</button>
     </form>
-    <p >Credenciais: admin / admin</p>
+
+    <p class="dica">Credenciais: admin / admin</p>
+    <div class="nav-links">
+      <a href="/">← Início</a>
+      <a href="/sobre">Sobre</a>
+      <a href="/help">Ajuda</a>
+    </div>
   </div>
 </body>
 </html>

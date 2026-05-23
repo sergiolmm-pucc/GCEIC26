@@ -1,17 +1,17 @@
 {
-  "name": "app",
+  "name": "agua-app",
   "version": "1.0.0",
-  "description": "cria o diretorio api e app no diretorio app via terminal  npm init -y cria o arquivo principal",
+  "description": "Frontend web para calculadora de consumo de água",
   "main": "index.js",
+  "type": "commonjs",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["agua", "consumo", "calculo"],
+  "author": "Seu Nome",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "body-parser": "^2.2.2",
     "ejs": "^5.0.2",
