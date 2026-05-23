@@ -1,18 +1,15 @@
 {
-  "name": "gceic",
+  "name": "agua-api",
   "version": "1.0.0",
-  "description": "Exemplo para testes",
+  "description": "API para cálculo de consumo de água",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "jest --coverage --verbose --ci --reporters=default --testResultsProcessor=jest-junit"
   },
-  "keywords": [
-    "teste",
-    "CI",
-    "CD"
-  ],
-  "author": "SLMM",
+  "keywords": ["agua", "consumo", "calculo", "CI", "CD"],
+  "author": "Seu Nome",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.6",

@@ -1,11 +1,9 @@
-
 const app = require('./src/app');
 
 const PORT = process.env.PORT || 3001;
 
-app.listen( PORT, () => {
-  console.log(` API rodando em ${PORT} ajuste 4`); 
-  console.log(` para verificar saude da API digite  : `);
-  console.log(` http://localhost:${PORT}/health`);	
-
+app.listen(PORT, () => {
+  console.log(`   API Consumo de Água rodando na porta ${PORT}`);
+  console.log(`   Saúde: http://localhost:${PORT}/health`);
+  console.log(`   Calcular: POST http://localhost:${PORT}/api/calcular`);
 });
