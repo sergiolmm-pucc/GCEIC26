@@ -1,104 +1,111 @@
-// Tabela de referência para cálculo de consumo de água
+// ============================================================
+// TABELA DE REFERÊNCIA
+// Baseada em médias de consumo residencial (fonte: CAESB)
+// ============================================================
 const TABELA = {
-  CONSUMO_MEDIO_POR_PESSOA: 150, // litros/dia 
+  LITROS_POR_MIN_BANHO: 4.5,   // média entre 3L e 6L por minuto
+  LITROS_POR_DESCARGA: 8.5,    // média entre 7L e 10L por descarga
   TARIFA: {
     faixas: [
-      { ate: 10,  tarifa: 4.50 },   // até 10m³ - tarifa mínima
-      { ate: 15,  tarifa: 8.20 },   // até 15m³
-      { ate: 20,  tarifa: 12.50 },  // até 20m³
-      { ate: 50,  tarifa: 18.90 },  // até 50m³
-      { ate: Infinity, tarifa: 25.70 }, // acima de 50m³
+      { ate: 10,       tarifa: 4.50 },
+      { ate: 15,       tarifa: 8.20 },
+      { ate: 20,       tarifa: 12.50 },
+      { ate: 50,       tarifa: 18.90 },
+      { ate: Infinity, tarifa: 25.70 },
     ],
-    unidade: 'm³',
   },
   LITROS_POR_M3: 1000,
-  REFERENCIA: 30 / 100, // 30% de margem de segurança sugerida
+  MARGEM_SEGURANCA: 0.30,
 };
 
-/**
- * Calcula o consumo diário de água de uma residência em litros
- * @param {number} pessoas - número de moradores
- * @param {number} litrosPorPessoa - litros por pessoa por dia 
- */
-function calcularConsumoDiario(pessoas, litrosPorPessoa = TABELA.CONSUMO_MEDIO_POR_PESSOA) {
-  if (!pessoas || pessoas <= 0) throw new Error('Número de pessoas deve ser maior que zero');
-  if (litrosPorPessoa <= 0) throw new Error('Consumo por pessoa deve ser maior que zero');
-  const totalLitros = pessoas * litrosPorPessoa;
-  return parseFloat(totalLitros.toFixed(2));
-}
+// ============================================================
+// API 1 — ANA: Consumo Diário
+// ============================================================
+function calcularConsumoDiario(tempoBanhoMin, descargasDia, pessoas = 1) {
+  if (tempoBanhoMin < 0) throw new Error('Tempo de banho não pode ser negativo');
+  if (descargasDia < 0)  throw new Error('Número de descargas não pode ser negativo');
+  if (pessoas <= 0)      throw new Error('Número de pessoas deve ser maior que zero');
 
-/**
- * Converte litros para m³
- */
-function litrosParaM3(litros) {
-  if (litros < 0) throw new Error('Litros não pode ser negativo');
-  return parseFloat((litros / TABELA.LITROS_POR_M3).toFixed(4));
-}
-
-/**
- * Calcula o consumo mensal em m³
- * @param {number} pessoas - número de moradores
- * @param {number} litrosPorPessoa - litros por pessoa por dia
- * @param {number} dias - dias do mês 
- */
-function calcularConsumoMensal(pessoas, litrosPorPessoa = TABELA.CONSUMO_MEDIO_POR_PESSOA, dias = 30) {
-  if (!pessoas || pessoas <= 0) throw new Error('Número de pessoas deve ser maior que zero');
-  if (dias <= 0 || dias > 31) throw new Error('Número de dias inválido');
-  const litrosDia = calcularConsumoDiario(pessoas, litrosPorPessoa);
-  const litrosMes = litrosDia * dias;
-  const m3Mes = litrosParaM3(litrosMes);
-  return {
-    litrosDia: parseFloat(litrosDia.toFixed(2)),
-    litrosMes: parseFloat(litrosMes.toFixed(2)),
-    m3Mes: parseFloat(m3Mes.toFixed(4)),
-  };
-}
-
-/**
- * Calcula o valor da conta de água baseado no consumo em m³
- * @param {number} m3 - consumo em metros cúbicos
- */
-function calcularConta(m3) {
-  if (m3 < 0) throw new Error('Consumo não pode ser negativo');
-  const faixas = TABELA.TARIFA.faixas;
-  let faixaAtual = faixas.find(f => m3 <= f.ate);
-  if (!faixaAtual) faixaAtual = faixas[faixas.length - 1];
-  const valorBase = m3 * faixaAtual.tarifa;
-  const margem = valorBase * TABELA.REFERENCIA;
-  return {
-    consumoM3: parseFloat(m3.toFixed(4)),
-    tarifaM3: faixaAtual.tarifa,
-    valorBase: parseFloat(valorBase.toFixed(2)),
-    margemSeguranca: parseFloat(margem.toFixed(2)),
-    valorTotal: parseFloat((valorBase + margem).toFixed(2)),
-  };
-}
-
-/**
- * Função principal: calcula tudo a partir dos dados da requisição
- * Compatível com o endpoint POST /api/calcular
- */
-function calcular(dados) {
-  const { pessoas = 0, litrosPorPessoa = TABELA.CONSUMO_MEDIO_POR_PESSOA, dias = 30 } = dados;
-  if (!pessoas || pessoas <= 0) throw new Error('Número de pessoas deve ser maior que zero');
-
-  const consumo = calcularConsumoMensal(pessoas, litrosPorPessoa, dias);
-  const conta = calcularConta(consumo.m3Mes);
+  const consumoPorPessoa    = (tempoBanhoMin * TABELA.LITROS_POR_MIN_BANHO)
+                            + (descargasDia  * TABELA.LITROS_POR_DESCARGA);
+  const consumoDiarioLitros = consumoPorPessoa * pessoas;
 
   return {
+    consumoPorPessoa:     parseFloat(consumoPorPessoa.toFixed(2)),
+    consumoDiarioLitros:  parseFloat(consumoDiarioLitros.toFixed(2)),
     pessoas,
-    litrosPorPessoa,
-    dias,
-    ...consumo,
-    ...conta,
   };
+}
+
+// ============================================================
+// API 2 — HUGO: Custo Mensal
+// ============================================================
+function calcularCustoMensal(consumoDiarioLitros, tarifa, dias = 30) {
+  if (consumoDiarioLitros < 0) throw new Error('Consumo não pode ser negativo');
+  if (tarifa <= 0)             throw new Error('Tarifa deve ser maior que zero');
+  if (dias <= 0 || dias > 31)  throw new Error('Número de dias inválido');
+
+  const consumoMensalLitros = consumoDiarioLitros * dias;
+  const consumoMensalM3     = consumoMensalLitros / TABELA.LITROS_POR_M3;
+
+  const faixa = TABELA.TARIFA.faixas.find(f => consumoMensalM3 <= f.ate)
+             || TABELA.TARIFA.faixas[TABELA.TARIFA.faixas.length - 1];
+
+  const custoEstimado = parseFloat((consumoMensalLitros * tarifa).toFixed(2));
+
+  return {
+    consumoMensalLitros: parseFloat(consumoMensalLitros.toFixed(2)),
+    consumoMensalM3:     parseFloat(consumoMensalM3.toFixed(4)),
+    faixaTarifa:         faixa.tarifa,
+    custoEstimado,
+    dias,
+  };
+}
+
+// ============================================================
+// API 3 — LETÍCIA: Projeção de Economia
+// ============================================================
+function calcularEconomia(litrosAtuais, reducaoPercentual, tarifa, pessoas = 1) {
+  if (litrosAtuais <= 0)                              throw new Error('Consumo atual deve ser maior que zero');
+  if (reducaoPercentual <= 0 || reducaoPercentual >= 100) throw new Error('Redução deve estar entre 1% e 99%');
+  if (tarifa <= 0)                                    throw new Error('Tarifa deve ser maior que zero');
+  if (pessoas <= 0)                                   throw new Error('Número de pessoas deve ser maior que zero');
+
+  const economiaLitros    = litrosAtuais * (reducaoPercentual / 100);
+  const novoConsumoLitros = litrosAtuais - economiaLitros;
+  const novoCusto         = novoConsumoLitros * tarifa;
+  const economiaReais     = economiaLitros * tarifa;
+
+  // Sugestão por pessoa por dia
+  const economiaDiariaPorPessoa = (economiaLitros / 30) / pessoas;
+  const reducaoBanhoMinutos     = economiaDiariaPorPessoa / TABELA.LITROS_POR_MIN_BANHO;
+  const reducaoDescargas        = economiaDiariaPorPessoa / TABELA.LITROS_POR_DESCARGA;
+
+  return {
+    economiaLitros:       parseFloat(economiaLitros.toFixed(2)),
+    novoConsumoLitros:    parseFloat(novoConsumoLitros.toFixed(2)),
+    novoCusto:            parseFloat(novoCusto.toFixed(2)),
+    economiaReais:        parseFloat(economiaReais.toFixed(2)),
+    reducaoBanhoMinutos:  parseFloat(reducaoBanhoMinutos.toFixed(2)),
+    reducaoDescargas:     parseFloat(reducaoDescargas.toFixed(2)),
+  };
+}
+
+// ============================================================
+// Função auxiliar usada pelos testes
+// ============================================================
+function calcular(dados) {
+  const { pessoas = 1, tempoBanhoMin = 0, descargasDia = 0, tarifa = 0.005, dias = 30, reducaoPercentual = 10 } = dados;
+  const diario  = calcularConsumoDiario(tempoBanhoMin, descargasDia, pessoas);
+  const mensal  = calcularCustoMensal(diario.consumoDiarioLitros, tarifa, dias);
+  const economia = calcularEconomia(mensal.consumoMensalLitros, reducaoPercentual, tarifa, pessoas);
+  return { ...diario, ...mensal, economia };
 }
 
 module.exports = {
   TABELA,
   calcularConsumoDiario,
-  litrosParaM3,
-  calcularConsumoMensal,
-  calcularConta,
+  calcularCustoMensal,
+  calcularEconomia,
   calcular,
 };

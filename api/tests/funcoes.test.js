@@ -1,103 +1,124 @@
 const {
   calcularConsumoDiario,
-  litrosParaM3,
-  calcularConsumoMensal,
-  calcularConta,
+  calcularCustoMensal,
+  calcularEconomia,
   calcular,
 } = require('../src/funcoes');
 
-describe('calcularConsumoDiario', () => {
-  test('deve calcular corretamente com consumo padrão (150 L/dia)', () => {
-    expect(calcularConsumoDiario(4)).toBe(600.00);
+// -------------------------------------------------------
+// API 1 — ANA: calcularConsumoDiario
+// -------------------------------------------------------
+describe('calcularConsumoDiario (API 1 - Ana)', () => {
+  test('deve calcular consumo para 1 pessoa com valores padrão', () => {
+    const r = calcularConsumoDiario(10, 3, 1);
+    expect(r.consumoDiarioLitros).toBe(70.5);
   });
 
-  test('deve calcular corretamente com consumo customizado', () => {
-    expect(calcularConsumoDiario(2, 200)).toBe(400.00);
+  test('deve multiplicar pelo número de pessoas', () => {
+    const r = calcularConsumoDiario(10, 3, 4);
+    expect(r.consumoDiarioLitros).toBe(282.0);
+    expect(r.pessoas).toBe(4);
+  });
+
+  test('deve lançar erro para tempo de banho negativo', () => {
+    expect(() => calcularConsumoDiario(-1, 3, 1)).toThrow();
+  });
+
+  test('deve lançar erro para descargas negativas', () => {
+    expect(() => calcularConsumoDiario(10, -1, 1)).toThrow();
   });
 
   test('deve lançar erro para 0 pessoas', () => {
-    expect(() => calcularConsumoDiario(0)).toThrow('Número de pessoas deve ser maior que zero');
-  });
-
-  test('deve lançar erro para pessoas negativo', () => {
-    expect(() => calcularConsumoDiario(-1)).toThrow();
-  });
-
-  test('deve lançar erro para litros por pessoa zero', () => {
-    expect(() => calcularConsumoDiario(2, 0)).toThrow();
+    expect(() => calcularConsumoDiario(10, 3, 0)).toThrow('Número de pessoas deve ser maior que zero');
   });
 });
 
-describe('litrosParaM3', () => {
-  test('deve converter 1000 litros para 1 m³', () => {
-    expect(litrosParaM3(1000)).toBe(1.0);
+// -------------------------------------------------------
+// API 2 — HUGO: calcularCustoMensal
+// -------------------------------------------------------
+describe('calcularCustoMensal (API 2 - Hugo)', () => {
+  test('deve retornar objeto com consumoMensalLitros, consumoMensalM3 e custoEstimado', () => {
+    const r = calcularCustoMensal(282, 0.005, 30);
+    expect(r).toHaveProperty('consumoMensalLitros');
+    expect(r).toHaveProperty('consumoMensalM3');
+    expect(r).toHaveProperty('custoEstimado');
   });
 
-  test('deve converter 150 litros corretamente', () => {
-    expect(litrosParaM3(150)).toBe(0.15);
-  });
-
-  test('deve lançar erro para valor negativo', () => {
-    expect(() => litrosParaM3(-1)).toThrow('Litros não pode ser negativo');
-  });
-});
-
-describe('calcularConsumoMensal', () => {
-  test('deve retornar objeto com litrosDia, litrosMes e m3Mes', () => {
-    const resultado = calcularConsumoMensal(4);
-    expect(resultado).toHaveProperty('litrosDia');
-    expect(resultado).toHaveProperty('litrosMes');
-    expect(resultado).toHaveProperty('m3Mes');
-  });
-
-  test('deve calcular corretamente para 4 pessoas, 30 dias', () => {
-    const r = calcularConsumoMensal(4, 150, 30);
-    expect(r.litrosDia).toBe(600.00);
-    expect(r.litrosMes).toBe(18000.00);
-    expect(r.m3Mes).toBe(18.0);
-  });
-
-  test('deve lançar erro para dias inválidos', () => {
-    expect(() => calcularConsumoMensal(4, 150, 0)).toThrow('Número de dias inválido');
-    expect(() => calcularConsumoMensal(4, 150, 32)).toThrow('Número de dias inválido');
-  });
-});
-
-describe('calcularConta', () => {
-  test('deve retornar objeto completo com valorTotal', () => {
-    const r = calcularConta(18);
-    expect(r).toHaveProperty('consumoM3');
-    expect(r).toHaveProperty('tarifaM3');
-    expect(r).toHaveProperty('valorBase');
-    expect(r).toHaveProperty('margemSeguranca');
-    expect(r).toHaveProperty('valorTotal');
+  test('deve calcular 30 dias corretamente', () => {
+    const r = calcularCustoMensal(100, 0.005, 30);
+    expect(r.consumoMensalLitros).toBe(3000);
+    expect(r.custoEstimado).toBe(15.00);
   });
 
   test('deve lançar erro para consumo negativo', () => {
-    expect(() => calcularConta(-1)).toThrow('Consumo não pode ser negativo');
+    expect(() => calcularCustoMensal(-1, 0.005, 30)).toThrow();
   });
 
-  test('deve usar faixa correta para até 10m³', () => {
-    const r = calcularConta(5);
-    expect(r.tarifaM3).toBe(4.50);
+  test('deve lançar erro para tarifa zero', () => {
+    expect(() => calcularCustoMensal(100, 0, 30)).toThrow();
   });
 
-  test('deve usar faixa correta para acima de 50m³', () => {
-    const r = calcularConta(60);
-    expect(r.tarifaM3).toBe(25.70);
+  test('deve lançar erro para dias inválidos', () => {
+    expect(() => calcularCustoMensal(100, 0.005, 0)).toThrow('Número de dias inválido');
   });
 });
 
-describe('calcular (função principal)', () => {
-  test('deve retornar resultado completo para 4 pessoas', () => {
-    const r = calcular({ pessoas: 4, dias: 30 });
-    expect(r).toHaveProperty('pessoas', 4);
-    expect(r).toHaveProperty('litrosDia');
-    expect(r).toHaveProperty('m3Mes');
-    expect(r).toHaveProperty('valorTotal');
+// -------------------------------------------------------
+// API 3 — LETICIA: calcularEconomia
+// -------------------------------------------------------
+describe('calcularEconomia (API 3 - Leticia)', () => {
+  test('deve retornar objeto completo com todos os campos', () => {
+    const r = calcularEconomia(3000, 20, 0.005, 4);
+    expect(r).toHaveProperty('economiaLitros');
+    expect(r).toHaveProperty('novoConsumoLitros');
+    expect(r).toHaveProperty('novoCusto');
+    expect(r).toHaveProperty('economiaReais');
+    expect(r).toHaveProperty('reducaoBanhoMinutos');
+    expect(r).toHaveProperty('reducaoDescargas');
   });
 
-  test('deve lançar erro para 0 pessoas', () => {
-    expect(() => calcular({ pessoas: 0 })).toThrow();
+  test('deve calcular 20% de economia corretamente', () => {
+    const r = calcularEconomia(3000, 20, 0.005, 4);
+    expect(r.economiaLitros).toBe(600);
+    expect(r.novoConsumoLitros).toBe(2400);
+  });
+
+  test('deve calcular sugestao por pessoa corretamente', () => {
+    // 600L economia / 30 dias / 4 pessoas = 5L/pessoa/dia
+    // 5 / 4.5 = 1.11 min banho por pessoa
+    const r = calcularEconomia(3000, 20, 0.005, 4);
+    expect(r.reducaoBanhoMinutos).toBe(1.11);
+  });
+
+  test('deve lançar erro para consumo zero', () => {
+    expect(() => calcularEconomia(0, 20, 0.005, 4)).toThrow();
+  });
+
+  test('deve lançar erro para redução 0%', () => {
+    expect(() => calcularEconomia(3000, 0, 0.005, 4)).toThrow();
+  });
+
+  test('deve lançar erro para redução 100%', () => {
+    expect(() => calcularEconomia(3000, 100, 0.005, 4)).toThrow();
+  });
+
+  test('deve lançar erro para tarifa zero', () => {
+    expect(() => calcularEconomia(3000, 20, 0, 4)).toThrow();
+  });
+
+  test('deve lançar erro para pessoas zero', () => {
+    expect(() => calcularEconomia(3000, 20, 0.005, 0)).toThrow('Número de pessoas deve ser maior que zero');
+  });
+});
+
+// -------------------------------------------------------
+// Função calcular (integração das 3 APIs)
+// -------------------------------------------------------
+describe('calcular (integracao das 3 APIs)', () => {
+  test('deve retornar resultado completo para 4 pessoas', () => {
+    const r = calcular({ pessoas: 4, tempoBanhoMin: 10, descargasDia: 3, tarifa: 0.005, dias: 30 });
+    expect(r).toHaveProperty('consumoDiarioLitros');
+    expect(r).toHaveProperty('custoEstimado');
+    expect(r).toHaveProperty('economia');
   });
 });

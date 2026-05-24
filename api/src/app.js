@@ -7,43 +7,84 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-// Checa se a API está no ar
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    by: 'AGUA-GROUP',
+    by: 'AGUA-GROUP-20',
     projeto: 'Cálculo de Consumo de Água',
   });
 });
 
-// Retorna as tabelas de referência (tarifas e constantes)
 app.get('/api/tabelas', (req, res) => {
   const { TABELA } = require('./funcoes');
   res.json({
     success: true,
     data: {
-      faixasTarifa: TABELA.TARIFA.faixas,
-      consumoMedioPorPessoa: `${TABELA.CONSUMO_MEDIO_POR_PESSOA} L/dia`,
-      margemSeguranca: `${TABELA.REFERENCIA * 100}%`,
+      faixasTarifa:      TABELA.TARIFA.faixas,
+      litrosPorMinBanho: TABELA.LITROS_POR_MIN_BANHO,
+      litrosPorDescarga: TABELA.LITROS_POR_DESCARGA,
+      margemSeguranca:   `${TABELA.MARGEM_SEGURANCA * 100}%`,
     },
   });
 });
 
-// POST /api/calcular — calcula consumo e valor da conta
+// API 1 — ANA: Consumo Diário
+app.post('/AGUA/consumoDiario', (req, res) => {
+  try {
+    const { calcularConsumoDiario } = require('./funcoes');
+    const { tempoBanhoMin, descargasDia, pessoas } = req.body;
+    const resultado = calcularConsumoDiario(
+      Number(tempoBanhoMin),
+      Number(descargasDia),
+      Number(pessoas)
+    );
+    res.json({ success: true, data: resultado });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+// API 2 — HUGO: Custo Mensal
+app.post('/AGUA/custoMensal', (req, res) => {
+  try {
+    const { calcularCustoMensal } = require('./funcoes');
+    const { consumoDiarioLitros, tarifa, dias } = req.body;
+    const resultado = calcularCustoMensal(
+      Number(consumoDiarioLitros),
+      Number(tarifa),
+      Number(dias) || 30
+    );
+    res.json({ success: true, data: resultado });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+// API 3 — LETÍCIA: Projeção de Economia
+app.post('/AGUA/economia', (req, res) => {
+  try {
+    const { calcularEconomia } = require('./funcoes');
+    const { litrosAtuais, reducaoPercentual, tarifa, pessoas } = req.body;
+    const resultado = calcularEconomia(
+      Number(litrosAtuais),
+      Number(reducaoPercentual),
+      Number(tarifa),
+      Number(pessoas) 
+    );
+    res.json({ success: true, data: resultado });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
 app.post('/api/calcular', (req, res) => {
   try {
     const { calcular } = require('./funcoes');
-    const dados = req.body;
-
-    if (!dados || typeof dados !== 'object') {
-      return res.status(400).json({ error: 'Corpo da requisição inválido' });
-    }
-
-    const resultado = calcular(dados);
-    return res.status(200).json({ success: true, data: resultado });
+    const resultado = calcular(req.body);
+    res.status(200).json({ success: true, data: resultado });
   } catch (err) {
-    return res.status(400).json({ success: false, error: err.message });
+    res.status(400).json({ success: false, error: err.message });
   }
 });
 

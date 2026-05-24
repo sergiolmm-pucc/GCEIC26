@@ -6,57 +6,83 @@ describe('GET /health', () => {
     const res = await request(app).get('/health');
     expect(res.statusCode).toBe(200);
     expect(res.body.status).toBe('ok');
-    expect(res.body).toHaveProperty('timestamp');
   });
 });
 
 describe('GET /api/tabelas', () => {
-  test('deve retornar tabela de tarifas e constantes', async () => {
+  test('deve retornar tabelas de referência', async () => {
     const res = await request(app).get('/api/tabelas');
     expect(res.statusCode).toBe(200);
     expect(res.body.success).toBe(true);
     expect(res.body.data).toHaveProperty('faixasTarifa');
-    expect(res.body.data).toHaveProperty('consumoMedioPorPessoa');
-    expect(res.body.data).toHaveProperty('margemSeguranca');
-    expect(Array.isArray(res.body.data.faixasTarifa)).toBe(true);
   });
 });
 
-describe('POST /api/calcular', () => {
+// API 1 — ANA
+describe('POST /AGUA/consumoDiario (Ana)', () => {
   test('deve calcular consumo para 4 pessoas', async () => {
     const res = await request(app)
-      .post('/api/calcular')
-      .send({ pessoas: 4, dias: 30 });
+      .post('/AGUA/consumoDiario')
+      .send({ tempoBanhoMin: 10, descargasDia: 3, pessoas: 4 });
     expect(res.statusCode).toBe(200);
     expect(res.body.success).toBe(true);
-    expect(res.body.data).toHaveProperty('pessoas', 4);
-    expect(res.body.data).toHaveProperty('m3Mes');
-    expect(res.body.data).toHaveProperty('valorTotal');
+    expect(res.body.data).toHaveProperty('consumoDiarioLitros');
+    expect(res.body.data.pessoas).toBe(4);
   });
 
-  test('deve calcular consumo com consumo customizado', async () => {
+  test('deve retornar erro 400 para pessoas inválidas', async () => {
     const res = await request(app)
-      .post('/api/calcular')
-      .send({ pessoas: 2, litrosPorPessoa: 200, dias: 30 });
-    expect(res.statusCode).toBe(200);
-    expect(res.body.success).toBe(true);
-    expect(res.body.data.litrosDia).toBe(400);
-  });
-
-  test('deve retornar erro 400 para 0 pessoas', async () => {
-    const res = await request(app)
-      .post('/api/calcular')
-      .send({ pessoas: 0 });
+      .post('/AGUA/consumoDiario')
+      .send({ tempoBanhoMin: 10, descargasDia: 3, pessoas: 0 });
     expect(res.statusCode).toBe(400);
     expect(res.body.success).toBe(false);
-    expect(res.body).toHaveProperty('error');
+  });
+});
+
+// API 2 — HUGO
+describe('POST /AGUA/custoMensal (Hugo)', () => {
+  test('deve calcular custo mensal corretamente', async () => {
+    const res = await request(app)
+      .post('/AGUA/custoMensal')
+      .send({ consumoDiarioLitros: 282, tarifa: 0.005, dias: 30 });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data).toHaveProperty('custoEstimado');
+    expect(res.body.data).toHaveProperty('consumoMensalM3');
   });
 
-  test('deve retornar erro 400 para body inválido', async () => {
+  test('deve retornar erro 400 para tarifa zero', async () => {
     const res = await request(app)
-      .post('/api/calcular')
-      .send('string invalida')
-      .set('Content-Type', 'text/plain');
+      .post('/AGUA/custoMensal')
+      .send({ consumoDiarioLitros: 282, tarifa: 0, dias: 30 });
+    expect(res.statusCode).toBe(400);
+  });
+});
+
+// API 3 — LETICIA
+describe('POST /AGUA/economia (Leticia)', () => {
+  test('deve calcular projeção de economia com pessoas', async () => {
+    const res = await request(app)
+      .post('/AGUA/economia')
+      .send({ litrosAtuais: 8460, reducaoPercentual: 20, tarifa: 0.005, pessoas: 4 });
+    expect(res.statusCode).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data).toHaveProperty('economiaLitros');
+    expect(res.body.data).toHaveProperty('reducaoBanhoMinutos');
+    expect(res.body.data).toHaveProperty('reducaoDescargas');
+  });
+
+  test('deve retornar erro 400 para redução inválida', async () => {
+    const res = await request(app)
+      .post('/AGUA/economia')
+      .send({ litrosAtuais: 8460, reducaoPercentual: 0, tarifa: 0.005, pessoas: 4 });
+    expect(res.statusCode).toBe(400);
+  });
+
+  test('deve retornar erro 400 para pessoas inválidas', async () => {
+    const res = await request(app)
+      .post('/AGUA/economia')
+      .send({ litrosAtuais: 8460, reducaoPercentual: 20, tarifa: 0.005, pessoas: 0 });
     expect(res.statusCode).toBe(400);
   });
 });

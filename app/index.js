@@ -27,7 +27,7 @@ function requireAuth(req, res, next) {
   res.redirect('/login');
 }
 
-// Splash screen (rota raiz)
+// Splash
 app.get('/', (req, res) => res.render('splash'));
 
 // Login
@@ -45,24 +45,28 @@ app.post('/login', (req, res) => {
   res.render('login', { error: 'Usuário ou senha inválidos' });
 });
 
+app.post('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/login');
+});
+
 app.get('/logout', (req, res) => {
   req.session.destroy();
   res.redirect('/login');
 });
 
 // Telas autenticadas
-app.get('/calculo', requireAuth, (req, res) => {
-  res.render('calculo', { user: req.session.user });
-});
-
+app.get('/calculo', requireAuth, (req, res) => res.render('calculo', { user: req.session.user }));
 app.get('/sobre',   requireAuth, (req, res) => res.render('sobre'));
 app.get('/help',    requireAuth, (req, res) => res.render('help'));
 
-// Proxy para a API de cálculo
-app.post('/calcular', requireAuth, async (req, res) => {
+// -------------------------------------------------------
+// Proxy para a API — as 3 rotas do projeto
+// -------------------------------------------------------
+async function proxyPost(req, res, rota) {
   try {
     const fetch = (await import('node-fetch')).default;
-    const response = await fetch(`${API_URL}/api/calcular`, {
+    const response = await fetch(`${API_URL}${rota}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req.body),
@@ -72,10 +76,19 @@ app.post('/calcular', requireAuth, async (req, res) => {
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
   }
-});
+}
+
+// API 1 — Ana: Consumo Diário
+app.post('/AGUA/consumoDiario', requireAuth, (req, res) => proxyPost(req, res, '/AGUA/consumoDiario'));
+
+// API 2 — Hugo: Custo Mensal
+app.post('/AGUA/custoMensal',   requireAuth, (req, res) => proxyPost(req, res, '/AGUA/custoMensal'));
+
+// API 3 — Letícia: Projeção de Economia
+app.post('/AGUA/economia',      requireAuth, (req, res) => proxyPost(req, res, '/AGUA/economia'));
 
 app.listen(PORT, () => {
-  console.log(` AguaCalc App rodando: http://localhost:${PORT}`);
+  console.log(`✅ AguaCalc App rodando: http://localhost:${PORT}`);
 });
 
 module.exports = app;

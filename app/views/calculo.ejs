@@ -13,159 +13,235 @@
       display: flex; justify-content: space-between; align-items: center;
     }
     nav .brand { font-size: 1.2rem; font-weight: 700; }
-    nav .user-info { font-size: 0.9rem; display: flex; gap: 16px; align-items: center; }
-    nav a { color: #cde; text-decoration: none; }
+    nav .links { display: flex; gap: 16px; align-items: center; }
+    nav a { color: #cde; text-decoration: none; font-size: 0.9rem; }
     nav a:hover { color: #fff; }
-    .container { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
+    nav .btn-sair {
+      background: #c62828; color: #fff;
+      border: none; border-radius: 6px;
+      padding: 6px 14px; cursor: pointer;
+      font-size: 0.85rem; font-weight: 600;
+    }
+    .container { max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
     .card {
       background: #fff; border-radius: 16px;
-      padding: 2rem; box-shadow: 0 4px 20px rgba(0,119,182,0.08);
-      margin-bottom: 1.5rem;
+      padding: 1.8rem; box-shadow: 0 4px 20px rgba(0,119,182,0.08);
+      margin-bottom: 1.2rem;
     }
-    h2 { color: #0077b6; margin-bottom: 1.5rem; font-size: 1.4rem; }
-    .form-group { margin-bottom: 1.2rem; }
-    label { display: block; margin-bottom: 0.4rem; font-size: 0.9rem; font-weight: 500; color: #444; }
-    .hint { font-size: 0.8rem; color: #888; margin-top: 0.2rem; }
-    input[type=number] {
+    .card h3 {
+      color: #0077b6; font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid #e0f3fb;
+    }
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 4px; color: #444; }
+    .field input {
       width: 100%; padding: 10px 14px;
       border: 1.5px solid #d0e8f5; border-radius: 8px;
       font-size: 1rem; outline: none; transition: border-color 0.2s;
     }
-    input[type=number]:focus { border-color: #0077b6; }
+    .field input:focus { border-color: #0077b6; }
+    .field .hint { font-size: 0.78rem; color: #888; margin-top: 3px; }
     .btn {
       width: 100%; padding: 13px;
       background: #0077b6; color: #fff;
       border: none; border-radius: 8px;
-      font-size: 1rem; font-weight: 600;
-      cursor: pointer; transition: background 0.2s;
+      font-size: 1rem; font-weight: 600; cursor: pointer;
+      transition: background 0.2s;
     }
     .btn:hover { background: #005f8e; }
     .btn:disabled { background: #90cde8; cursor: not-allowed; }
+    .loading { text-align: center; color: #0077b6; font-size: 0.9rem; margin-top: 8px; display: none; }
     .resultado { display: none; }
     .resultado.visivel { display: block; }
-    .resultado-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1rem; margin-bottom: 1rem;
-    }
-    .resultado-item {
-      background: #f0f9ff; border-radius: 10px;
-      padding: 1rem; text-align: center;
-    }
-    .resultado-item .valor { font-size: 1.5rem; font-weight: 700; color: #0077b6; }
-    .resultado-item .label { font-size: 0.8rem; color: #666; margin-top: 0.3rem; }
+    .resultado-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+    .resultado-item { background: #f0f9ff; border-radius: 10px; padding: 1rem; text-align: center; }
+    .resultado-item .valor { font-size: 1.4rem; font-weight: 700; color: #0077b6; }
+    .resultado-item .label { font-size: 0.78rem; color: #666; margin-top: 3px; }
     .total-card {
       background: linear-gradient(135deg, #0077b6, #00b4d8);
       color: #fff; border-radius: 12px; padding: 1.2rem;
-      text-align: center;
+      text-align: center; margin-bottom: 1rem;
     }
     .total-card .total-valor { font-size: 2.2rem; font-weight: 700; }
-    .total-card .total-label { font-size: 0.9rem; opacity: 0.85; }
-    .erro-msg { color: #b91c1c; background: #fef2f2; border-radius: 8px; padding: 10px; font-size: 0.9rem; }
-    .loading { text-align: center; color: #0077b6; font-size: 0.9rem; }
+    .total-card .total-label { font-size: 0.88rem; opacity: 0.85; }
+    .economia-box {
+      background: #e0f3fb; border-left: 5px solid #0077b6;
+      border-radius: 8px; padding: 1rem; margin-top: 4px;
+    }
+    .economia-box p { margin-bottom: 8px; font-size: 0.9rem; color: #333; }
+    .economia-box ul { padding-left: 18px; font-size: 0.88rem; color: #005f8e; }
+    .economia-box ul li { margin-bottom: 4px; }
+    .erro-msg {
+      background: #fef2f2; border: 1px solid #fca5a5;
+      color: #b91c1c; border-radius: 8px;
+      padding: 10px 14px; font-size: 0.88rem; margin-bottom: 10px;
+    }
   </style>
 </head>
 <body>
   <nav>
     <div class="brand">💧 AguaCalc</div>
-    <div class="user-info">
-      Olá, <strong><%= user.nome %></strong>
+    <div class="links">
+      <a href="/calculo">Calculadora</a>
       <a href="/sobre">Sobre</a>
       <a href="/help">Ajuda</a>
-      <a href="/logout">Sair</a>
+      <form method="POST" action="/logout" style="display:inline">
+        <button class="btn-sair" type="submit">Sair</button>
+      </form>
     </div>
   </nav>
 
   <div class="container">
+
     <div class="card">
-      <h2>💧 Cálculo de Consumo de Água</h2>
-
-      <div class="form-group">
-        <label for="pessoas">Número de moradores</label>
-        <input type="number" id="pessoas" min="1" max="50" value="4" placeholder="Ex: 4">
-        <p class="hint">Quantas pessoas moram na residência?</p>
+      <h3>1. Consumo Diário Básico</h3>
+      <div class="field">
+        <label>Número de moradores</label>
+        <input type="number" id="pessoas" min="1" value="4">
+        <span class="hint">Quantas pessoas moram na residência?</span>
       </div>
-
-      <div class="form-group">
-        <label for="litrosPorPessoa">Consumo por pessoa (litros/dia)</label>
-        <input type="number" id="litrosPorPessoa" min="50" max="500" value="150" placeholder="Ex: 150">
-        <p class="hint">Média: 150 L/pessoa/dia (ONU recomenda 110–200 L)</p>
+      <div class="field">
+        <label>Minutos de banho por pessoa/dia</label>
+        <input type="number" id="tempoBanho" min="0" value="10">
+        <span class="hint">Cada minuto gasta ~4,5 litros</span>
       </div>
-
-      <div class="form-group">
-        <label for="dias">Dias do mês</label>
-        <input type="number" id="dias" min="28" max="31" value="30" placeholder="Ex: 30">
-      </div>
-
-      <button class="btn" id="btnCalcular" onclick="calcular()">Calcular consumo</button>
-      <p class="loading" id="loadingMsg" style="display:none;margin-top:0.8rem">Calculando...</p>
-    </div>
-
-    <div class="card resultado" id="resultado">
-      <h2>📊 Resultado</h2>
-      <div id="erroMsg" class="erro-msg" style="display:none"></div>
-
-      <div class="resultado-grid">
-        <div class="resultado-item">
-          <div class="valor" id="res-litrosDia">-</div>
-          <div class="label">Litros por dia</div>
-        </div>
-        <div class="resultado-item">
-          <div class="valor" id="res-litrosMes">-</div>
-          <div class="label">Litros por mês</div>
-        </div>
-        <div class="resultado-item">
-          <div class="valor" id="res-m3Mes">-</div>
-          <div class="label">m³ por mês</div>
-        </div>
-        <div class="resultado-item">
-          <div class="valor" id="res-tarifa">-</div>
-          <div class="label">Tarifa (R$/m³)</div>
-        </div>
-      </div>
-
-      <div class="total-card">
-        <div class="total-label">Valor estimado da conta mensal</div>
-        <div class="total-valor" id="res-valorTotal">R$ -</div>
-        <div class="total-label" style="margin-top:0.3rem;font-size:0.8rem">inclui margem de segurança de 30%</div>
+      <div class="field">
+        <label>Descargas por pessoa/dia</label>
+        <input type="number" id="descargas" min="0" value="3">
+        <span class="hint">Cada descarga gasta ~8,5 litros</span>
       </div>
     </div>
+
+    <div class="card">
+      <h3>2. Estimativa de Custo Mensal</h3>
+      <div class="field">
+        <label>Tarifa por litro (R$)</label>
+        <input type="number" id="tarifa" step="0.001" value="0.005">
+        <span class="hint">Ex: se o m³ custa R$ 5,00 → tarifa = 0.005</span>
+      </div>
+      <div class="field">
+        <label>Dias do mês</label>
+        <input type="number" id="dias" min="28" max="31" value="30">
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3. Projeção de Economia</h3>
+      <div class="field">
+        <label>Meta de redução (%)</label>
+        <input type="number" id="reducao" min="1" max="99" value="20">
+        <span class="hint">Quanto você quer reduzir do consumo atual?</span>
+      </div>
+    </div>
+
+    <button class="btn" id="btnCalcular" onclick="calcular()">Calcular consumo</button>
+    <p class="loading" id="loadingMsg">Calculando...</p>
+
+    <div class="resultado" id="resultado">
+      <div class="card">
+        <h3>📊 Resultado</h3>
+        <div id="erroMsg" class="erro-msg" style="display:none"></div>
+
+        <div class="resultado-grid">
+          <div class="resultado-item">
+            <div class="valor" id="res-litrosDia">-</div>
+            <div class="label">Litros por dia</div>
+          </div>
+          <div class="resultado-item">
+            <div class="valor" id="res-litrosMes">-</div>
+            <div class="label">Litros por mês</div>
+          </div>
+          <div class="resultado-item">
+            <div class="valor" id="res-m3Mes">-</div>
+            <div class="label">m³ por mês</div>
+          </div>
+          <div class="resultado-item">
+            <div class="valor" id="res-tarifa">-</div>
+            <div class="label">Tarifa (R$/m³)</div>
+          </div>
+        </div>
+
+        <div class="total-card">
+          <div class="total-label">Valor estimado da conta mensal</div>
+          <div class="total-valor" id="res-custo">R$ -</div>
+        </div>
+
+        <div class="economia-box" id="economiaBox" style="display:none">
+          <p><strong>📉 Meta de Economia:</strong> <span id="res-economiaLitros">-</span> Litros/mês</p>
+          <p>
+            <strong>💸 Nova Conta Estimada:</strong> R$ <span id="res-novoCusto">-</span>
+            <span style="color:#2e7d32;font-weight:bold"> (Economia de R$ <span id="res-economiaReais">-</span>)</span>
+          </p>
+          <p style="margin-top:10px;font-weight:bold;font-size:0.88rem">Sugestões por pessoa para atingir a meta:</p>
+          <ul>
+            <li>Reduzir <strong><span id="res-reducaoBanho">-</span> min</strong> de banho por dia</li>
+            <li>Ou diminuir <strong><span id="res-reducaoDescargas">-</span> descargas</strong> diárias</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 <script>
 async function calcular() {
-  const pessoas = parseFloat(document.getElementById('pessoas').value);
-  const litrosPorPessoa = parseFloat(document.getElementById('litrosPorPessoa').value);
-  const dias = parseFloat(document.getElementById('dias').value);
+  const pessoas    = parseInt(document.getElementById('pessoas').value);
+  const tempoBanho = parseFloat(document.getElementById('tempoBanho').value);
+  const descargas  = parseFloat(document.getElementById('descargas').value);
+  const tarifa     = parseFloat(document.getElementById('tarifa').value);
+  const dias       = parseInt(document.getElementById('dias').value);
+  const reducao    = parseFloat(document.getElementById('reducao').value);
 
   document.getElementById('btnCalcular').disabled = true;
   document.getElementById('loadingMsg').style.display = 'block';
   document.getElementById('erroMsg').style.display = 'none';
+  document.getElementById('economiaBox').style.display = 'none';
 
   try {
-    const res = await fetch('/calcular', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ pessoas, litrosPorPessoa, dias }),
+    // API 1 — Ana: Consumo Diário
+    const r1 = await fetch('/AGUA/consumoDiario', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ tempoBanhoMin: tempoBanho, descargasDia: descargas, pessoas }),
     });
+    const d1 = await r1.json();
+    if (!d1.success) throw new Error(d1.error);
 
-    const json = await res.json();
+    // API 2 — Hugo: Custo Mensal
+    const r2 = await fetch('/AGUA/custoMensal', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ consumoDiarioLitros: d1.data.consumoDiarioLitros, tarifa, dias }),
+    });
+    const d2 = await r2.json();
+    if (!d2.success) throw new Error(d2.error);
 
-    if (!json.success) {
-      document.getElementById('erroMsg').textContent = 'Erro: ' + json.error;
-      document.getElementById('erroMsg').style.display = 'block';
-      document.getElementById('resultado').classList.add('visivel');
-      return;
-    }
+    // API 3 — Letícia: Projeção de Economia (passa pessoas para sugestão por pessoa)
+    const r3 = await fetch('/AGUA/economia', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ litrosAtuais: d2.data.consumoMensalLitros, reducaoPercentual: reducao, tarifa, pessoas }),
+    });
+    const d3 = await r3.json();
+    if (!d3.success) throw new Error(d3.error);
 
-    const d = json.data;
-    document.getElementById('res-litrosDia').textContent = d.litrosDia.toLocaleString('pt-BR') + ' L';
-    document.getElementById('res-litrosMes').textContent = d.litrosMes.toLocaleString('pt-BR') + ' L';
-    document.getElementById('res-m3Mes').textContent = d.m3Mes.toLocaleString('pt-BR') + ' m³';
-    document.getElementById('res-tarifa').textContent = 'R$ ' + d.tarifaM3.toFixed(2);
-    document.getElementById('res-valorTotal').textContent = 'R$ ' + d.valorTotal.toFixed(2);
+    document.getElementById('res-litrosDia').textContent = d1.data.consumoDiarioLitros.toLocaleString('pt-BR') + ' L';
+    document.getElementById('res-litrosMes').textContent = d2.data.consumoMensalLitros.toLocaleString('pt-BR') + ' L';
+    document.getElementById('res-m3Mes').textContent     = d2.data.consumoMensalM3.toLocaleString('pt-BR') + ' m³';
+    document.getElementById('res-tarifa').textContent    = 'R$ ' + d2.data.faixaTarifa.toFixed(2);
+    document.getElementById('res-custo').textContent     = 'R$ ' + d2.data.custoEstimado.toFixed(2);
+
+    document.getElementById('res-economiaLitros').textContent   = Number(d3.data.economiaLitros).toFixed(2);
+    document.getElementById('res-novoCusto').textContent        = Number(d3.data.novoCusto).toFixed(2);
+    document.getElementById('res-economiaReais').textContent    = Number(d3.data.economiaReais).toFixed(2);
+    document.getElementById('res-reducaoBanho').textContent     = Number(d3.data.reducaoBanhoMinutos).toFixed(1);
+    document.getElementById('res-reducaoDescargas').textContent = Number(d3.data.reducaoDescargas).toFixed(1);
+
+    document.getElementById('economiaBox').style.display = 'block';
     document.getElementById('resultado').classList.add('visivel');
   } catch (e) {
-    alert('Erro ao comunicar com o servidor: ' + e.message);
+    document.getElementById('erroMsg').textContent = 'Erro: ' + e.message;
+    document.getElementById('erroMsg').style.display = 'block';
+    document.getElementById('resultado').classList.add('visivel');
   } finally {
     document.getElementById('btnCalcular').disabled = false;
     document.getElementById('loadingMsg').style.display = 'none';
