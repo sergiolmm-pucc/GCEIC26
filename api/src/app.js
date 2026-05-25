@@ -1,6 +1,7 @@
 const express = require('express');
 const cors    = require('cors');
 const helmet  = require('helmet');
+const calcFinanceiraRouter = require("./calcFinanceira/calcFinanceiraApp")
 
 const app = express();
 
@@ -46,6 +47,6 @@ app.post('/api/calcular', (req, res) => {
   }
 });
 
+app.use("/api/calc-financeira", calcFinanceiraRouter)
+
 module.exports = app
-
-

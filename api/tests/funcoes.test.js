@@ -1,5 +1,4 @@
 
-
 const app     = require('../src/funcoes');
 
 describe('Teste de unitario', () => {
