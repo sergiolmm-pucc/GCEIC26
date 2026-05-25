@@ -31,7 +31,7 @@ describe('CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API', () =>
     });
   });
 
-  // POST /api/csh/labor-cost (Ana Carolina)
+  // POST /api/csh/labor-cost (Fernando Furlanetto)
   describe('POST /api/csh/labor-cost (Mão de Obra)', () => {
     test('Deve calcular custo de mão de obra com sucesso', async () => {
       const payload = {
@@ -64,7 +64,7 @@ describe('CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API', () =>
     });
   });
 
-  // POST /api/csh/operating-cost (Bruno Eduardo)
+  // POST /api/csh/operating-cost (Matheus Augusto)
   describe('POST /api/csh/operating-cost (Custos Operacionais)', () => {
     test('Deve calcular custos operacionais com sucesso', async () => {
       const payload = {
@@ -85,7 +85,7 @@ describe('CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API', () =>
     });
   });
 
-  // POST /api/csh/final-price (Carlos Augusto)
+  // POST /api/csh/final-price (Raul Antonio)
   describe('POST /api/csh/final-price (Precificação Final)', () => {
     test('Deve calcular preço final e impostos com sucesso', async () => {
       const payload = {

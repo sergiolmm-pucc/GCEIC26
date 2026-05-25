@@ -32,7 +32,7 @@ app.get('/api/tabelas', (req, res) => {
 });
 
 /**
- * PARTE 1 (Ana Carolina) — Custo de Mão de Obra e Horas
+ * PARTE 1 (Fernando Furlanetto) — Custo de Mão de Obra e Horas
  * POST /api/csh/labor-cost
  */
 app.post('/api/csh/labor-cost', (req, res) => {
@@ -50,7 +50,7 @@ app.post('/api/csh/labor-cost', (req, res) => {
 });
 
 /**
- * PARTE 2 (Bruno Eduardo) — Custos Operacionais e Despesas
+ * PARTE 2 (Matheus Augusto) — Custos Operacionais e Despesas
  * POST /api/csh/operating-cost
  */
 app.post('/api/csh/operating-cost', (req, res) => {
@@ -68,7 +68,7 @@ app.post('/api/csh/operating-cost', (req, res) => {
 });
 
 /**
- * PARTE 3 (Carlos Augusto) — Margem de Lucro e Precificação Final
+ * PARTE 3 (Raul Antonio) — Margem de Lucro e Precificação Final
  * POST /api/csh/final-price
  */
 app.post('/api/csh/final-price', (req, res) => {

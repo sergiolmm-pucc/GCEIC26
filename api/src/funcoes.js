@@ -10,7 +10,7 @@ const TABELA = {
 };
 
 /**
- * PARTE 1 (Ana Carolina Silva) — Custo de Mão de Obra e Horas Disponíveis
+ * PARTE 1 (Fernando Furlanetto) — Custo de Mão de Obra e Horas Disponíveis
  * Calcula o custo bruto anual/mensal da mão de obra e as horas faturáveis.
  */
 function calcularMaoDeObra(dados) {
@@ -67,7 +67,7 @@ function calcularMaoDeObra(dados) {
 }
 
 /**
- * PARTE 2 (Bruno Eduardo Santos) — Custos Operacionais e Despesas (Overhead)
+ * PARTE 2 (Matheus Augusto) — Custos Operacionais e Despesas (Overhead)
  * Calcula as despesas operacionais totais e o custo operacional por hora.
  */
 function calcularCustosOperacionais(dados) {
@@ -101,7 +101,7 @@ function calcularCustosOperacionais(dados) {
 }
 
 /**
- * PARTE 3 (Carlos Augusto Ramos) — Margem de Lucro e Precificação Final
+ * PARTE 3 (Raul Antonio) — Margem de Lucro e Precificação Final
  * Aplica margem de lucro e embutimento de impostos "por dentro" para chegar ao preço final.
  */
 function calcularPrecoFinal(dados) {
