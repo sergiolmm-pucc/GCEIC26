@@ -211,6 +211,6 @@ for (let i = 5; i <= 20; i++) {
 
 
 app.listen(PORT, () => {
-  console.log(`✅ Ap Doméstica rodando: http://localhost:${PORT}`);
+  console.log(`✅ App Doméstica rodando: http://localhost:${PORT}`);
 });
 module.exports = app;

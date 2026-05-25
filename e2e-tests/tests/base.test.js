@@ -47,29 +47,24 @@ async function main() {
       await driver.findElement(By.id('username')).sendKeys('Adm');
       await driver.findElement(By.id('password')).sendKeys('admin');
 
-      tiraFoto("Valores Digitados");
-      // vamos acionar o botao de login e ver o que acontece
+      await tiraFoto("Valores Digitados");
+
       await driver.findElement(By.id('loginForm')).submit();
 
-      await driver.wait(
-        until.elementLocated(By.css('.erro')),
-        10000
-      );
+      await driver.wait(async () => {
+        const elements = await driver.findElements(By.css('.erro'));
+        return elements.length > 0;
+      }, 10000);
 
       const erroElemento = await driver.findElement(By.css('.erro'));
 
-      await driver.wait(
-        until.elementIsVisible(erroElemento),
-        5000
-      );
-
-      tiraFoto("Submit form com erro");
+      await tiraFoto("Submit form com erro");
 
       const errMsg = await erroElemento.getText();
 
       console.log("Mensagem encontrada:", errMsg);
 
-      if (!errMsg.toLowerCase().includes('invalid')) {
+      if (!errMsg.includes('inválidos')) {
         throw new Error(`Falhou: ${errMsg}`);
       }
 
