@@ -45,3 +45,19 @@ cd e2e-tests
 npm install
 npm run test
 ```
+
+## CI/CD
+
+O workflow `.github/workflows/deploy.yml`, baseado no fluxo do Grupo 20, executa em
+`push` e `pull_request` para `grupo14/PBL` e tambem pode ser disparado manualmente.
+
+- Detecta alteracoes em `api`, `app` e `e2e-tests` para executar somente as validacoes afetadas.
+- Roda os testes da API com relatorio JUnit publicado no GitHub Actions.
+- Roda os testes e o build do frontend e armazena `app/dist` como artefato.
+- Sobe API e frontend no runner e executa os testes Selenium, armazenando screenshots e logs.
+- Em `push` para `grupo14/PBL`, dispara o deploy apos os testes passarem quando os hooks estiverem configurados.
+
+Para habilitar os deploys, configure os secrets do repositorio:
+
+- `DEPLOY_HOOK`: URL do deploy hook da API.
+- `DEPLOY_APP_HOOK`: URL do deploy hook do frontend.
