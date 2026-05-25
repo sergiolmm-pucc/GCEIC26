@@ -42,9 +42,16 @@ jobs:
         npm run dev &
 
     # 4. Rodar os Testes Funcionais (E2E) com Cypress
+    - name: Instalar dependências E2E
+      run: |
+        cd e2e_tests
+        npm install
+
+    # 5. Rodar os Testes Funcionais (E2E) com Cypress
     - name: Rodar Testes Funcionais (Cypress)
       uses: cypress-io/github-action@v6
       with:
         working-directory: ./e2e_tests
+        install: false # Isso desliga a exigência do package-lock.json na Action!
         wait-on: 'http://localhost:5173'
         wait-on-timeout: 120
