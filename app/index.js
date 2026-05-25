@@ -26,9 +26,9 @@ app.use(session({
 
 const equipes = [
   { numero: 1, nome: 'TESTE', rota: '/login' },
-  { numero: 2, nome: 'EXCHANGE', rota: '/exg' },
-  { numero: 3, nome: 'CDD', rota: '/cdd' },
-  { numero: 4, nome: 'CLT', rota: '/clt' },
+  { numero: 2, nome: 'Equipe-2', rota: '/equipe-2' },
+  { numero: 3, nome: 'Equipe-3', rota: '/equipe-3' },
+  { numero: 4, nome: 'Equipe-4', rota: '/equipe-4' },
   { numero: 5, nome: 'Equipe-5', rota: '/equipe-5' },
   { numero: 6, nome: 'Equipe-6', rota: '/equipe-6' },
   { numero: 7, nome: 'Equipe-7', rota: '/equipe-7' },
@@ -67,12 +67,12 @@ app.get("/", (req, res) => {
 
 app.get('/login', (req, res) => {
   if (req.session.user) return res.redirect('/dashboard');
-  res.render('login', { error: null });
+  res.render('base/login', { error: null });
 });
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect('/login');
+  res.redirect('base/login');
 });
 
 

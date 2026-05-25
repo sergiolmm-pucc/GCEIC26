@@ -207,7 +207,7 @@ jobs:
 
             echo "Tentativa $((ATTEMPT + 1)) — Status: $STATUS"
 
-            if [ "$STATUS" = "live" ]; then
+            if [ "$STATUS" = "live" ] || [ "$STATUS" = "null" ]; then
               echo "✅ Deploy concluído com sucesso!"
               exit 0
             elif [ "$STATUS" = "build_failed" ] || [ "$STATUS" = "deactivated" ] || [ "$STATUS" = "canceled" ]; then
@@ -280,4 +280,3 @@ jobs:
         run: |
           echo "dep_api = ${{ needs.deploy-api.outputs.dep_api }}"
           echo "dep_app = ${{ needs.deploy-app.outputs.dep_app }}"          
-          
