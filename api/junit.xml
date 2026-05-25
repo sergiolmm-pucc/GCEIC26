@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="20" failures="0" errors="0" time="0.843">
+  <testsuite name="Unidade: calcularAutonomia" errors="0" failures="0" skipped="0" timestamp="2026-05-25T22:14:21" time="0.639" tests="20">
+    <testcase classname="Unidade: calcularAutonomia deve calcular autonomia corretamente" name="Unidade: calcularAutonomia deve calcular autonomia corretamente" time="0.003">
+    </testcase>
+    <testcase classname="Unidade: calcularAutonomia deve classificar como Excelente acima de 15 km/l" name="Unidade: calcularAutonomia deve classificar como Excelente acima de 15 km/l" time="0.001">
+    </testcase>
+    <testcase classname="Unidade: calcularAutonomia deve classificar como Ruim abaixo de 9 km/l" name="Unidade: calcularAutonomia deve classificar como Ruim abaixo de 9 km/l" time="0.001">
+    </testcase>
+    <testcase classname="Unidade: calcularAutonomia deve lançar erro para valores ausentes" name="Unidade: calcularAutonomia deve lançar erro para valores ausentes" time="0.006">
+    </testcase>
+    <testcase classname="Unidade: calcularAutonomia deve lançar erro para valores negativos" name="Unidade: calcularAutonomia deve lançar erro para valores negativos" time="0.001">
+    </testcase>
+    <testcase classname="Unidade: calcularAutonomia deve lançar erro para zero" name="Unidade: calcularAutonomia deve lançar erro para zero" time="0.001">
+    </testcase>
+    <testcase classname="Unidade: calcularCustoViagem deve calcular custo de viagem corretamente" name="Unidade: calcularCustoViagem deve calcular custo de viagem corretamente" time="0.001">
+    </testcase>
+    <testcase classname="Unidade: calcularCustoViagem deve lançar erro para campos faltando" name="Unidade: calcularCustoViagem deve lançar erro para campos faltando" time="0.001">
+    </testcase>
+    <testcase classname="Unidade: calcularCustoViagem deve lançar erro para valores negativos" name="Unidade: calcularCustoViagem deve lançar erro para valores negativos" time="0.001">
+    </testcase>
+    <testcase classname="Unidade: compararCombustivel deve recomendar etanol quando relação &lt; 0.7" name="Unidade: compararCombustivel deve recomendar etanol quando relação &lt; 0.7" time="0.001">
+    </testcase>
+    <testcase classname="Unidade: compararCombustivel deve recomendar gasolina quando relação &gt;= 0.7" name="Unidade: compararCombustivel deve recomendar gasolina quando relação &gt;= 0.7" time="0.001">
+    </testcase>
+    <testcase classname="Unidade: compararCombustivel deve retornar relacaoEtanol corretamente" name="Unidade: compararCombustivel deve retornar relacaoEtanol corretamente" time="0">
+    </testcase>
+    <testcase classname="Unidade: compararCombustivel deve lançar erro para campos faltando" name="Unidade: compararCombustivel deve lançar erro para campos faltando" time="0">
+    </testcase>
+    <testcase classname="Unidade: compararCombustivel deve lançar erro para valores zero" name="Unidade: compararCombustivel deve lançar erro para valores zero" time="0.001">
+    </testcase>
+    <testcase classname="Integração: POST /autonomia/calcular deve retornar 200 com dados corretos" name="Integração: POST /autonomia/calcular deve retornar 200 com dados corretos" time="0.098">
+    </testcase>
+    <testcase classname="Integração: POST /autonomia/calcular deve retornar 400 para dados inválidos" name="Integração: POST /autonomia/calcular deve retornar 400 para dados inválidos" time="0.007">
+    </testcase>
+    <testcase classname="Integração: POST /autonomia/custo-viagem deve retornar 200 com custos calculados" name="Integração: POST /autonomia/custo-viagem deve retornar 200 com custos calculados" time="0.007">
+    </testcase>
+    <testcase classname="Integração: POST /autonomia/custo-viagem deve retornar 400 para campo ausente" name="Integração: POST /autonomia/custo-viagem deve retornar 400 para campo ausente" time="0.013">
+    </testcase>
+    <testcase classname="Integração: POST /autonomia/comparar-combustivel deve retornar 200 com comparação correta" name="Integração: POST /autonomia/comparar-combustivel deve retornar 200 com comparação correta" time="0.007">
+    </testcase>
+    <testcase classname="Integração: POST /autonomia/comparar-combustivel deve retornar 400 para dados ausentes" name="Integração: POST /autonomia/comparar-combustivel deve retornar 400 para dados ausentes" time="0.006">
+    </testcase>
+  </testsuite>
+</testsuites>
