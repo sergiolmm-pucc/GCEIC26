@@ -43,3 +43,30 @@ ehthumbs.db
 .env
 .env.local
 .env.*.local
+
+# --- Coisas Inúteis & Arquivos Temporários que ninguém deveria commitar ---
+# Arquivos de rascunhos / testes rápidos
+asdf
+asdf.*
+test.*
+teste.*
+testes.*
+a.out
+*.tmp
+*.temp
+*.bak
+*.old
+*~
+Untitled-*
+Sem-título-*
+
+# Arquivos de desespero / depuração improvisada
+*gambiarra*
+*socorro*
+*debug-final-agora-vai*
+*versao-final-2*
+*copia-da-copia*
+
+# Arquivos que surgem por acidente (gatos caminhando no teclado)
+asdfghjk*
+qwertyuiop*

@@ -1,0 +1,888 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Snapshots de UI > snapshot: calculadora com resultado completo 1`] = `
+<body>
+  <div>
+    <header
+      class="topbar"
+    >
+      <div>
+        <strong>
+          HourlyCost
+        </strong>
+        <span>
+          Equipe 25
+        </span>
+      </div>
+      <nav
+        aria-label="Navegacao principal"
+      >
+        <button
+          class="active"
+        >
+          Calculadora
+        </button>
+        <button
+          class=""
+        >
+          Sobre
+        </button>
+        <button
+          class=""
+        >
+          Ajuda
+        </button>
+        <button>
+          Sair
+        </button>
+      </nav>
+    </header>
+    <main
+      class="page-grid"
+    >
+      <section
+        class="panel"
+      >
+        <p
+          class="eyebrow"
+        >
+          Calculadora
+        </p>
+        <h1>
+          Custo de servicos em horas
+        </h1>
+        <p
+          class="muted"
+        >
+          Informe os dados para calcular o valor minimo e o preco sugerido da hora.
+        </p>
+        <form
+          class="calc-form"
+        >
+          <label
+            class="field"
+            for="salarioDesejado"
+          >
+            <span>
+              Salario desejado
+            </span>
+            <input
+              id="salarioDesejado"
+              min="0"
+              name="salarioDesejado"
+              required=""
+              step="0.01"
+              type="number"
+              value="8000"
+            />
+          </label>
+          <label
+            class="field"
+            for="diasTrabalhadosSemana"
+          >
+            <span>
+              Dias trabalhados/semana
+            </span>
+            <input
+              id="diasTrabalhadosSemana"
+              min="0"
+              name="diasTrabalhadosSemana"
+              required=""
+              step="0.01"
+              type="number"
+              value="5"
+            />
+          </label>
+          <label
+            class="field"
+            for="horasTrabalhadasDia"
+          >
+            <span>
+              Horas trabalhadas/dia
+            </span>
+            <input
+              id="horasTrabalhadasDia"
+              min="0"
+              name="horasTrabalhadasDia"
+              required=""
+              step="0.01"
+              type="number"
+              value="8"
+            />
+          </label>
+          <label
+            class="field"
+            for="semanasFeriasAno"
+          >
+            <span>
+              Semanas de ferias/ano
+            </span>
+            <input
+              id="semanasFeriasAno"
+              min="0"
+              name="semanasFeriasAno"
+              required=""
+              step="0.01"
+              type="number"
+              value="4"
+            />
+          </label>
+          <label
+            class="field"
+            for="percentualProdutivo"
+          >
+            <span>
+              % produtivo
+            </span>
+            <input
+              id="percentualProdutivo"
+              min="0"
+              name="percentualProdutivo"
+              required=""
+              step="0.01"
+              type="number"
+              value="75"
+            />
+          </label>
+          <label
+            class="field"
+            for="despesasFixasMensais"
+          >
+            <span>
+              Despesas fixas mensais
+            </span>
+            <input
+              id="despesasFixasMensais"
+              min="0"
+              name="despesasFixasMensais"
+              required=""
+              step="0.01"
+              type="number"
+              value="1500"
+            />
+          </label>
+          <label
+            class="field"
+            for="reservaSeguranca"
+          >
+            <span>
+              Reserva de seguranca
+            </span>
+            <input
+              id="reservaSeguranca"
+              min="0"
+              name="reservaSeguranca"
+              required=""
+              step="0.01"
+              type="number"
+              value="500"
+            />
+          </label>
+          <label
+            class="field"
+            for="margemLucroDesejada"
+          >
+            <span>
+              Margem de lucro %
+            </span>
+            <input
+              id="margemLucroDesejada"
+              min="0"
+              name="margemLucroDesejada"
+              required=""
+              step="0.01"
+              type="number"
+              value="20"
+            />
+          </label>
+          <label
+            class="field"
+            for="percentualImpostos"
+          >
+            <span>
+              Impostos %
+            </span>
+            <input
+              id="percentualImpostos"
+              min="0"
+              name="percentualImpostos"
+              required=""
+              step="0.01"
+              type="number"
+              value="6"
+            />
+          </label>
+          <button
+            id="btnCalcular"
+            type="submit"
+          >
+            Calcular
+          </button>
+        </form>
+      </section>
+      <section
+        aria-live="polite"
+        class="panel result-panel"
+      >
+        <p
+          class="eyebrow"
+        >
+          Resultado
+        </p>
+        <div
+          class="hero-number"
+          data-testid="preco-hora-final"
+        >
+          R$ 115,84
+        </div>
+        <p
+          class="muted"
+        >
+          Preco final sugerido por hora
+        </p>
+        <div
+          class="result-sections"
+        >
+          <section
+            class="result-section"
+            data-testid="secao-mao-de-obra"
+          >
+            <h3>
+              Mao de Obra
+            </h3>
+            <dl
+              class="metrics"
+            >
+              <dt>
+                Horas brutas/ano
+              </dt>
+              <dd>
+                2080
+              </dd>
+              <dt>
+                Horas ferias/ano
+              </dt>
+              <dd>
+                160
+              </dd>
+              <dt>
+                Horas disponiveis/ano
+              </dt>
+              <dd>
+                1920
+              </dd>
+              <dt>
+                Horas faturaveis/ano
+              </dt>
+              <dd>
+                1440
+              </dd>
+              <dt>
+                Horas faturaveis/mes
+              </dt>
+              <dd>
+                120
+              </dd>
+              <dt>
+                Custo mao obra anual
+              </dt>
+              <dd>
+                R$ 106.666,67
+              </dd>
+              <dt>
+                Custo mao obra mensal
+              </dt>
+              <dd>
+                R$ 8.888,89
+              </dd>
+              <dt>
+                Valor hora base
+              </dt>
+              <dd>
+                R$ 74,07
+              </dd>
+            </dl>
+          </section>
+          <section
+            class="result-section"
+            data-testid="secao-operacional"
+          >
+            <h3>
+              Custos Operacionais
+            </h3>
+            <dl
+              class="metrics"
+            >
+              <dt>
+                Despesa mensal total
+              </dt>
+              <dd>
+                R$ 2.000,00
+              </dd>
+              <dt>
+                Custo operacional/hora
+              </dt>
+              <dd>
+                R$ 16,67
+              </dd>
+              <dt>
+                Custo hora equilibrio
+              </dt>
+              <dd>
+                R$ 90,74
+              </dd>
+            </dl>
+          </section>
+          <section
+            class="result-section"
+            data-testid="secao-precificacao"
+          >
+            <h3>
+              Precificacao Final
+            </h3>
+            <dl
+              class="metrics"
+            >
+              <dt>
+                Preco hora limpo
+              </dt>
+              <dd>
+                R$ 108,89
+              </dd>
+              <dt>
+                Faturamento mensal
+              </dt>
+              <dd>
+                R$ 13.900,60
+              </dd>
+              <dt>
+                Impostos mensais
+              </dt>
+              <dd>
+                R$ 834,04
+              </dd>
+              <dt>
+                Custos mensais totais
+              </dt>
+              <dd>
+                R$ 11.722,93
+              </dd>
+              <dt>
+                Lucro liquido
+              </dt>
+              <dd>
+                R$ 2.177,67
+              </dd>
+            </dl>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+`;
+
+exports[`Snapshots de UI > snapshot: calculadora vazia apos login 1`] = `
+<DocumentFragment>
+  <header
+    class="topbar"
+  >
+    <div>
+      <strong>
+        HourlyCost
+      </strong>
+      <span>
+        Equipe 25
+      </span>
+    </div>
+    <nav
+      aria-label="Navegacao principal"
+    >
+      <button
+        class="active"
+      >
+        Calculadora
+      </button>
+      <button
+        class=""
+      >
+        Sobre
+      </button>
+      <button
+        class=""
+      >
+        Ajuda
+      </button>
+      <button>
+        Sair
+      </button>
+    </nav>
+  </header>
+  <main
+    class="page-grid"
+  >
+    <section
+      class="panel"
+    >
+      <p
+        class="eyebrow"
+      >
+        Calculadora
+      </p>
+      <h1>
+        Custo de servicos em horas
+      </h1>
+      <p
+        class="muted"
+      >
+        Informe os dados para calcular o valor minimo e o preco sugerido da hora.
+      </p>
+      <form
+        class="calc-form"
+      >
+        <label
+          class="field"
+          for="salarioDesejado"
+        >
+          <span>
+            Salario desejado
+          </span>
+          <input
+            id="salarioDesejado"
+            min="0"
+            name="salarioDesejado"
+            required=""
+            step="0.01"
+            type="number"
+            value="8000"
+          />
+        </label>
+        <label
+          class="field"
+          for="diasTrabalhadosSemana"
+        >
+          <span>
+            Dias trabalhados/semana
+          </span>
+          <input
+            id="diasTrabalhadosSemana"
+            min="0"
+            name="diasTrabalhadosSemana"
+            required=""
+            step="0.01"
+            type="number"
+            value="5"
+          />
+        </label>
+        <label
+          class="field"
+          for="horasTrabalhadasDia"
+        >
+          <span>
+            Horas trabalhadas/dia
+          </span>
+          <input
+            id="horasTrabalhadasDia"
+            min="0"
+            name="horasTrabalhadasDia"
+            required=""
+            step="0.01"
+            type="number"
+            value="8"
+          />
+        </label>
+        <label
+          class="field"
+          for="semanasFeriasAno"
+        >
+          <span>
+            Semanas de ferias/ano
+          </span>
+          <input
+            id="semanasFeriasAno"
+            min="0"
+            name="semanasFeriasAno"
+            required=""
+            step="0.01"
+            type="number"
+            value="4"
+          />
+        </label>
+        <label
+          class="field"
+          for="percentualProdutivo"
+        >
+          <span>
+            % produtivo
+          </span>
+          <input
+            id="percentualProdutivo"
+            min="0"
+            name="percentualProdutivo"
+            required=""
+            step="0.01"
+            type="number"
+            value="75"
+          />
+        </label>
+        <label
+          class="field"
+          for="despesasFixasMensais"
+        >
+          <span>
+            Despesas fixas mensais
+          </span>
+          <input
+            id="despesasFixasMensais"
+            min="0"
+            name="despesasFixasMensais"
+            required=""
+            step="0.01"
+            type="number"
+            value="1500"
+          />
+        </label>
+        <label
+          class="field"
+          for="reservaSeguranca"
+        >
+          <span>
+            Reserva de seguranca
+          </span>
+          <input
+            id="reservaSeguranca"
+            min="0"
+            name="reservaSeguranca"
+            required=""
+            step="0.01"
+            type="number"
+            value="500"
+          />
+        </label>
+        <label
+          class="field"
+          for="margemLucroDesejada"
+        >
+          <span>
+            Margem de lucro %
+          </span>
+          <input
+            id="margemLucroDesejada"
+            min="0"
+            name="margemLucroDesejada"
+            required=""
+            step="0.01"
+            type="number"
+            value="20"
+          />
+        </label>
+        <label
+          class="field"
+          for="percentualImpostos"
+        >
+          <span>
+            Impostos %
+          </span>
+          <input
+            id="percentualImpostos"
+            min="0"
+            name="percentualImpostos"
+            required=""
+            step="0.01"
+            type="number"
+            value="6"
+          />
+        </label>
+        <button
+          id="btnCalcular"
+          type="submit"
+        >
+          Calcular
+        </button>
+      </form>
+    </section>
+    <section
+      aria-live="polite"
+      class="panel result-panel"
+    >
+      <p
+        class="eyebrow"
+      >
+        Resultado
+      </p>
+      <p
+        class="empty"
+      >
+        Preencha os campos e clique em calcular para ver o preco da hora.
+      </p>
+    </section>
+  </main>
+</DocumentFragment>
+`;
+
+exports[`Snapshots de UI > snapshot: tela Ajuda 1`] = `
+<body>
+  <div>
+    <header
+      class="topbar"
+    >
+      <div>
+        <strong>
+          HourlyCost
+        </strong>
+        <span>
+          Equipe 25
+        </span>
+      </div>
+      <nav
+        aria-label="Navegacao principal"
+      >
+        <button
+          class=""
+        >
+          Calculadora
+        </button>
+        <button
+          class=""
+        >
+          Sobre
+        </button>
+        <button
+          class="active"
+        >
+          Ajuda
+        </button>
+        <button>
+          Sair
+        </button>
+      </nav>
+    </header>
+    <main
+      class="content-page"
+    >
+      <section
+        class="panel"
+      >
+        <p
+          class="eyebrow"
+        >
+          Ajuda
+        </p>
+        <h1>
+          Como usar o HourlyCost
+        </h1>
+        <div
+          class="help-list"
+        >
+          <article>
+            <h2>
+              1. Informe a capacidade de trabalho
+            </h2>
+            <p>
+              Preencha salario desejado, dias por semana, horas por dia, ferias e percentual produtivo para descobrir quantas horas realmente podem ser faturadas.
+            </p>
+          </article>
+          <article>
+            <h2>
+              2. Informe custos do negocio
+            </h2>
+            <p>
+              Adicione despesas fixas e reserva de seguranca para ratear o custo operacional dentro da hora cobrada.
+            </p>
+          </article>
+          <article>
+            <h2>
+              3. Defina margem e impostos
+            </h2>
+            <p>
+              A margem de lucro e a aliquota de impostos sao aplicadas para chegar ao preco final sugerido por hora.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+`;
+
+exports[`Snapshots de UI > snapshot: tela Sobre 1`] = `
+<body>
+  <div>
+    <header
+      class="topbar"
+    >
+      <div>
+        <strong>
+          HourlyCost
+        </strong>
+        <span>
+          Equipe 25
+        </span>
+      </div>
+      <nav
+        aria-label="Navegacao principal"
+      >
+        <button
+          class=""
+        >
+          Calculadora
+        </button>
+        <button
+          class="active"
+        >
+          Sobre
+        </button>
+        <button
+          class=""
+        >
+          Ajuda
+        </button>
+        <button>
+          Sair
+        </button>
+      </nav>
+    </header>
+    <main
+      class="content-page"
+    >
+      <section
+        class="panel"
+      >
+        <p
+          class="eyebrow"
+        >
+          Sobre a equipe
+        </p>
+        <h1>
+          Equipe desenvolvedora
+        </h1>
+        <div
+          class="team-photo"
+        >
+          <img
+            alt="Foto da equipe"
+            src="/equipe.jpg"
+          />
+          <span>
+            Foto da equipe pendente: adicionar app/public/equipe.jpg
+          </span>
+        </div>
+        <div
+          class="team-grid"
+        >
+          <article
+            class="member"
+          >
+            <h2>
+              Ana Carolina Silva
+            </h2>
+            <strong>
+              Mao de Obra e Encargos
+            </strong>
+            <p>
+              Responsavel pelo endpoint POST /api/csh/labor-cost e pelos calculos de salario, ferias, 13o e horas faturaveis.
+            </p>
+          </article>
+          <article
+            class="member"
+          >
+            <h2>
+              Bruno Eduardo Santos
+            </h2>
+            <strong>
+              Custos Fixos e Equilibrio
+            </strong>
+            <p>
+              Responsavel pelo endpoint POST /api/csh/operating-cost e pelo rateio de despesas, reserva e ponto de equilibrio.
+            </p>
+          </article>
+          <article
+            class="member"
+          >
+            <h2>
+              Carlos Augusto Ramos
+            </h2>
+            <strong>
+              Markup e Impostos
+            </strong>
+            <p>
+              Responsavel pelo endpoint POST /api/csh/final-price e pela margem de lucro, impostos por dentro e preco final.
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+`;
+
+exports[`Snapshots de UI > snapshot: tela de login 1`] = `
+<DocumentFragment>
+  <main
+    class="login-page"
+  >
+    <section
+      class="login-panel"
+    >
+      <p
+        class="eyebrow"
+      >
+        GCEIC26 - Equipe 25
+      </p>
+      <h1>
+        HourlyCost
+      </h1>
+      <p
+        class="muted"
+      >
+        Gestao de custo de servicos em horas.
+      </p>
+      <form
+        id="loginForm"
+      >
+        <label
+          for="username"
+        >
+          Usuario
+        </label>
+        <input
+          id="username"
+          name="username"
+          required=""
+          value=""
+        />
+        <label
+          for="password"
+        >
+          Senha
+        </label>
+        <input
+          id="password"
+          name="password"
+          required=""
+          type="password"
+          value=""
+        />
+        <button
+          id="btnLogin"
+          type="submit"
+        >
+          Entrar
+        </button>
+      </form>
+      <p
+        class="hint"
+      >
+        Credenciais: 
+        <strong>
+          admin
+        </strong>
+         / 
+        <strong>
+          admin
+        </strong>
+      </p>
+    </section>
+  </main>
+</DocumentFragment>
+`;
