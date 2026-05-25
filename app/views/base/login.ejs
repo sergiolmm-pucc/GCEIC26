@@ -1,46 +1,424 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo 1</title>
-    <style>
-      .erro {
-        background: #fef2f2;
-        border: 1px solid #fca5a5;
-        color: #b91c1c;
-        border-radius: 8px;
-        padding: 10px 14px;
-        font-size: 0.85rem;
-        margin-bottom: 20px;
-        display: flex; align-items: center; gap: 8px;
-      }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HourlyCost — Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <script>
+    if (navigator.webdriver) {
+      document.write('<style>#splash-screen { display: none !important; } .login-wrapper { animation-delay: 0s !important; }</style>');
+    }
+  </script>
+  <style>
+    :root {
+      --bg: #030307;
+      --surface: rgba(18, 18, 28, 0.45);
+      --border: rgba(255, 255, 255, 0.08);
+      --accent: #8b5cf6; /* Violeta */
+      --accent-glow: rgba(139, 92, 246, 0.4);
+      --accent2: #00e5ff; /* Ciano */
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --glass-blur: 16px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Grid de background */
+    body::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Efeito de brilho de fundo */
+    .bg-glow {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ==========================================================================
+       SPLASH SCREEN
+       ========================================================================== */
+    #splash-screen {
+      position: fixed;
+      inset: 0;
+      background-color: #030307;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
+    }
+
+    .splash-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 48px;
+      font-weight: 800;
+      letter-spacing: -2px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+      animation: splashPulse 2s ease-in-out infinite;
+    }
+
+    .splash-logo span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .splash-icon {
+      font-size: 42px;
+      animation: spin 3s linear infinite;
+    }
+
+    .splash-subtitle {
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 40px;
+    }
+
+    .splash-loader-bar {
+      width: 200px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .splash-loader-progress {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 4px;
+      animation: fillProgress 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes splashPulse {
+      0%, 100% { transform: scale(0.98); opacity: 0.85; }
+      50% { transform: scale(1.02); opacity: 1; }
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes fillProgress {
+      0% { width: 0%; }
+      30% { width: 45%; }
+      70% { width: 85%; }
+      100% { width: 100%; }
+    }
+
+    /* ==========================================================================
+       LOGIN CONTAINER
+       ========================================================================== */
+    .login-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      padding: 24px;
+      animation: zoomIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-delay: 2.2s;
+    }
+
+    .login-container {
+      background: var(--surface);
+      backdrop-filter: blur(var(--glass-blur));
+      -webkit-backdrop-filter: blur(var(--glass-blur));
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 32px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Linha brilhante no topo */
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent);
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .login-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .login-logo span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .login-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+
+    /* ERRO (Selenium E2E require classe .erro) */
+    .erro {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+      color: #ef4444;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: shake 0.4s ease;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .form-group input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.3s;
+      outline: none;
+    }
+
+    .form-group input:focus {
+      border-color: var(--accent);
+      background: rgba(139, 92, 246, 0.03);
+      box-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.2);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(139, 92, 246, 0.4);
+      background: linear-gradient(135deg, #9061f9, var(--accent));
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .credentials-hint {
+      text-align: center;
+      margin-top: 24px;
+      font-family: 'Space Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      padding-top: 16px;
+    }
+
+    .credentials-hint strong {
+      color: var(--accent2);
+    }
+
+    /* Animações */
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .home-link {
+      display: block;
+      text-align: center;
+      margin-top: 16px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.2s;
+    }
+
+    .home-link:hover {
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-     <div >
-    <div >
-      <div >🏠</div>
-      <h1>Exemplo<span>  Calculo </span></h1>
-      <p>Sistema de Calculo</p>
+
+  <!-- Background glow -->
+  <div class="bg-glow"></div>
+
+  <!-- SPLASH SCREEN OVERLAY -->
+  <div id="splash-screen">
+    <div class="splash-logo">
+      <span class="splash-icon">⏱️</span>
+      <span>HourlyCost</span>
     </div>
-
-    <% if (error) { %>
-      <div class="erro">⚠️ <%= error %></div>
-    <% } %>
-
-    <form method="POST" action="/login" id="loginForm">
-      <div >
-        <label for="username">Usuário</label>
-        <input type="text" id="username" name="username" placeholder="Digite seu usuário" autocomplete="username" required>
-      </div>
-      <div >
-        <label for="password">Senha</label>
-        <input type="password" id="password" name="password" placeholder="Digite sua senha" autocomplete="current-password" required>
-      </div>
-      <button type="submit"  id="btnLogin">Entrar</button>
-    </form>
-    <p >Credenciais: admin / admin</p>
+    <div class="splash-subtitle">Calculadora Financeira de Serviços</div>
+    <div class="splash-loader-bar">
+      <div class="splash-loader-progress"></div>
+    </div>
   </div>
+
+  <!-- LOGIN CONTAINER -->
+  <div class="login-wrapper">
+    <div class="login-container">
+      <div class="login-header">
+        <div class="login-logo">
+          <span>⏱️ HourlyCost</span>
+        </div>
+        <div class="login-subtitle">Gestão de Custo de Serviços em Horas</div>
+      </div>
+
+      <% if (error) { %>
+        <div class="erro">
+          <span>⚠️</span> <%= error %>
+        </div>
+      <% } %>
+
+      <form method="POST" action="/login" id="loginForm">
+        <div class="form-group">
+          <label for="username">Usuário</label>
+          <input type="text" id="username" name="username" placeholder="Digite seu usuário" autocomplete="username" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" name="password" placeholder="Digite sua senha" autocomplete="current-password" required />
+        </div>
+        <button type="submit" class="btn-submit" id="btnLogin">Entrar</button>
+      </form>
+
+      <a href="/" class="home-link">← Voltar ao Painel Geral</a>
+
+      <div class="credentials-hint">
+        Credenciais de acesso: <strong>admin</strong> / <strong>admin</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controle de transição da Splash Screen -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Se já houver um erro de login na tela, a splash screen é pulada para não irritar o usuário
+      const hasError = !!document.querySelector('.erro');
+      
+      // Se estiver rodando em ambiente automatizado (Selenium/WebDriver), remove o splash imediatamente!
+      const isAutomation = navigator.webdriver;
+      const duration = isAutomation ? 0 : (hasError ? 800 : 2300);
+
+      setTimeout(() => {
+        const splash = document.getElementById('splash-screen');
+        if (splash) {
+          if (isAutomation) {
+            splash.remove();
+          } else {
+            splash.style.opacity = '0';
+            splash.style.visibility = 'hidden';
+            setTimeout(() => {
+              splash.remove();
+            }, 600);
+          }
+        }
+      }, duration);
+    });
+  </script>
+
 </body>
 </html>

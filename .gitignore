@@ -1,0 +1,45 @@
+# Dependências de Pacotes (Heavy Local Modules)
+node_modules/
+**/node_modules/
+package-lock.json
+**/package-lock.json
+
+# Logs do Node e NPM
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Cobertura de Testes e Relatórios (Jest e JUnit)
+coverage/
+**/coverage/
+api/coverage/
+junit.xml
+**/junit.xml
+jest-junit.xml
+
+# Capturas de tela e relatórios de Testes E2E (Selenium)
+e2e-tests/screenshots/*.png
+*.png
+e2e-tests/reports/
+
+# Arquivos do Sistema Operacional (OS cache)
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+
+# Configurações locais de editores e IDEs
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+
+# Variáveis de Ambiente e Segredos locais
+.env
+.env.local
+.env.*.local

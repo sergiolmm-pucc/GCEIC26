@@ -44,7 +44,8 @@ const equipes = [
   { numero: 17, nome: 'Equipe-17', rota: '/equipe-17' },
   { numero: 18, nome: 'Equipe-18', rota: '/equipe-18' },
   { numero: 19, nome: 'Equipe-19', rota: '/equipe-19' },
-  { numero: 20, nome: 'Equipe-20', rota: '/equipe-20' }
+  { numero: 20, nome: 'Equipe-20', rota: '/equipe-20' },
+  { numero: 25, nome: 'Equipe 25 - Custo de Serviço em Horas', rota: '/login' }
 ]
 
 // Auth middleware
@@ -60,8 +61,6 @@ app.get('/', (req, res) => {
 */
 app.get("/", (req, res) => {
   res.render('index', { equipes });
-  //if (req.session.user) return res.redirect("/dashboard");
-  //res.render("inicial", { error: null });
 });
 
 
@@ -72,7 +71,7 @@ app.get('/login', (req, res) => {
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect('base/login');
+  res.redirect('/login');
 });
 
 
@@ -82,7 +81,7 @@ app.post('/login', (req, res) => {
     req.session.user = { username: 'admin', nome: 'Administrador' };
     return res.redirect('/calculo');
   }
-  res.render('login', { error: 'Usuário ou senha inválidos' });
+  res.render('base/login', { error: 'Usuário ou senha inválidos (dados invalidos)' });
 });
 
 // Dashboard
