@@ -2,9 +2,9 @@ name: Node.js CI - Grupo 11
 
 on:
   push:
-    branches: [ "autonomia-carros" ]
+    branches: [ "grupo23/calc_autonomia" ]
   pull_request:
-    branches: [ "autonomia-carros" ]
+    branches: [ "grupo23/calc_autonomia" ]
 
 jobs:
   build-and-test:
