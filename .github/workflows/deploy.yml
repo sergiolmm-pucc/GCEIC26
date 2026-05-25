@@ -2,8 +2,9 @@ name: Teste and Deploy
 
 on:
   push:
-    branches: [main, dev]
-
+    branches: [main, dev, "grupo16/markup"]
+  pull_request:
+    branches: [grupo16/markup]
   
 jobs:
   detect-changes:
