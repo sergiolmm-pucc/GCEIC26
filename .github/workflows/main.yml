@@ -1,10 +1,10 @@
-name: Node.js CI
+name: Node.js CI - Grupo 7
 
 on:
   push:
-    branches: [ grupo7/calc_piscina ]
+    branches: [ "grupo7/calc_piscina" ]
   pull_request:
-    branches: [grupo7/calc_piscina ]
+    branches: [ "grupo7/calc_piscina" ]
 
 jobs:
   build-and-test:
@@ -12,17 +12,39 @@ jobs:
 
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v5
+      uses: actions/checkout@v4
 
     - name: Use Node.js
-      uses: actions/setup-node@v5
+      uses: actions/setup-node@v4
       with:
         node-version: '24'
         cache: 'npm'
-        cache-dependency-path: api/package-lock.json
+        cache-dependency-path: '**/package-lock.json'
 
-    - name: Instalar dependências e Rodar Testes
+    # 1. Testar a API (Testes Unitários)
+    - name: Instalar dependências e Rodar Testes (API)
       run: |
         cd api
         npm install
         npm test
+
+    # 2. Iniciar a API em segundo plano (na porta 3000)
+    - name: Iniciar a API em Background
+      run: |
+        cd api
+        npm start &
+
+    # 3. Instalar e Iniciar o Frontend em segundo plano (na porta 5173)
+    - name: Instalar dependências e Iniciar App (Frontend)
+      run: |
+        cd app
+        npm install
+        npm run dev &
+
+    # 4. Rodar os Testes Funcionais (E2E) com Cypress
+    - name: Rodar Testes Funcionais (Cypress)
+      uses: cypress-io/github-action@v6
+      with:
+        working-directory: ./e2e_tests
+        wait-on: 'http://localhost:5173'
+        wait-on-timeout: 120

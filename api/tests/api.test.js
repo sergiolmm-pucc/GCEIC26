@@ -30,6 +30,15 @@ describe('Testes Unitários do Sistema de Piscina - Grupo 7', () => {
     expect(res.body.volume).toBe("16.00");
   });
 
+  it('Deve retornar NaN ou lidar com erro se faltarem parâmetros no cálculo de volume', async () => {
+    const res = await request(app)
+      .post('/PISCINA/volume/calcular')
+      .send({ largura: 2 }); // Faltando comprimento e profundidade de propósito
+    
+    expect(res.statusCode).toEqual(200);
+    expect(res.body.volume).toBe("NaN"); 
+  });
+
   // 2. Teste da API de Materiais
   it('Deve somar corretamente os custos de materiais elétricos e hidráulicos', async () => {
     const res = await request(app)
@@ -38,6 +47,15 @@ describe('Testes Unitários do Sistema de Piscina - Grupo 7', () => {
         precoEletrico: 150.50,
         precoHidraulico: 200.00
       });
+    
+    expect(res.statusCode).toEqual(200);
+    expect(res.body.custoMateriais).toBe("350.50");
+  });
+
+  it('Deve conseguir somar corretamente mesmo se os valores vierem como string do frontend', async () => {
+    const res = await request(app)
+      .post('/PISCINA/materiais/calcular')
+      .send({ precoEletrico: "150.50", precoHidraulico: "200.00" }); 
     
     expect(res.statusCode).toEqual(200);
     expect(res.body.custoMateriais).toBe("350.50");
