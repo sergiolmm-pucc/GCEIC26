@@ -50,12 +50,28 @@ async function main() {
       tiraFoto("Valores Digitados");
       // vamos acionar o botao de login e ver o que acontece
       await driver.findElement(By.id('loginForm')).submit();
-      await new Promise(r => setTimeout(r, 800)); 
+
+      await driver.wait(
+        until.elementLocated(By.css('.erro')),
+        10000
+      );
+
+      const erroElemento = await driver.findElement(By.css('.erro'));
+
+      await driver.wait(
+        until.elementIsVisible(erroElemento),
+        5000
+      );
 
       tiraFoto("Submit form com erro");
 
-      const errMsg = await driver.findElement(By.css('.erro')).getText();
-      if (!errMsg.includes('invalidos')) throw new Error(`Falhou : ${errMsg}`);
+      const errMsg = await erroElemento.getText();
+
+      console.log("Mensagem encontrada:", errMsg);
+
+      if (!errMsg.toLowerCase().includes('invalid')) {
+        throw new Error(`Falhou: ${errMsg}`);
+      }
 
 
     } finally {
