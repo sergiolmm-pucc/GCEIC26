@@ -58,6 +58,9 @@ async function main() {
 
     await driver.findElement(By.css('form[action="/login"]')).submit();
     await new Promise(r => setTimeout(r, 1500));
+
+    const urlAtual = await driver.getCurrentUrl();
+    console.log('URL após login:', urlAtual);
     await tiraFoto('03-home');
 
     await driver.findElement(By.id('valorProduto')).sendKeys('1000');
