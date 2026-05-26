@@ -44,7 +44,12 @@ const equipes = [
   { numero: 17, nome: 'Equipe-17', rota: '/equipe-17' },
   { numero: 18, nome: 'Equipe-18', rota: '/equipe-18' },
   { numero: 19, nome: 'Equipe-19', rota: '/equipe-19' },
-  { numero: 20, nome: 'Equipe-20', rota: '/equipe-20' }
+  { numero: 20, nome: 'Equipe-20', rota: '/equipe-20' },
+  { numero: 21, nome: 'Equipe-21', rota: '/equipe-21' },
+  { numero: 22, nome: 'Equipe-22', rota: '/equipe-22' },
+  { numero: 23, nome: 'Equipe-23', rota: '/equipe-23' },
+  { numero: 24, nome: 'Equipe-24', rota: '/equipe-24' },
+  { numero: 25, nome: 'Equipe-25', rota: '/equipe-25' }
 ]
 
 // Auth middleware
@@ -110,7 +115,7 @@ app.post('/calcular', requireAuth, async (req, res) => {
 });
 
 // 20 dynamic team endpoints
-for (let i = 5; i <= 20; i++) {
+for (let i = 2; i <= 25; i++) {
   app.get(`/equipe-${i}`, (req, res) => {
     console.log(`/equipe-${i}/equipe`);
     res.render(`equipe`, {
