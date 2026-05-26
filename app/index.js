@@ -19,6 +19,8 @@ app.use(session({
   cookie: { maxAge: 3600000 },
 }));
 
+const BASE_PATH = '/equipe-16';
+
 const equipes = [
   { numero: 1,  nome: 'TESTE',       rota: '/login' },
   { numero: 2,  nome: 'Equipe-2',    rota: '/equipe-2' },
@@ -54,12 +56,11 @@ app.get('/', (req, res) => {
 
 // Rota legada equipe 1
 app.get('/login', (req, res) => {
-  if (req.session.user) return res.redirect('/dashboard');
-  res.render('base/login', { error: null, basePath: '' });
+  if (req.session.user) return res.redirect(BASE_PATH + '/calculo');
+  res.render('equipe-16/login', { error: null, basePath: BASE_PATH });
 });
 
 // ── Grupo 16 — MarkUp Calc ──
-const BASE_PATH = '/equipe-16';
 
 function requireAuth(req, res, next) {
   if (req.session && req.session.user) return next();
@@ -74,12 +75,12 @@ grupo16.get('/', (req, res) => {
 });
 
 grupo16.get('/splash', (req, res) => {
-  res.render('splash', { user: req.session.user || null, basePath: BASE_PATH });
+  res.render('equipe-16/splash', { user: req.session.user || null, basePath: BASE_PATH });
 });
 
 grupo16.get('/login', (req, res) => {
   if (req.session.user) return res.redirect(BASE_PATH + '/calculo');
-  res.render('base/login', { error: null, basePath: BASE_PATH });
+  res.render('equipe-16/login', { error: null, basePath: BASE_PATH });
 });
 
 grupo16.post('/login', (req, res) => {
@@ -88,7 +89,7 @@ grupo16.post('/login', (req, res) => {
     req.session.user = { username: 'admin', nome: 'Administrador' };
     return res.redirect(BASE_PATH + '/calculo');
   }
-  res.render('base/login', { error: 'Usuário ou senha inválidos', basePath: BASE_PATH });
+  res.render('equipe-16/login', { error: 'Usuário ou senha inválidos', basePath: BASE_PATH });
 });
 
 grupo16.get('/logout', (req, res) => {
@@ -97,15 +98,15 @@ grupo16.get('/logout', (req, res) => {
 });
 
 grupo16.get('/calculo', requireAuth, (req, res) => {
-  res.render('base/calculo', { user: req.session.user, basePath: BASE_PATH });
+  res.render('equipe-16/calculo', { user: req.session.user, basePath: BASE_PATH });
 });
 
 grupo16.get('/sobre', requireAuth, (req, res) => {
-  res.render('sobre', { user: req.session.user, basePath: BASE_PATH });
+  res.render('equipe-16/sobre', { user: req.session.user, basePath: BASE_PATH });
 });
 
 grupo16.get('/help', requireAuth, (req, res) => {
-  res.render('help', { user: req.session.user, basePath: BASE_PATH });
+  res.render('equipe-16/help', { user: req.session.user, basePath: BASE_PATH });
 });
 
 grupo16.post('/calcular', requireAuth, async (req, res) => {

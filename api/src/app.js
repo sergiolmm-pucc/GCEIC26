@@ -15,7 +15,7 @@ app.get('/health', (req, res) => {
 });
 
 app.get('/api/tabelas', (req, res) => {
-  const { TABELA } = require('./funcoes');
+  const { TABELA } = require('./equipe-16/funcoes');
   res.json({
     success: true,
     data: {
@@ -29,7 +29,7 @@ app.get('/api/tabelas', (req, res) => {
 // POST /api/calcular
 app.post('/api/calcular', (req, res) => {
   try {
-    const { calcular } = require('./funcoes');
+    const { calcular } = require('./equipe-16/funcoes');
     const dados = req.body;
 
     if (!dados || typeof dados !== 'object') {

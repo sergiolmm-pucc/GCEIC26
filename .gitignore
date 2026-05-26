@@ -1,5 +1,4 @@
 AtividadeGCEIC26.md
-docs
 node_modules/
 coverage/
 
@@ -27,6 +26,7 @@ lerna-debug.log*
 coverage
 build
 dist
+docs
 
 # Outros
 .npm
