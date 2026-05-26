@@ -1,4 +1,4 @@
-const { calcularMarkup } = require('../src/funcoes');
+const { calcularMarkup } = require('../src/equipe-16/funcoes');
 
 describe('Calculo de MarkUp', () => {
   test('deve calcular o preco de venda com dados validos', () => {

@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 // Rota legada equipe 1
 app.get('/login', (req, res) => {
   if (req.session.user) return res.redirect('/dashboard');
-  res.render('base/login', { error: null, basePath: '' });
+  res.render('equipe-16/login', { error: null, basePath: '' });
 });
 
 // ── Grupo 16 — MarkUp Calc ──
@@ -74,12 +74,12 @@ grupo16.get('/', (req, res) => {
 });
 
 grupo16.get('/splash', (req, res) => {
-  res.render('splash', { user: req.session.user || null, basePath: BASE_PATH });
+  res.render('equipe-16/splash', { user: req.session.user || null, basePath: BASE_PATH });
 });
 
 grupo16.get('/login', (req, res) => {
   if (req.session.user) return res.redirect(BASE_PATH + '/calculo');
-  res.render('base/login', { error: null, basePath: BASE_PATH });
+  res.render('equipe-16/login', { error: null, basePath: BASE_PATH });
 });
 
 grupo16.post('/login', (req, res) => {
@@ -88,7 +88,7 @@ grupo16.post('/login', (req, res) => {
     req.session.user = { username: 'admin', nome: 'Administrador' };
     return res.redirect(BASE_PATH + '/calculo');
   }
-  res.render('base/login', { error: 'Usuário ou senha inválidos', basePath: BASE_PATH });
+  res.render('equipe-16/login', { error: 'Usuário ou senha inválidos', basePath: BASE_PATH });
 });
 
 grupo16.get('/logout', (req, res) => {
@@ -97,15 +97,15 @@ grupo16.get('/logout', (req, res) => {
 });
 
 grupo16.get('/calculo', requireAuth, (req, res) => {
-  res.render('base/calculo', { user: req.session.user, basePath: BASE_PATH });
+  res.render('equipe-16/calculo', { user: req.session.user, basePath: BASE_PATH });
 });
 
 grupo16.get('/sobre', requireAuth, (req, res) => {
-  res.render('sobre', { user: req.session.user, basePath: BASE_PATH });
+  res.render('equipe-16/sobre', { user: req.session.user, basePath: BASE_PATH });
 });
 
 grupo16.get('/help', requireAuth, (req, res) => {
-  res.render('help', { user: req.session.user, basePath: BASE_PATH });
+  res.render('equipe-16/help', { user: req.session.user, basePath: BASE_PATH });
 });
 
 grupo16.post('/calcular', requireAuth, async (req, res) => {
