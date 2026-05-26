@@ -141,3 +141,21 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+# Variáveis de ambiente e credenciais
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Coverage e build (quando aplicável)
+.nyc_output
+coverage
+build
+dist
+
+# Outros
+.npm
+.eslintcache
+.node_repl_history
+.DS_Store

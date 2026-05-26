@@ -37,14 +37,22 @@ async function tiraFoto(name) {
 }
 
 async function main() {
+<<<<<<< HEAD
 
   try {
 
     const opts = new chrome.Options();
 
     opts.addArguments(
+=======
+    console.log('Iniciand');
+    try{
+      const opts = new chrome.Options();
+      opts.addArguments(
+>>>>>>> origin/main
       '--headless=new',
       '--no-sandbox',
+      '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
       '--window-size=1200,800',
       '--disable-gpu'
@@ -120,7 +128,41 @@ async function main() {
       throw new Error(
         `Resultado incorreto: ${total}`
       );
+<<<<<<< HEAD
 
+=======
+
+    //  let driver = await new Builder().forBrowser(Browser.CHROME).build();
+      driver = await new Builder()
+        .forBrowser('chrome')
+        .setChromeOptions(opts)
+        .build();
+      console.log('criado');  
+      await driver.manage().setTimeouts({ implicit: 5000, pageLoad: 15000 });
+
+      await driver.get(BASE_URL + '/login');
+
+      tiraFoto("Pagina Entrada");
+      //preenche os campos 
+
+      await driver.findElement(By.id('username')).sendKeys('Adm');
+      await driver.findElement(By.id('password')).sendKeys('admin');
+
+      tiraFoto("Valores Digitados");
+      // vamos acionar o botao de login e ver o que acontece
+      await driver.findElement(By.id('loginForm')).submit();
+      await new Promise(r => setTimeout(r, 800)); 
+
+      tiraFoto("Submit form com erro");
+
+      const errMsg = await driver.findElement(By.css('erro')).getText();
+      if (!errMsg.includes('invalidos')) throw new Error(`Falhou : ${errMsg}`);
+    
+    } catch(error){  
+        console.log(error.message);
+    } finally {
+        if (driver) await driver.quit();
+>>>>>>> origin/main
     }
 
     console.log('Teste executado com sucesso');
