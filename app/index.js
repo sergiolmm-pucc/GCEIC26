@@ -19,6 +19,8 @@ app.use(session({
   cookie: { maxAge: 3600000 },
 }));
 
+const BASE_PATH = '/equipe-16';
+
 const equipes = [
   { numero: 1,  nome: 'TESTE',       rota: '/login' },
   { numero: 2,  nome: 'Equipe-2',    rota: '/equipe-2' },
@@ -54,12 +56,11 @@ app.get('/', (req, res) => {
 
 // Rota legada equipe 1
 app.get('/login', (req, res) => {
-  if (req.session.user) return res.redirect('/dashboard');
-  res.render('equipe-16/login', { error: null, basePath: '' });
+  if (req.session.user) return res.redirect(BASE_PATH + '/calculo');
+  res.render('equipe-16/login', { error: null, basePath: BASE_PATH });
 });
 
 // ── Grupo 16 — MarkUp Calc ──
-const BASE_PATH = '/equipe-16';
 
 function requireAuth(req, res, next) {
   if (req.session && req.session.user) return next();
