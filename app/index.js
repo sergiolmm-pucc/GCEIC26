@@ -38,7 +38,7 @@ router.get('/splash', (req, res) => {
 
 router.get('/login', (req, res) => {
   if (req.session.user) return res.redirect(BASE_PATH + '/calculo');
-  res.render('login', { error: null, basePath: BASE_PATH });
+  res.render('base/login', { error: null, basePath: BASE_PATH });
 });
 
 router.get('/logout', (req, res) => {
@@ -52,11 +52,11 @@ router.post('/login', (req, res) => {
     req.session.user = { username: 'admin', nome: 'Administrador' };
     return res.redirect(BASE_PATH + '/calculo');
   }
-  res.render('login', { error: 'Usuário ou senha inválidos', basePath: BASE_PATH });
+  res.render('base/login', { error: 'Usuário ou senha inválidos', basePath: BASE_PATH });
 });
 
 router.get('/calculo', requireAuth, (req, res) => {
-  res.render('calculo', { user: req.session.user, basePath: BASE_PATH });
+  res.render('base/calculo', { user: req.session.user, basePath: BASE_PATH });
 });
 
 router.get('/sobre', requireAuth, (req, res) => {
