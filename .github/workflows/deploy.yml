@@ -108,20 +108,20 @@ jobs:
       - name: Deploy_Project_API
         id: Deploy_Project_API
         run: |
-          RESPONSE=$(curl --request GET \
-               --url ${{ secrets.DEPLOY_HOOK }} \
-               --header 'accept: application/json' \
-               --header 'content-type: application/json') 
+          RESPONSE=$(curl --request POST \
+                 --url "https://api.render.com/v1/services/${{ secrets.SERVICE_ID }}/deploys" \
+                 --header "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+                 --header "Accept: application/json") 
 
           echo "Deploy response: $RESPONSE"
 
-          DEPLOY_ID=$(echo $RESPONSE | jq -r '.deploy.id')
+          DEPLOY_ID=$(echo $RESPONSE | jq -r '.id')
           echo "deploy_id=$DEPLOY_ID" >> $GITHUB_OUTPUT
           echo "Deploy ID: $DEPLOY_ID"
         
       - name: Wait for deploy to complete
         run: |
-          DEPLOY_ID="${{ steps.Deploy_Project_API.outputs.deploy_id_app }}"
+          DEPLOY_ID="${{ steps.Deploy_Project_API.outputs.deploy_id }}"
           SERVICE_ID="${{ secrets.SERVICE_ID }}"
           MAX_ATTEMPTS=30   # 30 x 20s = 10 minutos
           ATTEMPT=0
@@ -130,7 +130,7 @@ jobs:
 
           while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
             STATUS=$(curl --request GET \
-              --url https://api.render.com/v1/services/${{ secrets.SERVICE_ID }}/deploys/${{ steps.Deploy_Project_API.outputs.deploy_id_app }} \
+              --url "https://api.render.com/v1/services/${{ secrets.SERVICE_ID }}/deploys/$DEPLOY_ID" \
               --header "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
               | jq -r '.status')
 
@@ -179,14 +179,14 @@ jobs:
       - name: Deploy_Project_APP
         id: Deploy_Project_APP
         run: |
-          RESPONSE=$(curl --request GET \
-               --url ${{ secrets.DEPLOY_APP_HOOK }} \
-               --header 'accept: application/json' \
-               --header 'content-type: application/json') 
+          RESPONSE=$(curl --request POST \
+                 --url "https://api.render.com/v1/services/${{ secrets.SERVICE_ID_APP }}/deploys" \
+                 --header "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+                 --header "Accept: application/json") 
   
           echo "Deploy response: $RESPONSE"
 
-          DEPLOY_ID=$(echo $RESPONSE | jq -r '.deploy.id')
+          DEPLOY_ID=$(echo $RESPONSE | jq -r '.id')
           echo "deploy_id=$DEPLOY_ID" >> $GITHUB_OUTPUT
           echo "Deploy ID: $DEPLOY_ID"
         
@@ -201,7 +201,7 @@ jobs:
 
           while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
             STATUS=$(curl --request GET \
-              --url https://api.render.com/v1/services/${{ secrets.SERVICE_ID_APP }}/deploys/${{ steps.Deploy_Project_APP.outputs.deploy_id }} \
+              --url "https://api.render.com/v1/services/${{ secrets.SERVICE_ID_APP }}/deploys/$DEPLOY_ID" \
               --header "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
               | jq -r '.status')
 
