@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "selenium-webdriver": "^4.43.0"
+  },
+  "devDependencies": {
+    "chromedriver": "^149.0.0"
   }
 }

@@ -23,7 +23,7 @@ async function tiraFoto(name){
 }
 
 async function main() {
-
+    console.log('Iniciand');
     try{
       const opts = new chrome.Options();
       opts.addArguments(
@@ -33,10 +33,13 @@ async function main() {
       '--window-size=800,640',
       '--disable-gpu'
       );
+
+    //  let driver = await new Builder().forBrowser(Browser.CHROME).build();
       driver = await new Builder()
         .forBrowser('chrome')
         .setChromeOptions(opts)
         .build();
+      console.log('criado');  
       await driver.manage().setTimeouts({ implicit: 5000, pageLoad: 15000 });
 
       await driver.get(BASE_URL + '/login');
@@ -56,8 +59,9 @@ async function main() {
 
       const errMsg = await driver.findElement(By.css('.erro')).getText();
       if (!errMsg.includes('invalidos')) throw new Error(`Falhou : ${errMsg}`);
-
-
+    
+    } catch(error){  
+        console.log(error.message);
     } finally {
         if (driver) await driver.quit();
     }
