@@ -14,51 +14,40 @@ function SplashScreen() {
 
   return (
     <div style={styles.container}>
-      {/* Injeção de CSS para animações de rotação e pulso */}
       <style>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+        @keyframes ripple {
+          0% { transform: scale(0.95); opacity: 0.5; }
+          50% { transform: scale(1.05); opacity: 0.8; }
+          100% { transform: scale(0.95); opacity: 0.5; }
         }
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); opacity: 0.9; }
-          50% { transform: scale(1.05); opacity: 1; }
+        @keyframes float {
+          0% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+          100% { transform: translateY(0px); }
         }
         @keyframes progress {
           0% { width: 0%; }
           100% { width: 100%; }
         }
-        .custom-spinner {
-          animation: spin 1s linear infinite;
-        }
-        .animated-logo {
-          animation: pulse 2s ease-in-out infinite;
-        }
-        .progress-fill {
-          animation: progress 3s linear forwards;
-        }
+        .animated-ripple { animation: ripple 3s ease-in-out infinite; }
+        .animated-logo { animation: float 4s ease-in-out infinite; }
+        .progress-fill { animation: progress 3s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
       `}</style>
 
       <div style={styles.content}>
-        {/* Ícone principal com efeito de pulso */}
         <div className="animated-logo" style={styles.logoContainer}>
+          <div className="animated-ripple" style={styles.rippleEffect}></div>
           <span style={styles.logoIcon}>💧</span>
         </div>
 
-        <h1 style={styles.title}>Calculadora de Piscina</h1>
-        <p style={styles.subtitle}>Carregando projeto GCEIC2026...</p>
-        
-        {/* Spinner Moderno */}
-        <div className="custom-spinner" style={styles.spinner}></div>
+        <h1 style={styles.title}>AquaCalc</h1>
 
-        {/* Barra de progresso sutil combinando com os 3 segundos */}
+        <p style={styles.subtitle}>GCEIC2026 • Engenharia & Gestão de Custos</p>
+        
         <div style={styles.progressBar}>
           <div className="progress-fill" style={styles.progressTrack}></div>
         </div>
       </div>
-      
-      {/* Detalhe estético no rodapé */}
-      <div style={styles.footer}>v1.0.0</div>
     </div>
   );
 }
@@ -70,11 +59,9 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
-    background: 'linear-gradient(180deg, #0284c7 0%, #0c4a6e 100%)', // Degradê profundo (fundo da piscina)
+    background: 'radial-gradient(circle at center, #0f172a 0%, #020617 100%)',
     color: '#ffffff',
-    fontFamily: '"Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-    padding: '20px',
-    boxSizing: 'border-box',
+    fontFamily: '"Inter", "Segoe UI", sans-serif',
     overflow: 'hidden',
     position: 'relative',
   },
@@ -86,60 +73,63 @@ const styles = {
     zIndex: 2,
   },
   logoContainer: {
-    width: '90px',
-    height: '90px',
-    background: 'rgba(255, 255, 255, 0.15)',
-    borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%', // Formato orgânico que lembra água
+    width: '100px',
+    height: '100px',
+    background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.2) 0%, rgba(2, 132, 199, 0.2) 100%)',
+    borderRadius: '24px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: '24px',
-    backdropFilter: 'blur(5px)',
-    border: '1px solid rgba(255, 255, 255, 0.2)',
+    marginBottom: '28px',
+    border: '1px solid rgba(56, 189, 248, 0.3)',
+    position: 'relative',
+  },
+  rippleEffect: {
+    position: 'absolute',
+    width: '130%',
+    height: '130%',
+    borderRadius: '32px',
+    border: '1px solid rgba(56, 189, 248, 0.1)',
   },
   logoIcon: {
-    fontSize: '42px',
+    fontSize: '46px',
+    filter: 'drop-shadow(0 0 12px rgba(56, 189, 248, 0.6))',
   },
   title: {
-    fontSize: '2.5rem',
-    fontWeight: '700',
-    margin: '0 0 12px 0',
-    letterSpacing: '-0.5px',
-    textShadow: '0 2px 4px rgba(0,0,0,0.2)',
+    fontSize: '2.8rem',
+    fontWeight: '800',
+    margin: '0 0 8px 0',
+    letterSpacing: '-1px',
+    background: 'linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
   },
   subtitle: {
-    fontSize: '1rem',
-    color: '#bae6fd', // Azul claro suave para o texto secundário
-    margin: '0 0 40px 0',
-    opacity: 0.8,
-    fontWeight: '400',
-  },
-  spinner: {
-    width: '40px',
-    height: '40px',
-    border: '4px solid rgba(255, 255, 255, 0.1)',
-    borderTop: '4px solid #ffffff', // Parte branca que gira
-    borderRadius: '50%',
-    marginBottom: '30px',
+    fontSize: '0.95rem',
+    color: '#94a3b8',
+    margin: '0 0 48px 0',
+    letterSpacing: '1px',
+    textTransform: 'uppercase',
   },
   progressBar: {
-    width: '200px',
-    height: '4px',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: '2px',
+    width: '240px',
+    height: '6px',
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderRadius: '10px',
     overflow: 'hidden',
+    border: '1px solid rgba(255, 255, 255, 0.05)',
   },
   progressTrack: {
     height: '100%',
-    backgroundColor: '#38bdf8', // Cor da barra enchendo
-    boxShadow: '0 0 8px #38bdf8',
+    background: 'linear-gradient(90deg, #38bdf8 0%, #0284c7 100%)',
+    boxShadow: '0 0 14px rgba(56, 189, 248, 0.5)',
   },
   footer: {
     position: 'absolute',
-    bottom: '24px',
-    fontSize: '12px',
-    color: '#0284c7',
-    letterSpacing: '1px',
+    bottom: '32px',
+    fontSize: '11px',
+    color: '#475569',
+    letterSpacing: '2px',
     fontWeight: '600',
   }
 };

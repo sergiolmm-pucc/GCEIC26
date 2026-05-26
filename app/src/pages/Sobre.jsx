@@ -3,38 +3,34 @@ import fotoGrupo from '../assets/fotoGrupo.jpeg';
 
 function Sobre() {
   const integrantes = [
-    { nome: "Bruno Lenitta Machado", papel: "Desenvolvedor", inicial: "B" },
-    { nome: "Nicolas Mitjans Nunes", papel: "Desenvolvedor", inicial: "N" },
-    { nome: "Gabriel Scolfaro de Azeredo", papel: "Desenvolvedor", inicial: "G" }
+    { nome: "Bruno Lenitta Machado", papel: "", inicial: "B" },
+    { nome: "Nicolas Mitjans Nunes", papel: "", inicial: "N" },
+    { nome: "Gabriel Scolfaro de Azeredo", papel: "", inicial: "G" }
   ];
 
   return (
     <div style={styles.container}>
-      {/* Botão flutuante de Retorno */}
       <div style={styles.backWrapper}>
         <Link to="/calculadora" style={styles.backButton}>
-          ← Voltar para a Calculadora
+          ← Voltar ao Dashboard
         </Link>
       </div>
 
       <div style={styles.card}>
         <div style={styles.header}>
-          <span style={styles.badge}>Grupo 7</span>
-          <h1 style={styles.title}>Sobre a Equipe</h1>
-          <p style={styles.subtitle}>Projeto GCEIC - GCEIC2026</p>
+          <h1 style={styles.title}>Grupo 7</h1>
         </div>
 
-        {/* Container da foto limpo e sem cortes */}
         <div style={styles.photoContainer}>
           <img 
             src={fotoGrupo} 
-            alt="Foto da Equipe GCEIC-07" 
+            alt="Fotografia corporativa do Grupo 7" 
             style={styles.photo} 
           />
         </div>
 
         <div style={styles.section}>
-          <h3 style={styles.sectionTitle}>Integrantes</h3>
+          <h3 style={styles.sectionTitle}>Equipe</h3>
           <div style={styles.memberList}>
             {integrantes.map((member, idx) => (
               <div key={idx} style={styles.memberCard}>
@@ -50,14 +46,6 @@ function Sobre() {
 
         <div style={styles.divider}></div>
 
-        <div style={styles.section}>
-          <h4 style={styles.themeTitle}>Tema Escolhido:</h4>
-          <p style={styles.themeDescription}>
-            Desenvolvimento de uma ferramenta voltada ao cálculo estrutural e de custos para a construção de piscinas. 
-            A solução abrange o dimensionamento volumétrico automático, orçamento de materiais de infraestrutura 
-            elétrica e hidráulica, simulação do custo de abastecimento inicial de água e previsões de gastos para manutenção recorrente.
-          </p>
-        </div>
       </div>
     </div>
   );
@@ -66,9 +54,9 @@ function Sobre() {
 const styles = {
   container: {
     minHeight: '100vh',
-    backgroundColor: '#f0f9ff',
-    fontFamily: '"Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-    padding: '40px 20px',
+    backgroundColor: '#f8fafc',
+    fontFamily: '"Inter", "Segoe UI", sans-serif',
+    padding: '48px 20px',
     boxSizing: 'border-box',
     display: 'flex',
     flexDirection: 'column',
@@ -76,79 +64,75 @@ const styles = {
   },
   backWrapper: {
     width: '100%',
-    maxWidth: '650px',
+    maxWidth: '680px',
     marginBottom: '20px',
   },
   backButton: {
     textDecoration: 'none',
     color: '#0284c7',
     fontWeight: '600',
-    fontSize: '15px',
-    display: 'inline-flex',
-    alignItems: 'center',
+    fontSize: '14px',
     transition: 'color 0.2s',
   },
   card: {
     background: '#ffffff',
-    borderRadius: '16px',
-    padding: '40px',
-    boxShadow: '0 10px 30px rgba(0, 104, 185, 0.08)',
+    borderRadius: '20px',
+    padding: '48px',
+    boxShadow: '0 10px 30px rgba(15, 23, 42, 0.02)',
     width: '100%',
-    maxWidth: '650px',
+    maxWidth: '680px',
     boxSizing: 'border-box',
+    border: '1px solid #e2e8f0',
   },
   header: {
     textAlign: 'center',
-    marginBottom: '32px',
+    marginBottom: '36px',
   },
   badge: {
-    background: '#e0f2fe',
-    color: '#0369a1',
-    padding: '4px 12px',
-    borderRadius: '12px',
-    fontSize: '12px',
+    background: '#f0f9ff',
+    color: '#0284c7',
+    padding: '6px 14px',
+    borderRadius: '30px',
+    fontSize: '11px',
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: '0.5px',
+    border: '1px solid #e0f2fe',
   },
   title: {
     fontSize: '28px',
     fontWeight: '800',
     color: '#0f172a',
-    margin: '12px 0 6px 0',
+    margin: '16px 0 6px 0',
+    letterSpacing: '-0.5px',
   },
   subtitle: {
-    fontSize: '15px',
+    fontSize: '14px',
     color: '#64748b',
     margin: 0,
   },
-  // O container agora não tem altura limitante, ele apenas molda a largura
   photoContainer: {
     width: '100%',
     backgroundColor: '#f8fafc',
-    borderRadius: '12px',
-    boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: '32px',
+    borderRadius: '14px',
     overflow: 'hidden',
+    border: '1px solid #e2e8f0',
+    marginBottom: '40px',
   },
-  // Mudanças fundamentais aqui:
   photo: {
     width: '100%',
-    height: 'auto',        // Garante que a proporção original da foto seja mantida
-    objectFit: 'contain',  // Impede qualquer tipo de corte nas extremidades
+    height: 'auto',
     display: 'block',
+    objectFit: 'contain',
   },
   section: {
-    marginBottom: '24px',
+    marginBottom: '28px',
   },
   sectionTitle: {
-    fontSize: '18px',
+    fontSize: '16px',
     fontWeight: '700',
     color: '#0f172a',
-    margin: '0 0 16px 0',
+    margin: '0 0 20px 0',
   },
   memberList: {
     display: 'flex',
@@ -159,14 +143,14 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '16px',
-    padding: '12px 16px',
-    borderRadius: '10px',
+    padding: '14px 20px',
+    borderRadius: '12px',
     border: '1px solid #f1f5f9',
     backgroundColor: '#f8fafc',
   },
   avatar: {
-    width: '40px',
-    height: '40px',
+    width: '38px',
+    height: '38px',
     borderRadius: '50%',
     backgroundColor: '#0284c7',
     color: '#ffffff',
@@ -174,28 +158,30 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     fontWeight: '700',
-    fontSize: '16px',
+    fontSize: '15px',
   },
   memberName: {
     margin: 0,
     fontSize: '15px',
     fontWeight: '600',
-    color: '#1e293b',
+    color: '#0f172a',
   },
   memberRole: {
     fontSize: '13px',
     color: '#64748b',
+    display: 'block',
+    marginTop: '2px',
   },
   divider: {
     height: '1px',
-    backgroundColor: '#f1f5f9',
-    margin: '32px 0',
+    backgroundColor: '#e2e8f0',
+    margin: '36px 0',
   },
   themeTitle: {
-    fontSize: '16px',
+    fontSize: '15px',
     fontWeight: '700',
     color: '#0f172a',
-    margin: '0 0 8px 0',
+    margin: '0 0 10px 0',
   },
   themeDescription: {
     fontSize: '14px',

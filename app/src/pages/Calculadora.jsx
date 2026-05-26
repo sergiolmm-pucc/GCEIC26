@@ -55,9 +55,8 @@ function Calculadora() {
 
   return (
     <div style={styles.container}>
-      {/* Menu de Navegação Superior */}
       <nav style={styles.nav}>
-        <div style={styles.navBrand}>🏊‍♂️ GCEIC2026</div>
+        <div style={styles.navBrand}>💧 AquaCalc</div>
         <div style={styles.navLinks}>
           <Link to="/sobre" style={styles.navLink}>Sobre a Equipe</Link>
           <Link to="/help" style={styles.navLink}>Ajuda</Link>
@@ -67,90 +66,99 @@ function Calculadora() {
 
       <main style={styles.main}>
         <div style={styles.header}>
-          <h1 style={styles.title}>Cálculo de Custo da Piscina</h1>
-          <p style={styles.subtitle}>Insira as dimensões e parâmetros para simular o orçamento</p>
+          <h1 style={styles.title}>Dimensionamento & Custos</h1>
+          <p style={styles.subtitle}>Insira as especificações técnicas da piscina para gerar a simulação</p>
         </div>
 
-        <div style={styles.gridContainer}>
+        <div style={styles.layoutGrid}>
           {/* Formulário */}
           <div style={styles.formCard}>
-            <h2 style={styles.sectionTitle}>1. Dimensões da Piscina</h2>
+            <h2 style={styles.sectionTitle}>1. Especificações Volumétricas</h2>
             <div style={styles.inputGroupRow}>
               <div style={styles.inputWrapper}>
                 <label style={styles.label}>Largura (m)</label>
-                <input type="number" name="largura" placeholder="Ex: 4" onChange={handleChange} style={styles.input} />
+                <input type="number" name="largura" placeholder="0.00" onChange={handleChange} style={styles.input} />
               </div>
               <div style={styles.inputWrapper}>
                 <label style={styles.label}>Comprimento (m)</label>
-                <input type="number" name="comprimento" placeholder="Ex: 8" onChange={handleChange} style={styles.input} />
+                <input type="number" name="comprimento" placeholder="0.00" onChange={handleChange} style={styles.input} />
               </div>
               <div style={styles.inputWrapper}>
                 <label style={styles.label}>Profundidade (m)</label>
-                <input type="number" name="profundidade" placeholder="Ex: 1.5" onChange={handleChange} style={styles.input} />
+                <input type="number" name="profundidade" placeholder="0.00" onChange={handleChange} style={styles.input} />
               </div>
             </div>
 
-            <h2 style={styles.sectionTitle}>2. Custos Unitários e Materiais</h2>
+            <h2 style={styles.sectionTitle}>2. Precificação Comercial e Insumos</h2>
             <div style={styles.inputGrid}>
               <div style={styles.inputWrapper}>
-                <label style={styles.label}>Preço da Água (por m³)</label>
-                <input type="number" name="precoAgua" placeholder="R$" onChange={handleChange} style={styles.input} />
+                <label style={styles.label}>Preço da Água (R$/m³)</label>
+                <input type="number" name="precoAgua" placeholder="R$ 0,00" onChange={handleChange} style={styles.input} />
               </div>
               <div style={styles.inputWrapper}>
-                <label style={styles.label}>Manutenção Mensal (por m³)</label>
-                <input type="number" name="precoManutencao" placeholder="R$" onChange={handleChange} style={styles.input} />
+                <label style={styles.label}>Manutenção Mensal (R$/m³)</label>
+                <input type="number" name="precoManutencao" placeholder="R$ 0,00" onChange={handleChange} style={styles.input} />
               </div>
               <div style={styles.inputWrapper}>
-                <label style={styles.label}>Custo Material Elétrico</label>
-                <input type="number" name="precoEletrico" placeholder="R$" onChange={handleChange} style={styles.input} />
+                <label style={styles.label}>Infraestrutura Elétrica</label>
+                <input type="number" name="precoEletrico" placeholder="R$ 0,00" onChange={handleChange} style={styles.input} />
               </div>
               <div style={styles.inputWrapper}>
-                <label style={styles.label}>Custo Material Hidráulico</label>
-                <input type="number" name="precoHidraulico" placeholder="R$" onChange={handleChange} style={styles.input} />
+                <label style={styles.label}>Infraestrutura Hidráulica</label>
+                <input type="number" name="precoHidraulico" placeholder="R$ 0,00" onChange={handleChange} style={styles.input} />
               </div>
             </div>
 
             <button onClick={calcularCusto} style={styles.button}>
-              Calcular Projeto 🚀
+              Calcular Projeto
             </button>
           </div>
 
-          {/* Resultado */}
-{resultado && (
-  <div style={styles.resultCard}>
-    <h3 style={styles.resultTitle}>📋 Resumo do Orçamento</h3>
-    
-    <div style={styles.resultItem}>
-      <span style={styles.resultLabel}>Volume Estimado:</span>
-      <span style={styles.resultValue}>{resultado.volume} m³</span>
-    </div>
-    
-    <div style={styles.resultItem}>
-      <span style={styles.resultLabel}>Custo de Abastecimento (Água):</span>
-      <span style={styles.resultValue}>R$ {parseFloat(resultado.custoAgua).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
-    </div>
-    
-    <div style={styles.resultItem}>
-      <span style={styles.resultLabel}>Custo Total de Materiais:</span>
-      <span style={styles.resultValue}>R$ {parseFloat(resultado.custoMateriais).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
-    </div>
+          {/* Seção de Resultados Dinâmica */}
+          <div style={styles.resultContainer}>
+            {resultado ? (
+              <div style={styles.resultCard}>
+                <h3 style={styles.resultTitle}>📋 Relatório Orçamentário</h3>
+                
+                <div style={styles.resultItem}>
+                  <span style={styles.resultLabel}>Capacidade Total Volumétrica:</span>
+                  <span style={styles.resultValue}>{resultado.volume} m³</span>
+                </div>
+                
+                <div style={styles.resultItem}>
+                  <span style={styles.resultLabel}>Abastecimento Inicial (Água):</span>
+                  <span style={styles.resultValue}>R$ {parseFloat(resultado.custoAgua).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                </div>
+                
+                <div style={styles.resultItem}>
+                  <span style={styles.resultLabel}>Custos Totais de Materiais:</span>
+                  <span style={styles.resultValue}>R$ {parseFloat(resultado.custoMateriais).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
+                </div>
 
-    <div style={styles.resultItem}>
-      <span style={styles.resultLabel}>Manutenção Estimada (Mensal):</span>
-      {/* Aqui está a correção: juntamos os dois styles em um só */}
-      <span style={{ ...styles.resultValue, color: '#0284c7' }}>
-        R$ {parseFloat(resultado.custoManutencao).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}/mês
-      </span>
-    </div>
+                <div style={styles.resultItem}>
+                  <span style={styles.resultLabel}>Previsão de Manutenção Mensal:</span>
+                  <span style={{ ...styles.resultValue, color: '#0284c7' }}>
+                    R$ {parseFloat(resultado.custoManutencao).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} / mês
+                  </span>
+                </div>
 
-    <div style={styles.divider}></div>
-    
-    <div style={styles.totalBlock}>
-      <span style={styles.totalLabel}>Custo Total de Implantação:</span>
-      <h4 style={styles.totalValue}>R$ {parseFloat(resultado.totalObra).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</h4>
-    </div>
-  </div>
-)}
+                <div style={styles.divider}></div>
+                
+                <div style={styles.totalBlock}>
+                  <div>
+                    <span style={styles.totalLabel}>Investimento de Implantação</span>
+                    <p style={styles.totalSubtext}>Soma de infraestrutura e primeiro abastecimento</p>
+                  </div>
+                  <h4 style={styles.totalValue}>R$ {parseFloat(resultado.totalObra).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</h4>
+                </div>
+              </div>
+            ) : (
+              <div style={styles.emptyResultCard}>
+                <span style={styles.emptyIcon}>📊</span>
+                <p style={styles.emptyText}>Aguardando parâmetros informados para consolidar o relatório.</p>
+              </div>
+            )}
+          </div>
         </div>
       </main>
     </div>
@@ -160,31 +168,32 @@ function Calculadora() {
 const styles = {
   container: {
     minHeight: '100vh',
-    backgroundColor: '#f0f9ff', // Azul água bem claro de fundo
-    fontFamily: '"Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-    color: '#1e293b',
+    backgroundColor: '#f8fafc',
+    fontFamily: '"Inter", "Segoe UI", sans-serif',
+    color: '#0f172a',
   },
   nav: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '16px 40px',
+    padding: '18px 40px',
     backgroundColor: '#ffffff',
-    boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
+    borderBottom: '1px solid #e2e8f0',
   },
   navBrand: {
-    fontWeight: 'bold',
+    fontWeight: '700',
     fontSize: '20px',
     color: '#0284c7',
+    letterSpacing: '-0.5px',
   },
   navLinks: {
     display: 'flex',
-    gap: '24px',
+    gap: '32px',
     alignItems: 'center',
   },
   navLink: {
     textDecoration: 'none',
-    color: '#64748b',
+    color: '#475569',
     fontWeight: '500',
     fontSize: '14px',
     transition: 'color 0.2s',
@@ -193,65 +202,66 @@ const styles = {
     textDecoration: 'none',
     color: '#ef4444',
     fontWeight: '600',
-    fontSize: '14px',
-    padding: '6px 12px',
-    borderRadius: '6px',
-    border: '1px solid #fee2e2',
+    fontSize: '13px',
+    padding: '6px 14px',
+    borderRadius: '8px',
     backgroundColor: '#fef2f2',
+    border: '1px solid #fee2e2',
   },
   main: {
     maxWidth: '1200px',
     margin: '0 auto',
-    padding: '40px 20px',
+    padding: '48px 20px',
+    boxSizing: 'border-box',
   },
   header: {
     textAlign: 'center',
-    marginBottom: '40px',
+    marginBottom: '48px',
   },
   title: {
     fontSize: '32px',
     fontWeight: '800',
     color: '#0f172a',
     margin: '0 0 8px 0',
+    letterSpacing: '-0.5px',
   },
   subtitle: {
     fontSize: '16px',
     color: '#64748b',
     margin: 0,
   },
-  gridContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '30px',
-    alignItems: 'center',
+  layoutGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
+    gap: '32px',
+    alignItems: 'start',
   },
   formCard: {
     background: '#ffffff',
     borderRadius: '16px',
-    padding: '30px',
-    boxShadow: '0 4px 20px rgba(0, 104, 185, 0.08)',
-    width: '100%',
-    maxWidth: '650px',
+    padding: '36px',
+    boxShadow: '0 10px 30px rgba(15, 23, 42, 0.02)',
+    border: '1px solid #e1e8ed',
   },
   sectionTitle: {
-    fontSize: '18px',
+    fontSize: '14px',
     fontWeight: '700',
-    color: '#0369a1',
+    color: '#0284c7',
     margin: '0 0 20px 0',
-    borderBottom: '2px solid #f0f9ff',
-    paddingBottom: '8px',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
   },
   inputGroupRow: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+    gridTemplateColumns: 'repeat(3, 1fr)',
     gap: '16px',
-    marginBottom: '32px',
+    marginBottom: '36px',
   },
   inputGrid: {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     gap: '16px',
-    marginBottom: '24px',
+    marginBottom: '28px',
   },
   inputWrapper: {
     display: 'flex',
@@ -265,12 +275,14 @@ const styles = {
   },
   input: {
     padding: '12px 14px',
-    borderRadius: '8px',
+    borderRadius: '10px',
     border: '1px solid #cbd5e1',
     fontSize: '15px',
-    backgroundColor: '#f8fafc',
-    color: '#1e293b',
+    backgroundColor: '#ffffff',
+    color: '#0f172a',
     outline: 'none',
+    boxSizing: 'border-box',
+    width: '100%',
   },
   button: {
     width: '100%',
@@ -278,33 +290,60 @@ const styles = {
     backgroundColor: '#0284c7',
     color: '#ffffff',
     border: 'none',
-    borderRadius: '8px',
+    borderRadius: '10px',
     cursor: 'pointer',
-    fontSize: '16px',
-    fontWeight: '700',
-    marginTop: '16px',
-    boxShadow: '0 4px 12px rgba(2, 132, 199, 0.2)',
+    fontSize: '15px',
+    fontWeight: '600',
+    marginTop: '12px',
+    boxShadow: '0 4px 12px rgba(2, 132, 199, 0.15)',
+  },
+  resultContainer: {
+    width: '100%',
   },
   resultCard: {
     background: '#ffffff',
     borderRadius: '16px',
-    padding: '30px',
-    boxShadow: '0 4px 25px rgba(0, 104, 185, 0.12)',
-    width: '100%',
-    maxWidth: '650px',
-    borderLeft: '5px solid #0284c7',
+    padding: '36px',
+    boxShadow: '0 10px 30px rgba(15, 23, 42, 0.02)',
+    border: '1px solid #e1e8ed',
+    borderTop: '4px solid #0284c7',
+  },
+  emptyResultCard: {
+    background: '#f8fafc',
+    borderRadius: '16px',
+    padding: '60px 40px',
+    border: '2px dashed #e2e8f0',
+    textAlign: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  emptyIcon: {
+    fontSize: '40px',
+    marginBottom: '16px',
+    opacity: 0.6,
+  },
+  emptyText: {
+    fontSize: '14px',
+    color: '#64748b',
+    maxWidth: '280px',
+    lineHeight: '1.5',
+    margin: 0,
   },
   resultTitle: {
-    fontSize: '20px',
+    fontSize: '18px',
     fontWeight: '700',
     color: '#0f172a',
     margin: '0 0 24px 0',
+    letterSpacing: '-0.3px',
   },
   resultItem: {
     display: 'flex',
     justifyContent: 'space-between',
-    padding: '12px 0',
+    padding: '14px 0',
     borderBottom: '1px solid #f1f5f9',
+    fontSize: '14.5px',
   },
   resultLabel: {
     color: '#64748b',
@@ -317,7 +356,7 @@ const styles = {
   divider: {
     height: '1px',
     backgroundColor: '#e2e8f0',
-    margin: '24px 0',
+    margin: '28px 0',
   },
   totalBlock: {
     display: 'flex',
@@ -325,15 +364,22 @@ const styles = {
     alignItems: 'center',
   },
   totalLabel: {
-    fontSize: '16px',
+    fontSize: '15px',
     fontWeight: '700',
     color: '#0f172a',
+    display: 'block',
+  },
+  totalSubtext: {
+    margin: '2px 0 0 0',
+    fontSize: '12px',
+    color: '#64748b',
   },
   totalValue: {
-    fontSize: '22px',
+    fontSize: '24px',
     fontWeight: '800',
     color: '#0284c7',
     margin: 0,
+    letterSpacing: '-0.5px',
   }
 };
 
