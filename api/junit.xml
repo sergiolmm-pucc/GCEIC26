@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="25" failures="0" errors="0" time="0.932">
+  <testsuite name="Teste de unitario" errors="0" failures="0" skipped="0" timestamp="2026-05-26T00:08:10" time="0.427" tests="15">
+    <testcase classname="Teste de unitario deve retornar calculos" name="Teste de unitario deve retornar calculos" time="0.016">
+    </testcase>
+    <testcase classname="decodificarChaveNF deve decodificar estado SP corretamente" name="decodificarChaveNF deve decodificar estado SP corretamente" time="0.001">
+    </testcase>
+    <testcase classname="decodificarChaveNF deve decodificar estado RJ corretamente" name="decodificarChaveNF deve decodificar estado RJ corretamente" time="0">
+    </testcase>
+    <testcase classname="decodificarChaveNF deve formatar CNPJ corretamente" name="decodificarChaveNF deve formatar CNPJ corretamente" time="0">
+    </testcase>
+    <testcase classname="decodificarChaveNF deve lançar erro para chave com menos de 44 dígitos" name="decodificarChaveNF deve lançar erro para chave com menos de 44 dígitos" time="0.001">
+    </testcase>
+    <testcase classname="decodificarChaveNF deve lançar erro para chave com mais de 44 dígitos" name="decodificarChaveNF deve lançar erro para chave com mais de 44 dígitos" time="0.001">
+    </testcase>
+    <testcase classname="decodificarChaveNF deve ignorar caracteres não numéricos na chave" name="decodificarChaveNF deve ignorar caracteres não numéricos na chave" time="0">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda deve calcular ICMS, IPI, PIS e COFINS no Lucro Real" name="calcularImpostosNFVenda deve calcular ICMS, IPI, PIS e COFINS no Lucro Real" time="0.001">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda deve calcular carga tributária corretamente" name="calcularImpostosNFVenda deve calcular carga tributária corretamente" time="0">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda deve usar regime Lucro Presumido com alíquotas corretas" name="calcularImpostosNFVenda deve usar regime Lucro Presumido com alíquotas corretas" time="0">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda deve usar PIS/COFINS zerados no Simples Nacional" name="calcularImpostosNFVenda deve usar PIS/COFINS zerados no Simples Nacional" time="0.001">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda deve aceitar ICMS personalizado" name="calcularImpostosNFVenda deve aceitar ICMS personalizado" time="0">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda deve lançar erro para valor do produto zero" name="calcularImpostosNFVenda deve lançar erro para valor do produto zero" time="0">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda deve lançar erro para IPI negativo" name="calcularImpostosNFVenda deve lançar erro para IPI negativo" time="0.001">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda deve lançar erro quando chave não é informada" name="calcularImpostosNFVenda deve lançar erro quando chave não é informada" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Teste de Saude -&gt; GET /health" errors="0" failures="0" skipped="0" timestamp="2026-05-26T00:08:10" time="0.594" tests="10">
+    <testcase classname="Teste de Saude -&gt; GET /health deve retornar status ok" name="Teste de Saude -&gt; GET /health deve retornar status ok" time="0.018">
+    </testcase>
+    <testcase classname="GET /api/tabelas deve retornar a tebela de constantes " name="GET /api/tabelas deve retornar a tebela de constantes " time="0.007">
+    </testcase>
+    <testcase classname="GET /nfvenda/tabelas deve retornar tabelas de impostos NF venda" name="GET /nfvenda/tabelas deve retornar tabelas de impostos NF venda" time="0.003">
+    </testcase>
+    <testcase classname="POST /nfvenda/decodificar deve decodificar chave NF-e válida" name="POST /nfvenda/decodificar deve decodificar chave NF-e válida" time="0.011">
+    </testcase>
+    <testcase classname="POST /nfvenda/decodificar deve retornar erro para chave sem 44 dígitos" name="POST /nfvenda/decodificar deve retornar erro para chave sem 44 dígitos" time="0.007">
+    </testcase>
+    <testcase classname="POST /nfvenda/decodificar deve retornar erro quando chave não é enviada" name="POST /nfvenda/decodificar deve retornar erro quando chave não é enviada" time="0.002">
+    </testcase>
+    <testcase classname="POST /nfvenda/calcular deve calcular impostos NF venda corretamente" name="POST /nfvenda/calcular deve calcular impostos NF venda corretamente" time="0.004">
+    </testcase>
+    <testcase classname="POST /nfvenda/calcular deve calcular impostos com regime Simples Nacional (PIS/COFINS zerados)" name="POST /nfvenda/calcular deve calcular impostos com regime Simples Nacional (PIS/COFINS zerados)" time="0.002">
+    </testcase>
+    <testcase classname="POST /nfvenda/calcular deve retornar erro para valor do produto inválido" name="POST /nfvenda/calcular deve retornar erro para valor do produto inválido" time="0.003">
+    </testcase>
+    <testcase classname="POST /nfvenda/calcular deve retornar erro para chave inválida" name="POST /nfvenda/calcular deve retornar erro para chave inválida" time="0.003">
+    </testcase>
+  </testsuite>
+</testsuites>

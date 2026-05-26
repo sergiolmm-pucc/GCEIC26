@@ -11,17 +11,17 @@ app.use(express.json());
 
 // checa se api no ar
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM-33', turma:'101'});
+  res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM28', turma:'101'});
 });
 
 app.get('/api/tabelas', (req, res) => {
-  const { TABELA } = require('./equipe-16/funcoes');
+  const { TABELA, calcular } = require('./funcoes');
   res.json({
-    success: true,
-    data: {
-      campos: TABELA.CAMPOS,
-      formula: TABELA.FORMULA,
-    },
+	success: true,
+	data: {
+		base: TABELA.BASE_CALC.faixas,
+		referencia: `${TABELA.REFERENCIA * 100}%`,
+	},
   });
 
 });
@@ -29,14 +29,51 @@ app.get('/api/tabelas', (req, res) => {
 // POST /api/calcular
 app.post('/api/calcular', (req, res) => {
   try {
-    const { calcular } = require('./equipe-16/funcoes');
+	const { TABELA, calcular } = require('./funcoes');
     const dados = req.body;
+	console.log(dados);
 
     if (!dados || typeof dados !== 'object') {
-      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
+      return res.status(400).json({ error: 'Corpo da requisição inválido' });
     }
     
     const resultado = calcular(dados);
+	console.log(resultado);
+    return res.status(200).json({ success: true, data: resultado });
+  } catch (err) {
+	console.log(err.message);
+    return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+// ────────────────────────────────────────────────────────────
+//  GRUPO 17 — Rotas NF de Venda
+// ────────────────────────────────────────────────────────────
+
+app.get('/nfvenda/tabelas', (req, res) => {
+  const { TABELA_NF_VENDA } = require('./funcoes');
+  res.json({ success: true, data: TABELA_NF_VENDA });
+});
+
+app.post('/nfvenda/decodificar', (req, res) => {
+  try {
+    const { decodificarChaveNF } = require('./funcoes');
+    const { chave } = req.body;
+    if (!chave) return res.status(400).json({ success: false, error: 'Campo "chave" é obrigatório' });
+    const resultado = decodificarChaveNF(chave);
+    return res.status(200).json({ success: true, data: resultado });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/nfvenda/calcular', (req, res) => {
+  try {
+    const { calcularImpostosNFVenda } = require('./funcoes');
+    if (!req.body || typeof req.body !== 'object') {
+      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
+    }
+    const resultado = calcularImpostosNFVenda(req.body);
     return res.status(200).json({ success: true, data: resultado });
   } catch (err) {
     return res.status(400).json({ success: false, error: err.message });
@@ -44,4 +81,5 @@ app.post('/api/calcular', (req, res) => {
 });
 
 module.exports = app
+
 
