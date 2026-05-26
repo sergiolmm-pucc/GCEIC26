@@ -11,9 +11,9 @@ app.use(cors());
 app.use(express.json());
 
 // Usando as rotas com seus respectivos prefixos
-app.use('/PISCINA/volume', volumeRoutes);
-app.use('/PISCINA/materiais', materiaisRoutes);
-app.use('/PISCINA/custos', custosRoutes);
+app.use('/PISCINA2/volume', volumeRoutes);
+app.use('/PISCINA2/materiais', materiaisRoutes);
+app.use('/PISCINA2/custos', custosRoutes);
 
 const PORT = 3000;
 app.listen(PORT, () => {
