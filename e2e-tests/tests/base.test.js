@@ -6,7 +6,6 @@ const path = require('path');
 const BASE_URL = process.env.APP_URL || 'http://localhost:3000';
 const SCREENSHOTS_DIR = path.join(__dirname, '..', 'screenshots');
 
-// Garante que o diretório de screenshots existe
 if (!fs.existsSync(SCREENSHOTS_DIR)) fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
 
 async function tiraFoto(name){
@@ -41,8 +40,7 @@ async function main() {
 
       await driver.get(BASE_URL + '/login');
 
-      tiraFoto("Pagina Entrada");
-      //preenche os campos 
+      await tiraFoto("Pagina Entrada");
 
       await driver.findElement(By.id('username')).sendKeys('Adm');
       await driver.findElement(By.id('password')).sendKeys('admin');
