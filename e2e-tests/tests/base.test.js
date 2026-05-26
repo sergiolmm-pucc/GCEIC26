@@ -2,7 +2,7 @@ name: Teste and Deploy
 
 on:
   push:
-    branches: [main, dev, "grupo10/calc_financeira"]
+    branches: [main, dev, grupo10/calc_financeira]
   pull_request:
     branches: [grupo16/markup]
   
