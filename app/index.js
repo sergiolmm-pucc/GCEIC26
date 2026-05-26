@@ -35,7 +35,7 @@ const equipes = [
   { numero: 13, nome: 'Equipe-13',   rota: '/equipe-13' },
   { numero: 14, nome: 'Equipe-14',   rota: '/equipe-14' },
   { numero: 15, nome: 'Equipe-15',   rota: '/equipe-15' },
-  { numero: 16, nome: 'G16 - MarkUp Calc', rota: '/grupo-16' },
+  { numero: 16, nome: 'G16 - MarkUp Calc', rota: '/equipe-16' },
   { numero: 17, nome: 'Equipe-17',   rota: '/equipe-17' },
   { numero: 18, nome: 'Equipe-18',   rota: '/equipe-18' },
   { numero: 19, nome: 'Equipe-19',   rota: '/equipe-19' },
@@ -59,7 +59,7 @@ app.get('/login', (req, res) => {
 });
 
 // ── Grupo 16 — MarkUp Calc ──
-const BASE_PATH = '/grupo-16';
+const BASE_PATH = '/equipe-16';
 
 function requireAuth(req, res, next) {
   if (req.session && req.session.user) return next();
@@ -125,7 +125,7 @@ grupo16.post('/calcular', requireAuth, async (req, res) => {
 
 app.use(BASE_PATH, grupo16);
 
-// Rotas genéricas das demais equipes
+// Rotas genéricas das demais equipes (grupo 16 tem rota própria acima)
 for (let i = 2; i <= 25; i++) {
   if (i === 16) continue;
   app.get(`/equipe-${i}`, (req, res) => {
