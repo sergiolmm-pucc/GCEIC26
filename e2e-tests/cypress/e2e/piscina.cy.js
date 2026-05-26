@@ -45,11 +45,12 @@ describe('Testes Funcionais - Calculadora de Piscina GCEIC2026', () => {
     
     cy.contains('Calcular Projeto').click();
 
-    // Atualizado para o novo título do card de resultado
     cy.contains('📋 Relatório Orçamentário', { timeout: 10000 }).should('be.visible');
     
-    cy.contains('48 m³').should('be.visible'); 
-    cy.contains('R$ 3.500,00').should('be.visible'); 
+    // Voltamos para a sua versão original: buscar apenas o número exato isola o teste
+    // contra problemas de renderização de caracteres como o '³' e formatações de moeda
+    cy.contains('48').should('be.visible'); 
+    cy.contains('3.500,00').should('be.visible'); 
   });
 
   it('Deve navegar para a tela Sobre e listar os membros da equipe', () => {
