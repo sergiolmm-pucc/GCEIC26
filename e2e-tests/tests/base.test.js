@@ -58,7 +58,7 @@ async function main() {
 
       tiraFoto("Submit form com erro");
 
-      const errMsg = await driver.findElement(By.css('.erro')).getText();
+      const errMsg = await driver.findElement(By.css('erro')).getText();
       if (!errMsg.includes('invalidos')) throw new Error(`Falhou : ${errMsg}`);
     
     } catch(error){  
