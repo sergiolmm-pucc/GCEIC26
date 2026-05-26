@@ -45,13 +45,13 @@ O AguaCalc calcula o consumo de água de uma residência com base nos hábitos d
 │   └── package.json
 ├── app/                        # Frontend Node.js + EJS
 │   ├── views/
-│   │   ├── splash.ejs          # Tela inicial
+│   │   ├── splash.ejs          # Tela inicial com animação
 │   │   ├── login.ejs           # Login
-│   │   ├── calculo.ejs         # Tela principal (3 etapas)
+│   │   ├── calculo.ejs         # Cálculo em 3 etapas
 │   │   ├── sobre.ejs           # Sobre a equipe
 │   │   └── help.ejs            # Ajuda e documentação
 │   ├── public/                 # Fotos da equipe
-│   ├── index.js
+│   ├── index.js                # Express + rotas + proxy + rota equipe-20
 │   └── package.json
 ├── e2e-tests/
 │   ├── tests/base.test.js      # Testes funcionais Selenium
@@ -155,8 +155,22 @@ Pipeline configurado via GitHub Actions em `.github/workflows/deploy.yml`:
 
 1. Detecta mudanças nas pastas `api/` e `app/`
 2. Instala dependências com `npm ci`
-3. Roda os testes com relatório Jest-JUnit
-4. Deploy automático no Render após testes passarem
+3. Roda os 28 testes unitários com relatório Jest-JUnit
+4. Sobe API e app em background e roda testes e2e com Selenium
+5. Salva screenshots dos testes como artefato
+6. Deploy automático da API no Render após testes passarem
+7. Deploy automático do app no Render
+8. Roda testes e2e novamente apontando para as URLs do Render
 
 **Branch:** `grupo20/calc_consumo_agua`  
 **Repositório:** https://github.com/sergiolmm-pucc/GCEIC26
+
+---
+
+## 🌐 URLs em produção
+
+| Serviço | URL |
+|---|---|
+| API | https://gceic26.onrender.com |
+| App | https://gceic26-app.onrender.com |
+| Rota do grupo | https://gceic26-app.onrender.com/equipe-20 |
