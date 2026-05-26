@@ -11,14 +11,12 @@ app.use(express.json());
 
 // checa se api está no ar
 app.get('/health', (req, res) => {
-app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
     by: 'SLMM-33',
     turma: '101'
   });
-});
 });
 
 

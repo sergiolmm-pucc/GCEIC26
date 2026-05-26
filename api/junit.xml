@@ -1,63 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="34" failures="0" errors="0" time="13.783">
-  <testsuite name="Testes unitários - calcularNF" errors="0" failures="0" skipped="0" timestamp="2026-05-21T18:10:18" time="5.778" tests="7">
-    <testcase classname="Testes unitários - calcularNF deve calcular corretamente com alíquotas padrão" name="Testes unitários - calcularNF deve calcular corretamente com alíquotas padrão" time="0.006">
+<testsuites name="jest tests" tests="34" failures="0" errors="0" time="14.631">
+  <testsuite name="Testes unitários - calcularNF" errors="0" failures="0" skipped="0" timestamp="2026-05-26T18:13:56" time="3.844" tests="7">
+    <testcase classname="Testes unitários - calcularNF deve calcular corretamente com alíquotas padrão" name="Testes unitários - calcularNF deve calcular corretamente com alíquotas padrão" time="0.004">
     </testcase>
-    <testcase classname="Testes unitários - calcularNF deve calcular corretamente com valor diferente" name="Testes unitários - calcularNF deve calcular corretamente com valor diferente" time="0">
+    <testcase classname="Testes unitários - calcularNF deve calcular corretamente com valor diferente" name="Testes unitários - calcularNF deve calcular corretamente com valor diferente" time="0.002">
     </testcase>
-    <testcase classname="Testes unitários - calcularNF deve lançar erro se valorProduto for zero" name="Testes unitários - calcularNF deve lançar erro se valorProduto for zero" time="0.01">
+    <testcase classname="Testes unitários - calcularNF deve lançar erro se valorProduto for zero" name="Testes unitários - calcularNF deve lançar erro se valorProduto for zero" time="0.091">
     </testcase>
-    <testcase classname="Testes unitários - calcularNF deve lançar erro se valorProduto for negativo" name="Testes unitários - calcularNF deve lançar erro se valorProduto for negativo" time="0.001">
+    <testcase classname="Testes unitários - calcularNF deve lançar erro se valorProduto for negativo" name="Testes unitários - calcularNF deve lançar erro se valorProduto for negativo" time="0.002">
     </testcase>
     <testcase classname="Testes unitários - calcularNF deve lançar erro se algum imposto for negativo" name="Testes unitários - calcularNF deve lançar erro se algum imposto for negativo" time="0.001">
     </testcase>
     <testcase classname="Testes unitários - calcularNF deve funcionar com impostos zerados" name="Testes unitários - calcularNF deve funcionar com impostos zerados" time="0">
     </testcase>
-    <testcase classname="Testes unitários - calcularNF TABELA deve ter as alíquotas padrão corretas" name="Testes unitários - calcularNF TABELA deve ter as alíquotas padrão corretas" time="0.001">
+    <testcase classname="Testes unitários - calcularNF TABELA deve ter as alíquotas padrão corretas" name="Testes unitários - calcularNF TABELA deve ter as alíquotas padrão corretas" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="Unitário - calcularNFInverso" errors="0" failures="0" skipped="0" timestamp="2026-05-21T18:10:18" time="11.127" tests="7">
+  <testsuite name="Unitário - calcularNFInverso" errors="0" failures="0" skipped="0" timestamp="2026-05-26T18:13:56" time="10.764" tests="7">
     <testcase classname="Unitário - calcularNFInverso deve calcular o valor original corretamente" name="Unitário - calcularNFInverso deve calcular o valor original corretamente" time="0.004">
     </testcase>
-    <testcase classname="Unitário - calcularNFInverso deve lançar erro se totalNF for zero" name="Unitário - calcularNFInverso deve lançar erro se totalNF for zero" time="0.009">
+    <testcase classname="Unitário - calcularNFInverso deve lançar erro se totalNF for zero" name="Unitário - calcularNFInverso deve lançar erro se totalNF for zero" time="0.01">
     </testcase>
     <testcase classname="Unitário - calcularNFInverso deve lançar erro se totalNF for negativo" name="Unitário - calcularNFInverso deve lançar erro se totalNF for negativo" time="0.001">
     </testcase>
-    <testcase classname="Unitário - calcularNFInverso deve lançar erro se imposto for negativo" name="Unitário - calcularNFInverso deve lançar erro se imposto for negativo" time="0.002">
+    <testcase classname="Unitário - calcularNFInverso deve lançar erro se imposto for negativo" name="Unitário - calcularNFInverso deve lançar erro se imposto for negativo" time="0.001">
     </testcase>
-    <testcase classname="Unitário - calcularNFInverso deve funcionar com impostos zerados" name="Unitário - calcularNFInverso deve funcionar com impostos zerados" time="0.001">
+    <testcase classname="Unitário - calcularNFInverso deve funcionar com impostos zerados" name="Unitário - calcularNFInverso deve funcionar com impostos zerados" time="0">
     </testcase>
-    <testcase classname="API - POST /NF/calcular-inverso deve retornar o valor original do produto" name="API - POST /NF/calcular-inverso deve retornar o valor original do produto" time="0.45">
+    <testcase classname="API - POST /NF/calcular-inverso deve retornar o valor original do produto" name="API - POST /NF/calcular-inverso deve retornar o valor original do produto" time="0.027">
     </testcase>
-    <testcase classname="API - POST /NF/calcular-inverso deve retornar erro com totalNF inválido" name="API - POST /NF/calcular-inverso deve retornar erro com totalNF inválido" time="0.007">
+    <testcase classname="API - POST /NF/calcular-inverso deve retornar erro com totalNF inválido" name="API - POST /NF/calcular-inverso deve retornar erro com totalNF inválido" time="0.005">
     </testcase>
   </testsuite>
-  <testsuite name="GET /health" errors="0" failures="0" skipped="0" timestamp="2026-05-21T18:10:18" time="11.129" tests="6">
-    <testcase classname="GET /health deve retornar status ok" name="GET /health deve retornar status ok" time="0.029">
+  <testsuite name="GET /health" errors="0" failures="0" skipped="0" timestamp="2026-05-26T18:13:56" time="10.773" tests="6">
+    <testcase classname="GET /health deve retornar status ok" name="GET /health deve retornar status ok" time="0.024">
     </testcase>
     <testcase classname="GET /NF/tabelas deve retornar a tabela de alíquotas padrão" name="GET /NF/tabelas deve retornar a tabela de alíquotas padrão" time="0.008">
     </testcase>
-    <testcase classname="POST /NF/calcular deve calcular NF corretamente" name="POST /NF/calcular deve calcular NF corretamente" time="0.425">
+    <testcase classname="POST /NF/calcular deve calcular NF corretamente" name="POST /NF/calcular deve calcular NF corretamente" time="0.013">
     </testcase>
-    <testcase classname="POST /NF/calcular deve retornar erro com valorProduto inválido" name="POST /NF/calcular deve retornar erro com valorProduto inválido" time="0.007">
+    <testcase classname="POST /NF/calcular deve retornar erro com valorProduto inválido" name="POST /NF/calcular deve retornar erro com valorProduto inválido" time="0.004">
     </testcase>
-    <testcase classname="POST /NF/calcular deve retornar erro com imposto negativo" name="POST /NF/calcular deve retornar erro com imposto negativo" time="0.007">
+    <testcase classname="POST /NF/calcular deve retornar erro com imposto negativo" name="POST /NF/calcular deve retornar erro com imposto negativo" time="0.004">
     </testcase>
-    <testcase classname="POST /NF/calcular deve retornar erro com corpo vazio" name="POST /NF/calcular deve retornar erro com corpo vazio" time="0.004">
+    <testcase classname="POST /NF/calcular deve retornar erro com corpo vazio" name="POST /NF/calcular deve retornar erro com corpo vazio" time="0.005">
     </testcase>
   </testsuite>
-  <testsuite name="Unitário - compararAliquotas" errors="0" failures="0" skipped="0" timestamp="2026-05-21T18:10:18" time="11.139" tests="14">
+  <testsuite name="Unitário - compararAliquotas" errors="0" failures="0" skipped="0" timestamp="2026-05-26T18:13:56" time="10.785" tests="14">
     <testcase classname="Unitário - compararAliquotas deve identificar cenário B como mais vantajoso quando tem menor carga tributária" name="Unitário - compararAliquotas deve identificar cenário B como mais vantajoso quando tem menor carga tributária" time="0.004">
     </testcase>
-    <testcase classname="Unitário - compararAliquotas deve identificar cenário A como mais vantajoso quando tem menor carga tributária" name="Unitário - compararAliquotas deve identificar cenário A como mais vantajoso quando tem menor carga tributária" time="0">
+    <testcase classname="Unitário - compararAliquotas deve identificar cenário A como mais vantajoso quando tem menor carga tributária" name="Unitário - compararAliquotas deve identificar cenário A como mais vantajoso quando tem menor carga tributária" time="0.001">
     </testcase>
-    <testcase classname="Unitário - compararAliquotas deve retornar empate quando cenários têm mesmas alíquotas" name="Unitário - compararAliquotas deve retornar empate quando cenários têm mesmas alíquotas" time="0.001">
+    <testcase classname="Unitário - compararAliquotas deve retornar empate quando cenários têm mesmas alíquotas" name="Unitário - compararAliquotas deve retornar empate quando cenários têm mesmas alíquotas" time="0">
     </testcase>
-    <testcase classname="Unitário - compararAliquotas deve retornar diferencaPercentual correta" name="Unitário - compararAliquotas deve retornar diferencaPercentual correta" time="0">
+    <testcase classname="Unitário - compararAliquotas deve retornar diferencaPercentual correta" name="Unitário - compararAliquotas deve retornar diferencaPercentual correta" time="0.001">
     </testcase>
-    <testcase classname="Unitário - compararAliquotas deve lançar erro se valorProduto for zero" name="Unitário - compararAliquotas deve lançar erro se valorProduto for zero" time="0.01">
+    <testcase classname="Unitário - compararAliquotas deve lançar erro se valorProduto for zero" name="Unitário - compararAliquotas deve lançar erro se valorProduto for zero" time="0.012">
     </testcase>
-    <testcase classname="Unitário - compararAliquotas deve lançar erro se valorProduto for negativo" name="Unitário - compararAliquotas deve lançar erro se valorProduto for negativo" time="0.001">
+    <testcase classname="Unitário - compararAliquotas deve lançar erro se valorProduto for negativo" name="Unitário - compararAliquotas deve lançar erro se valorProduto for negativo" time="0">
     </testcase>
     <testcase classname="Unitário - compararAliquotas deve lançar erro se alguma alíquota do cenário A for negativa" name="Unitário - compararAliquotas deve lançar erro se alguma alíquota do cenário A for negativa" time="0.001">
     </testcase>
@@ -65,15 +65,15 @@
     </testcase>
     <testcase classname="Unitário - compararAliquotas deve funcionar com cenários sem alíquotas (tudo zero)" name="Unitário - compararAliquotas deve funcionar com cenários sem alíquotas (tudo zero)" time="0">
     </testcase>
-    <testcase classname="API - POST /NF/comparar deve comparar dois cenários e retornar o mais vantajoso" name="API - POST /NF/comparar deve comparar dois cenários e retornar o mais vantajoso" time="0.449">
+    <testcase classname="API - POST /NF/comparar deve comparar dois cenários e retornar o mais vantajoso" name="API - POST /NF/comparar deve comparar dois cenários e retornar o mais vantajoso" time="0.027">
     </testcase>
-    <testcase classname="API - POST /NF/comparar deve retornar empate quando alíquotas são iguais" name="API - POST /NF/comparar deve retornar empate quando alíquotas são iguais" time="0.006">
+    <testcase classname="API - POST /NF/comparar deve retornar empate quando alíquotas são iguais" name="API - POST /NF/comparar deve retornar empate quando alíquotas são iguais" time="0.004">
     </testcase>
-    <testcase classname="API - POST /NF/comparar deve retornar erro com valorProduto inválido" name="API - POST /NF/comparar deve retornar erro com valorProduto inválido" time="0.004">
+    <testcase classname="API - POST /NF/comparar deve retornar erro com valorProduto inválido" name="API - POST /NF/comparar deve retornar erro com valorProduto inválido" time="0.006">
     </testcase>
     <testcase classname="API - POST /NF/comparar deve retornar erro com alíquota negativa" name="API - POST /NF/comparar deve retornar erro com alíquota negativa" time="0.003">
     </testcase>
-    <testcase classname="API - POST /NF/comparar deve retornar erro com corpo vazio" name="API - POST /NF/comparar deve retornar erro com corpo vazio" time="0.006">
+    <testcase classname="API - POST /NF/comparar deve retornar erro com corpo vazio" name="API - POST /NF/comparar deve retornar erro com corpo vazio" time="0.005">
     </testcase>
   </testsuite>
 </testsuites>
