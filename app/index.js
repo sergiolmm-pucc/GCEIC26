@@ -8,7 +8,6 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const API_URL = process.env.API_URL || 'http://localhost:3001';
-const GRUPO14_API_URL = normalizeApiUrl(process.env.GRUPO14_API_URL || 'http://localhost:3002');
 const GRUPO14_PATH = '/equipe-14';
 const grupo14DistPath = path.join(__dirname, 'dist');
 
@@ -17,7 +16,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/PBL', (req, res) => {
-  const target = new URL(req.originalUrl, ensureTrailingSlash(GRUPO14_API_URL));
+  const target = new URL(req.originalUrl, ensureTrailingSlash(API_URL));
   const client = target.protocol === 'https:' ? https : http;
   const proxyRequest = client.request(target, {
     method: req.method,
@@ -176,10 +175,6 @@ for (let i = 2; i <= 25; i++) {
 
 function ensureTrailingSlash(url) {
   return url.endsWith('/') ? url : `${url}/`;
-}
-
-function normalizeApiUrl(url) {
-  return /^https?:\/\//i.test(url) ? url : `http://${url}`;
 }
 
 app.listen(PORT, () => {
