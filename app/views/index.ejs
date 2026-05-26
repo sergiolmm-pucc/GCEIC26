@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel de Equipes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --border: #1e1e2e;
+      --accent: #ff3c5f;
+      --accent2: #00e5ff;
+      --text: #e8e8f0;
+      --muted: #70708c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+    }
+    header {
+      padding: 58px max(30px, calc((100% - 1120px) / 2)) 38px;
+      border-bottom: 1px solid var(--border);
+    }
+    h1 {
+      margin: 0 0 10px;
+      font: 800 clamp(34px, 5vw, 46px) 'Syne', sans-serif;
+    }
+    h1 span { color: var(--accent); }
+    header p, .label, footer {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+    main { max-width: 1120px; margin: 0 auto; padding: 46px 30px; }
+    .label { margin-bottom: 25px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .btn-equipe {
+      position: relative;
+      display: flex;
+      min-height: 112px;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 19px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .btn-equipe.ativo { border-color: var(--accent2); }
+    .btn-equipe.ativo:hover { transform: translateY(-3px); }
+    .btn-equipe.desativado {
+      opacity: 0.5;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+    .btn-num {
+      font: 800 31px 'Syne', sans-serif;
+      color: var(--muted);
+    }
+    .ativo .btn-num { color: var(--accent2); }
+    .btn-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+    .btn-arrow { position: absolute; right: 18px; bottom: 18px; color: var(--accent2); }
+    footer { margin-top: 32px; padding: 28px; text-align: center; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Painel do projeto <span>GCEIC</span></h1>
+    <p>Selecione um projeto para continuar</p>
+  </header>
+  <main>
+    <div class="label">Projetos da turma 101</div>
+    <div class="grid">
+      <% equipes.forEach(function(equipe) { %>
+        <a href="<%= equipe.rota %>" class="btn-equipe <%= equipe.ativo ? 'ativo' : 'desativado' %>"<% if (!equipe.ativo) { %> aria-disabled="true" tabindex="-1"<% } %>>
+          <div class="btn-num"><%= String(equipe.numero).padStart(2, '0') %></div>
+          <div class="btn-label"><%= equipe.nome %></div>
+          <% if (equipe.ativo) { %><span class="btn-arrow">-&gt;</span><% } %>
+        </a>
+      <% }); %>
+    </div>
+  </main>
+  <footer>&copy; <%= new Date().getFullYear() %> &middot; GCEIC</footer>
+</body>
+</html>

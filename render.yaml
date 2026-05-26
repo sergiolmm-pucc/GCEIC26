@@ -1,0 +1,28 @@
+services:
+  - type: web
+    runtime: node
+    name: gceic-grupo14-api
+    plan: free
+    rootDir: api
+    branch: grupo14/PBL
+    buildCommand: npm ci
+    startCommand: node index.js
+    healthCheckPath: /PBL/health
+    autoDeployTrigger: off
+
+  - type: web
+    runtime: node
+    name: gceic-grupo14-portal
+    plan: free
+    rootDir: app
+    branch: grupo14/PBL
+    buildCommand: npm ci && npm run build
+    startCommand: npm run serve
+    healthCheckPath: /
+    autoDeployTrigger: off
+    envVars:
+      - key: API_URL
+        fromService:
+          type: web
+          name: gceic-grupo14-api
+          property: hostport
