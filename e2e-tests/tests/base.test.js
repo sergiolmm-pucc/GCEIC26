@@ -6,6 +6,7 @@ const path = require('path');
 const BASE_URL = process.env.APP_URL || 'http://localhost:3000';
 const SCREENSHOTS_DIR = path.join(__dirname, '..', 'screenshots');
 
+// Garante que o diretório de screenshots existe
 if (!fs.existsSync(SCREENSHOTS_DIR)) fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
 
 async function tiraFoto(name){
@@ -22,51 +23,46 @@ async function tiraFoto(name){
 }
 
 async function main() {
-
+    console.log('Iniciand');
     try{
       const opts = new chrome.Options();
       opts.addArguments(
       '--headless=new',
       '--no-sandbox',
+      '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
       '--window-size=800,640',
       '--disable-gpu'
       );
+
+    //  let driver = await new Builder().forBrowser(Browser.CHROME).build();
       driver = await new Builder()
         .forBrowser('chrome')
         .setChromeOptions(opts)
         .build();
+      console.log('criado');  
       await driver.manage().setTimeouts({ implicit: 5000, pageLoad: 15000 });
 
       await driver.get(BASE_URL + '/login');
 
-      await tiraFoto("Pagina Entrada");
+      tiraFoto("Pagina Entrada");
+      //preenche os campos 
 
       await driver.findElement(By.id('username')).sendKeys('Adm');
       await driver.findElement(By.id('password')).sendKeys('admin');
 
-      await tiraFoto("Valores Digitados");
-
+      tiraFoto("Valores Digitados");
+      // vamos acionar o botao de login e ver o que acontece
       await driver.findElement(By.id('loginForm')).submit();
+      await new Promise(r => setTimeout(r, 800)); 
 
-      await driver.wait(async () => {
-        const elements = await driver.findElements(By.css('.erro'));
-        return elements.length > 0;
-      }, 10000);
+      tiraFoto("Submit form com erro");
 
-      const erroElemento = await driver.findElement(By.css('.erro'));
-
-      await tiraFoto("Submit form com erro");
-
-      const errMsg = await erroElemento.getText();
-
-      console.log("Mensagem encontrada:", errMsg);
-
-      if (!errMsg.includes('inválidos')) {
-        throw new Error(`Falhou: ${errMsg}`);
-      }
-
-
+      const errMsg = await driver.findElement(By.css('erro')).getText();
+      if (!errMsg.includes('invalidos')) throw new Error(`Falhou : ${errMsg}`);
+    
+    } catch(error){  
+        console.log(error.message);
     } finally {
         if (driver) await driver.quit();
     }
