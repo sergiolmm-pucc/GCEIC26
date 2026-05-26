@@ -11,9 +11,13 @@ Projeto academico de Gerencia de Configuracao, Entrega e Integracao Continua.
 ## Como executar
 
 ```bash
+cd api
 npm install
-npm run dev:api
-npm run dev:app
+npm run dev
+
+cd ../app
+npm install
+npm run dev
 ```
 
 O app abre em `http://localhost:5173` e a API em `http://localhost:3001/PBL`.
@@ -26,6 +30,10 @@ Credenciais do app:
 ## Validacao
 
 ```bash
+cd api
+npm test
+
+cd ../app
 npm test
 npm run build
 ```
