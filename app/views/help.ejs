@@ -7,7 +7,6 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Segoe UI', sans-serif; background: #f0f9ff; color: #1a1a2e; }
-
     nav {
       background: #0077b6; color: #fff;
       padding: 14px 24px;
@@ -23,9 +22,7 @@
       padding: 6px 14px; cursor: pointer;
       font-size: 0.85rem; font-weight: 600;
     }
-
     .container { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
-
     .card {
       background: #fff; border-radius: 16px;
       padding: 1.8rem; box-shadow: 0 4px 20px rgba(0,119,182,0.08);
@@ -35,24 +32,10 @@
     h3 { color: #005f8e; margin: 1.2rem 0 0.5rem; font-size: 1rem; }
     p, li { color: #555; line-height: 1.7; font-size: 0.92rem; }
     ul { padding-left: 1.4rem; }
-
     table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; }
     th { background: #0077b6; color: #fff; padding: 9px 12px; text-align: left; font-size: 0.88rem; }
     td { padding: 9px 12px; border-bottom: 1px solid #e0f0ff; font-size: 0.88rem; }
     tr:nth-child(even) td { background: #f0f9ff; }
-
-    .endpoint {
-      background: #f0f9ff; border-radius: 10px;
-      padding: 12px 16px; margin-top: 10px;
-      border-left: 4px solid #0077b6;
-    }
-    .endpoint .rota { font-weight: bold; color: #0077b6; font-size: 0.95rem; margin-bottom: 4px; }
-    .endpoint .desc { color: #555; font-size: 0.85rem; margin-bottom: 6px; }
-    pre {
-      background: #e0f3fb; border-radius: 8px;
-      padding: 10px 12px; font-size: 0.82rem;
-      margin-top: 6px; overflow-x: auto; color: #004d40;
-    }
     .badge {
       display: inline-block; background: #0077b6;
       color: #fff; border-radius: 20px;
@@ -62,6 +45,11 @@
     }
     .fonte { margin-top: 0.8rem; font-size: 0.8rem; color: #888; }
     .fonte a { color: #0077b6; }
+    .destaque {
+      background: #e0f3fb; border-left: 4px solid #0077b6;
+      border-radius: 8px; padding: 12px 16px; margin-top: 10px;
+      font-size: 0.9rem; color: #333;
+    }
   </style>
 </head>
 <body>
@@ -89,17 +77,21 @@
         <li><strong>Minutos de banho:</strong> média por pessoa por dia. Cada minuto gasta ~4,5 litros.</li>
         <li><strong>Descargas:</strong> média por pessoa por dia. Cada descarga gasta ~8,5 litros.</li>
       </ul>
+      <p style="margin-top:0.6rem">Clique em <strong>Calcular Consumo Diário</strong> para ver o resultado desta etapa.</p>
 
       <h3>Passo 2 — Custo Mensal <span class="badge">Hugo</span></h3>
       <ul>
-        <li><strong>Tarifa por litro:</strong> divida o valor do m³ da sua conta por 1000. Ex: R$ 5,00/m³ → 0.005.</li>
+        <li><strong>Tarifa por litro:</strong> divida o valor do m³ da sua conta por 1000.</li>
         <li><strong>Dias do mês:</strong> geralmente 30.</li>
       </ul>
+      <p style="margin-top:0.6rem">Clique em <strong>Calcular Custo Mensal</strong> para ver o resultado desta etapa.</p>
 
       <h3>Passo 3 — Projeção de Economia <span class="badge">Letícia</span></h3>
       <ul>
-        <li><strong>Meta de redução (%):</strong> quanto você quer reduzir. O sistema calcula a nova conta e sugere quantos minutos de banho ou descargas reduzir por dia.</li>
+        <li><strong>Meta de redução (%):</strong> quanto você quer reduzir. O sistema calcula a nova conta e sugere quantos minutos de banho ou descargas reduzir por dia por pessoa.</li>
+        <li><strong>Tarifa por litro:</strong> a tarifa das distribuidoras geralmente vem em m³. Para encontrar o valor por litro, divida por 1000. Exemplo: se o m³ custa R$ 5,00, a tarifa por litro será <strong>0.005</strong>.</li>
       </ul>
+      <p style="margin-top:0.6rem">Clique em <strong>Calcular Economia</strong> para ver o resultado final completo.</p>
     </div>
 
     <!-- Referências -->
@@ -113,34 +105,6 @@
       <p class="fonte">
         Fonte: <a href="https://www.caesb.df.gov.br/dicas-de-economia-de-agua/" target="_blank">Dicas de Economia — CAESB</a>
       </p>
-    </div>
-
-    <!-- Endpoints -->
-    <div class="card">
-      <h2>🔌 Endpoints da API</h2>
-
-      <div class="endpoint">
-        <div class="rota">GET /health</div>
-        <div class="desc">Verifica se a API está no ar.</div>
-      </div>
-
-      <div class="endpoint">
-        <div class="rota">POST /AGUA/consumoDiario <span class="badge">Ana</span></div>
-        <div class="desc">Calcula o consumo diário da residência em litros.</div>
-        <pre>{ "tempoBanhoMin": 10, "descargasDia": 3, "pessoas": 4 }</pre>
-      </div>
-
-      <div class="endpoint">
-        <div class="rota">POST /AGUA/custoMensal <span class="badge">Hugo</span></div>
-        <div class="desc">Calcula o custo mensal com base no consumo diário e na tarifa.</div>
-        <pre>{ "consumoDiarioLitros": 282, "tarifa": 0.005, "dias": 30 }</pre>
-      </div>
-
-      <div class="endpoint">
-        <div class="rota">POST /AGUA/economia <span class="badge">Letícia</span></div>
-        <div class="desc">Projeta economia com base em uma meta de redução percentual.</div>
-        <pre>{ "litrosAtuais": 8460, "reducaoPercentual": 20, "tarifa": 0.005 }</pre>
-      </div>
     </div>
 
   </div>
