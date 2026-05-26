@@ -83,12 +83,7 @@ export function useSimulador() {
 
     try {
       const payload = montarPayload(modoSelecionado, form);
-      const data =
-        modoSelecionado === 'precoBruto'
-          ? await calcularPrecoBruto(payload)
-          : modoSelecionado === 'precoLiquido'
-            ? await calcularPrecoLiquido(payload)
-            : await calcularMargem(payload);
+      const data = await calcularPorModo(modoSelecionado, payload);
 
       setResultado(data);
     } catch (error) {
@@ -116,6 +111,18 @@ export function useSimulador() {
     aplicarAliquotaIcms,
     executarCalculo
   };
+}
+
+function calcularPorModo(modoSelecionado, payload) {
+  if (modoSelecionado === 'precoBruto') {
+    return calcularPrecoBruto(payload);
+  }
+
+  if (modoSelecionado === 'precoLiquido') {
+    return calcularPrecoLiquido(payload);
+  }
+
+  return calcularMargem(payload);
 }
 
 function montarPayload(modoSelecionado, form) {

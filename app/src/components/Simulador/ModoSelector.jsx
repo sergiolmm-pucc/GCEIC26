@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 const modos = [
   {
     id: 'precoBruto',
@@ -38,3 +38,8 @@ export default function ModoSelector({ modoSelecionado, onSelecionarModo }) {
     </section>
   );
 }
+
+ModoSelector.propTypes = {
+  modoSelecionado: PropTypes.string.isRequired,
+  onSelecionarModo: PropTypes.func.isRequired
+};

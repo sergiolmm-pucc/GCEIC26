@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { UserRound } from 'lucide-react';
 
@@ -30,7 +30,7 @@ export default function Login({ onLogin }) {
         <UserRound size={34} />
         <h1>Entrar</h1>
         <label>
-          Usuario
+          <span>Usuario</span>
           <input
             id="username"
             value={usuario}
@@ -39,7 +39,7 @@ export default function Login({ onLogin }) {
           />
         </label>
         <label>
-          Senha
+          <span>Senha</span>
           <input
             value={senha}
             id="password"
@@ -58,3 +58,7 @@ export default function Login({ onLogin }) {
     </section>
   );
 }
+
+Login.propTypes = {
+  onLogin: PropTypes.func.isRequired
+};

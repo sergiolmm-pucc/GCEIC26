@@ -1,4 +1,3 @@
-import React from 'react';
 import { useEffect, useState } from 'react';
 import { Calculator, HelpCircle, Info, LogOut } from 'lucide-react';
 import Help from './components/Help.jsx';

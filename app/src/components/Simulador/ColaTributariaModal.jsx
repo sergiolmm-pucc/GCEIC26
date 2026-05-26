@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { icmsPorEstado } from '../../constants/icmsPorEstado.js';
 import { regimesTributarios } from '../../constants/tributosFederais.js';
 
@@ -16,13 +16,11 @@ export default function ColaTributariaModal({
   }
 
   return (
-    <div className="modal-backdrop" role="presentation" onClick={onClose}>
-      <section
+    <div className="modal-backdrop">
+      <dialog
         className="modal-panel"
-        role="dialog"
-        aria-modal="true"
         aria-labelledby="cola-tributaria-title"
-        onClick={(event) => event.stopPropagation()}
+        open
       >
         <div className="modal-header">
           <div>
@@ -38,7 +36,8 @@ export default function ColaTributariaModal({
           </button>
         </div>
 
-        <div className="regime-switcher" role="group" aria-label="Regime tributario">
+        <fieldset className="regime-switcher">
+          <legend>Regime tributario</legend>
           {Object.values(regimesTributarios).map((regime) => (
             <button
               key={regime.id}
@@ -49,7 +48,7 @@ export default function ColaTributariaModal({
               {regime.label}
             </button>
           ))}
-        </div>
+        </fieldset>
 
         <div className="tributos-federais">
           <div>
@@ -89,10 +88,20 @@ export default function ColaTributariaModal({
             </tbody>
           </table>
         </div>
-      </section>
+      </dialog>
     </div>
   );
 }
+
+ColaTributariaModal.propTypes = {
+  aberto: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSelecionarAliquota: PropTypes.func.isRequired,
+  regimeTributario: PropTypes.string.isRequired,
+  onAlterarRegime: PropTypes.func.isRequired,
+  pisPercentual: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  cofinsPercentual: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+};
 
 function formatarAliquota(aliquota) {
   return `${(aliquota * 100).toFixed(2)}%`;

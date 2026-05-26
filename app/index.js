@@ -1,8 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const http = require('http');
-const https = require('https');
+const http = require('node:http');
+const https = require('node:https');
 const path = require('path');
 
 const app = express();
@@ -10,13 +10,26 @@ const PORT = process.env.PORT || 3000;
 const API_URL = process.env.API_URL || 'http://localhost:3001';
 const GRUPO14_PATH = '/equipe-14';
 const grupo14DistPath = path.join(__dirname, 'dist');
+const grupo14ApiRoutes = new Map([
+  ['GET /health', '/PBL/health'],
+  ['POST /preco-liquido', '/PBL/preco-liquido'],
+  ['POST /preco-bruto', '/PBL/preco-bruto'],
+  ['POST /margem', '/PBL/margem']
+]);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(GRUPO14_PATH, express.static(grupo14DistPath));
 
 app.use('/PBL', (req, res) => {
-  const target = new URL(req.originalUrl, ensureTrailingSlash(API_URL));
+  const targetPath = grupo14ApiRoutes.get(`${req.method} ${req.path}`);
+
+  if (!targetPath) {
+    return res.status(404).json({ error: 'Rota do Grupo 14 nao encontrada.' });
+  }
+
+  const target = new URL(targetPath, ensureTrailingSlash(API_URL));
   const client = target.protocol === 'https:' ? https : http;
   const proxyRequest = client.request(target, {
     method: req.method,
@@ -160,7 +173,6 @@ grupo16.post('/calcular', requireAuth, async (req, res) => {
 
 app.use(BASE_PATH, grupo16);
 
-app.use(GRUPO14_PATH, express.static(grupo14DistPath));
 app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo14DistPath, 'index.html'));
 });

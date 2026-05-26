@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 export default function Resultado({ data }) {
   if (!data) {
     return <p>Selecione um modo e execute um calculo para visualizar os resultados.</p>;
@@ -15,6 +15,10 @@ export default function Resultado({ data }) {
     </dl>
   );
 }
+
+Resultado.propTypes = {
+  data: PropTypes.object
+};
 
 function formatarChave(chave) {
   return chave.replace(/([A-Z])/g, ' $1').replace(/^./, (letra) => letra.toUpperCase());

@@ -1,4 +1,3 @@
-import React from 'react';
 import { ReceiptText } from 'lucide-react';
 import { useSimulador } from '../../hooks/useSimulador.js';
 import ColaTributariaModal from './ColaTributariaModal.jsx';

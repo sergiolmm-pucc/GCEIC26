@@ -1,4 +1,5 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+
 export default function Campo({ label, value, onChange, step = '0.01', min = '0', hint, ...props }) {
   return (
     <label className="campo">
@@ -15,3 +16,12 @@ export default function Campo({ label, value, onChange, step = '0.01', min = '0'
     </label>
   );
 }
+
+Campo.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  onChange: PropTypes.func.isRequired,
+  step: PropTypes.string,
+  min: PropTypes.string,
+  hint: PropTypes.string
+};
