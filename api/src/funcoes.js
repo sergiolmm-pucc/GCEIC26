@@ -13,7 +13,7 @@ function lerNumero(dados, campo) {
   const valor = Number(dados[campo]);
 
   if (!Number.isFinite(valor)) {
-    throw new Error(`Campo ${campo} deve ser numerico`);
+    throw new TypeError(`Campo ${campo} deve ser numerico`);
   }
 
   return valor;
@@ -31,7 +31,7 @@ function lerPercentual(dados, campo) {
 
 function calcularMarkup(dados) {
   if (!dados || typeof dados !== 'object') {
-    throw new Error('Corpo da requisicao invalido');
+    throw new TypeError('Corpo da requisicao invalido');
   }
 
   const custoProduto = lerNumero(dados, 'custoProduto');
