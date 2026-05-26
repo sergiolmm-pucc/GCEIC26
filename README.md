@@ -10,7 +10,7 @@ Escola Politécnica PUC-Campinas — 1º Semestre 2026
 
 | Integrante | RA | Responsabilidade |
 |---|---|---|
-| Ana Júlia Matozo Rodrigues | 23027461 | API 1 — Consumo Diário |
+| Ana Julia Matozo Rodrigues | 23027461 | API 1 — Consumo Diário |
 | Hugo Daniel Bosada Rodrigues | 23909526 | API 2 — Custo Mensal |
 | Letícia Lima da Silva | 23918691 | API 3 — Projeção de Economia |
 
