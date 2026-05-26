@@ -1,15 +1,62 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const http = require('node:http');
+const https = require('node:https');
 const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const API_URL = process.env.API_URL || 'http://localhost:3001';
+const GRUPO14_PATH = '/equipe-14';
+const grupo14DistPath = path.join(__dirname, 'dist');
+const grupo14ApiRoutes = new Map([
+  ['GET /health', '/PBL/health'],
+  ['POST /preco-liquido', '/PBL/preco-liquido'],
+  ['POST /preco-bruto', '/PBL/preco-bruto'],
+  ['POST /margem', '/PBL/margem']
+]);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(GRUPO14_PATH, express.static(grupo14DistPath));
+
+app.use('/PBL', (req, res) => {
+  const targetPath = grupo14ApiRoutes.get(`${req.method} ${req.path}`);
+
+  if (!targetPath) {
+    return res.status(404).json({ error: 'Rota do Grupo 14 nao encontrada.' });
+  }
+
+  const target = new URL(targetPath, ensureTrailingSlash(API_URL));
+  const client = target.protocol === 'https:' ? https : http;
+  const proxyRequest = client.request(target, {
+    method: req.method,
+    headers: {
+      ...req.headers,
+      host: target.host
+    }
+  }, (proxyResponse) => {
+    res.status(proxyResponse.statusCode || 502);
+    for (const [header, value] of Object.entries(proxyResponse.headers)) {
+      if (value !== undefined) {
+        res.setHeader(header, value);
+      }
+    }
+    proxyResponse.pipe(res);
+  });
+
+  proxyRequest.on('error', (error) => {
+    res.status(502).json({
+      error: 'Falha ao comunicar com a API do Grupo 14.',
+      message: error.message
+    });
+  });
+
+  req.pipe(proxyRequest);
+});
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
@@ -126,12 +173,20 @@ grupo16.post('/calcular', requireAuth, async (req, res) => {
 
 app.use(BASE_PATH, grupo16);
 
+app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo14DistPath, 'index.html'));
+});
+
 // Rotas genéricas das demais equipes (grupo 16 tem rota própria acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 16) continue;
+  if (i === 14 || i === 16) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
+}
+
+function ensureTrailingSlash(url) {
+  return url.endsWith('/') ? url : `${url}/`;
 }
 
 app.listen(PORT, () => {
