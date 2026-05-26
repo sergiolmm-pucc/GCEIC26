@@ -27,6 +27,13 @@ function requireAuth(req, res, next) {
   res.redirect('/login');
 }
 
+// -------------------------------------------------------
+// Rota do professor — botão Equipe-20 no site principal
+// -------------------------------------------------------
+app.get('/equipe-20', (req, res) => {
+  res.redirect('/');
+});
+
 // Splash
 app.get('/', (req, res) => res.render('splash'));
 
