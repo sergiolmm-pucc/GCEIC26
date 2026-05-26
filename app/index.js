@@ -44,7 +44,8 @@ const equipes = [
   { numero: 17, nome: 'Equipe-17', rota: '/equipe-17' },
   { numero: 18, nome: 'Equipe-18', rota: '/equipe-18' },
   { numero: 19, nome: 'Equipe-19', rota: '/equipe-19' },
-  { numero: 20, nome: 'Equipe-20', rota: '/equipe-20' }
+  { numero: 20, nome: 'Equipe-20', rota: '/equipe-20' },
+  { numero: 24, nome: 'Equipe-24', rota: '/equipe-24' }
 ]
 
 // Auth middleware
@@ -106,6 +107,36 @@ app.post('/calcular', requireAuth, async (req, res) => {
   } catch (err) {
     console.log(err.message)
     res.status(400).json({ success: false, error: err.message});  
+  }
+});
+
+// Página do projeto da Equipe-24 - Cálculo de MarkUp
+app.get('/equipe-24', (req, res) => {
+  res.render('markup', {
+    apiUrl: API_URL
+  });
+});
+
+// Proxy para calcular MarkUp usando a API
+app.post('/equipe-24/calcular', async (req, res) => {
+  try {
+    const fetch = (await import('node-fetch')).default;
+
+    const response = await fetch(`${API_URL}/api/markup/calcular`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+
+    const data = await response.json();
+
+    return res.status(response.status).json(data);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(400).json({
+      success: false,
+      error: err.message,
+    });
   }
 });
 

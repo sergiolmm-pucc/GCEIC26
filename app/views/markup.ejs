@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipe-24 - Cálculo de MarkUp</title>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #152238, #1e6091);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 25px;
+    }
+
+    .card {
+      background-color: white;
+      width: 100%;
+      max-width: 620px;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    h1 {
+      color: #152238;
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 38px;
+      line-height: 1.2;
+    }
+
+    h2 {
+      color: #152238;
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #444;
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .descricao {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #bbb;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #1e6091;
+    }
+
+    button,
+    .btn {
+      padding: 12px;
+      background-color: #1e6091;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    button:hover,
+    .btn:hover {
+      background-color: #184e77;
+    }
+
+    .botoes {
+      display: flex;
+      gap: 10px;
+    }
+
+    .botoes button {
+      flex: 1;
+    }
+
+    .limpar {
+      background-color: #777;
+    }
+
+    .limpar:hover {
+      background-color: #555;
+    }
+
+    .erro {
+      background-color: #ffe5e5;
+      color: #b00020;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .resultado {
+      margin-top: 25px;
+      background-color: #eef6ff;
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 5px solid #1e6091;
+    }
+
+    .resultado p {
+      margin-bottom: 8px;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .menu button,
+    .menu a {
+      font-size: 14px;
+      padding: 10px;
+    }
+
+    .info-login {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .foto-equipe {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      object-position: center 15%;
+      border-radius: 12px;
+      margin: 20px 0;
+      border: 2px solid #ddd;
+      display: block;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 30px;
+      }
+
+      .menu {
+        grid-template-columns: 1fr;
+      }
+
+      .botoes {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div id="splash" class="card center">
+      <h2>Calculadora de MarkUp</h2>
+      <p>Sistema para cálculo do preço de venda de produtos.</p>
+
+      <button onclick="mostrarTela('login')">Entrar</button>
+
+      <br><br>
+
+      <a class="btn" href="/">Voltar para a página inicial</a>
+    </div>
+
+    <div id="login" class="card hidden">
+      <h1>Login</h1>
+
+      <label>Usuário</label>
+      <input id="usuario" type="text" placeholder="Digite o usuário">
+
+      <label>Senha</label>
+      <input id="senha" type="password" placeholder="Digite a senha">
+
+      <p id="erroLogin" class="erro hidden">Usuário ou senha inválidos.</p>
+
+      <button onclick="fazerLogin()">Acessar</button>
+
+    </div>
+
+    <div id="app" class="card hidden">
+      <div class="menu">
+        <button onclick="mostrarTela('app')">App</button>
+        <button onclick="mostrarTela('sobre')">Sobre</button>
+        <button onclick="mostrarTela('help')">Help</button>
+        <button onclick="sair()">Sair</button>
+        <a class="btn" href="/">Início</a>
+      </div>
+
+      <h1>Cálculo de MarkUp</h1>
+
+      <p class="descricao">
+        Calcule o preço de venda considerando custo, despesas e lucro desejado.
+      </p>
+
+      <label>Custo do produto</label>
+      <input id="custoProduto" type="number" placeholder="Ex: 50">
+
+      <label>Despesas em %</label>
+      <input id="despesas" type="number" placeholder="Ex: 20">
+
+      <label>Lucro desejado em %</label>
+      <input id="lucroDesejado" type="number" placeholder="Ex: 30">
+
+      <div class="botoes">
+        <button onclick="calcularMarkup()">Calcular</button>
+        <button class="limpar" onclick="limparCampos()">Limpar</button>
+      </div>
+
+      <p id="erroCalculo" class="erro hidden"></p>
+
+      <div id="resultado" class="resultado hidden">
+        <h2>Resultado</h2>
+        <p><strong>Custo do produto:</strong> R$ <span id="resCusto"></span></p>
+        <p><strong>Despesas:</strong> <span id="resDespesas"></span>%</p>
+        <p><strong>Lucro desejado:</strong> <span id="resLucro"></span>%</p>
+        <p><strong>Índice de MarkUp:</strong> <span id="resMarkup"></span></p>
+        <p><strong>Preço de venda:</strong> R$ <span id="resPrecoVenda"></span></p>
+        <p><strong>Valor das despesas:</strong> R$ <span id="resValorDespesas"></span></p>
+        <p><strong>Valor do lucro:</strong> R$ <span id="resValorLucro"></span></p>
+      </div>
+    </div>
+
+    <div id="sobre" class="card hidden">
+      <h1>Sobre o Projeto</h1>
+
+      <p class="descricao">
+        Este projeto foi desenvolvido para calcular o MarkUp e o preço de venda
+        de um produto com base no custo, despesas e lucro desejado.
+      </p>
+
+      <h2>Equipe</h2>
+      <p class="descricao">Aluno 1: Gabriel Branco de Medeiros</p>
+
+      <img class="foto-equipe" src="/equipe.jpg" alt="Foto da equipe">
+
+      <button onclick="mostrarTela('app')">Voltar</button>
+    </div>
+
+    <div id="help" class="card hidden">
+      <h1>Help</h1>
+
+      <p>
+        Para utilizar o sistema, informe o custo do produto, o percentual de
+        despesas e o percentual de lucro desejado.
+      </p>
+
+      <p>
+        O sistema calculará automaticamente o índice de MarkUp e o preço de venda recomendado.
+      </p>
+
+      <p>
+        A soma das despesas e do lucro deve ser menor que 100%.
+      </p>
+
+      <button onclick="mostrarTela('app')">Voltar</button>
+    </div>
+
+  </div>
+
+  <script>
+    function mostrarTela(tela) {
+      const telas = ["splash", "login", "app", "sobre", "help"];
+
+      telas.forEach((item) => {
+        document.getElementById(item).classList.add("hidden");
+      });
+
+      document.getElementById(tela).classList.remove("hidden");
+    }
+
+    function fazerLogin() {
+      const usuario = document.getElementById("usuario").value;
+      const senha = document.getElementById("senha").value;
+      const erroLogin = document.getElementById("erroLogin");
+
+      if (usuario === "admin" && senha === "123456") {
+        erroLogin.classList.add("hidden");
+        mostrarTela("app");
+      } else {
+        erroLogin.classList.remove("hidden");
+      }
+    }
+
+    function sair() {
+      document.getElementById("usuario").value = "";
+      document.getElementById("senha").value = "";
+      limparCampos();
+      mostrarTela("login");
+    }
+
+    async function calcularMarkup() {
+      const custoProduto = document.getElementById("custoProduto").value;
+      const despesas = document.getElementById("despesas").value;
+      const lucroDesejado = document.getElementById("lucroDesejado").value;
+
+      const erroCalculo = document.getElementById("erroCalculo");
+      const resultado = document.getElementById("resultado");
+
+      erroCalculo.classList.add("hidden");
+      resultado.classList.add("hidden");
+
+      try {
+        const response = await fetch("/equipe-24/calcular", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            custoProduto,
+            despesas,
+            lucroDesejado,
+          }),
+        });
+
+        const resposta = await response.json();
+
+        if (!response.ok || !resposta.success) {
+          erroCalculo.textContent = resposta.error || "Erro ao calcular MarkUp.";
+          erroCalculo.classList.remove("hidden");
+          return;
+        }
+
+        const dados = resposta.data;
+
+        document.getElementById("resCusto").textContent = dados.custoProduto.toFixed(2);
+        document.getElementById("resDespesas").textContent = dados.despesas;
+        document.getElementById("resLucro").textContent = dados.lucroDesejado;
+        document.getElementById("resMarkup").textContent = dados.markup;
+        document.getElementById("resPrecoVenda").textContent = dados.precoVenda.toFixed(2);
+        document.getElementById("resValorDespesas").textContent = dados.valorDespesas.toFixed(2);
+        document.getElementById("resValorLucro").textContent = dados.valorLucro.toFixed(2);
+
+        resultado.classList.remove("hidden");
+      } catch (error) {
+        erroCalculo.textContent = "Erro ao conectar com a API.";
+        erroCalculo.classList.remove("hidden");
+      }
+    }
+
+    function limparCampos() {
+      document.getElementById("custoProduto").value = "";
+      document.getElementById("despesas").value = "";
+      document.getElementById("lucroDesejado").value = "";
+      document.getElementById("erroCalculo").classList.add("hidden");
+      document.getElementById("resultado").classList.add("hidden");
+    }
+  </script>
+</body>
+</html>
