@@ -1,66 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo de MarkUp</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f5f7fb;
+      color: #172033;
+    }
+
+    nav {
+      align-items: center;
+      background: #ffffff;
+      border-bottom: 1px solid #d8deea;
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 24px;
+    }
+
+    nav a {
+      color: #1155cc;
+      font-weight: 700;
+      margin-left: 14px;
+      text-decoration: none;
+    }
+
+    main {
+      margin: 32px auto;
+      max-width: 760px;
+      padding: 0 20px;
+    }
+
+    form {
+      background: #ffffff;
+      border: 1px solid #d8deea;
+      border-radius: 8px;
+      display: grid;
+      gap: 16px;
+      padding: 24px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    input {
+      border: 1px solid #b8c1d1;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 1rem;
+      padding: 10px 12px;
+      width: 100%;
+    }
+
+    button {
+      background: #1155cc;
+      border: 0;
+      border-radius: 6px;
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 12px 16px;
+    }
+
+    .resultado {
+      background: #ffffff;
+      border: 1px solid #d8deea;
+      border-radius: 8px;
+      margin-top: 20px;
+      padding: 20px 24px;
+    }
+
+    .resultado strong {
+      display: block;
+      font-size: 1.8rem;
+      margin-top: 8px;
+    }
+
+    .erro {
+      color: #b91c1c;
+      font-weight: 700;
+      margin-top: 12px;
+    }
+  </style>
 </head>
 <body>
   <nav>
-    <div ">🏠 Exemplo<span>Calc</span></div>
-    <div >
+    <div><strong>MarkUp Calc</strong></div>
+    <div>
       Olá, <strong><%= user.nome %></strong>
-      <a href="/logout">Sair</a>
+      <a href="<%= basePath %>/calculo">Cálculo</a>
+      <a href="<%= basePath %>/help">Help</a>
+      <a href="<%= basePath %>/sobre">Sobre</a>
+      <a href="<%= basePath %>/logout">Sair</a>
     </div>
   </nav>
 
-    <form method="POST" action="/calcular" id="calculoForm">
-      <div >
-        <label for="altura">altura</label>
-        <input type="text" id="altura" name="altura" placeholder="Digite altura" required>
+  <main>
+    <h1>Cálculo de MarkUp</h1>
+    <p>Informe os dados do produto para calcular o preço de venda sugerido.</p>
+
+    <form id="calculoForm">
+      <div>
+        <label for="custoProduto">Custo do produto (R$)</label>
+        <input type="number" id="custoProduto" name="custoProduto" min="0.01" step="0.01" placeholder="Ex.: 100.00" required>
       </div>
-      <div >
-        <label for="largura">largura</label>
-        <input type="largura" id="largura" name="largura" placeholder="Digite largura"  required>
+
+      <div>
+        <label for="despesasFixas">Despesas fixas (%)</label>
+        <input type="number" id="despesasFixas" name="despesasFixas" min="0" step="0.01" placeholder="Ex.: 10" required>
       </div>
-      <!-- <button type="submit"  id="btnCalculo">Entrar</button> -->
-      
+
+      <div>
+        <label for="despesasVariaveis">Despesas variáveis (%)</label>
+        <input type="number" id="despesasVariaveis" name="despesasVariaveis" min="0" step="0.01" placeholder="Ex.: 5" required>
+      </div>
+
+      <div>
+        <label for="impostos">Impostos (%)</label>
+        <input type="number" id="impostos" name="impostos" min="0" step="0.01" placeholder="Ex.: 12" required>
+      </div>
+
+      <div>
+        <label for="margemLucro">Margem de lucro (%)</label>
+        <input type="number" id="margemLucro" name="margemLucro" min="0" step="0.01" placeholder="Ex.: 20" required>
+      </div>
+
+      <button type="submit" id="btnCalcular">Calcular preço de venda</button>
+      <div id="erro" class="erro" aria-live="polite"></div>
     </form>
-    <button id="btnCalcular" onclick="calcular()">Calculo</button>
-    <div ><span>Resultado</span><span id="data">-</span></div>
-</body>
-<script>
 
-async function calcular() {
-  console.log("valor"+ document.getElementById('altura').value);
-  const altura1 = parseFloat(document.getElementById('altura').value);
-  const largura1 = parseFloat(document.getElementById('largura').value);
-  const payload = {
-    altura: altura1,
-    largura: largura1,
-  };
-  alert(JSON.stringify(payload));
-  try {
-    const res = await fetch('/calcular', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+    <section class="resultado">
+      <span>Preço de venda sugerido</span>
+      <strong id="precoVenda">-</strong>
+      <p id="detalhes">Preencha o formulário para calcular.</p>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById('calculoForm');
+    const erro = document.getElementById('erro');
+    const precoVenda = document.getElementById('precoVenda');
+    const detalhes = document.getElementById('detalhes');
+    const moeda = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
     });
-    
-    const json = await res.json();
-    
-    alert(JSON.stringify(json));
 
-    if (!json.success) { alert('Erro: ' + json.error); return; }
+    function numeroDoCampo(id) {
+      return Number(document.getElementById(id).value);
+    }
 
-    const d = json.data;
-    alert(d);
-    document.getElementById('data').textContent = d.toString();
-  } catch (e) {
-    alert('Erro ao comunicar com o servidor: ' + e.message);
-  } finally {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      erro.textContent = '';
 
-  }
-}
-</script>
+      const payload = {
+        custoProduto: numeroDoCampo('custoProduto'),
+        despesasFixas: numeroDoCampo('despesasFixas'),
+        despesasVariaveis: numeroDoCampo('despesasVariaveis'),
+        impostos: numeroDoCampo('impostos'),
+        margemLucro: numeroDoCampo('margemLucro'),
+      };
+
+      try {
+        const res = await fetch('<%= basePath %>/calcular', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const json = await res.json();
+
+        if (!json.success) {
+          erro.textContent = json.error || 'Erro ao calcular MarkUp.';
+          return;
+        }
+
+        const data = json.data;
+        precoVenda.textContent = moeda.format(Number(data.precoVenda));
+        detalhes.textContent = `Percentual total: ${(data.percentualTotal * 100).toFixed(2)}%`;
+      } catch (e) {
+        erro.textContent = `Erro ao comunicar com o servidor: ${e.message}`;
+      }
+    });
+  </script>
+</body>
 </html>
