@@ -3,83 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sobre a Equipe — AguaCalc</title>
+  <title>Sobre — AguaCalc</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Segoe UI', sans-serif; background: #f0f9ff; color: #1a1a2e; }
-
-    nav {
-      background: #0077b6; color: #fff;
-      padding: 14px 24px;
-      display: flex; justify-content: space-between; align-items: center;
-    }
+    nav { background: #0077b6; color: #fff; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
     nav .brand { font-size: 1.2rem; font-weight: 700; }
     nav .links { display: flex; gap: 16px; align-items: center; }
     nav a { color: #cde; text-decoration: none; font-size: 0.9rem; }
     nav a:hover { color: #fff; }
-    nav .btn-sair {
-      background: #c62828; color: #fff;
-      border: none; border-radius: 6px;
-      padding: 6px 14px; cursor: pointer;
-      font-size: 0.85rem; font-weight: 600;
-    }
-
+    nav .btn-sair { background: #c62828; color: #fff; border: none; border-radius: 6px; padding: 6px 14px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
     .container { max-width: 860px; margin: 2rem auto; padding: 0 1rem; }
-
-    .card {
-      background: #fff; border-radius: 16px;
-      padding: 2rem; box-shadow: 0 4px 20px rgba(0,119,182,0.08);
-      margin-bottom: 1.5rem; text-align: center;
-    }
+    .card { background: #fff; border-radius: 16px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,119,182,0.08); margin-bottom: 1.5rem; text-align: center; }
     h2 { color: #0077b6; margin-bottom: 0.4rem; font-size: 1.5rem; }
     .subtitulo { color: #666; font-size: 0.9rem; margin-bottom: 2rem; }
-
     .team { display: table; width: 100%; border-spacing: 16px 0; }
-    .member {
-      display: table-cell; width: 33%; vertical-align: top;
-      background: #f0f9ff; padding: 1.5rem; border-radius: 12px;
-      border: 1px solid #d0e8f5;
-    }
-    .member img {
-      width: 120px; height: 120px; border-radius: 50%;
-      object-fit: cover; border: 3px solid #0077b6; margin-bottom: 10px;
-    }
+    .member { display: table-cell; width: 33%; vertical-align: top; background: #f0f9ff; padding: 1.5rem; border-radius: 12px; border: 1px solid #d0e8f5; }
+    .member img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #0077b6; margin-bottom: 10px; }
     .member h4 { margin: 10px 0 5px; color: #005f8e; font-size: 0.95rem; }
     .member .ra { margin: 4px 0; font-size: 0.82rem; color: #666; }
     .member .curso { margin: 4px 0; font-size: 0.82rem; color: #666; }
-    .member .papel {
-      margin: 10px 0 0; font-size: 0.8rem; color: #0077b6;
-      font-style: italic; border-top: 1px dashed #b0d8f0; padding-top: 8px;
-    }
+    .member .papel { margin: 10px 0 0; font-size: 0.8rem; color: #0077b6; font-style: italic; border-top: 1px dashed #b0d8f0; padding-top: 8px; }
   </style>
 </head>
 <body>
   <nav>
     <div class="brand">💧 AguaCalc</div>
     <div class="links">
-      <a href="/calculo">Calculadora</a>
-      <a href="/sobre">Sobre</a>
-      <a href="/help">Ajuda</a>
-      <form method="POST" action="/logout" style="display:inline">
+      <a href="<%= base %>/calculo">Calculadora</a>
+      <a href="<%= base %>/sobre">Sobre</a>
+      <a href="<%= base %>/help">Ajuda</a>
+      <form method="POST" action="<%= base %>/logout" style="display:inline">
         <button class="btn-sair" type="submit">Sair</button>
       </form>
     </div>
   </nav>
-
   <div class="container">
     <div class="card">
       <h2>👥 Sobre a Equipe</h2>
       <p class="subtitulo">Projeto desenvolvido para a disciplina de Gerência de Configuração, Entrega e Integração Contínua — GCEIC26 — PUC-Campinas</p>
-
       <div class="team">
         <div class="member">
-          <img src="/ana.jpg" alt="Ana Júlia" onerror="this.src='https://via.placeholder.com/120'">
+          <img src="/ana.jpg" alt="Ana Julia" onerror="this.src='https://via.placeholder.com/120'">
           <h4>Ana Julia Matozo Rodrigues</h4>
           <p class="ra"><strong>RA:</strong> 23027461</p>
           <p class="curso">Engenharia de Software<br>PUC-Campinas</p>
           <p class="papel">API 1 — Consumo Diário<br>(POST /AGUA/consumoDiario)</p>
         </div>
-
         <div class="member">
           <img src="/hugo.jpg" alt="Hugo" onerror="this.src='https://via.placeholder.com/120'">
           <h4>Hugo Daniel Bosada Rodrigues</h4>
@@ -87,7 +57,6 @@
           <p class="curso">Engenharia de Software<br>PUC-Campinas</p>
           <p class="papel">API 2 — Custo Mensal<br>(POST /AGUA/custoMensal)</p>
         </div>
-
         <div class="member">
           <img src="/leticia.jpg" alt="Letícia" onerror="this.src='https://via.placeholder.com/120'">
           <h4>Letícia Lima da Silva</h4>

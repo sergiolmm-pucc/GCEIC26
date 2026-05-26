@@ -22,53 +22,75 @@ app.use(session({
   cookie: { maxAge: 3600000 },
 }));
 
+// -------------------------------------------------------
+// Rota raiz — redireciona para o grupo
+// -------------------------------------------------------
+app.get('/', (req, res) => {
+  res.redirect('/equipe-20');
+});
+
+// -------------------------------------------------------
+// Router do Grupo 20 — AguaCalc
+// Prefixo: /equipe-20  (padrão do site do professor)
+// -------------------------------------------------------
+const BASE = '/equipe-20';
+
 function requireAuth(req, res, next) {
   if (req.session && req.session.user) return next();
-  res.redirect('/login');
+  res.redirect(BASE + '/login');
 }
 
-// -------------------------------------------------------
-// Rota do professor — botão Equipe-20 no site principal
-// -------------------------------------------------------
-app.get('/equipe-20', (req, res) => {
-  res.redirect('/');
+const grupo20 = express.Router();
+
+// Splash — entrada do grupo
+grupo20.get('/', (req, res) => {
+  res.render('splash', { base: BASE });
 });
 
-// Splash
-app.get('/', (req, res) => res.render('splash'));
+grupo20.get('/splash', (req, res) => {
+  res.render('splash', { base: BASE });
+});
 
 // Login
-app.get('/login', (req, res) => {
-  if (req.session.user) return res.redirect('/calculo');
-  res.render('login', { error: null });
+grupo20.get('/login', (req, res) => {
+  if (req.session.user) return res.redirect(BASE + '/calculo');
+  res.render('login', { error: null, base: BASE });
 });
 
-app.post('/login', (req, res) => {
+grupo20.post('/login', (req, res) => {
   const { username, password } = req.body;
   if (username === 'admin' && password === 'admin') {
     req.session.user = { username: 'admin', nome: 'Administrador' };
-    return res.redirect('/calculo');
+    return res.redirect(BASE + '/calculo');
   }
-  res.render('login', { error: 'Usuário ou senha inválidos' });
+  res.render('login', { error: 'Usuário ou senha inválidos', base: BASE });
 });
 
-app.post('/logout', (req, res) => {
+grupo20.post('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect('/login');
+  res.redirect(BASE + '/login');
 });
 
-app.get('/logout', (req, res) => {
+grupo20.get('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect('/login');
+  res.redirect(BASE + '/login');
 });
 
 // Telas autenticadas
-app.get('/calculo', requireAuth, (req, res) => res.render('calculo', { user: req.session.user }));
-app.get('/sobre',   requireAuth, (req, res) => res.render('sobre'));
-app.get('/help',    requireAuth, (req, res) => res.render('help'));
+grupo20.get('/calculo', requireAuth, (req, res) => {
+  res.render('calculo', { user: req.session.user, base: BASE });
+});
+
+grupo20.get('/sobre', requireAuth, (req, res) => {
+  res.render('sobre', { base: BASE });
+});
+
+grupo20.get('/help', requireAuth, (req, res) => {
+  res.render('help', { base: BASE });
+});
 
 // -------------------------------------------------------
-// Proxy para a API — as 3 rotas do projeto
+// Proxy para a API — 3 rotas do projeto
 // -------------------------------------------------------
 async function proxyPost(req, res, rota) {
   try {
@@ -85,17 +107,34 @@ async function proxyPost(req, res, rota) {
   }
 }
 
-// API 1 — Ana: Consumo Diário
-app.post('/AGUA/consumoDiario', requireAuth, (req, res) => proxyPost(req, res, '/AGUA/consumoDiario'));
+// API 1 — Ana
+grupo20.post('/AGUA/consumoDiario', requireAuth, (req, res) =>
+  proxyPost(req, res, '/AGUA/consumoDiario'));
 
-// API 2 — Hugo: Custo Mensal
-app.post('/AGUA/custoMensal',   requireAuth, (req, res) => proxyPost(req, res, '/AGUA/custoMensal'));
+// API 2 — Hugo
+grupo20.post('/AGUA/custoMensal', requireAuth, (req, res) =>
+  proxyPost(req, res, '/AGUA/custoMensal'));
 
-// API 3 — Letícia: Projeção de Economia
-app.post('/AGUA/economia',      requireAuth, (req, res) => proxyPost(req, res, '/AGUA/economia'));
+// API 3 — Letícia
+grupo20.post('/AGUA/economia', requireAuth, (req, res) =>
+  proxyPost(req, res, '/AGUA/economia'));
+
+// Registra o router no prefixo /equipe-20
+app.use(BASE, grupo20);
+
+// -------------------------------------------------------
+// Rotas genéricas para outras equipes (compatibilidade)
+// -------------------------------------------------------
+for (let i = 1; i <= 25; i++) {
+  if (i === 20) continue;
+  app.get(`/equipe-${i}`, (req, res) => {
+    res.render('equipe', { numero: i, nome: `Equipe-${i}` });
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`✅ AguaCalc App rodando: http://localhost:${PORT}`);
+  console.log(`   Acesse: http://localhost:${PORT}/equipe-20`);
 });
 
 module.exports = app;
