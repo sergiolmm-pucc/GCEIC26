@@ -52,9 +52,9 @@
     <p>Aplicação para calcular o preço de venda de produtos a partir de custos, despesas, impostos e margem de lucro.</p>
 
     <% if (user) { %>
-      <a href="/calculo">Abrir cálculo</a>
+      <a href="<%= basePath %>/calculo">Abrir cálculo</a>
     <% } else { %>
-      <a href="/login">Entrar no sistema</a>
+      <a href="<%= basePath %>/login">Entrar no sistema</a>
     <% } %>
   </main>
 </body>

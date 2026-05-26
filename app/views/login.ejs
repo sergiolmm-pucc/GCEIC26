@@ -79,7 +79,7 @@
       <div class="erro"><%= error %></div>
     <% } %>
 
-    <form method="POST" action="/login" id="loginForm">
+    <form method="POST" action="<%= basePath %>/login" id="loginForm">
       <div>
         <label for="username">Usuário</label>
         <input type="text" id="username" name="username" placeholder="Digite seu usuário" autocomplete="username" required>
@@ -94,7 +94,7 @@
     </form>
 
     <p>Credenciais: admin / admin</p>
-    <p><a href="/splash">Voltar para a splash screen</a></p>
+    <p><a href="<%= basePath %>/splash">Voltar para a splash screen</a></p>
   </main>
 </body>
 </html>

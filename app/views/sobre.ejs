@@ -60,17 +60,17 @@
     <div><strong>MarkUp Calc</strong></div>
     <div>
       Olá, <strong><%= user.nome %></strong>
-      <a href="/calculo">Cálculo</a>
-      <a href="/help">Help</a>
-      <a href="/sobre">Sobre</a>
-      <a href="/logout">Sair</a>
+      <a href="<%= basePath %>/calculo">Cálculo</a>
+      <a href="<%= basePath %>/help">Help</a>
+      <a href="<%= basePath %>/sobre">Sobre</a>
+      <a href="<%= basePath %>/logout">Sair</a>
     </div>
   </nav>
 
   <main>
     <section class="painel">
       <h1>Sobre a Equipe</h1>
-      <img src="/equipe.svg" alt="Foto da equipe MarkUp Calc">
+      <img src="<%= basePath %>/equipe.svg" alt="Foto da equipe MarkUp Calc">
       <p>Projeto desenvolvido para a atividade de Gerência de Configuração, Entrega e Integração Contínua.</p>
       <p>O sistema calcula o preço de venda sugerido usando MarkUp, considerando custo do produto, despesas fixas, despesas variáveis, impostos e margem de lucro desejada.</p>
     </section>
