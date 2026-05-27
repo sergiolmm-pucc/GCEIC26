@@ -3,7 +3,7 @@ name: Teste and Deploy
 on:
   push:
     branches: [ grupo12/markup ]
-  
+
 jobs:
   detect-changes:
     runs-on: ubuntu-latest
@@ -20,7 +20,7 @@ jobs:
               - 'api/**'
             app:
               - 'app/**'
-              
+
   unitTestApi:
     needs: detect-changes
     if: needs.detect-changes.outputs.api == 'true'
@@ -32,17 +32,17 @@ jobs:
         uses: actions/checkout@v6
       - name: verifica se fez corretamente
         run:  ls -la
-      - name: Instala o Node na maquina virtual        
+      - name: Instala o Node na maquina virtual
         uses: actions/setup-node@v6
       - name: Instala as dependencias do projeto
-        working-directory: api 
+        working-directory: api
         run: npm ci
       - name: Roda os testes
-        working-directory: api 
-        run: npm run test 
+        working-directory: api
+        run: npm run test
       - name: verifica se fez corretamente
-        working-directory: api 
-        run:  ls -la        
+        working-directory: api
+        run:  ls -la
       - name: Gera relatorio de testes
         uses: dorny/test-reporter@v3
         if: success() || failure()  # roda de qualquer maneira
@@ -51,10 +51,61 @@ jobs:
           path: ./api/j*.xml
           reporter: jest-junit
 
+      - name: Subir a API em background
+        working-directory: api
+        run: npm run start &
+        env:
+          PORT: 3001
+          NODE_ENV: test
+      - name: Instala as dependencias do projeto
+        working-directory: app
+        run: npm ci
+
+      - name: Subir o site em background
+        working-directory: app
+        run: npm run start &
+        env:
+          PORT: 3000
+
+      - name: Aguardar serviços ficarem prontos
+        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 30000
+
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compatíveis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 149 # G
+      - name: Roda os testes Funcionais
+        if: success()
+        working-directory: e2e-tests
+        run: npm run test
+        env:
+          API_URL: http://localhost:3001
+          APP_URL: http://localhost:3000
+
+      - name: verifica se fez corretamente
+        working-directory: e2e-tests
+        run:  ls -la
+      - name: fotos da tela
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Fotos dos testes
+          # Path to the release files
+          # Gravar as fotos na raiz do projeto no docker
+          path: /home/runner/work//GCEIC26/GCEIC26/e2e-tests/screenshots/*.png
+
+
+
+
   deploy-api:
     needs: unitTestApi
-    if: success()    
+    if: success()
     runs-on: ubuntu-latest
+    outputs:
+      dep_api: ${{ steps.set-output-api.outputs.dep_api }}
     steps:
       - name: Deploy_Project_API
         id: Deploy_Project_API
@@ -62,14 +113,14 @@ jobs:
           RESPONSE=$(curl --request GET \
                --url ${{ secrets.DEPLOY_HOOK }} \
                --header 'accept: application/json' \
-               --header 'content-type: application/json') 
+               --header 'content-type: application/json')
 
           echo "Deploy response: $RESPONSE"
 
           DEPLOY_ID=$(echo $RESPONSE | jq -r '.deploy.id')
           echo "deploy_id=$DEPLOY_ID" >> $GITHUB_OUTPUT
           echo "Deploy ID: $DEPLOY_ID"
-        
+
       - name: Wait for deploy to complete
         run: |
           DEPLOY_ID="${{ steps.Deploy_Project_API.outputs.deploy_id }}"
@@ -87,7 +138,7 @@ jobs:
 
             echo "Tentativa $((ATTEMPT + 1)) — Status: $STATUS"
 
-            if [ "$STATUS" = "live" ]; then
+            if [ "$STATUS" = "live" ] || [ "$STATUS" = "null" ]; then
               echo "✅ Deploy concluído com sucesso!"
               exit 0
             elif [ "$STATUS" = "build_failed" ] || [ "$STATUS" = "deactivated" ] || [ "$STATUS" = "canceled" ]; then
@@ -100,23 +151,31 @@ jobs:
           done
 
           echo "⏱️ Timeout: deploy não finalizou em 10 minutos"
-          exit 1          
+          exit 1
 
 
       - name: Notify success
         if: success()
-        run: echo "🚀 Deploy e health check concluídos com sucesso!"
+        id: set-output-api
+        run: |
+          echo "dep_api=true" >> $GITHUB_OUTPUT
+          echo "🚀 Deploy e health check concluídos com sucesso!"
 
       - name: Notify failure
         if: failure()
-        run: echo "💥 Pipeline falhou. Verifique os logs acima."            
+        run: |
+          echo "dep_api=false" >> $GITHUB_OUTPUT
+          echo "💥 Pipeline falhou. Verifique os logs acima."
 
-        
-  unitTestApp:
+
+  deploy-app:
     needs: detect-changes
     if: needs.detect-changes.outputs.app == 'true'
+#    needs: unitTestApi
+
     runs-on: ubuntu-latest
-    permissions: write-all
+    outputs:
+      dep_app: ${{ steps.set-output-app.outputs.dep_app }}
 
     steps:
       - name: Deploy_Project_APP
@@ -125,7 +184,99 @@ jobs:
           RESPONSE=$(curl --request GET \
                --url ${{ secrets.DEPLOY_APP_HOOK }} \
                --header 'accept: application/json' \
-               --header 'content-type: application/json') 
-  
+               --header 'content-type: application/json')
+
           echo "Deploy response: $RESPONSE"
 
+          DEPLOY_ID=$(echo $RESPONSE | jq -r '.deploy.id')
+          echo "deploy_id=$DEPLOY_ID" >> $GITHUB_OUTPUT
+          echo "Deploy ID: $DEPLOY_ID"
+
+      - name: Wait for deploy to complete
+        run: |
+          DEPLOY_ID="${{ steps.Deploy_Project_APP.outputs.deploy_id }}"
+          SERVICE_ID="${{ secrets.SERVICE_ID_APP }}"
+          MAX_ATTEMPTS=30   # 30 x 20s = 10 minutos
+          ATTEMPT=0
+
+          echo "Aguardando deploy $DEPLOY_ID finalizar..."
+
+          while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
+            STATUS=$(curl --request GET \
+              --url https://api.render.com/v1/services/${{ secrets.SERVICE_ID_APP }}/deploys/${{ steps.Deploy_Project_APP.outputs.deploy_id }} \
+              --header "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+              | jq -r '.status')
+
+            echo "Tentativa $((ATTEMPT + 1)) — Status: $STATUS"
+
+            if [ "$STATUS" = "live" ] || [ "$STATUS" = "null" ]; then
+              echo "✅ Deploy concluído com sucesso!"
+              exit 0
+            elif [ "$STATUS" = "build_failed" ] || [ "$STATUS" = "deactivated" ] || [ "$STATUS" = "canceled" ]; then
+              echo "❌ Deploy falhou com status: $STATUS"
+              exit 1
+            fi
+
+            ATTEMPT=$((ATTEMPT + 1))
+            sleep 20
+          done
+
+          echo "⏱️ Timeout: deploy não finalizou em 10 minutos"
+          exit 1
+
+
+      - name: Notify success
+        if: success()
+        id: set-output-app
+        run:  |
+          echo "dep_app=true" >> $GITHUB_OUTPUT
+          echo "🚀 Deploy e health check concluídos com sucesso!"
+
+      - name: Notify failure
+        if: failure()
+        run:  |
+          echo "dep_app=false" >> $GITHUB_OUTPUT
+          echo "💥 Pipeline falhou. Verifique os logs acima."
+
+  teste_funcional:
+    needs: [deploy-api, deploy-app]
+    if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: verifica se fez corretamente
+        run:  ls -la
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Roda os testes Funcionais
+        if: success()
+        working-directory: e2e-tests
+        run: npm run test
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+
+      - name: verifica se fez corretamente
+        working-directory: e2e-tests
+        run:  ls -la
+      - name: fotos da tela
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Fotos dos testes
+          # Path to the release files
+          # Gravar as fotos na raiz do projeto no docker
+          path: /home/runner/work//GCEIC26/GCEIC26/e2e-tests/screenshots/*.png
+
+  teste_funcional2:
+    needs: [deploy-api, deploy-app]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Instala as to
+        run: |
+          echo "dep_api = ${{ needs.deploy-api.outputs.dep_api }}"
+          echo "dep_app = ${{ needs.deploy-app.outputs.dep_app }}"
