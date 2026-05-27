@@ -1,11 +1,11 @@
 {
   "name": "gceic",
   "version": "1.0.0",
-  "description": "Exemplo para testes",
+  "description": "API para calculo de MarkUp",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "jest --coverage --verbose --ci --reporters=default --testResultsProcessor=jest-junit"
+    "test": "jest --coverage --verbose --ci --reporters=default --reporters=jest-junit"
   },
   "keywords": [
     "teste",
@@ -23,5 +23,10 @@
     "jest": "^30.3.0",
     "jest-junit": "^17.0.0",
     "supertest": "^7.2.2"
+  },
+  "jest": {
+    "testMatch": [
+      "<rootDir>/tests/**/*.test.js"
+    ]
   }
 }

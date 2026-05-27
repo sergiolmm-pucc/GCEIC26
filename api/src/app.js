@@ -9,21 +9,57 @@ app.use(cors());
 app.use(express.json());
 
 const equipe15Router = require('./equipe-15/freteRoutes');
-app.use('/equipe-15', equipe15Router);
+const pricingRouter = require('./equipe-14/pricingRoutes');
+const equipe21Router = require('./equipe-21/routes');
 
 // checa se api no ar
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM28', turma:'101'});
+  res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM-33', turma:'101'});
+});
+
+app.use('/PBL', pricingRouter);
+app.use('/api/equipe-21', equipe21Router);
+app.use('/equipe-15', equipe15Router);
+
+// Proxy para o Backend do Grupo 18
+app.use('/equipe-18', (req, res) => {
+  const https = require('https');
+  const target = new URL(req.path.replace(/^\//, ''), 'https://d36mf6v2e37tzy.cloudfront.net/');
+  
+  const proxyRequest = https.request(target, {
+    method: req.method,
+    headers: {
+      ...req.headers,
+      host: target.host
+    }
+  }, (proxyResponse) => {
+    res.status(proxyResponse.statusCode || 502);
+    for (const [header, value] of Object.entries(proxyResponse.headers)) {
+      if (value !== undefined) {
+        res.setHeader(header, value);
+      }
+    }
+    proxyResponse.pipe(res);
+  });
+
+  proxyRequest.on('error', (error) => {
+    res.status(502).json({
+      error: 'Falha ao comunicar com o Backend do Grupo 18.',
+      message: error.message
+    });
+  });
+
+  req.pipe(proxyRequest);
 });
 
 app.get('/api/tabelas', (req, res) => {
-  const { TABELA, calcular } = require('./funcoes');
+  const { TABELA } = require('./equipe-16/funcoes');
   res.json({
-	success: true,
-	data: {
-		base: TABELA.BASE_CALC.faixas,
-		referencia: `${TABELA.REFERENCIA * 100}%`,
-	},
+    success: true,
+    data: {
+      campos: TABELA.CAMPOS,
+      formula: TABELA.FORMULA,
+    },
   });
 
 });
@@ -31,23 +67,19 @@ app.get('/api/tabelas', (req, res) => {
 // POST /api/calcular
 app.post('/api/calcular', (req, res) => {
   try {
-	const { TABELA, calcular } = require('./funcoes');
+    const { calcular } = require('./equipe-16/funcoes');
     const dados = req.body;
-	console.log(dados);
 
     if (!dados || typeof dados !== 'object') {
-      return res.status(400).json({ error: 'Corpo da requisição inválido' });
+      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
     }
     
     const resultado = calcular(dados);
-	console.log(resultado);
     return res.status(200).json({ success: true, data: resultado });
   } catch (err) {
-	console.log(err.message);
     return res.status(400).json({ success: false, error: err.message });
   }
 });
 
 module.exports = app
-
 

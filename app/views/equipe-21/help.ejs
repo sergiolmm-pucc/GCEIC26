@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help BURGCALC</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f4ee;
+      color: #211a16;
+    }
+
+    header {
+      background: #211a16;
+      color: #fff8ef;
+      padding: 18px clamp(16px, 4vw, 48px);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #f2c078;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    main {
+      width: min(900px, calc(100% - 32px));
+      margin: 32px auto;
+      background: #fff;
+      border: 1px solid #e4ddd2;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 14px 35px rgba(33, 26, 22, 0.08);
+    }
+
+    details {
+      border-bottom: 1px solid #ece5dc;
+      padding: 14px 0;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    p {
+      color: #574d46;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BURGCALC</h1>
+    <nav aria-label="Navegacao BURGCALC">
+      <a href="<%= basePath %>/calculo">Calculo</a>
+      <a href="<%= basePath %>/sobre">Sobre</a>
+      <a href="<%= basePath %>/help">Help</a>
+      <a href="<%= basePath %>/login?ready=1">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Help</h2>
+
+    <details open>
+      <summary>Como usar o BURGCALC?</summary>
+      <p>Preencha os custos de producao, informe a quantidade de hamburgueres produzidos e clique em calcular.</p>
+    </details>
+
+    <details>
+      <summary>Quais dados devo preencher?</summary>
+      <p>Informe custo do pao, carne, queijo, molho, salada, embalagem, outros custos, quantidade produzida e margem de lucro desejada.</p>
+    </details>
+
+    <details>
+      <summary>O que e custo unitario?</summary>
+      <p>E o custo total dividido pela quantidade de hamburgueres produzidos.</p>
+    </details>
+
+    <details>
+      <summary>O que e margem de lucro?</summary>
+      <p>E o percentual adicionado ao custo unitario para estimar o lucro desejado em cada unidade vendida.</p>
+    </details>
+
+    <details>
+      <summary>O que significa preco de venda sugerido?</summary>
+      <p>E o valor estimado para vender cada hamburguer considerando custo unitario e margem de lucro.</p>
+    </details>
+  </main>
+</body>
+</html>
