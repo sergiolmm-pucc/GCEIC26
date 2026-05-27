@@ -2,6 +2,8 @@ const express = require('express');
 const cors    = require('cors');
 const helmet  = require('helmet');
 
+const rotasGrupo6 = require('./rotasSaunaGrupo6');
+
 const app = express();
 
 app.use(helmet());
@@ -58,6 +60,15 @@ app.use('/equipe-18', (req, res) => {
 
   req.pipe(proxyRequest);
 });
+
+/** ------------------------------------------------
+ * Rotas grupo 6 - Calculo de Sauna
+ */
+
+app.use('/api/SAUNA', rotasGrupo6)
+
+// Grupo 6
+// -------------------------------------------------
 
 app.get('/api/tabelas', (req, res) => {
   const { TABELA } = require('./equipe-16/funcoes');

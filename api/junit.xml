@@ -72,6 +72,29 @@
     <testcase classname="Calculo de MarkUp deve rejeitar percentual negativo" name="Calculo de MarkUp deve rejeitar percentual negativo" time="0">
     </testcase>
     <testcase classname="Calculo de MarkUp deve rejeitar soma de percentuais maior ou igual a 100%" name="Calculo de MarkUp deve rejeitar soma de percentuais maior ou igual a 100%" time="0">
+<testsuites name="jest tests" tests="9" failures="0" errors="0" time="2.483">
+  <testsuite name="Teste de unitario" errors="0" failures="0" skipped="0" timestamp="2026-05-21T11:54:12" time="1.17" tests="1">
+    <testcase classname="Teste de unitario deve retornar calculos" name="Teste de unitario deve retornar calculos" time="0.039">
+    </testcase>
+  </testsuite>
+  <testsuite name="Teste de Saude -&gt; GET /health" errors="0" failures="0" skipped="0" timestamp="2026-05-21T11:54:12" time="1.776" tests="2">
+    <testcase classname="Teste de Saude -&gt; GET /health deve retornar status ok" name="Teste de Saude -&gt; GET /health deve retornar status ok" time="0.106">
+    </testcase>
+    <testcase classname="GET /api/tabelas deve retornar a tebela de constantes " name="GET /api/tabelas deve retornar a tebela de constantes " time="0.016">
+    </testcase>
+  </testsuite>
+  <testsuite name="Testes da API - Calculadora de Sauna" errors="0" failures="0" skipped="0" timestamp="2026-05-21T11:54:12" time="1.815" tests="6">
+    <testcase classname="Testes da API - Calculadora de Sauna Deve calcular os materiais da sauna úmida corretamente" name="Testes da API - Calculadora de Sauna Deve calcular os materiais da sauna úmida corretamente" time="0.088">
+    </testcase>
+    <testcase classname="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros no POST de materiais" name="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros no POST de materiais" time="0.008">
+    </testcase>
+    <testcase classname="Testes da API - Calculadora de Sauna Deve calcular os equipamentos da sauna seca corretamente para volume médio" name="Testes da API - Calculadora de Sauna Deve calcular os equipamentos da sauna seca corretamente para volume médio" time="0.008">
+    </testcase>
+    <testcase classname="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros em equipamentos" name="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros em equipamentos" time="0.006">
+    </testcase>
+    <testcase classname="Testes da API - Calculadora de Sauna Deve calcular os custos de manutenção mensal corretamente" name="Testes da API - Calculadora de Sauna Deve calcular os custos de manutenção mensal corretamente" time="0.008">
+    </testcase>
+    <testcase classname="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros em manutenção" name="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros em manutenção" time="0.008">
     </testcase>
   </testsuite>
 </testsuites>
