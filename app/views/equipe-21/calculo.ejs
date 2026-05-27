@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BURGCALC Calculo</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f4ee;
+      color: #211a16;
+    }
+
+    header {
+      background: #211a16;
+      color: #fff8ef;
+      padding: 18px clamp(16px, 4vw, 48px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #f2c078;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    #burgcalc-root {
+      width: min(1120px, calc(100% - 32px));
+      margin: 32px auto;
+    }
+
+    .burgcalc-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .painel {
+      background: #fff;
+      border: 1px solid #e4ddd2;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 14px 35px rgba(33, 26, 22, 0.08);
+    }
+
+    .grid-campos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 42px;
+      border: 1px solid #cfc6bb;
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 1rem;
+    }
+
+    button {
+      min-height: 44px;
+      border: 0;
+      border-radius: 8px;
+      padding: 0 18px;
+      background: #a43d1d;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 20px;
+    }
+
+    button:disabled {
+      opacity: 0.65;
+      cursor: wait;
+    }
+
+    .resultado-lista {
+      display: grid;
+      gap: 14px;
+      margin-top: 12px;
+    }
+
+    .resultado-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid #ece5dc;
+      padding-bottom: 10px;
+    }
+
+    .resultado-item strong {
+      white-space: nowrap;
+    }
+
+    .mensagem {
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 18px;
+    }
+
+    .erro {
+      background: #fef2f2;
+      border: 1px solid #fca5a5;
+      color: #b91c1c;
+    }
+
+    .sucesso {
+      background: #ecfdf3;
+      border: 1px solid #86efac;
+      color: #166534;
+    }
+
+    @media (max-width: 800px) {
+      .burgcalc-layout,
+      .grid-campos {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BURGCALC</h1>
+    <nav aria-label="Navegacao BURGCALC">
+      <a href="<%= basePath %>/calculo">Calculo</a>
+      <a href="<%= basePath %>/sobre">Sobre</a>
+      <a href="<%= basePath %>/help">Help</a>
+    </nav>
+  </header>
+
+  <main id="burgcalc-root"></main>
+
+  <script>
+    window.BURGCALC_API_PATH = '<%= apiPath %>';
+  </script>
+  <script src="<%= basePath %>/vendor/react/react.development.js"></script>
+  <script src="<%= basePath %>/vendor/react-dom/react-dom.development.js"></script>
+  <script src="<%= basePath %>/js/burgcalc-app.js"></script>
+</body>
+</html>

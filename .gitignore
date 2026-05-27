@@ -1,3 +1,11 @@
+AtividadeGCEIC26.md
+node_modules/
+coverage/
+
+# Dependências
+/node_modules
+/jspm_packages
+
 # Logs
 logs
 *.log
@@ -153,6 +161,7 @@ vite.config.ts.timestamp-*
 coverage
 build
 dist
+docs
 
 # Outros
 .npm
