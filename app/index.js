@@ -86,7 +86,7 @@ const equipes = [
   { numero: 15, nome: 'Equipe-15',   rota: '/equipe-15' },
   { numero: 16, nome: 'G16 - MarkUp Calc', rota: '/equipe-16' },
   { numero: 17, nome: 'Equipe-17',   rota: '/equipe-17' },
-  { numero: 18, nome: 'Equipe-18',   rota: '/equipe-18' },
+  { numero: 18, nome: 'G18 - Cálculo de Impostos NF', rota: '/equipe-18' },
   { numero: 19, nome: 'Equipe-19',   rota: '/equipe-19' },
   { numero: 20, nome: 'Equipe-20',   rota: '/equipe-20' },
   { numero: 21, nome: 'Equipe-21',   rota: '/equipe-21' },
@@ -177,9 +177,49 @@ app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo14DistPath, 'index.html'));
 });
 
+// Servir arquivos estáticos do Grupo 18 (Next.js export)
+const grupo18DistPath = path.join(__dirname, 'equipe-18', 'out');
+app.use('/equipe-18', express.static(grupo18DistPath));
+
+// Proxy para o Backend na AWS do Grupo 18
+app.use('/equipe-18/api', (req, res) => {
+  const target = new URL(req.path.replace(/^\//, ''), ensureTrailingSlash('https://d36mf6v2e37tzy.cloudfront.net'));
+  const client = https;
+  
+  const proxyRequest = client.request(target, {
+    method: req.method,
+    headers: {
+      ...req.headers,
+      host: target.host
+    }
+  }, (proxyResponse) => {
+    res.status(proxyResponse.statusCode || 502);
+    for (const [header, value] of Object.entries(proxyResponse.headers)) {
+      if (value !== undefined) {
+        res.setHeader(header, value);
+      }
+    }
+    proxyResponse.pipe(res);
+  });
+
+  proxyRequest.on('error', (error) => {
+    res.status(502).json({
+      error: 'Falha ao comunicar com o Backend do Grupo 18 na AWS.',
+      message: error.message
+    });
+  });
+
+  req.pipe(proxyRequest);
+});
+
+// Suporte para client-side routing do Next.js
+app.get(/^\/equipe-18(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo18DistPath, 'index.html'));
+});
+
 // Rotas genéricas das demais equipes (grupo 16 tem rota própria acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 14 || i === 16) continue;
+  if (i === 14 || i === 16 || i === 18) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
