@@ -80,7 +80,7 @@ jobs:
           PORT: 3000
 
       - name: Aguardar serviços ficarem prontos
-        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 30000
+        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 120000
 
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests
@@ -204,7 +204,7 @@ jobs:
           PORT: 3000
 
       - name: Aguardar serviços ficarem prontos
-        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 30000
+        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 120000
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests
         run: npm ci
