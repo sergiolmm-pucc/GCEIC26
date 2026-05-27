@@ -8,7 +8,7 @@ import Help from './pages/Help';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/equipe-2">
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/login" element={<Login />} />

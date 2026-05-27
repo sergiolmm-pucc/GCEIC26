@@ -16,18 +16,19 @@ const equipe15Router = require('./equipe-15/freteRoutes');
 const equipe21Router = require('./equipe-21/routes');
 const mkpRouter      = require('./grupo13-markup/routes');
 const energyRouter   = require('./equipe-5/routes/energy');
+const irpRouter      = require('./equipe-2/irpRoutes');
 
-const volumeRoutes = require('./equipe-7/volume');
+const volumeRoutes    = require('./equipe-7/volume');
 const materiaisRoutes = require('./equipe-7/materiais');
-const custosRoutes = require('./equipe-7/custos');
+const custosRoutes    = require('./equipe-7/custos');
 
 // checa se api está no ar
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM-33', turma:'101'});
 });
 
-app.use('/PBL',         pricingRouter);
 app.use('/PBL',           pricingRouter);
+app.use('/IRP',           irpRouter);
 app.use('/ENRG',          energyRouter);
 app.use('/nfvenda',       nfvendaRouter);
 app.use('/api/equipe-21', equipe21Router);
@@ -202,9 +203,9 @@ app.post('/AGUA/economia', (req, res) => {
   }
 });
 
-app.use('/PISCINA2/volume', volumeRoutes);
+app.use('/PISCINA2/volume',    volumeRoutes);
 app.use('/PISCINA2/materiais', materiaisRoutes);
-app.use('/PISCINA2/custos', custosRoutes);
+app.use('/PISCINA2/custos',    custosRoutes);
 
 // ── Grupo 23 — Autonomia de Carros ──
 const autonomiaController = require('./grupo23/autonomiaController');

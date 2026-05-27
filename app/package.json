@@ -4,7 +4,7 @@
   "description": "cria o diretorio api e app no diretorio app via terminal  npm init -y cria o arquivo principal",
   "main": "index.js",
   "scripts": {
-    "build": "vite build && (cd equipe-18 && npm install && npm run build; exit 0)",
+    "build": "vite build && vite build --config vite.config.equipe2.mjs && (cd equipe-18 && npm install && npm run build; exit 0)",
     "start": "npm run build && node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,6 +25,7 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.28.0",
     "vite": "^5.2.0"
   }
 }
