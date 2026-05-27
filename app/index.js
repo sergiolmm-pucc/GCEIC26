@@ -67,6 +67,7 @@ app.use(session({
 }));
 
 const BASE_PATH = '/equipe-16';
+const BASE_PATH_13 = '/equipe-13';
 
 const equipes = [
   { numero: 1,  nome: 'TESTE',       rota: '/login' },
@@ -81,7 +82,7 @@ const equipes = [
   { numero: 10, nome: 'Equipe-10',   rota: '/equipe-10' },
   { numero: 11, nome: 'Equipe-11',   rota: '/equipe-11' },
   { numero: 12, nome: 'Equipe-12',   rota: '/equipe-12' },
-  { numero: 13, nome: 'Equipe-13',   rota: '/equipe-13' },
+  { numero: 13, nome: 'G13 - MarkUp', rota: '/equipe-13' },
   { numero: 14, nome: 'Equipe-14',   rota: '/equipe-14' },
   { numero: 15, nome: 'Equipe-15',   rota: '/equipe-15' },
   { numero: 16, nome: 'G16 - MarkUp Calc', rota: '/equipe-16' },
@@ -173,13 +174,83 @@ grupo16.post('/calcular', requireAuth, async (req, res) => {
 
 app.use(BASE_PATH, grupo16);
 
+// ── Grupo 13 — MarkUp ──
+
+function requireAuth13(req, res, next) {
+  if (req.session && req.session.user13) return next();
+  res.redirect(BASE_PATH_13 + '/login');
+}
+
+const grupo13 = express.Router();
+
+grupo13.get('/', (req, res) => {
+  if (req.session.user13) return res.redirect(BASE_PATH_13 + '/calculo');
+  res.redirect(BASE_PATH_13 + '/splash');
+});
+
+grupo13.get('/splash', (req, res) => {
+  res.render('equipe-13/splash', { user: req.session.user13 || null, basePath: BASE_PATH_13 });
+});
+
+grupo13.get('/login', (req, res) => {
+  if (req.session.user13) return res.redirect(BASE_PATH_13 + '/calculo');
+  res.render('equipe-13/login', { error: null, basePath: BASE_PATH_13 });
+});
+
+grupo13.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'admin' && password === '123') {
+    req.session.user13 = { username: 'admin', nome: 'Administrador' };
+    return res.redirect(BASE_PATH_13 + '/calculo');
+  }
+  res.render('equipe-13/login', { error: 'Usuario ou senha invalidos', basePath: BASE_PATH_13 });
+});
+
+grupo13.get('/logout', (req, res) => {
+  req.session.user13 = null;
+  res.redirect(BASE_PATH_13 + '/login');
+});
+
+grupo13.get('/calculo', requireAuth13, (req, res) => {
+  res.render('equipe-13/calculo', { user: req.session.user13, basePath: BASE_PATH_13 });
+});
+
+grupo13.get('/sobre', requireAuth13, (req, res) => {
+  res.render('equipe-13/sobre', { user: req.session.user13, basePath: BASE_PATH_13 });
+});
+
+grupo13.get('/help', requireAuth13, (req, res) => {
+  res.render('equipe-13/help', { user: req.session.user13, basePath: BASE_PATH_13 });
+});
+
+async function mkpProxy(path, body, res) {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}/MKP${path}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
+  }
+}
+
+grupo13.post('/markup',    requireAuth13, (req, res) => mkpProxy('/markup',    req.body, res));
+grupo13.post('/lucro',     requireAuth13, (req, res) => mkpProxy('/lucro',     req.body, res));
+grupo13.post('/equilibrio',requireAuth13, (req, res) => mkpProxy('/equilibrio',req.body, res));
+
+app.use(BASE_PATH_13, grupo13);
+
 app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo14DistPath, 'index.html'));
 });
 
-// Rotas genéricas das demais equipes (grupo 16 tem rota própria acima)
+// Rotas genéricas das demais equipes (grupos 13, 14 e 16 têm rotas próprias)
 for (let i = 2; i <= 25; i++) {
-  if (i === 14 || i === 16) continue;
+  if (i === 13 || i === 14 || i === 16) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
