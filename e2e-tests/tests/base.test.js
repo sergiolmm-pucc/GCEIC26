@@ -39,7 +39,7 @@ async function main() {
         .build();
       await driver.manage().setTimeouts({ implicit: 5000, pageLoad: 15000 });
 
-      await driver.get(BASE_URL + '/login');
+      await driver.get(BASE_URL + '/equipe-08/login');
 
       tiraFoto("Pagina Entrada");
       //preenche os campos 

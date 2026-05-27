@@ -2,7 +2,7 @@ name: Teste and Deploy
 
 on:
   push:
-    branches: ["**"]
+    branches: [main, dev]
 
   
 jobs:

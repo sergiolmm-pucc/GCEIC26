@@ -3,10 +3,10 @@ const app = require('../app');
 
 describe('Testes da API Calculadora de Piscina', () => {
     
-    describe('POST /PISCINA/volume', () => {
+    describe('POST /api/equipe-08/piscina/volume', () => {
         it('deve calcular o volume corretamente em m3 e litros', async () => {
             const res = await request(app)
-                .post('/PISCINA/volume')
+                .post('/api/equipe-08/piscina/volume')
                 .send({
                     largura: 3,
                     comprimento: 5,
@@ -20,7 +20,7 @@ describe('Testes da API Calculadora de Piscina', () => {
 
         it('deve retornar erro 400 se faltar algum parâmetro', async () => {
             const res = await request(app)
-                .post('/PISCINA/volume')
+                .post('/api/equipe-08/piscina/volume')
                 .send({
                     largura: 3
                     // Falta comprimento e profundidade
@@ -31,10 +31,10 @@ describe('Testes da API Calculadora de Piscina', () => {
         });
     });
 
-    describe('POST /PISCINA/agua', () => {
+    describe('POST /api/equipe-08/piscina/agua', () => {
         it('deve calcular o custo da água corretamente', async () => {
             const res = await request(app)
-                .post('/PISCINA/agua')
+                .post('/api/equipe-08/piscina/agua')
                 .send({
                     volumeMetrosCubicos: 22.5,
                     precoMetroCubico: 15.5
@@ -46,7 +46,7 @@ describe('Testes da API Calculadora de Piscina', () => {
 
         it('deve retornar erro 400 se faltar algum parâmetro na água', async () => {
             const res = await request(app)
-                .post('/PISCINA/agua')
+                .post('/api/equipe-08/piscina/agua')
                 .send({
                     volumeMetrosCubicos: 22.5
                 });
@@ -56,10 +56,10 @@ describe('Testes da API Calculadora de Piscina', () => {
         });
     });
 
-    describe('POST /PISCINA/materiais', () => {
+    describe('POST /api/equipe-08/piscina/materiais', () => {
         it('deve calcular o custo de materiais corretamente', async () => {
             const res = await request(app)
-                .post('/PISCINA/materiais')
+                .post('/api/equipe-08/piscina/materiais')
                 .send({
                     volumeMetrosCubicos: 20,
                     tipoAcabamento: 'vinil'
@@ -70,10 +70,10 @@ describe('Testes da API Calculadora de Piscina', () => {
         });
     });
 
-    describe('POST /PISCINA/manutencao', () => {
+    describe('POST /api/equipe-08/piscina/manutencao', () => {
         it('deve calcular o custo de manutencao corretamente', async () => {
             const res = await request(app)
-                .post('/PISCINA/manutencao')
+                .post('/api/equipe-08/piscina/manutencao')
                 .send({
                     volumeMetrosCubicos: 20,
                     meses: 6
@@ -84,10 +84,10 @@ describe('Testes da API Calculadora de Piscina', () => {
         });
     });
 
-    describe('POST /PISCINA/mao-de-obra', () => {
+    describe('POST /api/equipe-08/piscina/mao-de-obra', () => {
         it('deve calcular o custo de mao de obra corretamente', async () => {
             const res = await request(app)
-                .post('/PISCINA/mao-de-obra')
+                .post('/api/equipe-08/piscina/mao-de-obra')
                 .send({
                     diasEstimados: 10,
                     trabalhadores: 3,
