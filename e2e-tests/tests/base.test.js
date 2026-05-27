@@ -9,6 +9,8 @@ const SCREENSHOTS_DIR = path.join(__dirname, '..', 'screenshots');
 // Garante que o diretório de screenshots existe
 if (!fs.existsSync(SCREENSHOTS_DIR)) fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
 
+let driver;
+
 async function tiraFoto(name){
 
       try{
@@ -23,7 +25,6 @@ async function tiraFoto(name){
 }
 
 async function main() {
-    let driver;
     try{
       const opts = new chrome.Options();
       opts.addArguments(

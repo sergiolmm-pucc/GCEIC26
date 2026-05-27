@@ -73,7 +73,7 @@ jobs:
           PORT: 3000
 
       - name: Aguardar serviços ficarem prontos
-        run: npx -y wait-on http://127.0.0.1:3001/health http://127.0.0.1:3000 --timeout 30000
+        run: npx -y wait-on http://127.0.0.1:3001/health http://127.0.0.1:3000 --timeout 60000
 
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests 
@@ -94,9 +94,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Fotos dos testes
-          # Path to the release files
-          # Gravar as fotos na raiz do projeto no docker
-          path: /home/runner/work//GCEIC26/GCEIC26/e2e-tests/screenshots/*.png
+          path: e2e-tests/screenshots/*.png
+          if-no-files-found: ignore
 
 
 
@@ -270,11 +269,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Fotos dos testes
-          # Path to the release files
-          # Gravar as fotos na raiz do projeto no docker
-
-          # path: /home/runner/work//aula_teste_101/aula_teste_101/e2e-tests/screenshots/**/*.png
-          path: /home/runner/work//GCEIC26/GCEIC26/e2e-tests/screenshots/*.png
+          path: e2e-tests/screenshots/*.png
+          if-no-files-found: ignore
 
   teste_funcional2:
     needs: [deploy-api, deploy-app]
