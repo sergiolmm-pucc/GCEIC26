@@ -653,7 +653,7 @@ app.get('/sauna6/help', (req, res) => {
 // ── Grupo 23 — Autonomia de Carros ──
 
 const GRUPO23_PATH = '/equipe-23';
-const grupo23DistPath = path.join(__dirname, 'dist-grupo23');
+const grupo23DistPath = path.join(__dirname, 'equipe-23');
 
 app.use(GRUPO23_PATH, express.static(grupo23DistPath));
 
