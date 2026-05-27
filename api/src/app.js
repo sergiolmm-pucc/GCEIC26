@@ -16,12 +16,12 @@ const equipe15Router = require('./equipe-15/freteRoutes');
 const equipe21Router = require('./equipe-21/routes');
 const mkpRouter      = require('./grupo13-markup/routes');
 
-// checa se api no ar
+// checa se api está no ar
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM-33', turma:'101'});
 });
 
-app.use('/PBL',           pricingRouter);
+app.use('/PBL',         pricingRouter);
 app.use('/nfvenda',       nfvendaRouter);
 app.use('/api/equipe-21', equipe21Router);
 app.use('/equipe-15',     equipe15Router);
@@ -64,12 +64,9 @@ app.use('/equipe-18', (req, res) => {
 /** ------------------------------------------------
  * Rotas grupo 6 - Calculo de Sauna
  */
-
 app.use('/api/SAUNA', rotasGrupo6)
 
-// Grupo 6
-// -------------------------------------------------
-
+// Grupo 16 - Tabelas auxiliares
 app.get('/api/tabelas', (req, res) => {
   const { TABELA } = require('./equipe-16/funcoes');
   res.json({
@@ -81,8 +78,75 @@ app.get('/api/tabelas', (req, res) => {
   });
 });
 
-// POST /api/calcular
-app.post('/api/calcular', (req, res) => {
+
+// ROTAS DA EQUIPE 9
+// retorna tabela padrão de impostos
+app.get('/api/equipe-9/tabelas', (req, res) => {
+  const { TABELA } = require('./equipe-9/funcoes');
+  res.json({
+    success: true,
+    data: TABELA.IMPOSTOS_PADRAO,
+  });
+});
+
+// POST /api/equipe-9/calcular
+app.post('/api/equipe-9/calcular', (req, res) => {
+  try {
+    const { calcularNF } = require('./equipe-9/funcoes');
+    const dados = req.body;
+
+    if (!dados || typeof dados !== 'object') {
+      return res.status(400).json({
+        success: false,
+        error: 'Corpo da requisição inválido'
+      });
+    }
+
+    const resultado = calcularNF(dados);
+    return res.status(200).json({
+      success: true,
+      data: resultado
+    });
+  } catch (err) {
+    return res.status(400).json({
+      success: false,
+      error: err.message
+    });
+  }
+});
+
+// POST /api/equipe-9/calcular-inverso
+app.post('/api/equipe-9/calcular-inverso', (req, res) => {
+  try {
+    const { calcularNFInverso } = require('./equipe-9/funcoes');
+    if (!req.body || typeof req.body !== 'object') {
+      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
+    }
+    const resultado = calcularNFInverso(req.body);
+    return res.status(200).json({ success: true, data: resultado });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+// POST /api/equipe-9/comparar
+app.post('/api/equipe-9/comparar', (req, res) => {
+  try {
+    const { cortarAliquotas, compararAliquotas } = require('./equipe-9/funcoes');
+    if (!req.body || typeof req.body !== 'object') {
+      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
+    }
+    const resultado = compararAliquotas(req.body);
+    return res.status(200).json({ success: true, data: resultado });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+
+// ROTAS DA EQUIPE 16
+// POST /api/equipe-16/calcular
+app.post('/api/equipe-16/calcular', (req, res) => {
   try {
     const { calcular } = require('./equipe-16/funcoes');
     const dados = req.body;

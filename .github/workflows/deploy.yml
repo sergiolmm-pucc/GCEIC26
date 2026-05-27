@@ -3,7 +3,9 @@ name: Teste and Deploy
 on:
   workflow_dispatch:
   push:
-    branches: [main, dev]
+    branches: [main, dev, "grupo9/calc_nf"]
+  pull_request:
+    branches: [grupo9/calc_nf]
 
   
 jobs:
