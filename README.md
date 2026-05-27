@@ -1,10 +1,10 @@
 # GCEIC26
 Repositorio do trabalho final
-# 💰 Simulador de Imposto de Renda Progressivo
+# Simulador de Imposto de Renda Progressivo
 
 > Projeto desenvolvido para a disciplina de Gerência de Configuração, Entrega e Integração Contínua — Escola Politécnica, 1º Semestre de 2026.
 
-## 👥 Equipe G02
+## Equipe G02
 
 | Nome | Responsabilidade |
 |------|-----------------|
@@ -12,11 +12,11 @@ Repositorio do trabalho final
 | João Pedro Zangerolamo de Freitas | Frontend (React) |
 | Vinicius Davi Zorzetto de Matos | Backend (Node.js / API) |
 
-## 📌 Sobre o Projeto
+## Sobre o Projeto
 
 Sistema web que simula o cálculo do Imposto de Renda com base em faixas progressivas de tributação. O usuário informa o salário bruto e o sistema retorna o imposto retido, o salário líquido e o detalhamento por faixa.
 
-## 🧮 Regras de Cálculo
+## Regras de Cálculo
 
 | Faixa Salarial | Alíquota |
 |----------------|----------|
@@ -30,14 +30,14 @@ Sistema web que simula o cálculo do Imposto de Renda com base em faixas progres
 - Faixa 15% sobre R$ 1.000,00 = R$ 150,00
 - **Imposto total: R$ 337,50 | Líquido: R$ 5.662,50**
 
-## 🛠️ Tecnologias
+## Tecnologias
 
 - **Frontend:** React, JavaScript, CSS
 - **Backend:** Node.js, Express
 - **Testes:** Jest, Supertest
 - **CI/CD:** GitHub Actions
 
-## 📂 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 GCEIC26/ (branch G02)
@@ -60,7 +60,7 @@ GCEIC26/ (branch G02)
 └── README.md
 ```
 
-## 🚀 Como Executar Localmente
+## Como Executar Localmente
 
 ### Backend (API)
 ```bash
@@ -101,7 +101,7 @@ npm test
 }
 ```
 
-## 📋 Entregas
+## Entregas
 
 | Data | Entrega | Peso |
 |------|---------|------|
