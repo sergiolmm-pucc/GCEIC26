@@ -10,7 +10,7 @@ app.use(express.json());
 
 // Checa se API está no ar (Health Check)
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString(), by: 'Equipe-01-CSH', turma: '101' });
+  res.json({ status: 'ok', timestamp: new Date().toISOString(), by: 'Equipe-25-CSH', turma: '101' });
 });
 
 // GET /api/tabelas (Retorna constantes e referências financeiras)

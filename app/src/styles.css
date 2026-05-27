@@ -12,10 +12,11 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top right, rgba(255,255,255,0.08), transparent 32rem), #070707;
+  background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 32rem), #070707;
 }
 
-button, input {
+button,
+input {
   font: inherit;
 }
 
@@ -34,17 +35,20 @@ button:disabled {
   opacity: 0.65;
 }
 
-.splash, .login-page {
+.splash,
+.login-page {
   min-height: 100vh;
   display: grid;
   place-items: center;
   padding: 1.5rem;
 }
 
-.splash-card, .login-panel, .panel {
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(18,18,18,0.84);
-  box-shadow: 0 24px 80px rgba(0,0,0,0.38);
+.splash-card,
+.login-panel,
+.panel {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 18, 18, 0.84);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
 }
 
 .splash-card {
@@ -62,7 +66,7 @@ button:disabled {
 
 .loader {
   height: 4px;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 999px;
   margin-top: 1.5rem;
   overflow: hidden;
@@ -77,8 +81,13 @@ button:disabled {
 }
 
 @keyframes load {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 .login-panel {
@@ -87,21 +96,25 @@ button:disabled {
   padding: 2rem;
 }
 
-.login-panel form, .calc-form {
+.login-panel form,
+.calc-form {
   display: grid;
   gap: 0.85rem;
 }
 
-.login-panel input, .field input {
+.login-panel input,
+.field input {
   width: 100%;
-  border: 1px solid rgba(255,255,255,0.14);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
   color: #fff;
   padding: 0.8rem;
 }
 
-.hint, .muted, .empty {
+.hint,
+.muted,
+.empty {
   color: #a1a1aa;
 }
 
@@ -120,9 +133,9 @@ h1 {
 }
 
 .alert {
-  border: 1px solid rgba(248,113,113,0.35);
+  border: 1px solid rgba(248, 113, 113, 0.35);
   border-radius: 8px;
-  background: rgba(127,29,29,0.28);
+  background: rgba(127, 29, 29, 0.28);
   color: #fecaca;
   margin: 1rem 0;
   padding: 0.8rem;
@@ -130,7 +143,7 @@ h1 {
 
 .topbar {
   align-items: center;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -151,7 +164,7 @@ h1 {
 }
 
 .topbar nav button {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   color: #f7f7f7;
 }
 
@@ -216,10 +229,10 @@ h1 {
 
 .team-photo {
   align-items: center;
-  border: 1px dashed rgba(255,255,255,0.2);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
   border-radius: 10px;
   display: grid;
-  min-height: 12rem;
+  min-height: 24rem;
   margin: 1.5rem 0;
   overflow: hidden;
   place-items: center;
@@ -229,6 +242,7 @@ h1 {
 .team-photo img {
   height: 100%;
   object-fit: cover;
+  object-position: top;
   position: absolute;
   width: 100%;
 }
@@ -239,25 +253,32 @@ h1 {
   text-align: center;
 }
 
-.team-grid, .help-list {
+.team-grid,
+.help-list {
   display: grid;
   gap: 1rem;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.member, .help-list article {
-  border: 1px solid rgba(255,255,255,0.1);
+.member,
+.help-list article {
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
-  background: rgba(255,255,255,0.035);
+  background: rgba(255, 255, 255, 0.035);
   padding: 1rem;
 }
 
-.member h2, .help-list h2 {
+.member h2,
+.help-list h2 {
   margin-top: 0;
 }
 
 @media (max-width: 860px) {
-  .page-grid, .team-grid, .help-list, .calc-form {
+
+  .page-grid,
+  .team-grid,
+  .help-list,
+  .calc-form {
     grid-template-columns: 1fr;
   }
 
@@ -274,10 +295,10 @@ h1 {
 }
 
 .result-section {
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 1rem;
-  background: rgba(255,255,255,0.025);
+  background: rgba(255, 255, 255, 0.025);
 }
 
 .result-section h3 {

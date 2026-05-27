@@ -226,14 +226,19 @@ function Metric({ label, value }) {
 }
 
 function About() {
+  const [photoError, setPhotoError] = useState(false);
+
   return (
     <main className="content-page">
       <section className="panel">
         <p className="eyebrow">Sobre a equipe</p>
         <h1>Equipe desenvolvedora</h1>
         <div className="team-photo">
-          <img src="/equipe.jpg" alt="Foto da equipe" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
-          <span>Foto da equipe pendente: adicionar app/public/equipe.jpg</span>
+          {!photoError ? (
+            <img src="/equipe.jpg" alt="Foto da equipe" onError={() => setPhotoError(true)} />
+          ) : (
+            <span>Foto da equipe pendente: adicionar app/public/equipe.jpg</span>
+          )}
         </div>
         <div className="team-grid">
           {team.map((member) => (

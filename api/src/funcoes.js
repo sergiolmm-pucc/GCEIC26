@@ -150,10 +150,10 @@ function calcularPrecoFinal(dados) {
  * FUNÇÃO AGREGADORA (Executada ao chamar o cálculo unificado)
  */
 function calcular(dados) {
-  // Executa o passo 1 (Ana Carolina)
+  // Executa o passo 1 (Fernando Furlanetto)
   const passo1 = calcularMaoDeObra(dados);
 
-  // Executa o passo 2 (Bruno Eduardo)
+  // Executa o passo 2 (Matheus Augusto)
   const passo2 = calcularCustosOperacionais({
     despesasFixasMensais: dados.despesasFixasMensais,
     reservaSeguranca: dados.reservaSeguranca,
@@ -161,7 +161,7 @@ function calcular(dados) {
     horasFaturaveisMes: passo1.horasFaturaveisMes
   });
 
-  // Executa o passo 3 (Carlos Augusto)
+  // Executa o passo 3 (Raul Antonio)
   const passo3 = calcularPrecoFinal({
     custoHoraEquilibrio: passo2.custoHoraEquilibrio,
     horasFaturaveisMes: passo1.horasFaturaveisMes,
