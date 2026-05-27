@@ -2,7 +2,8 @@ name: Teste and Deploy
 
 on:
   push:
-    branches: [main, dev, "grupo16/markup,grupo17/calculadora_imposto_nf_venda"]
+    branches:
+      [main, dev, "grupo16/markup", grupo17/calculadora_imposto_nf_venda]
   pull_request:
     branches: [grupo16/markup, grupo17/calculadora_imposto_nf_venda]
 
