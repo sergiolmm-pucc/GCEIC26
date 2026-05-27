@@ -98,4 +98,37 @@ app.post('/api/calcular', (req, res) => {
   }
 });
 
+// ── Grupo 20 — AguaCalc ──
+const { calcularConsumoDiario, calcularCustoMensal, calcularEconomia } = require('./equipe-20/funcoes');
+
+app.post('/AGUA/consumoDiario', (req, res) => {
+  try {
+    const { tempoBanhoMin, descargasDia, pessoas } = req.body;
+    const resultado = calcularConsumoDiario(Number(tempoBanhoMin), Number(descargasDia), Number(pessoas));
+    res.json({ success: true, data: resultado });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/AGUA/custoMensal', (req, res) => {
+  try {
+    const { consumoDiarioLitros, tarifa, dias } = req.body;
+    const resultado = calcularCustoMensal(Number(consumoDiarioLitros), Number(tarifa), Number(dias) || 30);
+    res.json({ success: true, data: resultado });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+app.post('/AGUA/economia', (req, res) => {
+  try {
+    const { litrosAtuais, reducaoPercentual, tarifa, pessoas } = req.body;
+    const resultado = calcularEconomia(Number(litrosAtuais), Number(reducaoPercentual), Number(tarifa), Number(pessoas));
+    res.json({ success: true, data: resultado });
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
 module.exports = app;
