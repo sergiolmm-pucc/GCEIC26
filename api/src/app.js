@@ -21,6 +21,7 @@ const irpRouter      = require('./equipe-2/irpRoutes');
 const volumeRoutes    = require('./equipe-7/volume');
 const materiaisRoutes = require('./equipe-7/materiais');
 const custosRoutes    = require('./equipe-7/custos');
+const etec64Routes    = require('./etec64/routes/etecRoutes.js');
 
 // checa se api está no ar
 app.get('/health', (req, res) => {
@@ -208,7 +209,7 @@ app.use('/PISCINA2/materiais', materiaisRoutes);
 app.use('/PISCINA2/custos',    custosRoutes);
 
 // ── Grupo 23 — Autonomia de Carros ──
-const autonomiaController = require('./grupo23/autonomiaController');
+const autonomiaController = require('./equipe-23/autonomiaController');
 
 // POST /autonomia/calcular
 app.post('/autonomia/calcular', (req, res) => {
@@ -254,5 +255,7 @@ app.post('/autonomia/comparar-combustivel', (req, res) => {
     res.status(400).json({ sucesso: false, erro: error.message });
   }
 });
+
+app.use('/api/etec64', etec64Routes);
 
 module.exports = app;

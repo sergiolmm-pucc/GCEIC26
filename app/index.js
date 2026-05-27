@@ -206,6 +206,7 @@ const equipes = [
   { numero: 23, nome: 'G23 - Calc Autonomia',   rota: '/equipe-23' },
   { numero: 24, nome: 'Equipe-24',   rota: '/equipe-24' },
   { numero: 25, nome: 'Equipe-25',   rota: '/equipe-25' },
+  { numero: 64, nome: 'ETEC64',      rota: '/equipe-64' },
 ];
 
 // Página inicial — lista de equipes
@@ -647,7 +648,7 @@ app.get(/^\/equipe-23(?:\/.*)?$/, (_req, res) => {
 
 // Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 2 || i === 5 || i === 6 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
+  if (i === 2 || i === 5 || i === 6 || i === 7 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
@@ -657,7 +658,15 @@ app.listen(PORT, () => {
   console.log(`App rodando: http://localhost:${PORT}`);
 });
 
-module.exports = app;
+// ── Grupo 64 — ETEC64 ──
+const ETEC64_PATH = '/equipe-64';
+const etec64DistPath = path.join(__dirname, 'views', 'etec64', 'dist');
+app.use(ETEC64_PATH, express.static(etec64DistPath));
+app.get(/^\/equipe-64(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(etec64DistPath, 'index.html'));
+});
+
+
 function ensureTrailingSlash(url) {
   return url.endsWith('/') ? url : `${url}/`;
 }
@@ -684,3 +693,7 @@ app.get('/sauna6/help', (req, res) => {
   res.render('sauna_grupo6/help');
 });
 // --------------------------------------------------- //
+// --------------------------------------------------- //
+
+
+module.exports = app;
