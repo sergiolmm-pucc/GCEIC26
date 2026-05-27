@@ -8,78 +8,46 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+const nfvendaRouter = require('./equipe-17/nfvendaRoutes');
 
 // checa se api no ar
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM28', turma:'101'});
 });
 
+app.use('/nfvenda', nfvendaRouter);
+
 app.get('/api/tabelas', (req, res) => {
   const { TABELA, calcular } = require('./funcoes');
   res.json({
-	success: true,
-	data: {
-		base: TABELA.BASE_CALC.faixas,
-		referencia: `${TABELA.REFERENCIA * 100}%`,
-	},
+    success: true,
+    data: {
+      base: TABELA.BASE_CALC.faixas,
+      referencia: `${TABELA.REFERENCIA * 100}%`,
+    },
   });
-
 });
 
 // POST /api/calcular
 app.post('/api/calcular', (req, res) => {
   try {
-	const { TABELA, calcular } = require('./funcoes');
+    const { TABELA, calcular } = require('./funcoes');
     const dados = req.body;
-	console.log(dados);
+    console.log(dados);
 
     if (!dados || typeof dados !== 'object') {
       return res.status(400).json({ error: 'Corpo da requisição inválido' });
     }
-    
+
     const resultado = calcular(dados);
-	console.log(resultado);
+    console.log(resultado);
     return res.status(200).json({ success: true, data: resultado });
   } catch (err) {
-	console.log(err.message);
+    console.log(err.message);
     return res.status(400).json({ success: false, error: err.message });
   }
 });
 
-// ────────────────────────────────────────────────────────────
-//  GRUPO 17 — Rotas NF de Venda
-// ────────────────────────────────────────────────────────────
-
-app.get('/nfvenda/tabelas', (req, res) => {
-  const { TABELA_NF_VENDA } = require('./funcoes');
-  res.json({ success: true, data: TABELA_NF_VENDA });
-});
-
-app.post('/nfvenda/decodificar', (req, res) => {
-  try {
-    const { decodificarChaveNF } = require('./funcoes');
-    const { chave } = req.body;
-    if (!chave) return res.status(400).json({ success: false, error: 'Campo "chave" é obrigatório' });
-    const resultado = decodificarChaveNF(chave);
-    return res.status(200).json({ success: true, data: resultado });
-  } catch (err) {
-    return res.status(400).json({ success: false, error: err.message });
-  }
-});
-
-app.post('/nfvenda/calcular', (req, res) => {
-  try {
-    const { calcularImpostosNFVenda } = require('./funcoes');
-    if (!req.body || typeof req.body !== 'object') {
-      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
-    }
-    const resultado = calcularImpostosNFVenda(req.body);
-    return res.status(200).json({ success: true, data: resultado });
-  } catch (err) {
-    return res.status(400).json({ success: false, error: err.message });
-  }
-});
-
-module.exports = app
+module.exports = app;
 
 
