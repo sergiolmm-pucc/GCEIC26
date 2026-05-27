@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MarkUp</title>
+  <link rel="stylesheet" href="/equipe-12/markup.css" />
+</head>
+<body>
+  <main class="mk-splash">
+    <section class="mk-splash-core">
+      <div class="mk-logo lg">M</div>
+      <div>
+        <div class="mk-splash-name">MarkUp</div>
+        <div class="mk-splash-sub">Calculadora de Precos</div>
+      </div>
+    </section>
+
+    <div class="mk-progress"><span></span></div>
+    <div class="mk-version">v 1.0 . 2026</div>
+  </main>
+
+  <script>
+    setTimeout(() => {
+      window.location.href = '<%= user ? basePath + "/home" : basePath + "/login" %>';
+    }, 2200);
+  </script>
+</body>
+</html>

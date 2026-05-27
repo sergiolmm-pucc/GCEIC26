@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre - MarkUp</title>
+  <link rel="stylesheet" href="/equipe-12/markup.css" />
+</head>
+<body>
+  <div class="mk-shell">
+    <header class="mk-nav">
+      <div class="mk-nav-inner">
+        <a class="mk-brand" href="<%= basePath %>/calculo">
+          <div class="mk-logo">M</div>
+          <span>MarkUp</span>
+        </a>
+        <nav class="mk-tabs">
+          <a href="<%= basePath %>/calculo">Calcular</a>
+          <a class="active" href="<%= basePath %>/sobre">Sobre</a>
+          <a href="<%= basePath %>/help">Ajuda</a>
+        </nav>
+        <div class="mk-actions">
+          <span class="mk-user">admin</span>
+          <a class="mk-logout" href="<%= basePath %>/logout">Sair</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="mk-container">
+      <div class="mk-overline">Equipe & Projeto</div>
+      <h1 class="mk-title">Uma calculadora minimalista de formacao de precos.</h1>
+      <p class="mk-copy">
+        O <strong style="color:var(--ink)">MarkUp</strong> foi pensado para pequenos comerciantes,
+        prestadores de servico e estudantes de gestao que precisam de respostas claras,
+        sem planilhas, sem cadastros.
+      </p>
+
+      <section style="margin-top:56px;">
+        <div class="mk-overline">Equipe</div>
+        <div class="mk-team-grid">
+          <article>
+            <div class="mk-photo"><span>CS</span></div>
+            <div style="margin-top:10px;font-size:13px;font-weight:500;">Caua Martinho da Silva</div>
+            <div class="mk-card-desc">BACK-END / CI-CD</div>
+          </article>
+          <article>
+            <div class="mk-photo" style="background:repeating-linear-gradient(135deg, rgba(10,10,10,0.07) 0 8px, transparent 8px 16px), #F1F1ED;">
+              <span>MA</span>
+            </div>
+            <div style="margin-top:10px;font-size:13px;font-weight:500;">Matheus Alves</div>
+            <div class="mk-card-desc">FRONT-END</div>
+          </article>
+        </div>
+      </section>
+
+      <section class="mk-project-box">
+        <div>
+          <div class="mk-overline" style="color:rgba(255,255,255,0.55);">Trabalho Academico</div>
+          <h2 style="margin-top:10px;font-size:24px;font-weight:500;letter-spacing:-0.4px;line-height:1.25;">
+            Disciplina de Programacao Web — React
+          </h2>
+          <p style="font-size:14px;color:rgba(255,255,255,0.65);line-height:1.6;margin-top:12px;">
+            Aplicativo desenvolvido como projeto final, contemplando splash screen, autenticacao,
+            cinco modos de calculo, telas de sobre e ajuda.
+          </p>
+        </div>
+        <div>
+          <div class="mk-kv"><span>Orientador</span><span>Prof. Sergio</span></div>
+          <div class="mk-kv"><span>Semestre</span><span>2026 / 1</span></div>
+          <div class="mk-kv"><span>Versao</span><span>1.0.0</span></div>
+          <div class="mk-kv"><span>Stack</span><span>React · Node.js · Vite</span></div>
+        </div>
+      </section>
+
+      <div style="margin-top:40px;text-align:center;" class="mk-overline">© 2026 · todos os direitos reservados</div>
+    </main>
+  </div>
+</body>
+</html>

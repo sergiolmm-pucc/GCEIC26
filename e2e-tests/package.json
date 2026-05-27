@@ -4,7 +4,10 @@
   "description": "Testes funcionais E2E com Selenium - Projeto MKP",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/base.test.js"
+    "test": "node tests/equipe9.test.js && node tests/grupo12.test.js",
+    "test:equipe9": "node tests/equipe9.test.js",
+    "test:grupo13": "node tests/markup.test.js",
+    "test:grupo12": "node tests/grupo12.test.js"
   },
   "keywords": [],
   "author": "Equipe MKP",

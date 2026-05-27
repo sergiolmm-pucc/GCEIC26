@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajuda - MarkUp</title>
+  <link rel="stylesheet" href="/equipe-12/markup.css" />
+</head>
+<body>
+  <div class="mk-shell">
+    <header class="mk-nav">
+      <div class="mk-nav-inner">
+        <a class="mk-brand" href="<%= basePath %>/calculo">
+          <div class="mk-logo">M</div>
+          <span>MarkUp</span>
+        </a>
+        <nav class="mk-tabs">
+          <a href="<%= basePath %>/calculo">Calcular</a>
+          <a href="<%= basePath %>/sobre">Sobre</a>
+          <a class="active" href="<%= basePath %>/help">Ajuda</a>
+        </nav>
+        <div class="mk-actions">
+          <span class="mk-user">admin</span>
+          <a class="mk-logout" href="<%= basePath %>/logout">Sair</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="mk-container">
+      <div class="mk-overline">Duvidas frequentes</div>
+      <h1 class="mk-title">Ajuda & Inicio rapido.</h1>
+
+      <section class="mk-help-grid">
+        <article class="mk-card">
+          <div class="mk-num">01</div>
+          <div class="mk-card-title">Escolha</div>
+          <div class="mk-card-desc">Selecione o tipo de calculo na barra lateral.</div>
+        </article>
+        <article class="mk-card">
+          <div class="mk-num">02</div>
+          <div class="mk-card-title">Informe</div>
+          <div class="mk-card-desc">Preencha os valores nos campos sublinhados.</div>
+        </article>
+        <article class="mk-card">
+          <div class="mk-num">03</div>
+          <div class="mk-card-title">Calcule</div>
+          <div class="mk-card-desc">Clique em Calcular — o resultado aparece no card destacado.</div>
+        </article>
+      </section>
+
+      <section style="margin-top:56px;">
+        <div class="mk-overline">Perguntas</div>
+        <div class="mk-faq">
+          <details open>
+            <summary>O que e MarkUp?</summary>
+            <p>MarkUp e o indice aplicado sobre o custo de um produto para chegar ao preco de venda, cobrindo despesas e o lucro desejado.</p>
+          </details>
+          <details>
+            <summary>Como uso o Divisor?</summary>
+            <p>Informe o custo, suas despesas fixas e variaveis em percentual e o lucro desejado. O app calcula o divisor e sugere o preco.</p>
+          </details>
+          <details>
+            <summary>O que e Ponto de Equilibrio?</summary>
+            <p>E a quantidade minima de unidades a vender para cobrir todos os custos fixos.</p>
+          </details>
+          <details>
+            <summary>Os dados ficam salvos?</summary>
+            <p>Nao. Este e um app de calculo, sem cadastro. Cada calculo e independente.</p>
+          </details>
+          <details>
+            <summary>Como atualizar a senha?</summary>
+            <p>A versao atual usa credenciais fixas, conforme requisito da disciplina: admin / admin.</p>
+          </details>
+          <details>
+            <summary>Posso usar offline?</summary>
+            <p>O modo Lucro e calculado localmente no navegador. Os demais modos requerem conexao com a API.</p>
+          </details>
+        </div>
+      </section>
+
+      <section style="margin-top:40px;padding:24px 28px;border-radius:14px;border:1px solid var(--hair);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+        <div>
+          <div class="mk-overline" style="margin-bottom:4px;">Contato</div>
+          <div style="font-size:16px;color:var(--ink);">suporte@markup.app</div>
+        </div>
+        <div class="mk-card-desc">Respondemos em ate 48h uteis.</div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

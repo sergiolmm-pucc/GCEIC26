@@ -1,0 +1,1128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1779923191395" clover="3.2.0">
+  <project timestamp="1779923191395" name="All files">
+    <metrics statements="960" coveredstatements="776" conditionals="594" coveredconditionals="405" methods="120" coveredmethods="91" elements="1674" coveredelements="1272" complexity="0" loc="960" ncloc="960" packages="21" files="33" classes="33"/>
+    <package name="src">
+      <metrics statements="131" coveredstatements="78" conditionals="22" coveredconditionals="9" methods="18" coveredmethods="7"/>
+      <file name="app.js" path="C:\Projetos\Projetos\GCEIC26\api\src\app.js">
+        <metrics statements="131" coveredstatements="78" conditionals="22" coveredconditionals="9" methods="18" coveredmethods="7"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="13" type="stmt"/>
+        <line num="3" count="13" type="stmt"/>
+        <line num="4" count="13" type="stmt"/>
+        <line num="6" count="13" type="stmt"/>
+        <line num="7" count="13" type="stmt"/>
+        <line num="8" count="13" type="stmt"/>
+        <line num="9" count="13" type="stmt"/>
+        <line num="10" count="13" type="stmt"/>
+        <line num="11" count="13" type="stmt"/>
+        <line num="12" count="13" type="stmt"/>
+        <line num="13" count="13" type="stmt"/>
+        <line num="14" count="13" type="stmt"/>
+        <line num="15" count="13" type="stmt"/>
+        <line num="16" count="13" type="stmt"/>
+        <line num="17" count="13" type="stmt"/>
+        <line num="18" count="13" type="stmt"/>
+        <line num="19" count="13" type="stmt"/>
+        <line num="21" count="13" type="stmt"/>
+        <line num="23" count="13" type="stmt"/>
+        <line num="24" count="13" type="stmt"/>
+        <line num="25" count="13" type="stmt"/>
+        <line num="27" count="13" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="36" count="13" type="stmt"/>
+        <line num="37" count="13" type="stmt"/>
+        <line num="38" count="13" type="stmt"/>
+        <line num="39" count="13" type="stmt"/>
+        <line num="40" count="13" type="stmt"/>
+        <line num="41" count="13" type="stmt"/>
+        <line num="42" count="13" type="stmt"/>
+        <line num="44" count="13" type="stmt"/>
+        <line num="45" count="13" type="stmt"/>
+        <line num="47" count="13" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="50" count="13" type="stmt"/>
+        <line num="52" count="13" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="61" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="63" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="80" count="13" type="stmt"/>
+        <line num="82" count="13" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="93" count="13" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="95" count="1" type="stmt"/>
+        <line num="101" count="13" type="stmt"/>
+        <line num="102" count="4" type="stmt"/>
+        <line num="103" count="4" type="stmt"/>
+        <line num="104" count="4" type="stmt"/>
+        <line num="106" count="4" type="cond" truecount="3" falsecount="1"/>
+        <line num="107" count="0" type="stmt"/>
+        <line num="113" count="4" type="stmt"/>
+        <line num="114" count="1" type="stmt"/>
+        <line num="119" count="3" type="stmt"/>
+        <line num="126" count="13" type="stmt"/>
+        <line num="127" count="2" type="stmt"/>
+        <line num="128" count="2" type="stmt"/>
+        <line num="129" count="2" type="cond" truecount="3" falsecount="1"/>
+        <line num="130" count="0" type="stmt"/>
+        <line num="132" count="2" type="stmt"/>
+        <line num="133" count="1" type="stmt"/>
+        <line num="135" count="1" type="stmt"/>
+        <line num="139" count="13" type="stmt"/>
+        <line num="140" count="5" type="stmt"/>
+        <line num="141" count="5" type="stmt"/>
+        <line num="142" count="5" type="cond" truecount="3" falsecount="1"/>
+        <line num="143" count="0" type="stmt"/>
+        <line num="145" count="5" type="stmt"/>
+        <line num="146" count="2" type="stmt"/>
+        <line num="148" count="3" type="stmt"/>
+        <line num="152" count="13" type="stmt"/>
+        <line num="153" count="0" type="stmt"/>
+        <line num="154" count="0" type="stmt"/>
+        <line num="155" count="0" type="stmt"/>
+        <line num="157" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="158" count="0" type="stmt"/>
+        <line num="161" count="0" type="stmt"/>
+        <line num="162" count="0" type="stmt"/>
+        <line num="164" count="0" type="stmt"/>
+        <line num="168" count="13" type="stmt"/>
+        <line num="170" count="13" type="stmt"/>
+        <line num="171" count="0" type="stmt"/>
+        <line num="172" count="0" type="stmt"/>
+        <line num="173" count="0" type="stmt"/>
+        <line num="174" count="0" type="stmt"/>
+        <line num="176" count="0" type="stmt"/>
+        <line num="180" count="13" type="stmt"/>
+        <line num="181" count="0" type="stmt"/>
+        <line num="182" count="0" type="stmt"/>
+        <line num="183" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="184" count="0" type="stmt"/>
+        <line num="186" count="0" type="stmt"/>
+        <line num="190" count="13" type="stmt"/>
+        <line num="191" count="0" type="stmt"/>
+        <line num="192" count="0" type="stmt"/>
+        <line num="193" count="0" type="stmt"/>
+        <line num="199" count="0" type="stmt"/>
+        <line num="201" count="0" type="stmt"/>
+        <line num="205" count="13" type="stmt"/>
+        <line num="206" count="13" type="stmt"/>
+        <line num="207" count="13" type="stmt"/>
+        <line num="209" count="13" type="stmt"/>
+        <line num="211" count="13" type="stmt"/>
+        <line num="212" count="0" type="stmt"/>
+        <line num="213" count="0" type="stmt"/>
+        <line num="214" count="0" type="stmt"/>
+        <line num="215" count="0" type="stmt"/>
+        <line num="217" count="0" type="stmt"/>
+        <line num="221" count="13" type="stmt"/>
+        <line num="222" count="0" type="stmt"/>
+        <line num="223" count="0" type="stmt"/>
+        <line num="224" count="0" type="stmt"/>
+        <line num="229" count="0" type="stmt"/>
+        <line num="231" count="0" type="stmt"/>
+        <line num="235" count="13" type="stmt"/>
+        <line num="236" count="0" type="stmt"/>
+        <line num="237" count="0" type="stmt"/>
+        <line num="238" count="0" type="stmt"/>
+        <line num="244" count="0" type="stmt"/>
+        <line num="246" count="0" type="stmt"/>
+        <line num="250" count="13" type="stmt"/>
+        <line num="252" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-08.controllers">
+      <metrics statements="39" coveredstatements="35" conditionals="24" coveredconditionals="20" methods="5" coveredmethods="5"/>
+      <file name="piscinaController.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-08\controllers\piscinaController.js">
+        <metrics statements="39" coveredstatements="35" conditionals="24" coveredconditionals="20" methods="5" coveredmethods="5"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="cond" truecount="5" falsecount="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="17" count="13" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="20" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="31" count="13" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="34" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="45" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="63" count="13" type="stmt"/>
+        <line num="64" count="1" type="stmt"/>
+        <line num="66" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="73" count="1" type="stmt"/>
+        <line num="75" count="1" type="stmt"/>
+        <line num="82" count="13" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="85" count="1" type="cond" truecount="4" falsecount="1"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="89" count="1" type="stmt"/>
+        <line num="91" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-08.routes">
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="piscina.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-08\routes\piscina.js">
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="13" type="stmt"/>
+        <line num="3" count="13" type="stmt"/>
+        <line num="5" count="13" type="stmt"/>
+        <line num="6" count="13" type="stmt"/>
+        <line num="7" count="13" type="stmt"/>
+        <line num="8" count="13" type="stmt"/>
+        <line num="9" count="13" type="stmt"/>
+        <line num="11" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-12">
+      <metrics statements="64" coveredstatements="64" conditionals="38" coveredconditionals="38" methods="10" coveredmethods="10"/>
+      <file name="funcoes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-12\funcoes.js">
+        <metrics statements="51" coveredstatements="51" conditionals="34" coveredconditionals="34" methods="8" coveredmethods="8"/>
+        <line num="1" count="14" type="stmt"/>
+        <line num="23" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="38" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="5" type="stmt"/>
+        <line num="41" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="42" count="2" type="stmt"/>
+        <line num="45" count="3" type="stmt"/>
+        <line num="46" count="3" type="stmt"/>
+        <line num="47" count="3" type="stmt"/>
+        <line num="48" count="3" type="stmt"/>
+        <line num="50" count="3" type="stmt"/>
+        <line num="64" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="65" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="69" count="2" type="stmt"/>
+        <line num="71" count="2" type="stmt"/>
+        <line num="81" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="82" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="83" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="85" count="2" type="stmt"/>
+        <line num="86" count="2" type="stmt"/>
+        <line num="87" count="2" type="stmt"/>
+        <line num="89" count="2" type="stmt"/>
+        <line num="99" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="100" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="101" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="102" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="103" count="1" type="stmt"/>
+        <line num="106" count="2" type="stmt"/>
+        <line num="107" count="2" type="stmt"/>
+        <line num="108" count="2" type="stmt"/>
+        <line num="109" count="2" type="stmt"/>
+        <line num="111" count="2" type="stmt"/>
+        <line num="124" count="9" type="stmt"/>
+        <line num="125" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="126" count="1" type="stmt"/>
+        <line num="129" count="8" type="cond" truecount="6" falsecount="0"/>
+        <line num="131" count="1" type="stmt"/>
+        <line num="133" count="3" type="stmt"/>
+        <line num="140" count="1" type="stmt"/>
+        <line num="142" count="1" type="stmt"/>
+        <line num="144" count="1" type="stmt"/>
+        <line num="150" count="1" type="stmt"/>
+        <line num="155" count="61" type="stmt"/>
+        <line num="159" count="8" type="stmt"/>
+        <line num="162" count="14" type="stmt"/>
+      </file>
+      <file name="routes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-12\routes.js">
+        <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="13" type="stmt"/>
+        <line num="4" count="13" type="stmt"/>
+        <line num="6" count="13" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="13" count="13" type="stmt"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="15" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="26" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-14">
+      <metrics statements="76" coveredstatements="46" conditionals="56" coveredconditionals="27" methods="21" coveredmethods="14"/>
+      <file name="pricingRoutes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-14\pricingRoutes.js">
+        <metrics statements="23" coveredstatements="21" conditionals="13" coveredconditionals="11" methods="12" coveredmethods="7"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="6" count="13" type="stmt"/>
+        <line num="7" count="13" type="stmt"/>
+        <line num="9" count="13" type="stmt"/>
+        <line num="11" count="13" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="15" count="13" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="26" count="13" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="37" count="13" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="51" count="2" type="stmt"/>
+        <line num="53" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="62" count="2" type="stmt"/>
+        <line num="63" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="64" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="65" count="9" type="stmt"/>
+        <line num="66" count="9" type="cond" truecount="3" falsecount="0"/>
+        <line num="68" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="69" count="8" type="stmt"/>
+        <line num="73" count="13" type="stmt"/>
+      </file>
+      <file name="pricingService.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-14\pricingService.js">
+        <metrics statements="30" coveredstatements="14" conditionals="23" coveredconditionals="2" methods="8" coveredmethods="6"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="97" count="0" type="stmt"/>
+        <line num="98" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="99" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="101" count="0" type="stmt"/>
+        <line num="112" count="1" type="stmt"/>
+        <line num="116" count="1" type="stmt"/>
+        <line num="120" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="121" count="0" type="stmt"/>
+        <line num="122" count="0" type="stmt"/>
+        <line num="123" count="0" type="stmt"/>
+        <line num="128" count="1" type="stmt"/>
+        <line num="129" count="13" type="stmt"/>
+        <line num="136" count="13" type="stmt"/>
+      </file>
+      <file name="validation.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-14\validation.js">
+        <metrics statements="23" coveredstatements="11" conditionals="20" coveredconditionals="14" methods="1" coveredmethods="1"/>
+        <line num="2" count="9" type="cond" truecount="5" falsecount="1"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="8" count="9" type="stmt"/>
+        <line num="10" count="9" type="cond" truecount="1" falsecount="1"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="16" count="9" type="cond" truecount="1" falsecount="1"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="22" count="9" type="cond" truecount="4" falsecount="0"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="28" count="8" type="cond" truecount="3" falsecount="1"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="34" count="8" type="stmt"/>
+        <line num="37" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-15">
+      <metrics statements="97" coveredstatements="86" conditionals="60" coveredconditionals="44" methods="14" coveredmethods="14"/>
+      <file name="freteRoutes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-15\freteRoutes.js">
+        <metrics statements="48" coveredstatements="44" conditionals="27" coveredconditionals="23" methods="9" coveredmethods="9"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="13" type="stmt"/>
+        <line num="4" count="13" type="stmt"/>
+        <line num="11" count="26" type="stmt"/>
+        <line num="12" count="8" type="stmt"/>
+        <line num="13" count="11" type="stmt"/>
+        <line num="14" count="11" type="cond" truecount="5" falsecount="0"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="17" count="9" type="stmt"/>
+        <line num="18" count="9" type="cond" truecount="4" falsecount="0"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="22" count="5" type="stmt"/>
+        <line num="27" count="10" type="stmt"/>
+        <line num="28" count="10" type="stmt"/>
+        <line num="29" count="10" type="cond" truecount="1" falsecount="1"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="32" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="2" type="stmt"/>
+        <line num="35" count="8" type="stmt"/>
+        <line num="39" count="5" type="stmt"/>
+        <line num="40" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="43" count="4" type="cond" truecount="3" falsecount="1"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="46" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="49" count="3" type="stmt"/>
+        <line num="55" count="13" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="62" count="13" type="stmt"/>
+        <line num="67" count="3" type="stmt"/>
+        <line num="68" count="3" type="stmt"/>
+        <line num="73" count="3" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="84" count="13" type="stmt"/>
+        <line num="88" count="3" type="stmt"/>
+        <line num="89" count="3" type="stmt"/>
+        <line num="93" count="2" type="stmt"/>
+        <line num="95" count="1" type="stmt"/>
+        <line num="100" count="13" type="stmt"/>
+        <line num="101" count="1" type="stmt"/>
+        <line num="102" count="1" type="stmt"/>
+        <line num="108" count="13" type="stmt"/>
+        <line num="113" count="2" type="stmt"/>
+        <line num="114" count="2" type="stmt"/>
+        <line num="118" count="2" type="stmt"/>
+        <line num="120" count="0" type="stmt"/>
+        <line num="125" count="13" type="stmt"/>
+      </file>
+      <file name="freteService.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-15\freteService.js">
+        <metrics statements="49" coveredstatements="42" conditionals="33" coveredconditionals="21" methods="5" coveredmethods="5"/>
+        <line num="4" count="13" type="stmt"/>
+        <line num="5" count="13" type="stmt"/>
+        <line num="7" count="13" type="stmt"/>
+        <line num="14" count="13" type="stmt"/>
+        <line num="31" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="32" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="35" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="37" count="3" type="stmt"/>
+        <line num="38" count="3" type="stmt"/>
+        <line num="39" count="3" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
+        <line num="59" count="3" type="cond" truecount="3" falsecount="1"/>
+        <line num="60" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="63" count="3" type="cond" truecount="4" falsecount="1"/>
+        <line num="67" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="71" count="2" type="stmt"/>
+        <line num="76" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="79" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="80" count="2" type="stmt"/>
+        <line num="81" count="2" type="stmt"/>
+        <line num="82" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="90" count="2" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="101" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="103" count="2" type="stmt"/>
+        <line num="104" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="106" count="2" type="stmt"/>
+        <line num="107" count="2" type="stmt"/>
+        <line num="108" count="2" type="stmt"/>
+        <line num="109" count="2" type="stmt"/>
+        <line num="110" count="2" type="stmt"/>
+        <line num="112" count="2" type="stmt"/>
+        <line num="116" count="2" type="stmt"/>
+        <line num="117" count="2" type="stmt"/>
+        <line num="118" count="2" type="stmt"/>
+        <line num="119" count="9" type="stmt"/>
+        <line num="120" count="9" type="stmt"/>
+        <line num="121" count="9" type="cond" truecount="4" falsecount="0"/>
+        <line num="123" count="2" type="stmt"/>
+        <line num="126" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-17">
+      <metrics statements="61" coveredstatements="60" conditionals="44" coveredconditionals="35" methods="6" coveredmethods="6"/>
+      <file name="funcoes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-17\funcoes.js">
+        <metrics statements="43" coveredstatements="42" conditionals="42" coveredconditionals="33" methods="3" coveredmethods="3"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="65" count="12" type="stmt"/>
+        <line num="67" count="12" type="stmt"/>
+        <line num="68" count="516" type="stmt"/>
+        <line num="69" count="12" type="stmt"/>
+        <line num="70" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="74" count="16" type="stmt"/>
+        <line num="75" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="77" count="12" type="stmt"/>
+        <line num="78" count="12" type="stmt"/>
+        <line num="79" count="12" type="stmt"/>
+        <line num="80" count="12" type="stmt"/>
+        <line num="81" count="12" type="stmt"/>
+        <line num="82" count="12" type="stmt"/>
+        <line num="83" count="12" type="stmt"/>
+        <line num="84" count="12" type="stmt"/>
+        <line num="85" count="12" type="stmt"/>
+        <line num="87" count="12" type="stmt"/>
+        <line num="88" count="12" type="stmt"/>
+        <line num="89" count="12" type="stmt"/>
+        <line num="90" count="12" type="stmt"/>
+        <line num="91" count="12" type="stmt"/>
+        <line num="93" count="12" type="stmt"/>
+        <line num="124" count="12" type="stmt"/>
+        <line num="126" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="127" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="128" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="129" count="8" type="cond" truecount="5" falsecount="1"/>
+        <line num="130" count="0" type="stmt"/>
+        <line num="133" count="8" type="stmt"/>
+        <line num="135" count="7" type="stmt"/>
+        <line num="136" count="7" type="cond" truecount="1" falsecount="1"/>
+        <line num="138" count="7" type="cond" truecount="4" falsecount="0"/>
+        <line num="142" count="7" type="cond" truecount="1" falsecount="1"/>
+        <line num="144" count="7" type="stmt"/>
+        <line num="145" count="7" type="stmt"/>
+        <line num="146" count="7" type="stmt"/>
+        <line num="147" count="7" type="stmt"/>
+        <line num="149" count="7" type="stmt"/>
+        <line num="150" count="7" type="stmt"/>
+        <line num="151" count="7" type="stmt"/>
+        <line num="153" count="7" type="stmt"/>
+        <line num="178" count="13" type="stmt"/>
+      </file>
+      <file name="nfvendaRoutes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-17\nfvendaRoutes.js">
+        <metrics statements="18" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="13" type="stmt"/>
+        <line num="4" count="13" type="stmt"/>
+        <line num="6" count="13" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="10" count="13" type="stmt"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="13" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="21" count="13" type="stmt"/>
+        <line num="22" count="4" type="stmt"/>
+        <line num="23" count="4" type="stmt"/>
+        <line num="24" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="30" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-2">
+      <metrics statements="36" coveredstatements="36" conditionals="14" coveredconditionals="14" methods="2" coveredmethods="2"/>
+      <file name="irpRoutes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-2\irpRoutes.js">
+        <metrics statements="13" coveredstatements="13" conditionals="10" coveredconditionals="10" methods="1" coveredmethods="1"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="13" type="stmt"/>
+        <line num="4" count="13" type="stmt"/>
+        <line num="6" count="13" type="stmt"/>
+        <line num="7" count="11" type="stmt"/>
+        <line num="9" count="11" type="cond" truecount="4" falsecount="0"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="13" count="9" type="cond" truecount="4" falsecount="0"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="17" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="21" count="7" type="stmt"/>
+        <line num="24" count="13" type="stmt"/>
+      </file>
+      <file name="irpService.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-2\irpService.js">
+        <metrics statements="23" coveredstatements="23" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
+        <line num="8" count="7" type="stmt"/>
+        <line num="9" count="7" type="stmt"/>
+        <line num="10" count="7" type="stmt"/>
+        <line num="11" count="7" type="stmt"/>
+        <line num="13" count="7" type="stmt"/>
+        <line num="14" count="7" type="stmt"/>
+        <line num="16" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="23" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="40" count="3" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="42" count="3" type="stmt"/>
+        <line num="43" count="3" type="stmt"/>
+        <line num="44" count="3" type="stmt"/>
+        <line num="46" count="3" type="stmt"/>
+        <line num="52" count="3" type="stmt"/>
+        <line num="58" count="3" type="stmt"/>
+        <line num="66" count="7" type="stmt"/>
+        <line num="74" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-20">
+      <metrics statements="33" coveredstatements="2" conditionals="35" coveredconditionals="0" methods="5" coveredmethods="0"/>
+      <file name="funcoes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-20\funcoes.js">
+        <metrics statements="33" coveredstatements="2" conditionals="35" coveredconditionals="0" methods="5" coveredmethods="0"/>
+        <line num="5" count="13" type="stmt"/>
+        <line num="25" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="26" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="27" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="45" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="46" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="51" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="70" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="71" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="72" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="73" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="99" count="0" type="cond" truecount="0" falsecount="6"/>
+        <line num="100" count="0" type="stmt"/>
+        <line num="101" count="0" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+        <line num="103" count="0" type="stmt"/>
+        <line num="106" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-21">
+      <metrics statements="43" coveredstatements="40" conditionals="22" coveredconditionals="19" methods="7" coveredmethods="7"/>
+      <file name="funcoes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-21\funcoes.js">
+        <metrics statements="28" coveredstatements="26" conditionals="17" coveredconditionals="15" methods="4" coveredmethods="4"/>
+        <line num="1" count="14" type="stmt"/>
+        <line num="11" count="14" type="stmt"/>
+        <line num="22" count="58" type="cond" truecount="3" falsecount="1"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="26" count="58" type="stmt"/>
+        <line num="28" count="58" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="32" count="56" type="stmt"/>
+        <line num="36" count="8" type="stmt"/>
+        <line num="40" count="9" type="cond" truecount="4" falsecount="1"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="44" count="9" type="stmt"/>
+        <line num="45" count="46" type="stmt"/>
+        <line num="47" count="44" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="51" count="43" type="stmt"/>
+        <line num="54" count="6" type="stmt"/>
+        <line num="55" count="6" type="stmt"/>
+        <line num="57" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="58" count="3" type="stmt"/>
+        <line num="61" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="65" count="2" type="stmt"/>
+        <line num="66" count="2" type="stmt"/>
+        <line num="67" count="2" type="stmt"/>
+        <line num="68" count="2" type="stmt"/>
+        <line num="70" count="2" type="stmt"/>
+        <line num="78" count="14" type="stmt"/>
+      </file>
+      <file name="routes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-21\routes.js">
+        <metrics statements="15" coveredstatements="14" conditionals="5" coveredconditionals="4" methods="3" coveredmethods="3"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="13" type="stmt"/>
+        <line num="4" count="13" type="stmt"/>
+        <line num="6" count="13" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="14" count="13" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="25" count="13" type="stmt"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="27" count="3" type="cond" truecount="4" falsecount="1"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="41" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-23">
+      <metrics statements="30" coveredstatements="1" conditionals="42" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <file name="autonomiaController.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-23\autonomiaController.js">
+        <metrics statements="30" coveredstatements="1" conditionals="42" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="4" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="7" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="15" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="16" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="30" count="0" type="cond" truecount="0" falsecount="5"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="33" count="0" type="cond" truecount="0" falsecount="5"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="53" count="0" type="cond" truecount="0" falsecount="6"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="56" count="0" type="cond" truecount="0" falsecount="6"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="66" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="68" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="85" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-5">
+      <metrics statements="14" coveredstatements="11" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="0"/>
+      <file name="server.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-5\server.js">
+        <metrics statements="14" coveredstatements="11" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="17" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-5.controllers">
+      <metrics statements="24" coveredstatements="22" conditionals="9" coveredconditionals="9" methods="3" coveredmethods="3"/>
+      <file name="energyController.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-5\controllers\energyController.js">
+        <metrics statements="24" coveredstatements="22" conditionals="9" coveredconditionals="9" methods="3" coveredmethods="3"/>
+        <line num="1" count="14" type="stmt"/>
+        <line num="3" count="14" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="13" count="14" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="17" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="28" count="14" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="32" count="2" type="cond" truecount="5" falsecount="0"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="43" count="14" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-5.routes">
+      <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="energy.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-5\routes\energy.js">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="14" type="stmt"/>
+        <line num="2" count="14" type="stmt"/>
+        <line num="4" count="14" type="stmt"/>
+        <line num="6" count="14" type="stmt"/>
+        <line num="7" count="14" type="stmt"/>
+        <line num="8" count="14" type="stmt"/>
+        <line num="10" count="14" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-5.services">
+      <metrics statements="28" coveredstatements="28" conditionals="24" coveredconditionals="23" methods="5" coveredmethods="5"/>
+      <file name="energyService.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-5\services\energyService.js">
+        <metrics statements="28" coveredstatements="28" conditionals="24" coveredconditionals="23" methods="5" coveredmethods="5"/>
+        <line num="1" count="15" type="stmt"/>
+        <line num="9" count="17" type="cond" truecount="4" falsecount="0"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="13" count="14" type="stmt"/>
+        <line num="14" count="17" type="cond" truecount="5" falsecount="0"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="17" count="16" type="cond" truecount="4" falsecount="0"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="21" count="15" type="stmt"/>
+        <line num="22" count="15" type="stmt"/>
+        <line num="25" count="15" type="stmt"/>
+        <line num="26" count="12" type="stmt"/>
+        <line num="30" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="31" count="15" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="37" count="13" type="stmt"/>
+        <line num="38" count="13" type="stmt"/>
+        <line num="39" count="13" type="stmt"/>
+        <line num="41" count="13" type="stmt"/>
+        <line num="45" count="5" type="stmt"/>
+        <line num="46" count="4" type="stmt"/>
+        <line num="48" count="4" type="stmt"/>
+        <line num="49" count="4" type="stmt"/>
+        <line num="51" count="4" type="stmt"/>
+        <line num="52" count="4" type="stmt"/>
+        <line num="54" count="4" type="stmt"/>
+        <line num="63" count="15" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-6">
+      <metrics statements="42" coveredstatements="40" conditionals="31" coveredconditionals="23" methods="3" coveredmethods="3"/>
+      <file name="rotasSaunaGrupo6.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-6\rotasSaunaGrupo6.js">
+        <metrics statements="42" coveredstatements="40" conditionals="31" coveredconditionals="23" methods="3" coveredmethods="3"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="13" type="stmt"/>
+        <line num="5" count="13" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="9" count="2" type="cond" truecount="6" falsecount="0"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="38" count="13" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="41" count="2" type="cond" truecount="4" falsecount="0"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="55" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="56" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="59" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="63" count="1" type="stmt"/>
+        <line num="73" count="13" type="stmt"/>
+        <line num="74" count="2" type="stmt"/>
+        <line num="76" count="2" type="cond" truecount="5" falsecount="0"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="81" count="1" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="84" count="1" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
+        <line num="96" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-7">
+      <metrics statements="22" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <file name="custos.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-7\custos.js">
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="14" type="stmt"/>
+        <line num="2" count="14" type="stmt"/>
+        <line num="4" count="14" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="14" count="14" type="stmt"/>
+      </file>
+      <file name="materiais.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-7\materiais.js">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="14" type="stmt"/>
+        <line num="2" count="14" type="stmt"/>
+        <line num="4" count="14" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="10" count="14" type="stmt"/>
+      </file>
+      <file name="volume.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-7\volume.js">
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="14" type="stmt"/>
+        <line num="2" count="14" type="stmt"/>
+        <line num="4" count="14" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="10" count="14" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.equipe-9">
+      <metrics statements="30" coveredstatements="30" conditionals="35" coveredconditionals="30" methods="3" coveredmethods="3"/>
+      <file name="funcoes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\equipe-9\funcoes.js">
+        <metrics statements="30" coveredstatements="30" conditionals="35" coveredconditionals="30" methods="3" coveredmethods="3"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="18" count="28" type="stmt"/>
+        <line num="21" count="28" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="4" type="stmt"/>
+        <line num="25" count="24" type="cond" truecount="6" falsecount="0"/>
+        <line num="26" count="5" type="stmt"/>
+        <line num="30" count="19" type="stmt"/>
+        <line num="31" count="19" type="stmt"/>
+        <line num="32" count="19" type="stmt"/>
+        <line num="33" count="19" type="stmt"/>
+        <line num="36" count="19" type="stmt"/>
+        <line num="42" count="19" type="stmt"/>
+        <line num="60" count="7" type="stmt"/>
+        <line num="62" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="63" count="4" type="cond" truecount="6" falsecount="0"/>
+        <line num="65" count="3" type="stmt"/>
+        <line num="66" count="3" type="stmt"/>
+        <line num="68" count="3" type="stmt"/>
+        <line num="69" count="3" type="stmt"/>
+        <line num="70" count="3" type="stmt"/>
+        <line num="71" count="3" type="stmt"/>
+        <line num="73" count="3" type="stmt"/>
+        <line num="89" count="14" type="stmt"/>
+        <line num="91" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="93" count="10" type="stmt"/>
+        <line num="94" count="8" type="stmt"/>
+        <line num="96" count="7" type="stmt"/>
+        <line num="97" count="7" type="stmt"/>
+        <line num="99" count="7" type="stmt"/>
+        <line num="111" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.etec64.controllers">
+      <metrics statements="123" coveredstatements="112" conditionals="107" coveredconditionals="88" methods="6" coveredmethods="6"/>
+      <file name="aprovacaoController.js" path="C:\Projetos\Projetos\GCEIC26\api\src\etec64\controllers\aprovacaoController.js">
+        <metrics statements="70" coveredstatements="62" conditionals="61" coveredconditionals="45" methods="2" coveredmethods="2"/>
+        <line num="8" count="13" type="stmt"/>
+        <line num="16" count="13" type="stmt"/>
+        <line num="17" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="19" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="35" count="13" type="stmt"/>
+        <line num="36" count="6" type="stmt"/>
+        <line num="37" count="6" type="stmt"/>
+        <line num="40" count="6" type="cond" truecount="4" falsecount="0"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="48" count="5" type="stmt"/>
+        <line num="49" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="50" count="2" type="stmt"/>
+        <line num="51" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="57" count="1" type="stmt"/>
+        <line num="59" count="3" type="stmt"/>
+        <line num="60" count="3" type="cond" truecount="4" falsecount="1"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="69" count="4" type="stmt"/>
+        <line num="70" count="4" type="cond" truecount="4" falsecount="1"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="78" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="79" count="4" type="cond" truecount="4" falsecount="1"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="88" count="4" type="stmt"/>
+        <line num="89" count="4" type="stmt"/>
+        <line num="91" count="4" type="stmt"/>
+        <line num="92" count="4" type="stmt"/>
+        <line num="93" count="4" type="stmt"/>
+        <line num="96" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="97" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="98" count="1" type="stmt"/>
+        <line num="99" count="1" type="stmt"/>
+        <line num="100" count="1" type="stmt"/>
+        <line num="103" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="104" count="1" type="stmt"/>
+        <line num="105" count="1" type="stmt"/>
+        <line num="106" count="1" type="stmt"/>
+        <line num="110" count="1" type="stmt"/>
+        <line num="111" count="1" type="stmt"/>
+        <line num="114" count="1" type="stmt"/>
+        <line num="115" count="1" type="stmt"/>
+        <line num="117" count="1" type="stmt"/>
+        <line num="126" count="1" type="stmt"/>
+        <line num="127" count="1" type="stmt"/>
+        <line num="128" count="1" type="stmt"/>
+        <line num="129" count="1" type="stmt"/>
+        <line num="131" count="1" type="stmt"/>
+        <line num="132" count="1" type="stmt"/>
+        <line num="134" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="135" count="0" type="stmt"/>
+        <line num="137" count="1" type="stmt"/>
+        <line num="138" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="139" count="0" type="stmt"/>
+        <line num="146" count="1" type="stmt"/>
+        <line num="147" count="1" type="stmt"/>
+        <line num="148" count="1" type="stmt"/>
+        <line num="149" count="1" type="stmt"/>
+        <line num="151" count="1" type="stmt"/>
+        <line num="152" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="153" count="0" type="stmt"/>
+        <line num="155" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="156" count="0" type="stmt"/>
+        <line num="159" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="160" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="162" count="1" type="stmt"/>
+        <line num="175" count="4" type="stmt"/>
+        <line num="187" count="0" type="stmt"/>
+      </file>
+      <file name="frequenciaController.js" path="C:\Projetos\Projetos\GCEIC26\api\src\etec64\controllers\frequenciaController.js">
+        <metrics statements="21" coveredstatements="20" conditionals="18" coveredconditionals="18" methods="1" coveredmethods="1"/>
+        <line num="17" count="13" type="stmt"/>
+        <line num="18" count="7" type="stmt"/>
+        <line num="19" count="7" type="stmt"/>
+        <line num="22" count="7" type="cond" truecount="4" falsecount="0"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="29" count="6" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
+        <line num="32" count="6" type="cond" truecount="4" falsecount="0"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="39" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="46" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="54" count="3" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="58" count="3" type="stmt"/>
+        <line num="59" count="3" type="stmt"/>
+        <line num="62" count="3" type="stmt"/>
+        <line num="63" count="3" type="stmt"/>
+        <line num="65" count="3" type="stmt"/>
+        <line num="82" count="0" type="stmt"/>
+      </file>
+      <file name="mediaController.js" path="C:\Projetos\Projetos\GCEIC26\api\src\etec64\controllers\mediaController.js">
+        <metrics statements="32" coveredstatements="30" conditionals="28" coveredconditionals="25" methods="3" coveredmethods="3"/>
+        <line num="7" count="13" type="stmt"/>
+        <line num="15" count="13" type="stmt"/>
+        <line num="16" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="17" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="33" count="13" type="stmt"/>
+        <line num="34" count="6" type="stmt"/>
+        <line num="35" count="6" type="stmt"/>
+        <line num="37" count="6" type="cond" truecount="5" falsecount="0"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="44" count="5" type="stmt"/>
+        <line num="45" count="5" type="cond" truecount="4" falsecount="0"/>
+        <line num="48" count="5" type="stmt"/>
+        <line num="49" count="14" type="stmt"/>
+        <line num="51" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="52" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="59" count="8" type="stmt"/>
+        <line num="60" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="66" count="7" type="stmt"/>
+        <line num="69" count="6" type="stmt"/>
+        <line num="70" count="6" type="cond" truecount="5" falsecount="0"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="76" count="5" type="stmt"/>
+        <line num="81" count="10" type="stmt"/>
+        <line num="82" count="3" type="stmt"/>
+        <line num="83" count="3" type="stmt"/>
+        <line num="84" count="3" type="stmt"/>
+        <line num="86" count="3" type="stmt"/>
+        <line num="102" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.etec64.routes">
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="etecRoutes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\etec64\routes\etecRoutes.js">
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="13" type="stmt"/>
+        <line num="3" count="13" type="stmt"/>
+        <line num="4" count="13" type="stmt"/>
+        <line num="6" count="13" type="stmt"/>
+        <line num="8" count="13" type="stmt"/>
+        <line num="9" count="13" type="stmt"/>
+        <line num="10" count="13" type="stmt"/>
+        <line num="12" count="13" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.grupo13-markup">
+      <metrics statements="42" coveredstatements="38" conditionals="27" coveredconditionals="23" methods="4" coveredmethods="3"/>
+      <file name="markupController.js" path="C:\Projetos\Projetos\GCEIC26\api\src\grupo13-markup\markupController.js">
+        <metrics statements="34" coveredstatements="30" conditionals="27" coveredconditionals="23" methods="3" coveredmethods="3"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="3" type="stmt"/>
+        <line num="3" count="3" type="cond" truecount="5" falsecount="0"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="22" count="13" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="24" count="2" type="cond" truecount="4" falsecount="1"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="2" type="cond" truecount="3" falsecount="1"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="43" count="13" type="stmt"/>
+        <line num="44" count="2" type="stmt"/>
+        <line num="45" count="2" type="cond" truecount="4" falsecount="1"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="47" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="61" count="13" type="stmt"/>
+      </file>
+      <file name="routes.js" path="C:\Projetos\Projetos\GCEIC26\api\src\grupo13-markup\routes.js">
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="13" type="stmt"/>
+        <line num="2" count="13" type="stmt"/>
+        <line num="3" count="13" type="stmt"/>
+        <line num="5" count="13" type="stmt"/>
+        <line num="6" count="13" type="stmt"/>
+        <line num="7" count="13" type="stmt"/>
+        <line num="8" count="13" type="stmt"/>
+        <line num="10" count="13" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
