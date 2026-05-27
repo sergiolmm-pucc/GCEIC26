@@ -1,6 +1,7 @@
 
 
-const { calcularArea, decodificarChaveNF, calcularImpostosNFVenda } = require('../src/funcoes');
+const { calcularArea } = require('../src/funcoes');
+const { decodificarChaveNF, calcularImpostosNFVenda } = require('../src/equipe-17/funcoes');
 
 describe('Teste de unitario', () => {
 
