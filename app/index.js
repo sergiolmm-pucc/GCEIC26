@@ -66,7 +66,8 @@ app.use(session({
   cookie: { maxAge: 3600000 },
 }));
 
-const BASE_PATH = '/equipe-16';
+const BASE_PATH    = '/equipe-16';
+const BASE_PATH_13 = '/equipe-13';
 const EQUIPE21_PATH = '/equipe-21';
 
 app.use(`${EQUIPE21_PATH}/vendor/react`, express.static(path.join(__dirname, 'node_modules', 'react', 'umd')));
@@ -85,7 +86,7 @@ const equipes = [
   { numero: 10, nome: 'Equipe-10',   rota: '/equipe-10' },
   { numero: 11, nome: 'Equipe-11',   rota: '/equipe-11' },
   { numero: 12, nome: 'Equipe-12',   rota: '/equipe-12' },
-  { numero: 13, nome: 'Equipe-13',   rota: '/equipe-13' },
+  { numero: 13, nome: 'G13 - MarkUp', rota: '/equipe-13' },
   { numero: 14, nome: 'Equipe-14',   rota: '/equipe-14' },
   { numero: 15, nome: 'Equipe-15',   rota: '/equipe-15' },
   { numero: 16, nome: 'G16 - MarkUp Calc', rota: '/equipe-16' },
@@ -176,6 +177,78 @@ grupo16.post('/calcular', requireAuth, async (req, res) => {
 });
 
 app.use(BASE_PATH, grupo16);
+
+// ── Grupo 13 — MarkUp ──
+
+function requireAuth13(req, res, next) {
+  if (req.session && req.session.user13) return next();
+  res.redirect(BASE_PATH_13 + '/login');
+}
+
+const grupo13 = express.Router();
+
+grupo13.get('/', (req, res) => {
+  if (req.session.user13) return res.redirect(BASE_PATH_13 + '/calculo');
+  res.redirect(BASE_PATH_13 + '/splash');
+});
+
+grupo13.get('/splash', (req, res) => {
+  res.render('equipe-13/splash', { user: req.session.user13 || null, basePath: BASE_PATH_13 });
+});
+
+grupo13.get('/login', (req, res) => {
+  if (req.session.user13) return res.redirect(BASE_PATH_13 + '/calculo');
+  res.render('equipe-13/login', { error: null, basePath: BASE_PATH_13 });
+});
+
+grupo13.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'admin' && password === '123') {
+    req.session.user13 = { username: 'admin', nome: 'Administrador' };
+    return res.redirect(BASE_PATH_13 + '/calculo');
+  }
+  res.render('equipe-13/login', { error: 'Usuario ou senha invalidos', basePath: BASE_PATH_13 });
+});
+
+grupo13.get('/logout', (req, res) => {
+  req.session.user13 = null;
+  res.redirect(BASE_PATH_13 + '/login');
+});
+
+grupo13.get('/calculo', requireAuth13, (req, res) => {
+  res.render('equipe-13/calculo', { user: req.session.user13, basePath: BASE_PATH_13 });
+});
+
+grupo13.get('/sobre', requireAuth13, (req, res) => {
+  res.render('equipe-13/sobre', { user: req.session.user13, basePath: BASE_PATH_13 });
+});
+
+grupo13.get('/help', requireAuth13, (req, res) => {
+  res.render('equipe-13/help', { user: req.session.user13, basePath: BASE_PATH_13 });
+});
+
+async function mkpProxy(mkpPath, body, res) {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}/MKP${mkpPath}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (err) {
+    res.status(500).json({ erro: err.message });
+  }
+}
+
+grupo13.post('/markup',    requireAuth13, (req, res) => mkpProxy('/markup',    req.body, res));
+grupo13.post('/lucro',     requireAuth13, (req, res) => mkpProxy('/lucro',     req.body, res));
+grupo13.post('/equilibrio',requireAuth13, (req, res) => mkpProxy('/equilibrio',req.body, res));
+
+app.use(BASE_PATH_13, grupo13);
+
+// ── Grupo 21 — BurgCalc ──
 
 const equipe21 = express.Router();
 
@@ -324,9 +397,9 @@ app.get(/^\/equipe-18(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo18DistPath, 'index.html'));
 });
 
-// Rotas genéricas das demais equipes (grupos 6, 14, 16, 17, 18 e 21 têm rotas próprias acima)
+// Rotas genéricas das demais equipes (grupos 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 6 || i === 14 || i === 16 || i === 17 || i === 18 || i === 21) continue;
+  if (i === 6 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 21) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
