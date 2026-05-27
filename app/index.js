@@ -93,7 +93,7 @@ const equipes = [
   { numero: 17, nome: 'G17 - Calc NF Venda', rota: '/equipe-17' },
   { numero: 18, nome: 'G18 - Cálculo de Impostos NF', rota: '/equipe-18' },
   { numero: 19, nome: 'Equipe-19',   rota: '/equipe-19' },
-  { numero: 20, nome: 'Equipe-20',   rota: '/equipe-20' },
+  { numero: 20, nome: 'G20 - AguaCalc', rota: '/equipe-20' },
   { numero: 21, nome: 'G21 - BurgCalc',   rota: '/equipe-21' },
   { numero: 22, nome: 'Equipe-22',   rota: '/equipe-22' },
   { numero: 23, nome: 'Equipe-23',   rota: '/equipe-23' },
@@ -315,9 +315,86 @@ equipe21.post('/api/calcular', async (req, res) => {
 
 app.use(EQUIPE21_PATH, equipe21);
 
-app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
-  res.sendFile(path.join(grupo14DistPath, 'index.html'));
+// ── Grupo 20 — AguaCalc ──
+
+const GRUPO20_PATH = '/equipe-20';
+
+function requireAuth20(req, res, next) {
+  if (req.session && req.session.user20) return next();
+  res.redirect(GRUPO20_PATH + '/login');
+}
+
+async function proxyPostAgua(req, res, rota) {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}${rota}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+}
+
+const grupo20 = express.Router();
+
+grupo20.get('/', (_req, res) => res.redirect(GRUPO20_PATH + '/splash'));
+
+grupo20.get('/splash', (req, res) => {
+  res.render('equipe-20/splash', { basePath: GRUPO20_PATH });
 });
+
+
+grupo20.get('/login', (req, res) => {
+  if (req.session.user20) return res.redirect(GRUPO20_PATH + '/calculo');
+  res.render('equipe-20/login', { error: null, basePath: GRUPO20_PATH });
+});
+
+grupo20.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'admin' && password === 'admin') {
+    req.session.user20 = { username: 'admin', nome: 'Administrador' };
+    return res.redirect(GRUPO20_PATH + '/calculo');
+  }
+  res.render('equipe-20/login', { error: 'Usuário ou senha inválidos', basePath: GRUPO20_PATH });
+});
+
+grupo20.get('/logout', (req, res) => {
+  req.session.user20 = null;
+  res.redirect(GRUPO20_PATH + '/login');
+});
+
+grupo20.post('/logout', (req, res) => {
+  req.session.user20 = null;
+  res.redirect(GRUPO20_PATH + '/login');
+});
+
+grupo20.get('/calculo', requireAuth20, (req, res) => {
+  res.render('equipe-20/calculo', { user: req.session.user20, basePath: GRUPO20_PATH });
+});
+
+grupo20.get('/sobre', requireAuth20, (req, res) => {
+  res.render('equipe-20/sobre', { basePath: GRUPO20_PATH });
+});
+
+grupo20.get('/help', requireAuth20, (req, res) => {
+  res.render('equipe-20/help', { basePath: GRUPO20_PATH });
+});
+
+grupo20.post('/AGUA/consumoDiario', requireAuth20, (req, res) =>
+  proxyPostAgua(req, res, '/AGUA/consumoDiario'));
+
+grupo20.post('/AGUA/custoMensal', requireAuth20, (req, res) =>
+  proxyPostAgua(req, res, '/AGUA/custoMensal'));
+
+grupo20.post('/AGUA/economia', requireAuth20, (req, res) =>
+  proxyPostAgua(req, res, '/AGUA/economia'));
+
+app.use(GRUPO20_PATH, grupo20);
+
 
 // ── Grupo 17 — Calculadora de Impostos NF de Venda ──
 
@@ -399,7 +476,7 @@ app.get(/^\/equipe-18(?:\/.*)?$/, (_req, res) => {
 
 // Rotas genéricas das demais equipes (grupos 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 6 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 21) continue;
+  if (i === 6 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });

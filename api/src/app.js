@@ -2,7 +2,7 @@ const express = require('express');
 const cors    = require('cors');
 const helmet  = require('helmet');
 
-const rotasGrupo6 = require('./rotasSaunaGrupo6');
+const rotasGrupo6 = require('./equipe-6/rotasSaunaGrupo6');
 
 const app = express();
 

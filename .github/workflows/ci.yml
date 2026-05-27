@@ -1,0 +1,52 @@
+name: CI - Simulador IRP G02
+
+on:
+  push:
+    branches:
+      - G02
+  pull_request:
+    branches:
+      - G02
+
+jobs:
+  test-backend:
+    name: Testes Unitários - Backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar dependências do backend
+        working-directory: ./api
+        run: npm install
+
+      - name: Rodar testes unitários
+        working-directory: ./api
+        run: npm test
+
+  build-frontend:
+    name: Build - Frontend React
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar dependências do frontend
+        working-directory: ./app
+        run: npm install
+
+      - name: Build do frontend
+        working-directory: ./app
+        run: npm run build

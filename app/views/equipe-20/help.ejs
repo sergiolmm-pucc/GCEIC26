@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajuda — AguaCalc</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f9ff; color: #1a1a2e; }
+    nav { background: #0077b6; color: #fff; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
+    nav .brand { font-size: 1.2rem; font-weight: 700; }
+    nav .links { display: flex; gap: 16px; align-items: center; }
+    nav a { color: #cde; text-decoration: none; font-size: 0.9rem; }
+    nav a:hover { color: #fff; }
+    nav .btn-sair { background: #c62828; color: #fff; border: none; border-radius: 6px; padding: 6px 14px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+    .container { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
+    .card { background: #fff; border-radius: 16px; padding: 1.8rem; box-shadow: 0 4px 20px rgba(0,119,182,0.08); margin-bottom: 1.2rem; }
+    h2 { color: #0077b6; margin-bottom: 1.2rem; font-size: 1.3rem; }
+    h3 { color: #005f8e; margin: 1.2rem 0 0.5rem; font-size: 1rem; }
+    p, li { color: #555; line-height: 1.7; font-size: 0.92rem; }
+    ul { padding-left: 1.4rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; }
+    th { background: #0077b6; color: #fff; padding: 9px 12px; text-align: left; font-size: 0.88rem; }
+    td { padding: 9px 12px; border-bottom: 1px solid #e0f0ff; font-size: 0.88rem; }
+    tr:nth-child(even) td { background: #f0f9ff; }
+    .badge { display: inline-block; background: #0077b6; color: #fff; border-radius: 20px; padding: 1px 10px; font-size: 0.75rem; font-weight: 600; margin-left: 6px; vertical-align: middle; }
+    .fonte { margin-top: 0.8rem; font-size: 0.8rem; color: #888; }
+    .fonte a { color: #0077b6; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="brand">💧 AguaCalc</div>
+    <div class="links">
+      <a href="<%= basePath %>/calculo">Calculadora</a>
+      <a href="<%= basePath %>/sobre">Sobre</a>
+      <a href="<%= basePath %>/help">Ajuda</a>
+      <form method="POST" action="<%= basePath %>/logout" style="display:inline">
+        <button class="btn-sair" type="submit">Sair</button>
+      </form>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="card">
+      <h2>❓ Como usar o AguaCalc</h2>
+      <h3>Passo 1 — Consumo Diário <span class="badge">Ana</span></h3>
+      <ul>
+        <li><strong>Moradores:</strong> quantas pessoas vivem na residência.</li>
+        <li><strong>Minutos de banho:</strong> média por pessoa por dia. Cada minuto gasta ~4,5 litros.</li>
+        <li><strong>Descargas:</strong> média por pessoa por dia. Cada descarga gasta ~8,5 litros.</li>
+      </ul>
+      <p style="margin-top:0.6rem">Clique em <strong>Calcular Consumo Diário</strong> para ver o resultado desta etapa.</p>
+
+      <h3>Passo 2 — Custo Mensal <span class="badge">Hugo</span></h3>
+      <ul>
+        <li><strong>Tarifa por litro:</strong> divida o valor do m³ da sua conta por 1000. Ex: R$ 5,00/m³ → 0.005.</li>
+        <li><strong>Dias do mês:</strong> geralmente 30.</li>
+      </ul>
+      <p style="margin-top:0.6rem">Clique em <strong>Calcular Custo Mensal</strong> para ver o resultado desta etapa.</p>
+
+      <h3>Passo 3 — Projeção de Economia <span class="badge">Letícia</span></h3>
+      <ul>
+        <li><strong>Meta de redução (%):</strong> quanto você quer reduzir. O sistema calcula a nova conta e sugere quantos minutos de banho ou descargas reduzir por dia por pessoa.</li>
+        <li><strong>Como encontro a tarifa por litro?</strong> A tarifa das distribuidoras geralmente vem em m³. Para encontrar o valor por litro, divida por 1000. Exemplo: se o m³ custa R$ 5,00, a tarifa por litro será <strong>0.005</strong>.</li>
+      </ul>
+      <p style="margin-top:0.6rem">Clique em <strong>Calcular Economia</strong> para ver o resultado final completo.</p>
+    </div>
+
+    <div class="card">
+      <h2>📋 Valores de referência</h2>
+      <table>
+        <tr><th>Hábito</th><th>Consumo médio</th><th>Base de cálculo</th></tr>
+        <tr><td>Banho</td><td>~4,5 L por minuto</td><td>Média entre 3L e 6L/min</td></tr>
+        <tr><td>Descarga</td><td>~8,5 L por acionamento</td><td>Média entre 7L e 10L</td></tr>
+      </table>
+      <p class="fonte">Fonte: <a href="https://www.caesb.df.gov.br/dicas-de-economia-de-agua/" target="_blank">Dicas de Economia — CAESB</a></p>
+    </div>
+  </div>
+</body>
+</html>
