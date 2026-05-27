@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 const pricingRouter = require('./equipe-14/pricingRoutes');
+const equipe21Router = require('./equipe-21/routes');
 
 // checa se api no ar
 app.get('/health', (req, res) => {
@@ -16,6 +17,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/PBL', pricingRouter);
+app.use('/api/equipe-21', equipe21Router);
 
 app.get('/api/tabelas', (req, res) => {
   const { TABELA } = require('./equipe-16/funcoes');
