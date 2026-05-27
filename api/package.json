@@ -1,0 +1,32 @@
+{
+  "name": "gceic",
+  "version": "1.0.0",
+  "description": "API para calculo de MarkUp",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest --coverage --verbose --ci --reporters=default --reporters=jest-junit"
+  },
+  "keywords": [
+    "teste",
+    "CI",
+    "CD"
+  ],
+  "author": "SLMM",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "helmet": "^8.1.0"
+  },
+  "devDependencies": {
+    "jest": "^30.3.0",
+    "jest-junit": "^17.0.0",
+    "supertest": "^7.2.2"
+  },
+  "jest": {
+    "testMatch": [
+      "<rootDir>/tests/**/*.test.js"
+    ]
+  }
+}

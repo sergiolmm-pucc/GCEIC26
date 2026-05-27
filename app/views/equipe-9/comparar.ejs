@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparar Alíquotas — Cálculo de NF</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; color: #333; }
+    nav {
+      background: #1a237e; color: white; padding: 14px 28px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    nav a { color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.85; }
+    nav a:hover { opacity: 1; }
+
+    .container { max-width: 900px; margin: 36px auto; padding: 0 20px; }
+    h2 { font-size: 1.6rem; color: #1a237e; margin-bottom: 6px; }
+    .subtitle { color: #666; font-size: 0.9rem; margin-bottom: 28px; }
+
+    .card {
+      background: white; border-radius: 12px; padding: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px;
+    }
+    .card h3 { font-size: 1rem; color: #1a237e; margin-bottom: 18px; }
+
+    .field { margin-bottom: 16px; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 6px; }
+    input[type=number] {
+      width: 100%; padding: 10px 14px; border: 1.5px solid #dde;
+      border-radius: 8px; font-size: 0.95rem; transition: border 0.2s;
+    }
+    input[type=number]:focus { outline: none; border-color: #1a237e; }
+
+    .cenarios-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;
+    }
+    .cenario-card {
+      background: #f5f7ff; border-radius: 10px; padding: 20px; border: 2px solid #e8eaf6;
+    }
+    .cenario-card.cenario-a { border-color: #3949ab; }
+    .cenario-card.cenario-b { border-color: #00897b; }
+    .cenario-title {
+      font-size: 0.95rem; font-weight: 700; margin-bottom: 14px;
+    }
+    .cenario-a .cenario-title { color: #3949ab; }
+    .cenario-b .cenario-title { color: #00897b; }
+    .btn-padrao {
+      background: #e8eaf6; color: #1a237e; border: none; border-radius: 8px;
+      padding: 7px 14px; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      margin-bottom: 14px; transition: background 0.2s;
+    }
+    .btn-padrao:hover { background: #c5cae9; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+    .btn-comparar {
+      width: 100%; padding: 13px; background: #1a237e; color: white;
+      border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn-comparar:hover { background: #283593; }
+    .btn-comparar:disabled { background: #9fa8da; cursor: not-allowed; }
+
+    .erro-box {
+      background: #fef2f2; border: 1px solid #fca5a5; color: #b91c1c;
+      border-radius: 8px; padding: 12px 16px; font-size: 0.88rem;
+      display: none; margin-top: 12px;
+    }
+
+    .resultado { display: none; }
+    .resultado.visivel { display: block; }
+
+    .resultado-cenarios {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;
+    }
+    .res-cenario { border-radius: 10px; padding: 20px; }
+    .res-cenario-a { background: #e8eaf6; border: 2px solid #3949ab; }
+    .res-cenario-b { background: #e0f2f1; border: 2px solid #00897b; }
+    .res-cenario h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 14px; }
+    .res-cenario-a h4 { color: #3949ab; }
+    .res-cenario-b h4 { color: #00897b; }
+
+    .imposto-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.07); font-size: 0.88rem;
+    }
+    .imposto-row:last-child { border-bottom: none; }
+    .imposto-row .nome { color: #555; }
+    .imposto-row .val { font-weight: 600; color: #1a237e; }
+    .res-cenario-b .imposto-row .val { color: #00695c; }
+
+    .total-row {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 12px; padding-top: 12px; border-top: 2px solid rgba(0,0,0,0.15);
+      font-size: 1rem; font-weight: 700;
+    }
+    .total-row .nome { color: #333; }
+    .total-row .val { color: #1a237e; font-size: 1.15rem; }
+    .res-cenario-b .total-row .val { color: #00695c; }
+
+    .comparacao-box {
+      border-radius: 12px; padding: 24px; text-align: center;
+    }
+    .comparacao-box.vantagem-a { background: #3949ab; color: white; }
+    .comparacao-box.vantagem-b { background: #00897b; color: white; }
+    .comparacao-box.empate     { background: #546e7a; color: white; }
+    .comparacao-box .titulo { font-size: 0.9rem; opacity: 0.85; margin-bottom: 8px; }
+    .comparacao-box .vencedor { font-size: 2rem; font-weight: 700; margin-bottom: 12px; }
+    .comparacao-box .detalhe { font-size: 0.9rem; opacity: 0.9; }
+    .comparacao-box .economia {
+      font-size: 1.4rem; font-weight: 700;
+      background: rgba(255,255,255,0.2); border-radius: 8px;
+      padding: 8px 20px; display: inline-block; margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span style="font-weight:600">Cálculo de NF</span>
+  <div style="display:flex;gap:20px">
+    <a href="/equipe-9/calculo">Calcular NF</a>
+    <a href="/equipe-9/inverso">Cálculo Inverso</a>
+    <a href="/equipe-9/sobre">Sobre</a>
+    <a href="/equipe-9/help">Ajuda</a>
+    <a href="/equipe-9/logout">Sair</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h2>Comparar Alíquotas</h2>
+  <p class="subtitle">Compare dois cenários tributários e descubra qual é mais vantajoso para o mesmo produto.</p>
+
+  <div class="card">
+    <h3>Valor do Produto</h3>
+    <div class="field">
+      <label for="valorProduto">Valor do Produto (R$)</label>
+      <input type="number" id="valorProduto" placeholder="Ex: 1000.00" min="0.01" step="0.01">
+    </div>
+  </div>
+
+  <div class="cenarios-grid">
+    <div class="cenario-card cenario-a">
+      <div class="cenario-title">Cenário A</div>
+      <button class="btn-padrao" onclick="usarPadrao('A')">Usar alíquotas padrão</button>
+      <div class="grid2">
+        <div class="field">
+          <label for="a_icms">ICMS (%)</label>
+          <input type="number" id="a_icms" placeholder="18" min="0" step="0.01">
+        </div>
+        <div class="field">
+          <label for="a_ipi">IPI (%)</label>
+          <input type="number" id="a_ipi" placeholder="5" min="0" step="0.01">
+        </div>
+        <div class="field">
+          <label for="a_pis">PIS (%)</label>
+          <input type="number" id="a_pis" placeholder="1.65" min="0" step="0.01">
+        </div>
+        <div class="field">
+          <label for="a_cofins">COFINS (%)</label>
+          <input type="number" id="a_cofins" placeholder="7.6" min="0" step="0.01">
+        </div>
+      </div>
+    </div>
+
+    <div class="cenario-card cenario-b">
+      <div class="cenario-title">Cenário B</div>
+      <button class="btn-padrao" onclick="usarPadrao('B')">Usar alíquotas padrão</button>
+      <div class="grid2">
+        <div class="field">
+          <label for="b_icms">ICMS (%)</label>
+          <input type="number" id="b_icms" placeholder="18" min="0" step="0.01">
+        </div>
+        <div class="field">
+          <label for="b_ipi">IPI (%)</label>
+          <input type="number" id="b_ipi" placeholder="5" min="0" step="0.01">
+        </div>
+        <div class="field">
+          <label for="b_pis">PIS (%)</label>
+          <input type="number" id="b_pis" placeholder="1.65" min="0" step="0.01">
+        </div>
+        <div class="field">
+          <label for="b_cofins">COFINS (%)</label>
+          <input type="number" id="b_cofins" placeholder="7.6" min="0" step="0.01">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn-comparar" id="btnComparar" onclick="comparar()">Comparar Cenários</button>
+  <div class="erro-box" id="erroBox"></div>
+
+  <div class="card resultado" id="resultado" style="margin-top:20px">
+    <h3>Resultado da Comparação</h3>
+
+    <div class="resultado-cenarios">
+      <div class="res-cenario res-cenario-a">
+        <h4>Cenário A</h4>
+        <div class="imposto-row"><span class="nome">ICMS</span><span class="val" id="rA_icms">-</span></div>
+        <div class="imposto-row"><span class="nome">IPI</span><span class="val" id="rA_ipi">-</span></div>
+        <div class="imposto-row"><span class="nome">PIS</span><span class="val" id="rA_pis">-</span></div>
+        <div class="imposto-row"><span class="nome">COFINS</span><span class="val" id="rA_cofins">-</span></div>
+        <div class="total-row"><span class="nome">Total NF</span><span class="val" id="rA_total">-</span></div>
+      </div>
+
+      <div class="res-cenario res-cenario-b">
+        <h4>Cenário B</h4>
+        <div class="imposto-row"><span class="nome">ICMS</span><span class="val" id="rB_icms">-</span></div>
+        <div class="imposto-row"><span class="nome">IPI</span><span class="val" id="rB_ipi">-</span></div>
+        <div class="imposto-row"><span class="nome">PIS</span><span class="val" id="rB_pis">-</span></div>
+        <div class="imposto-row"><span class="nome">COFINS</span><span class="val" id="rB_cofins">-</span></div>
+        <div class="total-row"><span class="nome">Total NF</span><span class="val" id="rB_total">-</span></div>
+      </div>
+    </div>
+
+    <div class="comparacao-box" id="comparacaoBox">
+      <div class="titulo">Cenário mais vantajoso</div>
+      <div class="vencedor" id="vencedor">-</div>
+      <div class="economia" id="economia">-</div>
+      <div class="detalhe" id="detalhe">-</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function fmt(v) {
+  return 'R$ ' + v.toFixed(2).replace('.', ',');
+}
+
+function usarPadrao(cenario) {
+  const p = cenario === 'A' ? 'a' : 'b';
+  document.getElementById(p + '_icms').value   = '18';
+  document.getElementById(p + '_ipi').value    = '5';
+  document.getElementById(p + '_pis').value    = '1.65';
+  document.getElementById(p + '_cofins').value = '7.6';
+}
+
+async function comparar() {
+  const btn  = document.getElementById('btnComparar');
+  const erro = document.getElementById('erroBox');
+  const res  = document.getElementById('resultado');
+
+  erro.style.display = 'none';
+  res.classList.remove('visivel');
+
+  const valorProduto = parseFloat(document.getElementById('valorProduto').value);
+  if (!valorProduto || isNaN(valorProduto) || valorProduto <= 0) {
+    erro.textContent = '⚠️ Informe um valor de produto válido.';
+    erro.style.display = 'block';
+    return;
+  }
+
+  const cenarioA = {
+    icms:   parseFloat(document.getElementById('a_icms').value)   || 0,
+    ipi:    parseFloat(document.getElementById('a_ipi').value)    || 0,
+    pis:    parseFloat(document.getElementById('a_pis').value)    || 0,
+    cofins: parseFloat(document.getElementById('a_cofins').value) || 0,
+  };
+  const cenarioB = {
+    icms:   parseFloat(document.getElementById('b_icms').value)   || 0,
+    ipi:    parseFloat(document.getElementById('b_ipi').value)    || 0,
+    pis:    parseFloat(document.getElementById('b_pis').value)    || 0,
+    cofins: parseFloat(document.getElementById('b_cofins').value) || 0,
+  };
+
+  btn.disabled = true;
+  btn.textContent = 'Comparando...';
+
+  try {
+    const response = await fetch('/equipe-9/comparar', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ valorProduto, cenarioA, cenarioB }),
+    });
+
+    const json = await response.json();
+
+    if (!json.success) {
+      erro.textContent = '⚠️ ' + json.error;
+      erro.style.display = 'block';
+      return;
+    }
+
+    const d = json.data;
+
+    document.getElementById('rA_icms').textContent   = fmt(d.cenarioA.valorICMS);
+    document.getElementById('rA_ipi').textContent    = fmt(d.cenarioA.valorIPI);
+    document.getElementById('rA_pis').textContent    = fmt(d.cenarioA.valorPIS);
+    document.getElementById('rA_cofins').textContent = fmt(d.cenarioA.valorCOFINS);
+    document.getElementById('rA_total').textContent  = fmt(d.cenarioA.total);
+
+    document.getElementById('rB_icms').textContent   = fmt(d.cenarioB.valorICMS);
+    document.getElementById('rB_ipi').textContent    = fmt(d.cenarioB.valorIPI);
+    document.getElementById('rB_pis').textContent    = fmt(d.cenarioB.valorPIS);
+    document.getElementById('rB_cofins').textContent = fmt(d.cenarioB.valorCOFINS);
+    document.getElementById('rB_total').textContent  = fmt(d.cenarioB.total);
+
+    const cmp  = d.comparacao;
+    const box  = document.getElementById('comparacaoBox');
+    box.className = 'comparacao-box';
+
+    if (cmp.maisVantajoso === 'empate') {
+      box.classList.add('empate');
+      document.getElementById('vencedor').textContent = 'Empate';
+      document.getElementById('economia').textContent = 'Mesma carga tributária';
+      document.getElementById('detalhe').textContent  = 'Os dois cenários resultam no mesmo valor total.';
+    } else {
+      const venc = cmp.maisVantajoso;
+      box.classList.add('vantagem-' + venc.toLowerCase());
+      document.getElementById('vencedor').textContent = 'Cenário ' + venc + ' é mais vantajoso';
+
+      const economia = Math.abs(cmp.diferencaTotal);
+      document.getElementById('economia').textContent = 'Economia de ' + fmt(economia);
+
+      const pct = Math.abs(cmp.diferencaPercentual).toFixed(2).replace('.', ',');
+      document.getElementById('detalhe').textContent =
+        'O Cenário ' + venc + ' representa uma redução de ' + pct + '% no valor total da nota fiscal.';
+    }
+
+    res.classList.add('visivel');
+
+  } catch (e) {
+    erro.textContent = '⚠️ Erro ao comunicar com o servidor: ' + e.message;
+    erro.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Comparar Cenários';
+  }
+}
+</script>
+
+</body>
+</html>

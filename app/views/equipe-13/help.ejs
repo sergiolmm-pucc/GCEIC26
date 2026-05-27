@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help - MarkUp Grupo 13</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #f1f5f9; color: #0f172a; font-family: Arial, sans-serif; }
+    nav { align-items: center; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; padding: 14px 24px; }
+    nav strong { font-size: 1.1rem; }
+    nav a { color: #0ea5e9; font-weight: 700; margin-left: 16px; text-decoration: none; font-size: 0.9rem; }
+    main { margin: 32px auto; max-width: 720px; padding: 0 20px; }
+    h1 { margin-bottom: 24px; }
+    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 16px; padding: 20px 24px; }
+    .card h2 { color: #0ea5e9; font-size: 1rem; margin-bottom: 10px; }
+    .card p, .card li { color: #475569; font-size: 0.95rem; line-height: 1.7; }
+    .card ul { margin-left: 20px; }
+    .formula { background: #f0f9ff; border-left: 3px solid #38bdf8; font-family: monospace; font-size: 0.9rem; margin-top: 10px; padding: 10px 14px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <strong>MarkUp · Grupo 13</strong>
+    <div>
+      Olá, <strong><%= user.nome %></strong>
+      <a href="<%= basePath %>/calculo">Cálculo</a>
+      <a href="<%= basePath %>/help">Help</a>
+      <a href="<%= basePath %>/sobre">Sobre</a>
+      <a href="<%= basePath %>/logout">Sair</a>
+    </div>
+  </nav>
+  <main>
+    <h1>Como usar</h1>
+
+    <div class="card">
+      <h2>O que é MarkUp?</h2>
+      <p>MarkUp é o índice aplicado sobre o custo de um produto para determinar o preço de venda, cobrindo todas as despesas e garantindo a margem de lucro desejada.</p>
+    </div>
+
+    <div class="card">
+      <h2>Cálculo 1 — Preço de Venda (MarkUp)</h2>
+      <p>Informe:</p>
+      <ul>
+        <li>Custo do produto (R$)</li>
+        <li>Despesas totais (%)</li>
+        <li>Margem de lucro desejada (%)</li>
+      </ul>
+      <div class="formula">Preço = Custo ÷ (1 − (Despesas% + Lucro%) ÷ 100)</div>
+    </div>
+
+    <div class="card">
+      <h2>Cálculo 2 — Lucro Real</h2>
+      <p>Dado um preço de venda praticado, calcula o lucro efetivo e a margem obtida.</p>
+      <ul>
+        <li>Preço de venda praticado (R$)</li>
+        <li>Custo do produto (R$)</li>
+        <li>Despesas (% sobre o preço)</li>
+      </ul>
+      <div class="formula">Lucro = Preço − Custo − (Despesas% × Preço)</div>
+    </div>
+
+    <div class="card">
+      <h2>Cálculo 3 — Ponto de Equilíbrio</h2>
+      <p>Quantas unidades vender para cobrir todos os custos fixos.</p>
+      <ul>
+        <li>Custo fixo mensal (R$)</li>
+        <li>Preço de venda unitário (R$)</li>
+        <li>Custo variável por unidade (R$)</li>
+      </ul>
+      <div class="formula">Ponto = Custo Fixo ÷ (Preço − Custo Variável)</div>
+    </div>
+  </main>
+</body>
+</html>
