@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.json());
 
 const nfvendaRouter = require('./equipe-17/nfvendaRoutes');
+const pricingRouter = require('./equipe-14/pricingRoutes');
 
 // checa se api no ar
 app.get('/health', (req, res) => {
@@ -16,6 +17,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/nfvenda', nfvendaRouter);
+app.use('/PBL', pricingRouter);
 
 app.get('/api/tabelas', (req, res) => {
   const { TABELA } = require('./funcoes');
