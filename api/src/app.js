@@ -1,6 +1,6 @@
 const express = require('express');
-const cors    = require('cors');
-const helmet  = require('helmet');
+const cors = require('cors');
+const helmet = require('helmet');
 
 const rotasGrupo6 = require('./equipe-6/rotasSaunaGrupo6');
 
@@ -10,33 +10,34 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-const pricingRouter  = require('./equipe-14/pricingRoutes');
+const pricingRouter = require('./equipe-14/pricingRoutes');
 const equipe11Router = require('./equipe-11/routes');
-const nfvendaRouter  = require('./equipe-17/nfvendaRoutes');
+const nfvendaRouter = require('./equipe-17/nfvendaRoutes');
 const equipe15Router = require('./equipe-15/freteRoutes');
 const equipe21Router = require('./equipe-21/routes');
-const mkpRouter      = require('./grupo13-markup/routes');
-const energyRouter   = require('./equipe-5/routes/energy');
+const mkpRouter = require('./grupo13-markup/routes');
+const energyRouter = require('./equipe-5/routes/energy');
+const irpRouter = require('./equipe-2/irpRoutes');
 
 const volumeRoutes = require('./equipe-7/volume');
 const materiaisRoutes = require('./equipe-7/materiais');
 const custosRoutes = require('./equipe-7/custos');
+const etec64Routes = require('./etec64/routes/etecRoutes.js');
 
-// checa se api está no ar
+// checa se api está no a
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM-33', turma:'101'});
+  res.json({ status: 'ok', timestamp: new Date().toISOString(), by: 'SLMM-33', turma: '101' });
 });
 
-app.use('/PBL',         pricingRouter);
-app.use('/PBL',           pricingRouter);
-<<<<<<< HEAD
-app.use('/equipe-11',     equipe11Router);
-=======
 app.use('/ENRG',          energyRouter);
->>>>>>> a8b50868b08625be6be0e5c3e6298df6aaf0e38e
 app.use('/nfvenda',       nfvendaRouter);
+app.use('/PBL', pricingRouter);
+app.use('/equipe-11',     equipe11Router);
+app.use('/IRP', irpRouter);
+app.use('/ENRG', energyRouter);
+app.use('/nfvenda', nfvendaRouter);
 app.use('/api/equipe-21', equipe21Router);
-app.use('/equipe-15',     equipe15Router);
+app.use('/equipe-15', equipe15Router);
 
 // ── Grupo 13 — MarkUp ──
 app.get('/MKP', (req, res) => res.json({ message: 'API MarkUp - Grupo 13 funcionando!' }));
@@ -44,6 +45,115 @@ app.use('/MKP', mkpRouter);
 
 // Proxy para o Backend do Grupo 18
 app.use('/equipe-18', (req, res) => {
+  const https = require('https');
+  const target = new URL(req.path.replace(/^\//, ''), 'https://d36mf6v2e37tzy.cloudfront.net/');
+
+  const proxyRequest = https.request(target, {
+    method: req.method,
+    headers: {
+      ...req.headers,
+      host: target.host
+    }
+  }, (proxyResponse) => {
+    res.status(proxyResponse.statusCode || 502);
+    for (const [header, value] of Object.entries(proxyResponse.headers)) {
+      if (value !== undefined) {
+        res.setHeader(header, value);
+      }
+    }
+    proxyResponse.pipe(res);
+  });
+
+  proxyRequest.on('error', (error) => {
+    res.status(502).json({
+      error: 'Falha ao comunicar com o Backend do Grupo 18.',
+      message: error.message
+    });
+  });
+
+  req.pipe(proxyRequest);
+});
+
+/** ------------------------------------------------
+ * Rotas grupo 6 - Calculo de Sauna
+ */
+app.use('/api/SAUNA', rotasGrupo6)
+
+// Grupo 16 - Tabelas auxiliares
+app.get('/api/tabelas', (req, res) => {
+  const { TABELA } = require('./equipe-16/funcoes');
+  res.json({
+    success: true,
+    data: {
+      campos: TABELA.CAMPOS,
+      formula: TABELA.FORMULA,
+    },
+  });
+});
+
+
+// ROTAS DA EQUIPE 9
+// retorna tabela padrão de impostos
+app.get('/api/equipe-9/tabelas', (req, res) => {
+  const { TABELA } = require('./equipe-9/funcoes');
+  res.json({
+    success: true,
+    data: TABELA.IMPOSTOS_PADRAO,
+  });
+});
+
+// POST /api/equipe-9/calcular
+app.post('/api/equipe-9/calcular', (req, res) => {
+  try {
+    const { calcularNF } = require('./equipe-9/funcoes');
+    const dados = req.body;
+
+    if (!dados || typeof dados !== 'object') {
+      return res.status(400).json({
+        success: false,
+        error: 'Corpo da requisição inválido'
+      });
+    }
+
+    const resultado = calcularNF(dados);
+    return res.status(200).json({
+      success: true,
+      data: resultado
+    });
+  } catch (err) {
+    return res.status(400).json({
+      success: false,
+      error: err.message
+    });
+  }
+});
+
+// POST /api/equipe-9/calcular-inverso
+app.post('/api/equipe-9/calcular-inverso', (req, res) => {
+  try {
+    const { calcularNFInverso } = require('./equipe-9/funcoes');
+    if (!req.body || typeof req.body !== 'object') {
+      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
+    }
+    const resultado = calcularNFInverso(req.body);
+    return res.status(200).json({ success: true, data: resultado });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+// POST /api/equipe-9/comparar
+app.post('/api/equipe-9/comparar', (req, res) => {
+  try {
+    const { cortarAliquotas, compararAliquotas } = require('./equipe-9/funcoes');
+    if (!req.body || typeof req.body !== 'object') {
+      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
+    }
+    const resultado = compararAliquotas(req.body);
+    return res.status(200).json({ success: true, data: resultado });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
   const https = require('https');
   const target = new URL(req.path.replace(/^\//, ''), 'https://d36mf6v2e37tzy.cloudfront.net/');
 
@@ -172,6 +282,19 @@ app.post('/api/equipe-16/calcular', (req, res) => {
   } catch (err) {
     return res.status(400).json({ success: false, error: err.message });
   }
+  try {
+    const { calcular } = require('./equipe-16/funcoes');
+    const dados = req.body;
+
+    if (!dados || typeof dados !== 'object') {
+      return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
+    }
+
+    const resultado = calcular(dados);
+    return res.status(200).json({ success: true, data: resultado });
+  } catch (err) {
+    return res.status(400).json({ success: false, error: err.message });
+  }
 });
 
 // ── Grupo 20 — AguaCalc ──
@@ -212,7 +335,7 @@ app.use('/PISCINA2/materiais', materiaisRoutes);
 app.use('/PISCINA2/custos', custosRoutes);
 
 // ── Grupo 23 — Autonomia de Carros ──
-const autonomiaController = require('./grupo23/autonomiaController');
+const autonomiaController = require('./equipe-23/autonomiaController');
 
 // POST /autonomia/calcular
 app.post('/autonomia/calcular', (req, res) => {
@@ -258,5 +381,10 @@ app.post('/autonomia/comparar-combustivel', (req, res) => {
     res.status(400).json({ sucesso: false, erro: error.message });
   }
 });
+
+app.use('/api/etec64', etec64Routes);
+
+const piscinaRouter08 = require('./equipe-08/routes/piscina');
+app.use('/api/equipe-08/piscina', piscinaRouter08);
 
 module.exports = app;

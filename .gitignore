@@ -1,3 +1,7 @@
+node_modules/
+api/node_modules/
+app/node_modules/
+e2e-tests/node_modules/
 AtividadeGCEIC26.md
 node_modules/
 coverage/
@@ -161,6 +165,8 @@ vite.config.ts.timestamp-*
 coverage
 build
 dist
+!app/views/etec64/dist/
+!app/equipe-5/dist/
 docs
 
 # Outros

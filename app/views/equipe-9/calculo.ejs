@@ -155,6 +155,13 @@
 </div>
 
 <script>
+function getApiBase() {
+  if (window.location.hostname.includes('onrender.com')) {
+    return 'https://gceic26.onrender.com/api/equipe-9';
+  }
+  return 'http://localhost:3001/api/equipe-9';
+}
+
 function fmt(v) {
   return 'R$ ' + v.toFixed(2).replace('.', ',');
 }
@@ -190,7 +197,7 @@ async function calcular() {
   btn.textContent = 'Calculando...';
 
   try {
-    const response = await fetch('/equipe-9/calcular', {
+    const response = await fetch(`${getApiBase()}/calcular`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ valorProduto, icms: icms||0, ipi: ipi||0, pis: pis||0, cofins: cofins||0 }),
