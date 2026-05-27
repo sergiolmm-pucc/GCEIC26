@@ -21,24 +21,20 @@ app.get('/health', (req, res) => {
 
 
 // retorna tabela padrão de impostos
-app.get('/NF/tabelas', (req, res) => {
-
-  const { TABELA } = require('./funcoes');
+app.get('/api/equipe-9/tabelas', (req, res) => {
+  const { TABELA } = require('./equipe-9/funcoes');
 
   res.json({
     success: true,
     data: TABELA.IMPOSTOS_PADRAO,
   });
-
 });
 
 
-// POST /NF/calcular
-app.post('/NF/calcular', (req, res) => {
-
+// POST /api/equipe-9/calcular
+app.post('/api/equipe-9/calcular', (req, res) => {
   try {
-
-    const { calcularNF } = require('./funcoes');
+    const { calcularNF } = require('./equipe-9/funcoes');
 
     const dados = req.body;
 
@@ -57,19 +53,19 @@ app.post('/NF/calcular', (req, res) => {
     });
 
   } catch (err) {
-
     return res.status(400).json({
       success: false,
       error: err.message
     });
-
   }
-
 });
 
-app.post('/NF/calcular-inverso', (req, res) => {
+
+// POST /api/equipe-9/calcular-inverso
+app.post('/api/equipe-9/calcular-inverso', (req, res) => {
   try {
-    const { calcularNFInverso } = require('./funcoes');
+        const { calcularNFInverso } = require('./equipe-9/funcoes');
+    
     if (!req.body || typeof req.body !== 'object') {
       return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
     }
@@ -80,9 +76,12 @@ app.post('/NF/calcular-inverso', (req, res) => {
   }
 });
 
-app.post('/NF/comparar', (req, res) => {
+
+// POST /api/equipe-9/comparar
+app.post('/api/equipe-9/comparar', (req, res) => {
   try {
-    const { compararAliquotas } = require('./funcoes');
+    const { compararAliquotas } = require('./equipe-9/funcoes');
+    
     if (!req.body || typeof req.body !== 'object') {
       return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
     }

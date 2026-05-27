@@ -119,11 +119,11 @@
 <nav>
   <span style="font-weight:600">Cálculo de NF</span>
   <div style="display:flex;gap:20px">
-    <a href="/calculo">Calcular NF</a>
-    <a href="/inverso">Cálculo Inverso</a>
-    <a href="/sobre">Sobre</a>
-    <a href="/help">Ajuda</a>
-    <a href="/logout">Sair</a>
+    <a href="/equipe-9/calculo">Calcular NF</a>
+    <a href="/equipe-9/inverso">Cálculo Inverso</a>
+    <a href="/equipe-9/sobre">Sobre</a>
+    <a href="/equipe-9/help">Ajuda</a>
+    <a href="/equipe-9/logout">Sair</a>
   </div>
 </nav>
 
@@ -267,7 +267,7 @@ async function comparar() {
   btn.textContent = 'Comparando...';
 
   try {
-    const response = await fetch('/comparar', {
+    const response = await fetch('/equipe-9/comparar', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ valorProduto, cenarioA, cenarioB }),

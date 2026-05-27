@@ -49,14 +49,14 @@ async function main() {
       pageLoad: 15000
     });
 
-    await driver.get(BASE_URL + '/login');
+    await driver.get(BASE_URL + '/equipe-9/login');
     await tiraFoto('01-login');
 
     await driver.findElement(By.id('username')).sendKeys('admin');
     await driver.findElement(By.id('password')).sendKeys('admin');
     await tiraFoto('02-credenciais');
 
-    await driver.findElement(By.css('form[action="/login"]')).submit();
+    await driver.findElement(By.css('form')).submit();
     await new Promise(r => setTimeout(r, 1500));
 
     const urlAtual = await driver.getCurrentUrl();

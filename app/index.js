@@ -49,44 +49,50 @@ const equipes = [
 
 function requireAuth(req, res, next) {
   if (req.session && req.session.user) return next();
-  res.redirect('/login');
+  res.redirect('/equipe-9/login');
 }
-
 
 app.get('/', (req, res) => {
   res.render('index', { equipes });
 });
 
+// Rotas Equipe 9
+const grupo9 = express.Router();
+
 // rotas públicas
-app.get('/splash', (req, res) => res.render('splash'));
-app.get('/equipe-9', (req, res) => {res.redirect('/splash');});
-app.get('/login', (req, res) => {
-  if (req.session.user) return res.redirect('/calculo');
-  res.render('login', { error: null });
+grupo9.get('/', (req, res) => res.redirect('/equipe-9/splash'));
+
+grupo9.get('/splash', (req, res) => {
+  res.render('equipe-9/splash');
 });
 
-app.post('/login', (req, res) => {
+grupo9.get('/login', (req, res) => {
+  if (req.session.user) return res.redirect('/equipe-9/calculo');
+  res.render('equipe-9/login', { error: null });
+});
+
+grupo9.post('/login', (req, res) => {
   const { username, password } = req.body;
   if (username === 'admin' && password === 'admin') {
     req.session.user = { username: 'admin', nome: 'Administrador' };
-    return res.redirect('/calculo');
+    return res.redirect('/equipe-9/calculo');
   }
-  res.render('login', { error: 'Usuário ou senha inválidos' });
+  res.render('equipe-9/login', { error: 'Usuário ou senha inválidos' });
 });
 
-app.get('/logout', (req, res) => {
+grupo9.get('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect('/login');
+  res.redirect('/equipe-9/login');
 });
 
 // rotas protegidas
-app.get('/calculo',  requireAuth, (req, res) => res.render('calculo',  { user: req.session.user }));
-app.get('/inverso',  requireAuth, (req, res) => res.render('inverso',  { user: req.session.user }));
-app.get('/comparar', requireAuth, (req, res) => res.render('comparar', { user: req.session.user }));
-app.get('/sobre',    requireAuth, (req, res) => res.render('sobre',    { user: req.session.user }));
-app.get('/help',     requireAuth, (req, res) => res.render('help',     { user: req.session.user }));
+grupo9.get('/calculo',  requireAuth, (req, res) => res.render('equipe-9/calculo',  { user: req.session.user }));
+grupo9.get('/inverso',  requireAuth, (req, res) => res.render('equipe-9/inverso',  { user: req.session.user }));
+grupo9.get('/comparar', requireAuth, (req, res) => res.render('equipe-9/comparar', { user: req.session.user }));
+grupo9.get('/sobre',    requireAuth, (req, res) => res.render('equipe-9/sobre',    { user: req.session.user }));
+grupo9.get('/help',     requireAuth, (req, res) => res.render('equipe-9/help',     { user: req.session.user }));
 
-// proxies para a API
+// Proxies
 async function proxyAPI(endpoint, req, res) {
   try {
     const fetch = (await import('node-fetch')).default;
@@ -102,11 +108,14 @@ async function proxyAPI(endpoint, req, res) {
   }
 }
 
-app.post('/calcular',         requireAuth, (req, res) => proxyAPI('/NF/calcular',         req, res));
-app.post('/calcular-inverso', requireAuth, (req, res) => proxyAPI('/NF/calcular-inverso', req, res));
-app.post('/comparar',         requireAuth, (req, res) => proxyAPI('/NF/comparar',         req, res));
+grupo9.post('/calcular',         requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular',         req, res));
+grupo9.post('/calcular-inverso', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular-inverso', req, res));
+grupo9.post('/comparar',         requireAuth, (req, res) => proxyAPI('/api/equipe-9/comparar',         req, res));
+
+app.use('/equipe-9', grupo9);
 
 for (let i = 2; i <= 25; i++) {
+  if (i === 9) continue; 
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
