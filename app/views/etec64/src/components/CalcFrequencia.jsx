@@ -43,7 +43,7 @@ export default function CalcFrequencia() {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/api/etec64/frequencia', {
+      const response = await fetch('/api/etec64/frequencia', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

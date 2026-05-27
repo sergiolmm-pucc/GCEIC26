@@ -63,7 +63,7 @@ export default function CalcMedia() {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/api/etec64/media', {
+      const response = await fetch('/api/etec64/media', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

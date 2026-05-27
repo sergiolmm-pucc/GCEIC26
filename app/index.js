@@ -634,6 +634,11 @@ app.get(/^\/equipe-64(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(etec64DistPath, 'index.html'));
 });
 
+// Proxy API ETEC64
+app.post('/api/etec64/media', (req, res) => proxyAPI('/api/etec64/media', req, res));
+app.post('/api/etec64/frequencia', (req, res) => proxyAPI('/api/etec64/frequencia', req, res));
+app.post('/api/etec64/aprovacao', (req, res) => proxyAPI('/api/etec64/aprovacao', req, res));
+
 
 function ensureTrailingSlash(url) {
   return url.endsWith('/') ? url : `${url}/`;
