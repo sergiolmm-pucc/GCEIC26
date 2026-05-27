@@ -396,6 +396,64 @@ jobs:
           name: fotos-grupo20
           path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo20-*.png
   
+  e2e-etec-local:
+    needs: detect-changes
+    if: github.ref == 'refs/heads/grupo4' && (needs.detect-changes.outputs.api == 'true' || needs.detect-changes.outputs.app == 'true')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias da API
+        working-directory: api
+        run: npm ci
+      - name: Roda testes da API
+        working-directory: api
+        run: npm run test
+      - name: Instala dependencias do app
+        working-directory: app
+        run: npm ci
+      - name: Instala dependencias do app ETEC
+        working-directory: app/views/etec
+        run: npm ci
+      - name: Build app ETEC
+        working-directory: app/views/etec
+        run: npm run build
+      - name: Subir API em background
+        working-directory: api
+        run: npm run start &
+        env:
+          PORT: 3001
+          NODE_ENV: test
+      - name: Subir app em background
+        working-directory: app
+        run: npm run start &
+        env:
+          PORT: 3000
+          API_URL: http://localhost:3001
+      - name: Aguardar servicos ETEC
+        run: npx wait-on http://localhost:3001/health http://localhost:3000/etec --timeout 120000
+      - name: Instala dependencias E2E
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compativeis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 149
+      - name: Roda testes E2E - ETEC
+        working-directory: e2e-tests
+        run: npm run test:etec
+        env:
+          API_URL: http://localhost:3001
+          APP_URL: http://localhost:3000
+      - name: Fotos dos testes ETEC
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-etec
+          path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/etec-*.png
+
 
   teste_funcional2:
     needs: [deploy-api, deploy-app]
