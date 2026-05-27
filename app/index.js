@@ -67,6 +67,10 @@ app.use(session({
 }));
 
 const BASE_PATH = '/equipe-16';
+const EQUIPE21_PATH = '/equipe-21';
+
+app.use(`${EQUIPE21_PATH}/vendor/react`, express.static(path.join(__dirname, 'node_modules', 'react', 'umd')));
+app.use(`${EQUIPE21_PATH}/vendor/react-dom`, express.static(path.join(__dirname, 'node_modules', 'react-dom', 'umd')));
 
 const equipes = [
   { numero: 1,  nome: 'TESTE',       rota: '/login' },
@@ -86,10 +90,10 @@ const equipes = [
   { numero: 15, nome: 'Equipe-15',   rota: '/equipe-15' },
   { numero: 16, nome: 'G16 - MarkUp Calc', rota: '/equipe-16' },
   { numero: 17, nome: 'G17 - Calc NF Venda', rota: '/equipe-17' },
-  { numero: 18, nome: 'Equipe-18',   rota: '/equipe-18' },
+  { numero: 18, nome: 'G18 - Cálculo de Impostos NF', rota: '/equipe-18' },
   { numero: 19, nome: 'Equipe-19',   rota: '/equipe-19' },
   { numero: 20, nome: 'Equipe-20',   rota: '/equipe-20' },
-  { numero: 21, nome: 'Equipe-21',   rota: '/equipe-21' },
+  { numero: 21, nome: 'G21 - BurgCalc',   rota: '/equipe-21' },
   { numero: 22, nome: 'Equipe-22',   rota: '/equipe-22' },
   { numero: 23, nome: 'Equipe-23',   rota: '/equipe-23' },
   { numero: 24, nome: 'Equipe-24',   rota: '/equipe-24' },
@@ -173,6 +177,71 @@ grupo16.post('/calcular', requireAuth, async (req, res) => {
 
 app.use(BASE_PATH, grupo16);
 
+const equipe21 = express.Router();
+
+equipe21.get('/', (_req, res) => {
+  res.redirect(`${EQUIPE21_PATH}/login`);
+});
+
+equipe21.get('/login', (req, res) => {
+  if (req.query.ready === '1') {
+    return res.render('equipe-21/login', {
+      error: null,
+      basePath: EQUIPE21_PATH,
+    });
+  }
+
+  return res.render('equipe-21/splash', {
+    loginUrl: `${EQUIPE21_PATH}/login?ready=1`,
+  });
+});
+
+equipe21.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  if (username === 'admin' && password === 'admin') {
+    return res.redirect(`${EQUIPE21_PATH}/calculo`);
+  }
+
+  return res.render('equipe-21/login', {
+    error: 'Usuario ou senha invalidos',
+    basePath: EQUIPE21_PATH,
+  });
+});
+
+equipe21.get('/calculo', (_req, res) => {
+  res.render('equipe-21/calculo', {
+    apiPath: `${EQUIPE21_PATH}/api/calcular`,
+    basePath: EQUIPE21_PATH,
+  });
+});
+
+equipe21.get('/sobre', (_req, res) => {
+  res.render('equipe-21/sobre', { basePath: EQUIPE21_PATH });
+});
+
+equipe21.get('/help', (_req, res) => {
+  res.render('equipe-21/help', { basePath: EQUIPE21_PATH });
+});
+
+equipe21.post('/api/calcular', async (req, res) => {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}/api/equipe-21/calcular`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+    const data = await response.json();
+
+    res.status(response.status).json(data);
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+app.use(EQUIPE21_PATH, equipe21);
+
 app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo14DistPath, 'index.html'));
 });
@@ -215,9 +284,49 @@ grupo17.post('/calcular', async (req, res) => {
 
 app.use('/equipe-17', grupo17);
 
-// Rotas genéricas das demais equipes (grupos 14, 16 e 17 têm rotas próprias acima)
+// Servir arquivos estáticos do Grupo 18 (Next.js export)
+const grupo18DistPath = path.join(__dirname, 'equipe-18', 'out');
+app.use('/equipe-18', express.static(grupo18DistPath));
+
+// Proxy para o Backend do Grupo 18
+app.use('/equipe-18/api', (req, res) => {
+  const target = new URL(req.path.replace(/^\//, ''), ensureTrailingSlash('https://d36mf6v2e37tzy.cloudfront.net'));
+  const client = https;
+
+  const proxyRequest = client.request(target, {
+    method: req.method,
+    headers: {
+      ...req.headers,
+      host: target.host
+    }
+  }, (proxyResponse) => {
+    res.status(proxyResponse.statusCode || 502);
+    for (const [header, value] of Object.entries(proxyResponse.headers)) {
+      if (value !== undefined) {
+        res.setHeader(header, value);
+      }
+    }
+    proxyResponse.pipe(res);
+  });
+
+  proxyRequest.on('error', (error) => {
+    res.status(502).json({
+      error: 'Falha ao comunicar com o Backend do Grupo 18.',
+      message: error.message
+    });
+  });
+
+  req.pipe(proxyRequest);
+});
+
+// Suporte para client-side routing do Next.js
+app.get(/^\/equipe-18(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo18DistPath, 'index.html'));
+});
+
+// Rotas genéricas das demais equipes (grupos 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 14 || i === 16 || i === 17) continue;
+  if (i === 14 || i === 16 || i === 17 || i === 18 || i === 21) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
