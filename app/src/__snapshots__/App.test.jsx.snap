@@ -761,7 +761,7 @@ exports[`Snapshots de UI > snapshot: tela Sobre 1`] = `
         >
           <img
             alt="Foto da equipe"
-            src="/equipe.jpg"
+            src="/equipe.png"
           />
         </div>
         <div
