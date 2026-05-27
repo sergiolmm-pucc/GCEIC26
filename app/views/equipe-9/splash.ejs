@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo de NF</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #1565c0 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      height: 100vh; font-family: 'Segoe UI', sans-serif;
+      color: white; overflow: hidden;
+    }
+    .logo { font-size: 5rem; margin-bottom: 20px; animation: pulse 1.5s ease-in-out infinite; }
+    h1 { font-size: 2.2rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 8px; }
+    p { font-size: 1rem; opacity: 0.8; margin-bottom: 48px; }
+    .loader {
+      width: 200px; height: 4px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px; overflow: hidden;
+    }
+    .loader-bar {
+      height: 100%; width: 0%;
+      background: white; border-radius: 4px;
+      animation: load 2.5s ease-in-out forwards;
+    }
+    .version { position: absolute; bottom: 24px; font-size: 0.75rem; opacity: 0.5; }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+    @keyframes load { 0%{width:0%} 100%{width:100%} }
+  </style>
+</head>
+<body>
+  <div class="logo">🧾</div>
+  <h1>Cálculo de NF</h1>
+  <p>Sistema de Nota Fiscal — GCEIC26</p>
+  <div class="loader"><div class="loader-bar"></div></div>
+  <span class="version">v1.0.0</span>
+
+  <script>
+    setTimeout(() => { window.location.href = '/equipe-9/login'; }, 2800);
+  </script>
+</body>
+</html>
