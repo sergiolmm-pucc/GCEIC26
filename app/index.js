@@ -640,6 +640,8 @@ app.get(/^\/equipe-2(?:\/.*)?$/, (_req, res) => {
 // ── Grupo 23 — Autonomia de Carros ──
 const grupo23DistPath = path.join(__dirname, 'equipe-23');
 app.use('/equipe-23', express.static(grupo23DistPath));
+// CRA build uses absolute /static paths when hosted under /equipe-23.
+app.use('/static', express.static(path.join(grupo23DistPath, 'static')));
 app.get(/^\/equipe-23(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo23DistPath, 'index.html'));
 });
@@ -690,6 +692,7 @@ app.get('/sauna6/sobre', (req, res) => {
 app.get('/sauna6/help', (req, res) => {
   res.render('sauna_grupo6/help');
 });
+// --------------------------------------------------- //
 // --------------------------------------------------- //
 
 
