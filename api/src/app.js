@@ -17,6 +17,10 @@ const equipe21Router = require('./equipe-21/routes');
 const mkpRouter      = require('./grupo13-markup/routes');
 const energyRouter   = require('./equipe-5/routes/energy');
 
+const volumeRoutes = require('./equipe-7/volume');
+const materiaisRoutes = require('./equipe-7/materiais');
+const custosRoutes = require('./equipe-7/custos');
+
 // checa se api está no ar
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM-33', turma:'101'});
@@ -197,5 +201,9 @@ app.post('/AGUA/economia', (req, res) => {
     res.status(400).json({ success: false, error: err.message });
   }
 });
+
+app.use('/PISCINA2/volume', volumeRoutes);
+app.use('/PISCINA2/materiais', materiaisRoutes);
+app.use('/PISCINA2/custos', custosRoutes);
 
 module.exports = app;

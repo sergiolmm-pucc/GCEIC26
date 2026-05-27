@@ -174,7 +174,7 @@ const equipes = [
   { numero: 4,  nome: 'Equipe-4',    rota: '/equipe-4' },
   { numero: 5,  nome: 'Equipe-5',    rota: '/equipe-5' },
   { numero: 6,  nome: 'Equipe-6',    rota: '/sauna6' },
-  { numero: 7,  nome: 'Equipe-7',    rota: '/equipe-7' },
+  { numero: 7,  nome: 'G7 - Calculadora de Custo de Piscinas',    rota: '/equipe-7' },
   { numero: 8,  nome: 'Equipe-8',    rota: '/equipe-8' },
   { numero: 9,  nome: 'Equipe-9',    rota: '/equipe-9' },
   { numero: 10, nome: 'Equipe-10',   rota: '/equipe-10' },
@@ -503,6 +503,43 @@ grupo20.post('/AGUA/economia', requireAuth20, (req, res) =>
   proxyPostAgua(req, res, '/AGUA/economia'));
 
 app.use(GRUPO20_PATH, grupo20);
+
+
+
+// ── Grupo 7 — PISCINA2 ──
+
+const GRUPO7_PATH = '/equipe-7';
+const grupo7 = express.Router();
+
+grupo7.get('/', (req, res) => {
+  res.render('equipe-7/index', { basePath: GRUPO7_PATH });
+});
+
+async function proxyGrupo7(req, res, endpointBackend) {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const options = {
+      method: req.method,
+      headers: { 'Content-Type': 'application/json' }
+    };
+
+    if (req.method !== 'GET' && req.method !== 'HEAD') {
+      options.body = JSON.stringify(req.body);
+    }
+
+    const response = await fetch(`${API_URL}${endpointBackend}`, options);
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+}
+
+grupo7.use('/api/volume', (req, res) => proxyGrupo7(req, res, '/PISCINA2/volume'));
+grupo7.use('/api/materiais', (req, res) => proxyGrupo7(req, res, '/PISCINA2/materiais'));
+grupo7.use('/api/custos', (req, res) => proxyGrupo7(req, res, '/PISCINA2/custos'));
+
+app.use(GRUPO7_PATH, grupo7);
 
 
 // ── Grupo 17 — Calculadora de Impostos NF de Venda ──
