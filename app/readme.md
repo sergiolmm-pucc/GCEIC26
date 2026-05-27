@@ -1,19 +1,24 @@
-# Impostos NF - Frontend
+cria o diretorio api e app
+no diretorio app via terminal 
+npm init -y
+cria o arquivo principal
 
-Interface de usuário para visualização e cálculo de impostos (ICMS, IPI, PIS/COFINS) para Notas Fiscais.
+instala o nodemon para mexer no codigo e nao precisar reiniciar o app. ( Dev dependencies)
+npm install -D nodemon
 
-## Equipe e Atribuições
+no package.json adicione
+"dev": "nodemon index.js"
+para rodar
+npm run dev
 
-### 👨‍💻 João Gabriel (JG)
-**Front-end & DevOps**
-*   **DevOps:** CI/CD (GitHub Actions), deploy na AWS e gestão do repositório.
-*   **Gestão:** Code review, cronograma e Setup inicial do projeto.
+instala dependencia 
 
-### 👨‍💻 Pedro Daou (PD)
-**Front-end**
-*   **Front-end:** Telas de cálculo individual de ICMS e IPI, e tela de Help.
+npm install express-session
+npm install body-parser
+npm install ejs
+npm install bcryptjs
 
-### 👨‍💻 Gabriel Bonatto (GB)
-**Front-end & Doc**
-*   **Front-end:** Tela de cálculo individual de PIS/COFINS e tela "Sobre" (Equipe).
-*   **Doc:** Testes funcionais e documentação técnica (README).
+
+npm install express
+
+npm install node-fetch
