@@ -17,6 +17,8 @@ const PORT    = process.env.PORT    || 3000;
 const API_URL = process.env.API_URL || 'http://localhost:3001';
 const GRUPO14_PATH = '/equipe-14';
 const grupo14DistPath = path.join(__dirname, 'dist');
+const GRUPO5_PATH = '/equipe-5';
+const grupo5DistPath = path.join(__dirname, 'equipe-5', 'dist');
 const grupo14ApiRoutes = new Map([
   ['GET /health', '/PBL/health'],
   ['POST /preco-liquido', '/PBL/preco-liquido'],
@@ -28,6 +30,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(GRUPO14_PATH, express.static(grupo14DistPath));
+app.use(GRUPO5_PATH, express.static(grupo5DistPath));
 
 app.use('/PBL', (req, res) => {
   const targetPath = grupo14ApiRoutes.get(`${req.method} ${req.path}`);
@@ -578,6 +581,10 @@ app.use('/equipe-18/api', (req, res) => {
 // Suporte para client-side routing do Next.js
 app.get(/^\/equipe-18(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo18DistPath, 'index.html'));
+});
+
+app.get(/^\/equipe-5(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo5DistPath, 'index.html'));
 });
 
 // Rotas genéricas das demais equipes (grupos 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
