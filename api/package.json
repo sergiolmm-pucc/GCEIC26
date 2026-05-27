@@ -1,11 +1,10 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "API para calculo de MarkUp",
+  "description": "API do Projeto",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage --verbose --ci --reporters=default --testResultsProcessor=jest-junit",
-    "start": "node src/server.js""start": "node index.js",
+    "start": "node index.js",
     "test": "jest --coverage --verbose --ci --reporters=default --testResultsProcessor=jest-junit"
   },
   "keywords": [],
