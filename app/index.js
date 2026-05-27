@@ -74,7 +74,7 @@ app.post('/login', (req, res) => {
     req.session.user = { username: 'admin', nome: 'Administrador' };
     return res.redirect('/calculo');
   }
-  res.render('login', { error: 'Usuário ou senha inválidos' });
+  res.render('base/login', { error: 'Usuário ou senha inválidos' });
 });
 
 // Dashboard
