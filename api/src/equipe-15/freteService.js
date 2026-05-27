@@ -1,24 +1,17 @@
-import {
-  FreteInput, FreteOutput,
-  DistanciaInput, DistanciaOutput,
-  PrazoInput, PrazoOutput,
-  TipoEntrega,
-} from '../types/frete.types';
-
 // ─────────────────────────────────────────
 //  Constantes compartilhadas
 // ─────────────────────────────────────────
 const TARIFA_POR_KG = 2.50;
 const TARIFA_POR_KM = 0.15;
 
-const TIPO_CONFIG: Record<TipoEntrega, { multiplicador: number; prazo: string; diasMin: number; diasMax: number }> = {
+const TIPO_CONFIG = {
   economico: { multiplicador: 0.8, prazo: '7 a 10 dias úteis', diasMin: 7,  diasMax: 10 },
   normal:    { multiplicador: 1.0, prazo: '3 a 5 dias úteis',  diasMin: 3,  diasMax: 5  },
   expresso:  { multiplicador: 1.8, prazo: '1 a 2 dias úteis',  diasMin: 1,  diasMax: 2  },
 };
 
 // Tabela de distâncias rodoviárias aproximadas entre capitais (km)
-const DISTANCIAS: Record<string, Record<string, number>> = {
+const DISTANCIAS = {
   'São Paulo':       { 'Rio de Janeiro': 430, 'Curitiba': 408, 'Belo Horizonte': 586, 'Brasília': 1015, 'Salvador': 1950, 'Fortaleza': 3138, 'Manaus': 4168, 'Porto Alegre': 1109 },
   'Rio de Janeiro':  { 'São Paulo': 430, 'Curitiba': 851, 'Belo Horizonte': 434, 'Brasília': 1148, 'Salvador': 1650, 'Fortaleza': 2808, 'Manaus': 4598, 'Porto Alegre': 1539 },
   'Curitiba':        { 'São Paulo': 408, 'Rio de Janeiro': 851, 'Belo Horizonte': 994, 'Brasília': 1423, 'Salvador': 2358, 'Porto Alegre': 710 },
@@ -34,7 +27,7 @@ const DISTANCIAS: Record<string, Record<string, number>> = {
 // ══════════════════════════════════════════
 //  ALUNO 1 — Cálculo do Frete (consolidado)
 // ══════════════════════════════════════════
-export function calcularFrete({ peso, distancia, tipo }: FreteInput): FreteOutput {
+function calcularFrete({ peso, distancia, tipo }) {
   if (peso <= 0)      throw new Error('Peso deve ser maior que zero');
   if (distancia <= 0) throw new Error('Distância deve ser maior que zero');
 
@@ -62,14 +55,13 @@ export function calcularFrete({ peso, distancia, tipo }: FreteInput): FreteOutpu
 // ══════════════════════════════════════════
 //  ALUNO 2 — Cálculo de Distância por cidade
 // ══════════════════════════════════════════
-export function calcularDistancia({ origem, destino }: DistanciaInput): DistanciaOutput {
+function calcularDistancia({ origem, destino }) {
   if (!origem || !destino) throw new Error('Origem e destino são obrigatórios');
   if (origem === destino)  throw new Error('Origem e destino não podem ser iguais');
 
-  // Busca a distância na tabela (nos dois sentidos)
   const distanciaKm =
-    DISTANCIAS[origem]?.[destino] ??
-    DISTANCIAS[destino]?.[origem] ??
+    (DISTANCIAS[origem] && DISTANCIAS[origem][destino]) ??
+    (DISTANCIAS[destino] && DISTANCIAS[destino][origem]) ??
     null;
 
   if (distanciaKm === null) {
@@ -78,9 +70,8 @@ export function calcularDistancia({ origem, destino }: DistanciaInput): Distanci
 
   const custoDistancia = parseFloat((distanciaKm * TARIFA_POR_KM).toFixed(2));
 
-  // Classifica a faixa de região pela distância
-  let faixaRegiao: DistanciaOutput['faixaRegiao'];
-  let descricaoFaixa: string;
+  let faixaRegiao;
+  let descricaoFaixa;
 
   if (distanciaKm <= 100) {
     faixaRegiao    = 'local';
@@ -99,40 +90,37 @@ export function calcularDistancia({ origem, destino }: DistanciaInput): Distanci
   return { origem, destino, distanciaKm, custoDistancia, faixaRegiao, descricaoFaixa };
 }
 
-// Retorna a lista de cidades disponíveis
-export function listarCidades(): string[] {
+function listarCidades() {
   return Object.keys(DISTANCIAS).sort();
 }
 
 // ══════════════════════════════════════════
 //  ALUNO 3 — Cálculo de Prazo de Entrega
 // ══════════════════════════════════════════
-export function calcularPrazo({ distanciaKm, tipo }: PrazoInput): PrazoOutput {
+function calcularPrazo({ distanciaKm, tipo }) {
   if (distanciaKm <= 0) throw new Error('Distância deve ser maior que zero');
 
   const config = TIPO_CONFIG[tipo];
   if (!config) throw new Error(`Tipo inválido: ${tipo}`);
 
-  // Ajuste de prazo pela distância: a cada 500 km acima de 500 km, soma 1 dia útil (cap: +4 dias)
-  const ajuste      = Math.min(Math.floor(Math.max(0, distanciaKm - 500) / 500), 4);
+  const ajuste       = Math.min(Math.floor(Math.max(0, distanciaKm - 500) / 500), 4);
   const diasUteisMin = config.diasMin + ajuste;
   const diasUteisMax = config.diasMax + ajuste;
   const prazoEntrega = `${diasUteisMin} a ${diasUteisMax} dias úteis`;
-
-  // Calcula a data estimada (pula fins de semana)
   const dataEstimada = calcularDataUtil(diasUteisMax);
 
   return { distanciaKm, tipo, diasUteisMin, diasUteisMax, prazoEntrega, dataEstimada };
 }
 
-// Helper: avança N dias úteis a partir de hoje
-function calcularDataUtil(diasUteis: number): string {
+function calcularDataUtil(diasUteis) {
   const data = new Date();
   let contagem = 0;
   while (contagem < diasUteis) {
     data.setDate(data.getDate() + 1);
     const diaSemana = data.getDay();
-    if (diaSemana !== 0 && diaSemana !== 6) contagem++; // pula sáb e dom
+    if (diaSemana !== 0 && diaSemana !== 6) contagem++;
   }
   return data.toLocaleDateString('pt-BR');
 }
+
+module.exports = { calcularFrete, calcularDistancia, listarCidades, calcularPrazo };

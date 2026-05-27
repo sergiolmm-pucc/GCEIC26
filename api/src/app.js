@@ -8,6 +8,8 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+const equipe15Router = require('./equipe-15/freteRoutes');
+app.use('/equipe-15', equipe15Router);
 
 // checa se api no ar
 app.get('/health', (req, res) => {
