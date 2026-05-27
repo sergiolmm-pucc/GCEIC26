@@ -178,8 +178,9 @@ grupo16.post('/calcular', requireAuth, async (req, res) => {
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
   }
-}
+});
 
+const grupo9 = express.Router();
 grupo9.post('/calcular',         requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular',         req, res));
 grupo9.post('/calcular-inverso', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular-inverso', req, res));
 grupo9.post('/comparar',         requireAuth, (req, res) => proxyAPI('/api/equipe-9/comparar',         req, res));
