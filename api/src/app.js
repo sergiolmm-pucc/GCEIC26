@@ -206,4 +206,52 @@ app.use('/PISCINA2/volume', volumeRoutes);
 app.use('/PISCINA2/materiais', materiaisRoutes);
 app.use('/PISCINA2/custos', custosRoutes);
 
+// ── Grupo 23 — Autonomia de Carros ──
+const autonomiaController = require('./grupo23/autonomiaController');
+
+// POST /autonomia/calcular
+app.post('/autonomia/calcular', (req, res) => {
+  try {
+    const { kmPercorridos, litrosAbastecidos } = req.body;
+    const resultado = autonomiaController.calcularAutonomia(
+      Number(kmPercorridos),
+      Number(litrosAbastecidos)
+    );
+    res.json({ sucesso: true, dados: resultado });
+  } catch (error) {
+    res.status(400).json({ sucesso: false, erro: error.message });
+  }
+});
+
+// POST /autonomia/custo-viagem
+app.post('/autonomia/custo-viagem', (req, res) => {
+  try {
+    const { distanciaKm, autonomiaKmL, precoCombustivel } = req.body;
+    const resultado = autonomiaController.calcularCustoViagem(
+      Number(distanciaKm),
+      Number(autonomiaKmL),
+      Number(precoCombustivel)
+    );
+    res.json({ sucesso: true, dados: resultado });
+  } catch (error) {
+    res.status(400).json({ sucesso: false, erro: error.message });
+  }
+});
+
+// POST /autonomia/comparar-combustivel
+app.post('/autonomia/comparar-combustivel', (req, res) => {
+  try {
+    const { precoGasolina, precoEtanol, autonomiaGasolina, autonomiaEtanol } = req.body;
+    const resultado = autonomiaController.compararCombustivel(
+      Number(precoGasolina),
+      Number(precoEtanol),
+      Number(autonomiaGasolina),
+      Number(autonomiaEtanol)
+    );
+    res.json({ sucesso: true, dados: resultado });
+  } catch (error) {
+    res.status(400).json({ sucesso: false, erro: error.message });
+  }
+});
+
 module.exports = app;
