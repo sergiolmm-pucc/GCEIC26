@@ -166,6 +166,7 @@ coverage
 build
 dist
 !app/views/etec64/dist/
+!app/equipe-5/dist/
 docs
 
 # Outros
