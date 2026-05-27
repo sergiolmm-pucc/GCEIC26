@@ -165,6 +165,7 @@ vite.config.ts.timestamp-*
 coverage
 build
 dist
+!app/views/etec64/dist/
 docs
 
 # Outros
