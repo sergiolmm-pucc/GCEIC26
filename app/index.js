@@ -636,9 +636,16 @@ app.get(/^\/equipe-2(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo2DistPath, 'index.html'));
 });
 
+// ── Grupo 23 — Autonomia de Carros ──
+const grupo23DistPath = path.join(__dirname, 'equipe-23');
+app.use('/equipe-23', express.static(grupo23DistPath));
+app.get(/^\/equipe-23(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo23DistPath, 'index.html'));
+});
+
 // Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 2 || i === 5 || i === 6 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21) continue;
+  if (i === 2 || i === 5 || i === 6 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
@@ -676,16 +683,3 @@ app.get('/sauna6/help', (req, res) => {
 });
 // --------------------------------------------------- //
 
-// ── Grupo 23 — Autonomia de Carros ──
-
-const grupo23DistPath = path.join(__dirname, 'equipe-23');
-app.use('/equipe-23', express.static(grupo23DistPath));
-app.get(/^\/equipe-23(?:\/.*)?$/, (_req, res) => {
-  res.sendFile(path.join(grupo23DistPath, 'index.html'));
-});
-// ── Grupo 23 — Autonomia de Carros ──
-
-app.listen(PORT, () => {
-  console.log(`App rodando: http://localhost:${PORT}`);
-});
-module.exports = app;
