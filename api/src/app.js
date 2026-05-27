@@ -4,38 +4,12 @@ const helmet = require('helmet');
 
 const rotasGrupo6 = require('./equipe-6/rotasSaunaGrupo6');
 
-const rotasGrupo6 = require('./equipe-6/rotasSaunaGrupo6');
-
 const app = express();
 
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-const pricingRouter = require('./equipe-14/pricingRoutes');
-const nfvendaRouter = require('./equipe-17/nfvendaRoutes');
-const equipe15Router = require('./equipe-15/freteRoutes');
-const equipe21Router = require('./equipe-21/routes');
-const mkpRouter = require('./grupo13-markup/routes');
-const energyRouter = require('./equipe-5/routes/energy');
-const irpRouter = require('./equipe-2/irpRoutes');
-
-const volumeRoutes = require('./equipe-7/volume');
-const materiaisRoutes = require('./equipe-7/materiais');
-const custosRoutes = require('./equipe-7/custos');
-const etec64Routes = require('./etec64/routes/etecRoutes.js');
-
-// checa se api está no ar
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString(), by: 'SLMM-33', turma: '101' });
-});
-
-app.use('/PBL', pricingRouter);
-app.use('/IRP', irpRouter);
-app.use('/ENRG', energyRouter);
-app.use('/nfvenda', nfvendaRouter);
-app.use('/api/equipe-21', equipe21Router);
-app.use('/equipe-15', equipe15Router);
 const pricingRouter = require('./equipe-14/pricingRoutes');
 const nfvendaRouter = require('./equipe-17/nfvendaRoutes');
 const equipe15Router = require('./equipe-15/freteRoutes');
