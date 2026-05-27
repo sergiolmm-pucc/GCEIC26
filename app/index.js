@@ -78,7 +78,7 @@ const equipes = [
   { numero: 3,  nome: 'Equipe-3',    rota: '/equipe-3' },
   { numero: 4,  nome: 'Equipe-4',    rota: '/equipe-4' },
   { numero: 5,  nome: 'Equipe-5',    rota: '/equipe-5' },
-  { numero: 6,  nome: 'Equipe-6',    rota: '/equipe-6' },
+  { numero: 6,  nome: 'Equipe-6',    rota: '/sauna6' },
   { numero: 7,  nome: 'Equipe-7',    rota: '/equipe-7' },
   { numero: 8,  nome: 'Equipe-8',    rota: '/equipe-8' },
   { numero: 9,  nome: 'Equipe-9',    rota: '/equipe-9' },
@@ -324,9 +324,9 @@ app.get(/^\/equipe-18(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo18DistPath, 'index.html'));
 });
 
-// Rotas genéricas das demais equipes (grupos 14, 16, 17, 18 e 21 têm rotas próprias acima)
+// Rotas genéricas das demais equipes (grupos 6, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 14 || i === 16 || i === 17 || i === 18 || i === 21) continue;
+  if (i === 6 || i === 14 || i === 16 || i === 17 || i === 18 || i === 21) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
@@ -335,6 +335,29 @@ for (let i = 2; i <= 25; i++) {
 function ensureTrailingSlash(url) {
   return url.endsWith('/') ? url : `${url}/`;
 }
+
+
+// ROTAS GRUPO 6 ------------------------------------ //
+app.get('/sauna6', (req, res) => {
+  res.render('sauna_grupo6/splash'); 
+});
+
+app.get('/sauna6/login', (req, res) => {
+  res.render('sauna_grupo6/login');
+});
+
+app.get('/sauna6/calculadora', (req, res) => {
+  res.render('sauna_grupo6/calculadora_sauna');
+});
+
+app.get('/sauna6/sobre', (req, res) => {
+  res.render('sauna_grupo6/about');
+});
+
+app.get('/sauna6/help', (req, res) => {
+  res.render('sauna_grupo6/help');
+});
+// --------------------------------------------------- //
 
 app.listen(PORT, () => {
   console.log(`App rodando: http://localhost:${PORT}`);

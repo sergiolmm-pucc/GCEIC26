@@ -3,10 +3,9 @@ name: Teste and Deploy
 on:
   workflow_dispatch:
   push:
-    branches: [main, dev, grupo17/calculadora_imposto_nf_venda]
-  pull_request:
-    branches: [main]
+    branches: [main, dev]
 
+  
 jobs:
   detect-changes:
     runs-on: ubuntu-latest
