@@ -1,13 +1,18 @@
-﻿{
+{
   "name": "e2e-tests",
   "version": "1.0.0",
   "description": "Testes E2E com Cypress e Selenium",
+  "main": "index.js",
   "scripts": {
     "test": "cypress run",
     "test:open": "cypress open",
-    "test:equipe9": "node tests/equipe9.test.js"
+    "test:equipe9": "node tests/equipe9.test.js",
+    "test:grupo13": "node tests/markup.test.js"
   },
-  "devDependencies": {
-    "cypress": "^15.15.0"
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "selenium-webdriver": "^4.43.0"
   }
 }
