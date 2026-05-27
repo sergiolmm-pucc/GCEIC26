@@ -93,7 +93,7 @@ const equipes = [
   { numero: 18, nome: 'G18 - Cálculo de Impostos NF', rota: '/equipe-18' },
   { numero: 19, nome: 'Equipe-19',   rota: '/equipe-19' },
   { numero: 20, nome: 'Equipe-20',   rota: '/equipe-20' },
-  { numero: 21, nome: 'Equipe-21',   rota: '/equipe-21' },
+  { numero: 21, nome: 'G21 - BurgCalc',   rota: '/equipe-21' },
   { numero: 22, nome: 'Equipe-22',   rota: '/equipe-22' },
   { numero: 23, nome: 'Equipe-23',   rota: '/equipe-23' },
   { numero: 24, nome: 'Equipe-24',   rota: '/equipe-24' },
