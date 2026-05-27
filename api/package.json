@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --coverage --verbose --ci --reporters=default --testResultsProcessor=jest-junit",
-    "start": "node src/server.js"
+    "start": "node src/server.js""start": "node index.js",
+    "test": "jest --coverage --verbose --ci --reporters=default --testResultsProcessor=jest-junit"
   },
   "keywords": [],
   "author": "",

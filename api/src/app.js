@@ -4,38 +4,12 @@ const helmet = require('helmet');
 
 const rotasGrupo6 = require('./equipe-6/rotasSaunaGrupo6');
 
-const rotasGrupo6 = require('./equipe-6/rotasSaunaGrupo6');
-
 const app = express();
 
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-const pricingRouter = require('./equipe-14/pricingRoutes');
-const nfvendaRouter = require('./equipe-17/nfvendaRoutes');
-const equipe15Router = require('./equipe-15/freteRoutes');
-const equipe21Router = require('./equipe-21/routes');
-const mkpRouter = require('./grupo13-markup/routes');
-const energyRouter = require('./equipe-5/routes/energy');
-const irpRouter = require('./equipe-2/irpRoutes');
-
-const volumeRoutes = require('./equipe-7/volume');
-const materiaisRoutes = require('./equipe-7/materiais');
-const custosRoutes = require('./equipe-7/custos');
-const etec64Routes = require('./etec64/routes/etecRoutes.js');
-
-// checa se api está no ar
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString(), by: 'SLMM-33', turma: '101' });
-});
-
-app.use('/PBL', pricingRouter);
-app.use('/IRP', irpRouter);
-app.use('/ENRG', energyRouter);
-app.use('/nfvenda', nfvendaRouter);
-app.use('/api/equipe-21', equipe21Router);
-app.use('/equipe-15', equipe15Router);
 const pricingRouter = require('./equipe-14/pricingRoutes');
 const nfvendaRouter = require('./equipe-17/nfvendaRoutes');
 const equipe15Router = require('./equipe-15/freteRoutes');
@@ -355,38 +329,6 @@ app.post('/AGUA/economia', (req, res) => {
 app.use('/PISCINA2/volume', volumeRoutes);
 app.use('/PISCINA2/materiais', materiaisRoutes);
 app.use('/PISCINA2/custos', custosRoutes);
-try {
-  const { tempoBanhoMin, descargasDia, pessoas } = req.body;
-  const resultado = calcularConsumoDiario(Number(tempoBanhoMin), Number(descargasDia), Number(pessoas));
-  res.json({ success: true, data: resultado });
-} catch (err) {
-  res.status(400).json({ success: false, error: err.message });
-}
-});
-
-app.post('/AGUA/custoMensal', (req, res) => {
-  try {
-    const { consumoDiarioLitros, tarifa, dias } = req.body;
-    const resultado = calcularCustoMensal(Number(consumoDiarioLitros), Number(tarifa), Number(dias) || 30);
-    res.json({ success: true, data: resultado });
-  } catch (err) {
-    res.status(400).json({ success: false, error: err.message });
-  }
-});
-
-app.post('/AGUA/economia', (req, res) => {
-  try {
-    const { litrosAtuais, reducaoPercentual, tarifa, pessoas } = req.body;
-    const resultado = calcularEconomia(Number(litrosAtuais), Number(reducaoPercentual), Number(tarifa), Number(pessoas));
-    res.json({ success: true, data: resultado });
-  } catch (err) {
-    res.status(400).json({ success: false, error: err.message });
-  }
-});
-
-app.use('/PISCINA2/volume', volumeRoutes);
-app.use('/PISCINA2/materiais', materiaisRoutes);
-app.use('/PISCINA2/custos', custosRoutes);
 
 // ── Grupo 23 — Autonomia de Carros ──
 const autonomiaController = require('./equipe-23/autonomiaController');
@@ -403,31 +345,10 @@ app.post('/autonomia/calcular', (req, res) => {
   } catch (error) {
     res.status(400).json({ sucesso: false, erro: error.message });
   }
-  try {
-    const { kmPercorridos, litrosAbastecidos } = req.body;
-    const resultado = autonomiaController.calcularAutonomia(
-      Number(kmPercorridos),
-      Number(litrosAbastecidos)
-    );
-    res.json({ sucesso: true, dados: resultado });
-  } catch (error) {
-    res.status(400).json({ sucesso: false, erro: error.message });
-  }
 });
 
 // POST /autonomia/custo-viagem
 app.post('/autonomia/custo-viagem', (req, res) => {
-  try {
-    const { distanciaKm, autonomiaKmL, precoCombustivel } = req.body;
-    const resultado = autonomiaController.calcularCustoViagem(
-      Number(distanciaKm),
-      Number(autonomiaKmL),
-      Number(precoCombustivel)
-    );
-    res.json({ sucesso: true, dados: resultado });
-  } catch (error) {
-    res.status(400).json({ sucesso: false, erro: error.message });
-  }
   try {
     const { distanciaKm, autonomiaKmL, precoCombustivel } = req.body;
     const resultado = autonomiaController.calcularCustoViagem(
@@ -455,18 +376,6 @@ app.post('/autonomia/comparar-combustivel', (req, res) => {
   } catch (error) {
     res.status(400).json({ sucesso: false, erro: error.message });
   }
-  try {
-    const { precoGasolina, precoEtanol, autonomiaGasolina, autonomiaEtanol } = req.body;
-    const resultado = autonomiaController.compararCombustivel(
-      Number(precoGasolina),
-      Number(precoEtanol),
-      Number(autonomiaGasolina),
-      Number(autonomiaEtanol)
-    );
-    res.json({ sucesso: true, dados: resultado });
-  } catch (error) {
-    res.status(400).json({ sucesso: false, erro: error.message });
-  }
 });
 
 app.use('/api/etec64', etec64Routes);
@@ -474,5 +383,4 @@ app.use('/api/etec64', etec64Routes);
 const piscinaRouter08 = require('./equipe-08/routes/piscina');
 app.use('/api/equipe-08/piscina', piscinaRouter08);
 
-module.exports = app;
 module.exports = app;

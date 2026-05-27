@@ -1349,9 +1349,24 @@ grupo9.post('/calcular', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calc
               res.sendFile(path.join(grupo23DistPath, 'index.html'));
             });
 
-            // Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
+            // ── Grupo 64 — ETEC64 ──
+            const ETEC64_PATH = '/equipe-64';
+            const etec64DistPath = path.join(__dirname, 'views', 'etec64', 'dist');
+            app.use(ETEC64_PATH, express.static(etec64DistPath));
+
+            // Proxy API ETEC64
+            app.post('/api/etec64/media', (req, res) => proxyAPI('/api/etec64/media', req, res));
+            app.post('/api/etec64/frequencia', (req, res) => proxyAPI('/api/etec64/frequencia', req, res));
+            app.post('/api/etec64/aprovacao', (req, res) => proxyAPI('/api/etec64/aprovacao', req, res));
+
+            // Catch-all para client-side routing da Equipe 64 (React SPA)
+            app.get(/^\/equipe-64(?:\/.*)?$/, (_req, res) => {
+              res.sendFile(path.join(etec64DistPath, 'index.html'));
+            });
+
+            // Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18, 21 e 64 têm rotas próprias acima)
             for (let i = 2; i <= 25; i++) {
-              if (i === 2 || i === 5 || i === 6 || i === 7 || i === 8 || i === 9 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
+              if (i === 2 || i === 5 || i === 6 || i === 7 || i === 8 || i === 9 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23 || i === 64) continue;
               app.get(`/equipe-${i}`, (req, res) => {
                 res.render('equipe', { numero: i, nome: `Equipe-${i}` });
               });
@@ -1359,14 +1374,6 @@ grupo9.post('/calcular', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calc
 
             app.listen(PORT, () => {
               console.log(`App rodando: http://localhost:${PORT}`);
-            });
-
-            // ── Grupo 64 — ETEC64 ──
-            const ETEC64_PATH = '/equipe-64';
-            const etec64DistPath = path.join(__dirname, 'views', 'etec64', 'dist');
-            app.use(ETEC64_PATH, express.static(etec64DistPath));
-            app.get(/^\/equipe-64(?:\/.*)?$/, (_req, res) => {
-              res.sendFile(path.join(etec64DistPath, 'index.html'));
             });
 
 
