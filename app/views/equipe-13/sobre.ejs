@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre - MarkUp Grupo 13</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #f1f5f9; color: #0f172a; font-family: Arial, sans-serif; }
+    nav { align-items: center; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; padding: 14px 24px; }
+    nav strong { font-size: 1.1rem; }
+    nav a { color: #0ea5e9; font-weight: 700; margin-left: 16px; text-decoration: none; font-size: 0.9rem; }
+    main { margin: 32px auto; max-width: 720px; padding: 0 20px; }
+    h1 { margin-bottom: 24px; }
+    .descricao { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; line-height: 1.7; margin-bottom: 24px; padding: 24px; }
+    .foto { border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.12); margin: 0 auto 32px; display: block; max-width: 100%; }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+    .card { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px; text-align: center; }
+    .card h3 { color: #0ea5e9; font-size: 1rem; margin-bottom: 8px; }
+    .card p { color: #64748b; font-size: 0.85rem; line-height: 1.5; }
+    footer { color: #94a3b8; font-size: 0.8rem; margin-top: 40px; text-align: center; padding-bottom: 32px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <strong>MarkUp · Grupo 13</strong>
+    <div>
+      Olá, <strong><%= user.nome %></strong>
+      <a href="<%= basePath %>/calculo">Cálculo</a>
+      <a href="<%= basePath %>/help">Help</a>
+      <a href="<%= basePath %>/sobre">Sobre</a>
+      <a href="<%= basePath %>/logout">Sair</a>
+    </div>
+  </nav>
+  <main>
+    <h1>Sobre o Projeto</h1>
+    <div class="descricao">
+      <p>Nossa aplicação realiza o <strong>Cálculo de MarkUp</strong> — ferramenta essencial para determinar o preço de venda de produtos considerando custos, despesas operacionais e margem de lucro desejada. A API em Node.js oferece três cálculos: preço de venda via MarkUp, análise de lucro real e ponto de equilíbrio operacional.</p>
+    </div>
+    <img src="/equipe-13/equipe.jpeg" alt="Foto da Equipe 13" class="foto">
+    <div class="grid">
+      <div class="card">
+        <h3>Caiua Vieira</h3>
+        <p>Arquitetura base e cálculo de despesas no fluxo de MarkUp.</p>
+      </div>
+      <div class="card">
+        <h3>Marcelo Oliveira</h3>
+        <p>Lógica central da API e validação dos parâmetros de margem de lucro.</p>
+      </div>
+      <div class="card">
+        <h3>Mateus Mergulhao</h3>
+        <p>Custo unitário e integração dos fatores de conversão do preço de venda.</p>
+      </div>
+    </div>
+    <footer>Disciplina: GCEIC26 · PUC-Campinas · Grupo 13</footer>
+  </main>
+</body>
+</html>

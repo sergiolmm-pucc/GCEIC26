@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - MarkUp Grupo 13</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { align-items: center; background: #f1f5f9; color: #0f172a; display: flex; font-family: Arial, sans-serif; justify-content: center; min-height: 100vh; }
+    main { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; max-width: 380px; padding: 32px; width: 100%; }
+    h1 { font-size: 1.5rem; margin-bottom: 4px; }
+    .sub { color: #64748b; font-size: 0.9rem; margin-bottom: 24px; }
+    label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 6px; }
+    input { border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; margin-bottom: 16px; padding: 10px 12px; width: 100%; }
+    input:focus { border-color: #38bdf8; outline: none; }
+    button { background: #0ea5e9; border: none; border-radius: 6px; color: #fff; cursor: pointer; font-size: 1rem; font-weight: 700; padding: 12px; width: 100%; }
+    button:hover { background: #0284c7; }
+    .erro { background: #fef2f2; border: 1px solid #fca5a5; border-radius: 6px; color: #b91c1c; font-size: 0.85rem; margin-bottom: 16px; padding: 10px 12px; }
+    .hint { color: #94a3b8; font-size: 0.8rem; margin-top: 16px; text-align: center; }
+    .back { color: #0ea5e9; display: block; font-size: 0.85rem; margin-top: 12px; text-align: center; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>MarkUp</h1>
+    <p class="sub">Calculadora de preço de venda · Grupo 13</p>
+    <% if (error) { %><div class="erro"><%= error %></div><% } %>
+    <form method="POST" action="<%= basePath %>/login">
+      <label for="username">Usuário</label>
+      <input type="text" id="username" name="username" placeholder="admin" autocomplete="username" required>
+      <label for="password">Senha</label>
+      <input type="password" id="password" name="password" placeholder="••••" autocomplete="current-password" required>
+      <button type="submit">Entrar</button>
+    </form>
+    <p class="hint">Credenciais: admin / 123</p>
+    <a href="<%= basePath %>/splash" class="back">← Voltar para a splash</a>
+  </main>
+</body>
+</html>

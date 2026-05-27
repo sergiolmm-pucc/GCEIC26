@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo - MarkUp Grupo 13</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #f1f5f9; color: #0f172a; font-family: Arial, sans-serif; }
+    nav { align-items: center; background: #fff; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; padding: 14px 24px; }
+    nav strong { font-size: 1.1rem; }
+    nav a { color: #0ea5e9; font-weight: 700; margin-left: 16px; text-decoration: none; font-size: 0.9rem; }
+    main { margin: 28px auto; max-width: 720px; padding: 0 20px; }
+    h1 { margin-bottom: 20px; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+    .tab { background: #e2e8f0; border: none; border-radius: 6px; color: #475569; cursor: pointer; font-size: 0.85rem; font-weight: 700; padding: 8px 16px; }
+    .tab.ativo { background: #0ea5e9; color: #fff; }
+    .painel { display: none; }
+    .painel.ativo { display: block; }
+    form { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; display: grid; gap: 14px; padding: 24px; }
+    label { display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 5px; }
+    input { border: 1px solid #cbd5e1; border-radius: 6px; font-size: 1rem; padding: 10px 12px; width: 100%; }
+    input:focus { border-color: #38bdf8; outline: none; }
+    button[type="submit"] { background: #0ea5e9; border: none; border-radius: 6px; color: #fff; cursor: pointer; font-size: 1rem; font-weight: 700; padding: 12px; }
+    button[type="submit"]:hover { background: #0284c7; }
+    .resultado { background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; margin-top: 16px; padding: 20px 24px; }
+    .resultado h3 { color: #64748b; font-size: 0.8rem; font-weight: 700; margin-bottom: 12px; text-transform: uppercase; }
+    .linha { border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; padding: 8px 0; }
+    .linha:last-child { border-bottom: none; }
+    .linha span:last-child { font-weight: 700; }
+    .destaque { color: #0ea5e9; font-size: 1.4rem; }
+    .erro { color: #b91c1c; font-size: 0.85rem; font-weight: 700; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <strong>MarkUp · Grupo 13</strong>
+    <div>
+      Olá, <strong><%= user.nome %></strong>
+      <a href="<%= basePath %>/calculo">Cálculo</a>
+      <a href="<%= basePath %>/help">Help</a>
+      <a href="<%= basePath %>/sobre">Sobre</a>
+      <a href="<%= basePath %>/logout">Sair</a>
+    </div>
+  </nav>
+
+  <main>
+    <h1>Calculadora MarkUp</h1>
+    <div class="tabs">
+      <button class="tab ativo" onclick="aba('markup',this)">Preço de Venda</button>
+      <button class="tab" onclick="aba('lucro',this)">Lucro Real</button>
+      <button class="tab" onclick="aba('equilibrio',this)">Ponto de Equilíbrio</button>
+    </div>
+
+    <!-- Markup -->
+    <div id="painel-markup" class="painel ativo">
+      <form id="form-markup">
+        <div><label>Custo do produto (R$)</label><input type="number" name="custo" min="0.01" step="0.01" placeholder="Ex.: 100.00" required></div>
+        <div><label>Despesas totais (%)</label><input type="number" name="despesas" min="0" step="0.01" placeholder="Ex.: 20"></div>
+        <div><label>Margem de lucro desejada (%)</label><input type="number" name="lucro" min="0" step="0.01" placeholder="Ex.: 10"></div>
+        <button type="submit">Calcular preço de venda</button>
+        <div class="erro" id="e-markup"></div>
+      </form>
+      <div class="resultado" id="r-markup" style="display:none">
+        <h3>Resultado</h3>
+        <div class="linha"><span>Preço de venda</span><span class="destaque" id="rm-preco">-</span></div>
+        <div class="linha"><span>Markup multiplicador</span><span id="rm-mult">-</span></div>
+        <div class="linha"><span>Lucro em R$</span><span id="rm-lucro">-</span></div>
+      </div>
+    </div>
+
+    <!-- Lucro -->
+    <div id="painel-lucro" class="painel">
+      <form id="form-lucro">
+        <div><label>Preço de venda praticado (R$)</label><input type="number" name="precoVenda" min="0.01" step="0.01" placeholder="Ex.: 150.00" required></div>
+        <div><label>Custo do produto (R$)</label><input type="number" name="custo" min="0.01" step="0.01" placeholder="Ex.: 100.00" required></div>
+        <div><label>Despesas (% sobre o preço)</label><input type="number" name="despesas" min="0" step="0.01" placeholder="Ex.: 15"></div>
+        <button type="submit">Calcular lucro real</button>
+        <div class="erro" id="e-lucro"></div>
+      </form>
+      <div class="resultado" id="r-lucro" style="display:none">
+        <h3>Resultado</h3>
+        <div class="linha"><span>Lucro em R$</span><span class="destaque" id="rl-valor">-</span></div>
+        <div class="linha"><span>Margem de lucro</span><span id="rl-margem">-</span></div>
+        <div class="linha"><span>Despesas em R$</span><span id="rl-desp">-</span></div>
+      </div>
+    </div>
+
+    <!-- Equilibrio -->
+    <div id="painel-equilibrio" class="painel">
+      <form id="form-equilibrio">
+        <div><label>Custo fixo mensal (R$)</label><input type="number" name="custoFixo" min="0.01" step="0.01" placeholder="Ex.: 5000.00" required></div>
+        <div><label>Preço de venda unitário (R$)</label><input type="number" name="precoVenda" min="0.01" step="0.01" placeholder="Ex.: 100.00" required></div>
+        <div><label>Custo variável por unidade (R$)</label><input type="number" name="custoPorUnidade" min="0.01" step="0.01" placeholder="Ex.: 50.00" required></div>
+        <button type="submit">Calcular ponto de equilíbrio</button>
+        <div class="erro" id="e-eq"></div>
+      </form>
+      <div class="resultado" id="r-eq" style="display:none">
+        <h3>Resultado</h3>
+        <div class="linha"><span>Unidades mínimas</span><span class="destaque" id="re-unid">-</span></div>
+        <div class="linha"><span>Faturamento de equilíbrio</span><span id="re-fat">-</span></div>
+        <div class="linha"><span>Margem de contribuição</span><span id="re-margem">-</span></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const R = (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
+    const P = (v) => v.toFixed(2) + '%';
+
+    function aba(nome, btn) {
+      document.querySelectorAll('.painel').forEach(p => p.classList.remove('ativo'));
+      document.querySelectorAll('.tab').forEach(b => b.classList.remove('ativo'));
+      document.getElementById('painel-' + nome).classList.add('ativo');
+      btn.classList.add('ativo');
+    }
+
+    function fd(form) {
+      const d = {};
+      new FormData(form).forEach((v, k) => d[k] = parseFloat(v));
+      return d;
+    }
+
+    async function post(ep, dados, erroId) {
+      document.getElementById(erroId).textContent = '';
+      const res = await fetch('<%= basePath %>/' + ep, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(dados)
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.erro || json.error || 'Erro ao calcular.');
+      return json;
+    }
+
+    document.getElementById('form-markup').addEventListener('submit', async e => {
+      e.preventDefault();
+      try {
+        const d = await post('markup', fd(e.target), 'e-markup');
+        document.getElementById('rm-preco').textContent = R(d.preco_venda);
+        document.getElementById('rm-mult').textContent = d.markup_multiplicador + 'x';
+        document.getElementById('rm-lucro').textContent = R(d.lucro_valor);
+        document.getElementById('r-markup').style.display = 'block';
+      } catch(err) { document.getElementById('e-markup').textContent = err.message; }
+    });
+
+    document.getElementById('form-lucro').addEventListener('submit', async e => {
+      e.preventDefault();
+      try {
+        const d = await post('lucro', fd(e.target), 'e-lucro');
+        document.getElementById('rl-valor').textContent = R(d.lucro_valor);
+        document.getElementById('rl-margem').textContent = P(d.margem_lucro_percentual);
+        document.getElementById('rl-desp').textContent = R(d.despesas_valor);
+        document.getElementById('r-lucro').style.display = 'block';
+      } catch(err) { document.getElementById('e-lucro').textContent = err.message; }
+    });
+
+    document.getElementById('form-equilibrio').addEventListener('submit', async e => {
+      e.preventDefault();
+      try {
+        const d = await post('equilibrio', fd(e.target), 'e-eq');
+        document.getElementById('re-unid').textContent = d.ponto_equilibrio_unidades + ' un.';
+        document.getElementById('re-fat').textContent = R(d.faturamento_equilibrio);
+        document.getElementById('re-margem').textContent = R(d.margem_contribuicao);
+        document.getElementById('r-eq').style.display = 'block';
+      } catch(err) { document.getElementById('e-eq').textContent = err.message; }
+    });
+  </script>
+</body>
+</html>
