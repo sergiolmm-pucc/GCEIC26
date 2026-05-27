@@ -23,7 +23,7 @@ async function tiraFoto(name){
 }
 
 async function main() {
-
+    let driver;
     try{
       const opts = new chrome.Options();
       opts.addArguments(

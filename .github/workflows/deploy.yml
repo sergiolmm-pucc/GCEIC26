@@ -62,6 +62,10 @@ jobs:
         working-directory: app 
         run: npm ci
         
+      - name: Build do site
+        working-directory: app
+        run: npm run build
+
       - name: Subir o site em background
         working-directory: app
         run: npm run start &
@@ -69,7 +73,7 @@ jobs:
           PORT: 3000
 
       - name: Aguardar serviços ficarem prontos
-        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 30000
+        run: npx -y wait-on http://127.0.0.1:3001/health http://127.0.0.1:3000 --timeout 30000
 
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests 
@@ -79,8 +83,8 @@ jobs:
         working-directory: e2e-tests
         run: npm run test 
         env:
-          API_URL: http://localhost:3001
-          APP_URL: http://localhost:3000
+          API_URL: http://127.0.0.1:3001
+          APP_URL: http://127.0.0.1:3000
         
       - name: verifica se fez corretamente
         working-directory: e2e-tests 
