@@ -21,6 +21,7 @@ jest-junit.xml
 # Capturas de tela e relatórios de Testes E2E (Selenium)
 e2e-tests/screenshots/*.png
 *.png
+!app/public/equipe.png
 e2e-tests/reports/
 
 # Arquivos do Sistema Operacional (OS cache)

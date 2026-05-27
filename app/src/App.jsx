@@ -235,9 +235,9 @@ function About() {
         <h1>Equipe desenvolvedora</h1>
         <div className="team-photo">
           {!photoError ? (
-            <img src="/equipe.jpg" alt="Foto da equipe" onError={() => setPhotoError(true)} />
+            <img src="/equipe.png" alt="Foto da equipe" onError={() => setPhotoError(true)} />
           ) : (
-            <span>Foto da equipe pendente: adicionar app/public/equipe.jpg</span>
+            <span>Foto da equipe pendente: adicionar app/public/equipe.png</span>
           )}
         </div>
         <div className="team-grid">
