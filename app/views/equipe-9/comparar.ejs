@@ -223,6 +223,13 @@
 </div>
 
 <script>
+function getApiBase() {
+  if (window.location.hostname.includes('onrender.com')) {
+    return 'https://gceic26.onrender.com/api/equipe-9';
+  }
+  return 'http://localhost:3001/api/equipe-9';
+}
+
 function fmt(v) {
   return 'R$ ' + v.toFixed(2).replace('.', ',');
 }
@@ -267,7 +274,7 @@ async function comparar() {
   btn.textContent = 'Comparando...';
 
   try {
-    const response = await fetch('/equipe-9/comparar', {
+    const response = await fetch(`${getApiBase()}/comparar`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ valorProduto, cenarioA, cenarioB }),
