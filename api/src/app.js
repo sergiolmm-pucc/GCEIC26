@@ -17,6 +17,37 @@ app.get('/health', (req, res) => {
 
 app.use('/PBL', pricingRouter);
 
+// Proxy para o Backend do Grupo 18
+app.use('/equipe-18', (req, res) => {
+  const https = require('https');
+  const target = new URL(req.path.replace(/^\//, ''), 'https://d36mf6v2e37tzy.cloudfront.net/');
+  
+  const proxyRequest = https.request(target, {
+    method: req.method,
+    headers: {
+      ...req.headers,
+      host: target.host
+    }
+  }, (proxyResponse) => {
+    res.status(proxyResponse.statusCode || 502);
+    for (const [header, value] of Object.entries(proxyResponse.headers)) {
+      if (value !== undefined) {
+        res.setHeader(header, value);
+      }
+    }
+    proxyResponse.pipe(res);
+  });
+
+  proxyRequest.on('error', (error) => {
+    res.status(502).json({
+      error: 'Falha ao comunicar com o Backend do Grupo 18.',
+      message: error.message
+    });
+  });
+
+  req.pipe(proxyRequest);
+});
+
 app.get('/api/tabelas', (req, res) => {
   const { TABELA } = require('./equipe-16/funcoes');
   res.json({
