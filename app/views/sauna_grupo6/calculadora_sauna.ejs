@@ -150,7 +150,7 @@
             try {
                 // Durante o desenvolvimento local, a API responde na porta 3001.
                 // Ao rodar no Render (onde a API e o App estão no mesmo domínio), usar apenas '/api/SAUNA'
-                const API_BASE = "http://localhost:3001/api/SAUNA"//'https://gceic26.onrender.com/api/SAUNA';
+                const API_BASE = 'https://gceic26.onrender.com/api/SAUNA';
 
                 // 1. Fetch para a API de Materiais
                 const resMateriais = await fetch(`${API_BASE}/materiais`, {
