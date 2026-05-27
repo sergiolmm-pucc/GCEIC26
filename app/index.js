@@ -177,7 +177,7 @@ const equipes = [
   { numero: 23, nome: 'G23 - Calc Autonomia',   rota: '/equipe-23' },
   { numero: 24, nome: 'Equipe-24',   rota: '/equipe-24' },
   { numero: 25, nome: 'Equipe-25',   rota: '/equipe-25' },
-  { numero: 64, nome: 'ETEC64',      rota: '/equipe-64' },
+  { numero: 64, nome: 'Equipe-64',   rota: '/equipe-64' },
 ];
 
 // Página inicial — lista de equipes
