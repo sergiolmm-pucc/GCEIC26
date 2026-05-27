@@ -1,7 +1,7 @@
 const express = require('express');
 const cors    = require('cors');
 const helmet  = require('helmet');
-const energyRoutes = require('./grupo5-calculo_energia/routes/energy');
+const energyRoutes = require('./equipe-5/routes/energy');
 
 const app = express();
 

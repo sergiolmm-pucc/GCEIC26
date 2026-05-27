@@ -1,4 +1,4 @@
-const { calcularConsumo, calcularConta, simularComparacao } = require('../../src/grupo5-calculo_energia/services/energyService');
+const { calcularConsumo, calcularConta, simularComparacao } = require('../../src/equipe-5/services/energyService');
 
 // ─── calcularConsumo ───────────────────────────────────────────────────────────
 

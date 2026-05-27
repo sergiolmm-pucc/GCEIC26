@@ -1,5 +1,5 @@
 const request = require('supertest');
-const { app } = require('../../src/grupo5-calculo_energia/server');
+const { app } = require('../../src/equipe-5/server');
 
 const aparelhos = [
     { name: 'Geladeira', watts: 150, hoursPerDay: 24 },
