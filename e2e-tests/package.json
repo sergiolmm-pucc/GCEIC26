@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node tests/equipe9.test.js",
     "test:equipe9": "node tests/equipe9.test.js",
-    "test:grupo13": "node tests/markup.test.js"
+    "test:grupo13": "node tests/markup.test.js",
+    "test:grupo20": "node tests/equipe20.test.js"
   },
   "keywords": [],
   "author": "",

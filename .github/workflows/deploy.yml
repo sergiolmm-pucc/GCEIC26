@@ -366,6 +366,37 @@ jobs:
           name: fotos-grupo13
           path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo13-*.png
 
+  e2e-grupo20:
+    needs: [deploy-api, deploy-app]
+    if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compatíveis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 149
+      - name: Roda os testes E2E - Grupo 20 (AguaCalc)
+        if: success()
+        working-directory: e2e-tests
+        run: npm run test:grupo20
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+      - name: Fotos dos testes Grupo 20
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-grupo20
+          path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo20-*.png
+  
+
   teste_funcional2:
     needs: [deploy-api, deploy-app]
     runs-on: ubuntu-latest
