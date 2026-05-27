@@ -405,3 +405,33 @@ jobs:
         run: |
           echo "dep_api = ${{ needs.deploy-api.outputs.dep_api }}"
           echo "dep_app = ${{ needs.deploy-app.outputs.dep_app }}"
+
+  e2e-grupo6:
+    needs: [deploy-api, deploy-app]
+    if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compatíveis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 149
+      - name: Roda os testes E2E - Grupo 6 (Sauna)
+        if: success()
+        working-directory: e2e-tests
+        run: npm run test:grupo6
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+      - name: Fotos dos testes Grupo 6
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-grupo6
+          path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/G6-*.png
