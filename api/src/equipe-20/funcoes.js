@@ -103,6 +103,7 @@ function calcular(dados) {
   return { ...diario, ...mensal, economia };
 }
 
+
 module.exports = {
   TABELA,
   calcularConsumoDiario,
