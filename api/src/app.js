@@ -15,6 +15,7 @@ const nfvendaRouter  = require('./equipe-17/nfvendaRoutes');
 const equipe15Router = require('./equipe-15/freteRoutes');
 const equipe21Router = require('./equipe-21/routes');
 const mkpRouter      = require('./grupo13-markup/routes');
+const energyRouter   = require('./equipe-5/routes/energy');
 
 // checa se api no ar
 app.get('/health', (req, res) => {
@@ -22,6 +23,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/PBL',           pricingRouter);
+app.use('/ENRG',          energyRouter);
 app.use('/nfvenda',       nfvendaRouter);
 app.use('/api/equipe-21', equipe21Router);
 app.use('/equipe-15',     equipe15Router);
