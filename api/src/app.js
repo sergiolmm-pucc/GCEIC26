@@ -8,6 +8,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+const equipe15Router = require('./equipe-15/freteRoutes');
 const pricingRouter = require('./equipe-14/pricingRoutes');
 const equipe21Router = require('./equipe-21/routes');
 
@@ -18,6 +19,7 @@ app.get('/health', (req, res) => {
 
 app.use('/PBL', pricingRouter);
 app.use('/api/equipe-21', equipe21Router);
+app.use('/equipe-15', equipe15Router);
 
 // Proxy para o Backend do Grupo 18
 app.use('/equipe-18', (req, res) => {
