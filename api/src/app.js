@@ -1,7 +1,7 @@
 const express = require('express');
 const cors    = require('cors');
 const helmet  = require('helmet');
-const calcFinanceiraRouter = require("./calcFinanceira/calcFinanceiraApp")
+const calcFinanceiraRouter = require("./equipe-10/calcFinanceiraApp")
 
 const app = express();
 

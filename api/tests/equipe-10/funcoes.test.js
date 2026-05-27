@@ -1,4 +1,4 @@
-const financeFuncs = require('../../src/calcFinanceira/calcFinanceiraFunc');
+const financeFuncs = require('../../src/equipe-10/calcFinanceiraFunc');
 
 describe('FinanceService - Lógica Matemática', () => {
   

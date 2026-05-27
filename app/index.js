@@ -117,26 +117,26 @@ function requireEquipe10Auth(req, res, next) {
 }
 
 app.get('/equipe-10', (req, res) => {
-  res.render('calcFinanceira/splash');
+  res.render('equipe-10/splash');
 });
 
 app.get('/equipe-10/login', (req, res) => {
   if (req.session.equipe10User) return res.redirect('/equipe-10/calculo');
-  res.render('calcFinanceira/login', { error: null }); 
+  res.render('equipe-10/login', { error: null }); 
 });
 
 app.post('/equipe-10/login', (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password)
-    return res.render('calcFinanceira/login', { error: 'Preencha todos os campos' });
+    return res.render('equipe-10/login', { error: 'Preencha todos os campos' });
 
   if (username === 'admin' && password === '1234') {
     req.session.equipe10User = { username: 'adm', nome: 'Administrador' };
     return res.redirect('/equipe-10/calculo');
   }
 
-  res.render('calcFinanceira/login', { error: 'Usuário ou senha inválidos' });
+  res.render('equipe-10/login', { error: 'Usuário ou senha inválidos' });
 });
 
 app.get('/equipe-10/logout', (req, res) => {
@@ -145,7 +145,7 @@ app.get('/equipe-10/logout', (req, res) => {
 });
 
 app.get('/equipe-10/calculo', requireEquipe10Auth, (req, res) => {
-  res.render('calcFinanceira/calculadora', { user: req.session.equipe10User || null, resultado: null });
+  res.render('equipe-10/calculadora', { user: req.session.equipe10User || null, resultado: null });
 });
 
 app.post('/equipe-10/calcular', requireEquipe10Auth, async (req, res) => {
@@ -171,7 +171,7 @@ app.post('/equipe-10/calcular', requireEquipe10Auth, async (req, res) => {
     const dados = await respostaApi.json();
 
     if (dados.success) {
-      res.render('calcFinanceira/calculadora', { 
+      res.render('equipe-10/calculadora', { 
         user: req.session.equipe10User, 
         resultado: dados.data 
       });
@@ -189,11 +189,11 @@ app.post('/equipe-10/calcular', requireEquipe10Auth, async (req, res) => {
 });
 
 app.get('/equipe-10/sobre', requireEquipe10Auth, (req, res) => {
-  res.render('calcFinanceira/sobre');
+  res.render('equipe-10/sobre');
 });
 
 app.get('/equipe-10/help', requireEquipe10Auth, (req, res) => {
-  res.render('calcFinanceira/help');
+  res.render('equipe-10/help');
 });
 
 // 20 dynamic team endpoints
