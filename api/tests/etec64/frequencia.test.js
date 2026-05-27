@@ -1,5 +1,5 @@
-import request from 'supertest';
-import app from '../server.js';
+const request = require('supertest');
+const app = require('../../src/app.js');
 
 describe('Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia)', () => {
   
@@ -98,3 +98,4 @@ describe('Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/
     expect(response.body.erro).toContain('não pode ser maior do que o total de aulas previstas');
   });
 });
+

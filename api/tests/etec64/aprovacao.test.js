@@ -1,5 +1,5 @@
-import request from 'supertest';
-import app from '../server.js';
+const request = require('supertest');
+const app = require('../../src/app.js');
 
 describe('Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao)', () => {
   
@@ -93,3 +93,4 @@ describe('Testes de Integração - Endpoint de Simulação de Aprovação ETEC64
     expect(response.body.erro).toContain('inválida. Use MB, B, R ou I');
   });
 });
+

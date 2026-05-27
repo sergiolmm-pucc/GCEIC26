@@ -14,7 +14,7 @@
  *   "faltas": 12         // Total de faltas acumuladas pelo aluno
  * }
  */
-export const calcularFrequencia = (req, res) => {
+exports.calcularFrequencia = (req, res) => {
   try {
     const { aulasPrevistas, faltas } = req.body;
 
@@ -85,3 +85,4 @@ export const calcularFrequencia = (req, res) => {
     });
   }
 };
+

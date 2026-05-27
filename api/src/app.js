@@ -20,6 +20,7 @@ const energyRouter   = require('./equipe-5/routes/energy');
 const volumeRoutes = require('./equipe-7/volume');
 const materiaisRoutes = require('./equipe-7/materiais');
 const custosRoutes = require('./equipe-7/custos');
+const etec64Routes = require('./etec64/routes/etecRoutes.js');
 
 // checa se api está no ar
 app.get('/health', (req, res) => {
@@ -205,5 +206,7 @@ app.post('/AGUA/economia', (req, res) => {
 app.use('/PISCINA2/volume', volumeRoutes);
 app.use('/PISCINA2/materiais', materiaisRoutes);
 app.use('/PISCINA2/custos', custosRoutes);
+
+app.use('/api/etec64', etec64Routes);
 
 module.exports = app;

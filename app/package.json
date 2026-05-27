@@ -4,7 +4,7 @@
   "description": "cria o diretorio api e app no diretorio app via terminal  npm init -y cria o arquivo principal",
   "main": "index.js",
   "scripts": {
-    "build": "vite build && (cd equipe-18 && npm install && npm run build; exit 0)",
+    "build": "vite build && (cd equipe-18 && npm install && npm run build; exit 0) && (cd views/etec64 && npm install && npm run build; exit 0)",
     "start": "npm run build && node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

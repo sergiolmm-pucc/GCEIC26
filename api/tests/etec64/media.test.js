@@ -1,5 +1,5 @@
-import request from 'supertest';
-import app from '../server.js';
+const request = require('supertest');
+const app = require('../../src/app.js');
 
 describe('Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media)', () => {
   
@@ -84,3 +84,4 @@ describe('Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/
     expect(response.body.erro).toContain('inválida. Use apenas MB, B, R ou I');
   });
 });
+

@@ -30,7 +30,7 @@ const obterMencaoPorNota = (nota) => {
  *   "tipo": "numerica" OU "mencao" (opcional, deduzido automaticamente se não informado)
  * }
  */
-export const calcularMedia = (req, res) => {
+exports.calcularMedia = (req, res) => {
   try {
     const { notas, tipo } = req.body;
 
@@ -105,3 +105,4 @@ export const calcularMedia = (req, res) => {
     });
   }
 };
+

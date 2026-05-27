@@ -1,20 +1,12 @@
-import express from 'express';
-import { calcularMedia } from '../controllers/mediaController.js';
-import { calcularFrequencia } from '../controllers/frequenciaController.js';
-import { calcularAprovacao } from '../controllers/aprovacaoController.js';
+const express = require('express');
+const { calcularMedia } = require('../controllers/mediaController.js');
+const { calcularFrequencia } = require('../controllers/frequenciaController.js');
+const { calcularAprovacao } = require('../controllers/aprovacaoController.js');
 
 const router = express.Router();
 
-// Rota para cálculo de média de notas
-// Endpoint: POST /api/etec64/media
-router.post('/etec64/media', calcularMedia);
+router.post('/media', calcularMedia);
+router.post('/frequencia', calcularFrequencia);
+router.post('/aprovacao', calcularAprovacao);
 
-// Rota para cálculo de frequência e faltas
-// Endpoint: POST /api/etec64/frequencia
-router.post('/etec64/frequencia', calcularFrequencia);
-
-// Rota para simulação de aprovação acadêmica
-// Endpoint: POST /api/etec64/aprovacao
-router.post('/etec64/aprovacao', calcularAprovacao);
-
-export default router;
+module.exports = router;

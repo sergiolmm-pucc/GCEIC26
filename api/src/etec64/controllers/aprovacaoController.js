@@ -32,7 +32,7 @@ const obterMencaoPorNota = (nota) => {
  *   "bimestresRestantes": 1           // Bimestres restantes (0 = Período final/Exame, 1 a 3 = em andamento)
  * }
  */
-export const calcularAprovacao = (req, res) => {
+exports.calcularAprovacao = (req, res) => {
   try {
     const { mediaAtual, frequenciaAtual, bimestresRestantes } = req.body;
 
@@ -190,3 +190,4 @@ export const calcularAprovacao = (req, res) => {
     });
   }
 };
+
