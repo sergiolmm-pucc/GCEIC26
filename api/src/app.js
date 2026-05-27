@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 const pricingRouter  = require('./equipe-14/pricingRoutes');
+const equipe11Router = require('./equipe-11/routes');
 const nfvendaRouter  = require('./equipe-17/nfvendaRoutes');
 const equipe15Router = require('./equipe-15/freteRoutes');
 const equipe21Router = require('./equipe-21/routes');
@@ -22,6 +23,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/PBL',           pricingRouter);
+app.use('/equipe-11',     equipe11Router);
 app.use('/nfvenda',       nfvendaRouter);
 app.use('/api/equipe-21', equipe21Router);
 app.use('/equipe-15',     equipe15Router);

@@ -1,8 +1,9 @@
 ﻿describe('Testes Funcionais - Sistema de MarkUp', () => {
+  const appUrl = Cypress.env('APP_URL') || 'http://localhost:3000'
   
   beforeEach(() => {
     // Acessa o site local antes de cada teste
-    cy.visit('http://localhost:5173')
+    cy.visit(appUrl)
   })
 
   it('Deve realizar o login com sucesso usando credenciais fixas', () => {

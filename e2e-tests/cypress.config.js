@@ -9,7 +9,9 @@ export default defineConfig({
     specPattern: "tests/**/*.cy.{js,jsx}",
     supportFile: false,
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      // Use direct spec execution for plain JS tests and avoid webpack preprocessing.
+      on("file:preprocessor", (file) => file.filePath);
+      return config;
     },
   },
 });

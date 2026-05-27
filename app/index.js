@@ -472,9 +472,18 @@ app.get(/^\/equipe-18(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo18DistPath, 'index.html'));
 });
 
-// Rotas genéricas das demais equipes (grupos 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
+// Servir arquivos estáticos da Equipe 11 (Vite build)
+const grupo11DistPath = path.join(__dirname, 'src', 'equipe-11', 'dist');
+app.use('/equipe-11', express.static(grupo11DistPath));
+
+// Suporte para client-side routing do Vite
+app.get(/^\/equipe-11(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo11DistPath, 'index.html'));
+});
+
+// Rotas genéricas das demais equipes (grupos 6, 11, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 6 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21) continue;
+  if (i === 6 || i === 11 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
