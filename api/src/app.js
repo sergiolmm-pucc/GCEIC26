@@ -18,7 +18,7 @@ app.get('/health', (req, res) => {
 app.use('/nfvenda', nfvendaRouter);
 
 app.get('/api/tabelas', (req, res) => {
-  const { TABELA, calcular } = require('./funcoes');
+  const { TABELA } = require('./funcoes');
   res.json({
     success: true,
     data: {
@@ -31,9 +31,8 @@ app.get('/api/tabelas', (req, res) => {
 // POST /api/calcular
 app.post('/api/calcular', (req, res) => {
   try {
-    const { TABELA, calcular } = require('./funcoes');
+    const { calcular } = require('./funcoes');
     const dados = req.body;
-    console.log(dados);
 
     if (!dados || typeof dados !== 'object') {
       return res.status(400).json({ error: 'Corpo da requisição inválido' });

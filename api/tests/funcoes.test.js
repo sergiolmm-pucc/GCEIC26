@@ -78,7 +78,7 @@ describe('calcularImpostosNFVenda', () => {
   test('deve usar regime Lucro Presumido com alíquotas corretas', () => {
     const r = calcularImpostosNFVenda({ chave: CHAVE_SP, valorProduto: 1000, ipi: 0, regime: 'lucroPresumido' });
     expect(r.impostos.pis.alicota).toBe(0.65);
-    expect(r.impostos.cofins.alicota).toBe(3.0);
+    expect(r.impostos.cofins.alicota).toBe(3);
   });
 
   test('deve usar PIS/COFINS zerados no Simples Nacional', () => {

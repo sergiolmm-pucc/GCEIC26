@@ -52,7 +52,7 @@ const TABELA_NF_VENDA = {
     lucroPresumido: {
       nome: 'Lucro Presumido',
       pis: 0.65,
-      cofins: 3.0,
+      cofins: 3,
     },
     simplesNacional: {
       nome: 'Simples Nacional',
@@ -66,7 +66,7 @@ function _calcularDV(chave43) {
   const pesos = [2,3,4,5,6,7,8,9,2,3,4,5,6,7,8,9,2,3,4,5,6,7,8,9,
                  2,3,4,5,6,7,8,9,2,3,4,5,6,7,8,9,2,3,4];
   let soma = 0;
-  for (let i = 0; i < 43; i++) soma += parseInt(chave43[i]) * pesos[i];
+  for (let i = 0; i < 43; i++) soma += Number.parseInt(chave43[i]) * pesos[i];
   const resto = soma % 11;
   return resto < 2 ? 0 : 11 - resto;
 }
@@ -83,7 +83,7 @@ function decodificarChaveNF(chave) {
   const numero = c.substring(25, 34);
   const tpEmis = c.substring(34, 35);
   const cNF    = c.substring(35, 43);
-  const cDV    = parseInt(c.substring(43, 44));
+  const cDV    = Number.parseInt(c.substring(43, 44));
 
   const dvValido = cDV === _calcularDV(c.substring(0, 43));
   const estado   = TABELA_NF_VENDA.estados[cUF];
@@ -103,8 +103,8 @@ function decodificarChaveNF(chave) {
     cnpjFormatado:   cnpjFmt,
     modelo:          mod,
     modeloDescricao: TABELA_NF_VENDA.modelos[mod] || `Modelo ${mod}`,
-    serie:           parseInt(serie, 10).toString(),
-    numero:          parseInt(numero, 10).toString(),
+    serie:           Number.parseInt(serie, 10).toString(),
+    numero:          Number.parseInt(numero, 10).toString(),
     tpEmis,
     tipoEmissao:     TABELA_NF_VENDA.tiposEmissao[tpEmis] || `Tipo ${tpEmis}`,
     cNF,
@@ -142,14 +142,14 @@ function calcularImpostosNFVenda(dados) {
 
   const regimeInfo = TABELA_NF_VENDA.regimes[regime] || TABELA_NF_VENDA.regimes.lucroReal;
 
-  const valorICMS   = parseFloat(((alicotaICMS / 100)       * baseCalculo).toFixed(2));
-  const valorIPI    = parseFloat(((ipi / 100)               * valorProduto).toFixed(2));
-  const valorPIS    = parseFloat(((regimeInfo.pis / 100)    * valorProduto).toFixed(2));
-  const valorCOFINS = parseFloat(((regimeInfo.cofins / 100) * valorProduto).toFixed(2));
+  const valorICMS   = Number.parseFloat(((alicotaICMS / 100)       * baseCalculo).toFixed(2));
+  const valorIPI    = Number.parseFloat(((ipi / 100)               * valorProduto).toFixed(2));
+  const valorPIS    = Number.parseFloat(((regimeInfo.pis / 100)    * valorProduto).toFixed(2));
+  const valorCOFINS = Number.parseFloat(((regimeInfo.cofins / 100) * valorProduto).toFixed(2));
 
-  const totalImpostos   = parseFloat((valorICMS + valorIPI + valorPIS + valorCOFINS).toFixed(2));
-  const totalNF         = parseFloat((valorProduto + valorIPI + frete + seguro + outrasDespesas - descontos).toFixed(2));
-  const cargaTributaria = parseFloat(((totalImpostos / valorProduto) * 100).toFixed(2));
+  const totalImpostos   = Number.parseFloat((valorICMS + valorIPI + valorPIS + valorCOFINS).toFixed(2));
+  const totalNF         = Number.parseFloat((valorProduto + valorIPI + frete + seguro + outrasDespesas - descontos).toFixed(2));
+  const cargaTributaria = Number.parseFloat(((totalImpostos / valorProduto) * 100).toFixed(2));
 
   return {
     chave:         info.chave,
@@ -162,8 +162,8 @@ function calcularImpostosNFVenda(dados) {
     numeroNF:      info.numero,
     tipoEmissao:   info.tipoEmissao,
     regime:        regimeInfo.nome,
-    valorProduto:  parseFloat(valorProduto.toFixed(2)),
-    baseCalculo:   parseFloat(baseCalculo.toFixed(2)),
+    valorProduto:  Number.parseFloat(valorProduto.toFixed(2)),
+    baseCalculo:   Number.parseFloat(baseCalculo.toFixed(2)),
     impostos: {
       icms:   { alicota: alicotaICMS,       valor: valorICMS   },
       ipi:    { alicota: ipi,               valor: valorIPI    },

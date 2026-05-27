@@ -52,16 +52,8 @@ function requireAuth(req, res, next) {
   if (req.session && req.session.user) return next();
   res.redirect('/login');
 }
-/*
-app.get('/', (req, res) => {
-  if (req.session.user) return res.redirect('/dashboard');
-  res.render('login', { error: null });
-});
-*/
 app.get("/", (req, res) => {
   res.render('index', { equipes });
-  //if (req.session.user) return res.redirect("/dashboard");
-  //res.render("inicial", { error: null });
 });
 
 
