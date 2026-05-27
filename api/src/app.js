@@ -8,8 +8,9 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+const pricingRouter  = require('./equipe-14/pricingRoutes');
+const nfvendaRouter  = require('./equipe-17/nfvendaRoutes');
 const equipe15Router = require('./equipe-15/freteRoutes');
-const pricingRouter = require('./equipe-14/pricingRoutes');
 const equipe21Router = require('./equipe-21/routes');
 
 // checa se api no ar
@@ -17,7 +18,8 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM-33', turma:'101'});
 });
 
-app.use('/PBL', pricingRouter);
+app.use('/PBL',           pricingRouter);
+app.use('/nfvenda',       nfvendaRouter);
 app.use('/api/equipe-21', equipe21Router);
 app.use('/equipe-15', equipe15Router);
 
@@ -25,7 +27,7 @@ app.use('/equipe-15', equipe15Router);
 app.use('/equipe-18', (req, res) => {
   const https = require('https');
   const target = new URL(req.path.replace(/^\//, ''), 'https://d36mf6v2e37tzy.cloudfront.net/');
-  
+
   const proxyRequest = https.request(target, {
     method: req.method,
     headers: {
@@ -61,7 +63,6 @@ app.get('/api/tabelas', (req, res) => {
       formula: TABELA.FORMULA,
     },
   });
-
 });
 
 // POST /api/calcular
@@ -73,7 +74,7 @@ app.post('/api/calcular', (req, res) => {
     if (!dados || typeof dados !== 'object') {
       return res.status(400).json({ success: false, error: 'Corpo da requisição inválido' });
     }
-    
+
     const resultado = calcular(dados);
     return res.status(200).json({ success: true, data: resultado });
   } catch (err) {
@@ -81,5 +82,4 @@ app.post('/api/calcular', (req, res) => {
   }
 });
 
-module.exports = app
-
+module.exports = app;
