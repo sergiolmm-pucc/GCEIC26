@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora NF de Venda — Grupo 17</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #0a0a0f;
+      --surface: #12121a;
+      --border:  #1e1e2e;
+      --accent:  #aaff00;
+      --accent2: #00e5ff;
+      --accent3: #ff3c5f;
+      --text:    #e8e8f0;
+      --muted:   #555570;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Mono', monospace;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(170,255,0,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(170,255,0,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      position: relative; z-index: 1;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .topbar a {
+      color: var(--muted); text-decoration: none;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      display: flex; align-items: center; gap: 8px;
+      transition: color .2s;
+    }
+    .topbar a:hover { color: var(--text); }
+    .topbar-title {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 13px; letter-spacing: 3px; color: var(--accent);
+    }
+    .topbar-badge {
+      font-size: 10px; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 4px;
+      padding: 3px 8px; letter-spacing: 1px;
+    }
+
+    /* ── Page layout ── */
+    .page {
+      position: relative; z-index: 1;
+      max-width: 860px; margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .page-header { margin-bottom: 40px; }
+    .page-header h1 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(28px, 5vw, 48px); line-height: 1.1;
+    }
+    .page-header h1 span { color: var(--accent); }
+    .page-header p { color: var(--muted); font-size: 12px; margin-top: 10px; letter-spacing: 1px; }
+
+    /* ── Step card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 20px;
+    }
+    .card-header {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 24px;
+    }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--accent); color: #000;
+      font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-header h2 {
+      font-family: 'Syne', sans-serif; font-size: 16px;
+      font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    }
+
+    /* ── Form elements ── */
+    .field { margin-bottom: 18px; }
+    label {
+      display: block; font-size: 10px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+    }
+    input[type="text"], input[type="number"], select {
+      width: 100%; padding: 12px 16px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text);
+      font-family: 'Space Mono', monospace; font-size: 13px;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+    }
+    input[type="text"]:focus, input[type="number"]:focus, select:focus {
+      outline: none; border-color: var(--accent);
+    }
+    input[type="text"]::placeholder { color: var(--muted); }
+
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+    @media (max-width: 600px) {
+      .grid2, .grid3 { grid-template-columns: 1fr; }
+    }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px; border: none; border-radius: 8px;
+      font-family: 'Space Mono', monospace; font-size: 12px;
+      font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      cursor: pointer; transition: all .2s;
+    }
+    .btn-primary {
+      background: var(--accent); color: #000;
+    }
+    .btn-primary:hover { background: #c8ff1a; }
+    .btn-primary:disabled { background: #3a4f00; color: #666; cursor: not-allowed; }
+    .btn-secondary {
+      background: transparent; color: var(--accent2);
+      border: 1px solid var(--accent2);
+    }
+    .btn-secondary:hover { background: rgba(0,229,255,0.06); }
+    .btn-full { width: 100%; justify-content: center; }
+
+    /* ── Error / info boxes ── */
+    .alert {
+      padding: 12px 16px; border-radius: 8px; font-size: 12px;
+      letter-spacing: .5px; display: none; margin-top: 12px;
+    }
+    .alert.show { display: block; }
+    .alert-error { background: rgba(255,60,95,.1); border: 1px solid rgba(255,60,95,.3); color: #ff7a96; }
+    .alert-warn  { background: rgba(255,200,0,.08); border: 1px solid rgba(255,200,0,.25); color: #ffd060; }
+
+    /* ── NF Info panel ── */
+    #infoPanel { display: none; }
+    #infoPanel.show { display: block; }
+
+    .info-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;
+    }
+    .info-item {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 16px;
+    }
+    .info-item .lbl {
+      font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 6px;
+    }
+    .info-item .val {
+      font-size: 13px; color: var(--text); font-weight: 700;
+      word-break: break-all;
+    }
+    .info-item .val.accent { color: var(--accent); }
+    .info-item .val.warn   { color: #ffd060; }
+
+    .dv-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 10px; border-radius: 20px; font-size: 10px; letter-spacing: 1px;
+    }
+    .dv-ok   { background: rgba(170,255,0,.12);  color: var(--accent);  border: 1px solid rgba(170,255,0,.3);  }
+    .dv-fail { background: rgba(255,60,95,.12);  color: var(--accent3); border: 1px solid rgba(255,60,95,.3);  }
+
+    /* ── Results panel ── */
+    #resultPanel { display: none; }
+    #resultPanel.show { display: block; }
+
+    .tax-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 600px) { .tax-grid { grid-template-columns: 1fr 1fr; } }
+
+    .tax-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 18px 14px; text-align: center;
+    }
+    .tax-card .tax-name {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .tax-card .tax-alicota {
+      font-size: 20px; font-weight: 700; color: var(--accent2);
+      font-family: 'Syne', sans-serif;
+    }
+    .tax-card .tax-alicota span { font-size: 11px; }
+    .tax-card .tax-valor {
+      font-size: 12px; color: var(--muted); margin-top: 6px;
+    }
+    .tax-card .tax-valor strong { color: var(--text); }
+
+    .tax-card.icms  { border-color: rgba(170,255,0,.2); }
+    .tax-card.ipi   { border-color: rgba(0,229,255,.2); }
+    .tax-card.pis   { border-color: rgba(255,60,95,.2); }
+    .tax-card.cofins { border-color: rgba(180,100,255,.2); }
+
+    .totals-box {
+      background: linear-gradient(135deg, rgba(170,255,0,.06), rgba(0,229,255,.04));
+      border: 1px solid rgba(170,255,0,.2);
+      border-radius: 12px; padding: 24px 28px;
+    }
+    .totals-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; border-bottom: 1px solid var(--border);
+    }
+    .totals-row:last-child { border-bottom: none; }
+    .totals-row .t-label { font-size: 11px; letter-spacing: 1px; color: var(--muted); }
+    .totals-row .t-value { font-size: 14px; font-weight: 700; color: var(--text); }
+    .totals-row.highlight .t-label { color: var(--accent); }
+    .totals-row.highlight .t-value { font-size: 22px; color: var(--accent); font-family: 'Syne', sans-serif; }
+
+    .regime-tag {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 10px; letter-spacing: 1px;
+      background: rgba(0,229,255,.08); border: 1px solid rgba(0,229,255,.2); color: var(--accent2);
+      margin-bottom: 20px;
+    }
+
+    /* ── Loading spinner ── */
+    .spin {
+      display: inline-block; width: 14px; height: 14px;
+      border: 2px solid rgba(0,0,0,.3); border-top-color: #000;
+      border-radius: 50%; animation: spin .6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Separator ── */
+    .sep {
+      height: 1px; background: var(--border); margin: 28px 0;
+    }
+
+    /* ── Demo key helper ── */
+    .demo-key {
+      font-size: 10px; color: var(--muted); margin-top: 8px; letter-spacing: .5px;
+    }
+    .demo-key button {
+      background: none; border: none; color: var(--accent2);
+      font-family: 'Space Mono', monospace; font-size: 10px;
+      cursor: pointer; text-decoration: underline; padding: 0;
+    }
+    .demo-key button:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+<!-- Top bar -->
+<header class="topbar">
+  <a href="/">&#8592; voltar ao painel</a>
+  <span class="topbar-title">CALC NF DE VENDA</span>
+  <span class="topbar-badge">GRUPO 17</span>
+</header>
+
+<!-- Main content -->
+<main class="page">
+
+  <div class="page-header">
+    <h1>Calculadora de<br><span>Impostos NF Venda</span></h1>
+    <p>Informe a chave de acesso (código de barras) da NF-e e calcule ICMS, IPI, PIS e COFINS</p>
+  </div>
+
+  <!-- STEP 1: Barcode input -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">1</div>
+      <h2>Código de Barras / Chave de Acesso</h2>
+    </div>
+
+    <div class="field">
+      <label for="chaveInput">Chave de Acesso NF-e (44 dígitos)</label>
+      <input
+        type="text"
+        id="chaveInput"
+        placeholder="Ex: 35260312345678000195550010000000011234567890"
+        maxlength="48"
+        oninput="this.value = this.value.replace(/\D/g, '')"
+      />
+      <div class="demo-key">
+        Não tem uma chave?
+        <button onclick="usarChaveDemo()">usar chave de demonstração</button>
+      </div>
+    </div>
+
+    <div class="alert alert-error" id="alertDecode"></div>
+
+    <button class="btn btn-primary" id="btnDecode" onclick="decodificar()">
+      Decodificar chave
+    </button>
+  </div>
+
+  <!-- NF Info panel (shown after decode) -->
+  <div class="card" id="infoPanel">
+    <div class="card-header">
+      <div class="step-num" style="background:var(--accent2); color:#000">i</div>
+      <h2>Informações da Nota Fiscal</h2>
+    </div>
+    <div class="info-grid" id="infoGrid"></div>
+  </div>
+
+  <!-- STEP 2: Tax inputs -->
+  <div class="card" id="step2Card" style="display:none">
+    <div class="card-header">
+      <div class="step-num">2</div>
+      <h2>Dados do Produto e Regime</h2>
+    </div>
+
+    <div class="grid2">
+      <div class="field">
+        <label for="valorProduto">Valor do Produto (R$)</label>
+        <input type="number" id="valorProduto" placeholder="Ex: 1000.00" min="0.01" step="0.01" />
+      </div>
+      <div class="field">
+        <label for="ipi">Alíquota IPI (%)</label>
+        <input type="number" id="ipi" placeholder="Ex: 5" min="0" step="0.01" value="0" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="regime">Regime Tributário</label>
+      <select id="regime">
+        <option value="lucroReal">Lucro Real — PIS 1,65% / COFINS 7,6%</option>
+        <option value="lucroPresumido">Lucro Presumido — PIS 0,65% / COFINS 3,0%</option>
+        <option value="simplesNacional">Simples Nacional — PIS 0% / COFINS 0%</option>
+      </select>
+    </div>
+
+    <div class="sep"></div>
+
+    <p style="font-size:11px; color:var(--muted); margin-bottom:16px; letter-spacing:.5px">
+      Opcional: adicione frete, seguro e outras despesas à base de cálculo do ICMS
+    </p>
+
+    <div class="grid3">
+      <div class="field">
+        <label for="frete">Frete (R$)</label>
+        <input type="number" id="frete" placeholder="0.00" min="0" step="0.01" value="0" />
+      </div>
+      <div class="field">
+        <label for="seguro">Seguro (R$)</label>
+        <input type="number" id="seguro" placeholder="0.00" min="0" step="0.01" value="0" />
+      </div>
+      <div class="field">
+        <label for="descontos">Descontos (R$)</label>
+        <input type="number" id="descontos" placeholder="0.00" min="0" step="0.01" value="0" />
+      </div>
+    </div>
+
+    <div class="alert alert-warn" id="alertCalc"></div>
+
+    <button class="btn btn-primary btn-full" id="btnCalc" onclick="calcular()" style="margin-top:8px">
+      Calcular Impostos
+    </button>
+  </div>
+
+  <!-- Results panel -->
+  <div class="card" id="resultPanel">
+    <div class="card-header">
+      <div class="step-num" style="background:var(--accent)">3</div>
+      <h2>Impostos da Nota Fiscal</h2>
+    </div>
+
+    <div class="regime-tag" id="regimeTag"></div>
+
+    <div class="tax-grid">
+      <div class="tax-card icms">
+        <div class="tax-name">ICMS</div>
+        <div class="tax-alicota" id="icmsAlicota">0<span>%</span></div>
+        <div class="tax-valor">R$ <strong id="icmsValor">0,00</strong></div>
+      </div>
+      <div class="tax-card ipi">
+        <div class="tax-name">IPI</div>
+        <div class="tax-alicota" id="ipiAlicota">0<span>%</span></div>
+        <div class="tax-valor">R$ <strong id="ipiValor">0,00</strong></div>
+      </div>
+      <div class="tax-card pis">
+        <div class="tax-name">PIS</div>
+        <div class="tax-alicota" id="pisAlicota">0<span>%</span></div>
+        <div class="tax-valor">R$ <strong id="pisValor">0,00</strong></div>
+      </div>
+      <div class="tax-card cofins">
+        <div class="tax-name">COFINS</div>
+        <div class="tax-alicota" id="cofinsAlicota">0<span>%</span></div>
+        <div class="tax-valor">R$ <strong id="cofinsValor">0,00</strong></div>
+      </div>
+    </div>
+
+    <div class="totals-box">
+      <div class="totals-row">
+        <span class="t-label">Valor do Produto</span>
+        <span class="t-value" id="resProduto">—</span>
+      </div>
+      <div class="totals-row">
+        <span class="t-label">Base de Cálculo ICMS</span>
+        <span class="t-value" id="resBase">—</span>
+      </div>
+      <div class="totals-row">
+        <span class="t-label">Total dos Impostos</span>
+        <span class="t-value" id="resTotalImp">—</span>
+      </div>
+      <div class="totals-row">
+        <span class="t-label">Total da NF</span>
+        <span class="t-value" id="resTotalNF">—</span>
+      </div>
+      <div class="totals-row highlight">
+        <span class="t-label">CARGA TRIBUTÁRIA</span>
+        <span class="t-value" id="resCarga">—</span>
+      </div>
+    </div>
+
+    <div style="margin-top:20px; text-align:right">
+      <button class="btn btn-secondary" onclick="novoCalculo()">Nova Consulta</button>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // ── Helpers ──────────────────────────────────────────────
+  const fmt  = v => 'R$ ' + Number(v).toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const fmtP = v => Number(v).toFixed(2).replace('.', ',') + '%';
+  const $ = id => document.getElementById(id);
+
+  function setLoading(btn, loading) {
+    if (loading) {
+      btn.disabled = true;
+      btn.dataset.orig = btn.innerHTML;
+      btn.innerHTML = '<span class="spin"></span> Aguarde...';
+    } else {
+      btn.disabled = false;
+      btn.innerHTML = btn.dataset.orig;
+    }
+  }
+
+  function showAlert(id, msg) {
+    const el = $(id);
+    el.textContent = msg;
+    el.classList.add('show');
+  }
+
+  function hideAlert(id) { $(id).classList.remove('show'); }
+
+  function usarChaveDemo() {
+    $('chaveInput').value = '35260312345678000195550010000000011234567890';
+  }
+
+  // ── Step 1: Decode ────────────────────────────────────────
+  let dadosNF = null;
+
+  async function decodificar() {
+    hideAlert('alertDecode');
+    const chave = $('chaveInput').value.replace(/\D/g, '');
+
+    if (chave.length !== 44) {
+      showAlert('alertDecode', '⚠ A chave de acesso deve ter exatamente 44 dígitos numéricos.');
+      return;
+    }
+
+    const btn = $('btnDecode');
+    setLoading(btn, true);
+
+    try {
+      const res = await fetch('/equipe-17/decodificar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chave }),
+      });
+      const json = await res.json();
+
+      if (!json.success) {
+        showAlert('alertDecode', '⚠ ' + json.error);
+        return;
+      }
+
+      dadosNF = json.data;
+      renderInfo(dadosNF);
+
+      $('infoPanel').classList.add('show');
+      $('step2Card').style.display = 'block';
+      $('resultPanel').classList.remove('show');
+
+      $('step2Card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    } catch (e) {
+      showAlert('alertDecode', '⚠ Erro ao comunicar com o servidor: ' + e.message);
+    } finally {
+      setLoading(btn, false);
+    }
+  }
+
+  function renderInfo(d) {
+    const dvBadge = d.dvValido
+      ? `<span class="dv-badge dv-ok">&#10003; Dígito verificador válido</span>`
+      : `<span class="dv-badge dv-fail">&#9888; Dígito verificador inválido</span>`;
+
+    const items = [
+      { lbl: 'Estado Emissor',   val: d.estado,          cls: 'accent' },
+      { lbl: 'ICMS Padrão',      val: d.icmsPadrao + '%', cls: 'accent' },
+      { lbl: 'Data de Emissão',  val: d.dataEmissao },
+      { lbl: 'Modelo',           val: d.modeloDescricao },
+      { lbl: 'Número da NF',     val: d.numero },
+      { lbl: 'Série',            val: d.serie },
+      { lbl: 'CNPJ Emissor',     val: d.cnpjFormatado },
+      { lbl: 'Tipo de Emissão',  val: d.tipoEmissao },
+    ];
+
+    $('infoGrid').innerHTML = items.map(it =>
+      `<div class="info-item">
+        <div class="lbl">${it.lbl}</div>
+        <div class="val ${it.cls || ''}">${it.val}</div>
+      </div>`
+    ).join('') + `<div class="info-item" style="grid-column:1/-1">
+        <div class="lbl">Validade da Chave</div>
+        <div class="val">${dvBadge}</div>
+      </div>`;
+  }
+
+  // ── Step 2: Calculate ────────────────────────────────────
+  async function calcular() {
+    hideAlert('alertCalc');
+
+    if (!dadosNF) {
+      showAlert('alertCalc', '⚠ Decodifique a chave de acesso primeiro.');
+      return;
+    }
+
+    const valorProduto = parseFloat($('valorProduto').value);
+    if (!valorProduto || isNaN(valorProduto) || valorProduto <= 0) {
+      showAlert('alertCalc', '⚠ Informe um valor de produto válido (maior que zero).');
+      return;
+    }
+
+    const payload = {
+      chave:        dadosNF.chave,
+      valorProduto,
+      ipi:          parseFloat($('ipi').value)      || 0,
+      frete:        parseFloat($('frete').value)    || 0,
+      seguro:       parseFloat($('seguro').value)   || 0,
+      descontos:    parseFloat($('descontos').value)|| 0,
+      regime:       $('regime').value,
+    };
+
+    const btn = $('btnCalc');
+    setLoading(btn, true);
+
+    try {
+      const res = await fetch('/equipe-17/calcular', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json();
+
+      if (!json.success) {
+        showAlert('alertCalc', '⚠ ' + json.error);
+        return;
+      }
+
+      renderResult(json.data);
+      $('resultPanel').classList.add('show');
+      $('resultPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    } catch (e) {
+      showAlert('alertCalc', '⚠ Erro ao comunicar com o servidor: ' + e.message);
+    } finally {
+      setLoading(btn, false);
+    }
+  }
+
+  function renderResult(d) {
+    const imp = d.impostos;
+
+    $('icmsAlicota').innerHTML  = imp.icms.alicota   + '<span>%</span>';
+    $('ipiAlicota').innerHTML   = imp.ipi.alicota    + '<span>%</span>';
+    $('pisAlicota').innerHTML   = imp.pis.alicota    + '<span>%</span>';
+    $('cofinsAlicota').innerHTML= imp.cofins.alicota + '<span>%</span>';
+
+    $('icmsValor').textContent   = Number(imp.icms.valor).toFixed(2).replace('.', ',');
+    $('ipiValor').textContent    = Number(imp.ipi.valor).toFixed(2).replace('.', ',');
+    $('pisValor').textContent    = Number(imp.pis.valor).toFixed(2).replace('.', ',');
+    $('cofinsValor').textContent = Number(imp.cofins.valor).toFixed(2).replace('.', ',');
+
+    $('resProduto').textContent  = fmt(d.valorProduto);
+    $('resBase').textContent     = fmt(d.baseCalculo);
+    $('resTotalImp').textContent = fmt(d.totalImpostos);
+    $('resTotalNF').textContent  = fmt(d.totalNF);
+    $('resCarga').textContent    = fmtP(d.cargaTributaria);
+    $('regimeTag').textContent   = 'Regime: ' + d.regime;
+  }
+
+  function novoCalculo() {
+    $('chaveInput').value = '';
+    $('valorProduto').value = '';
+    $('ipi').value = '0';
+    $('frete').value = '0';
+    $('seguro').value = '0';
+    $('descontos').value = '0';
+    $('infoPanel').classList.remove('show');
+    $('step2Card').style.display = 'none';
+    $('resultPanel').classList.remove('show');
+    hideAlert('alertDecode');
+    hideAlert('alertCalc');
+    dadosNF = null;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
