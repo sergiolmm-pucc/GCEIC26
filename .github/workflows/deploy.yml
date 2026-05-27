@@ -1,11 +1,11 @@
 name: Teste and Deploy
 
 on:
+  workflow_dispatch:
   push:
-    branches:
-      [main, dev, "grupo16/markup", grupo17/calculadora_imposto_nf_venda]
+    branches: [main, dev, grupo17/calculadora_imposto_nf_venda]
   pull_request:
-    branches: [grupo16/markup, grupo17/calculadora_imposto_nf_venda]
+    branches: [main]
 
 jobs:
   detect-changes:
@@ -102,7 +102,7 @@ jobs:
 
   deploy-api:
     needs: unitTestApi
-    if: success()
+    if: success() && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     outputs:
       dep_api: ${{ steps.set-output-api.outputs.dep_api }}
@@ -168,7 +168,7 @@ jobs:
 
   deploy-app:
     needs: detect-changes
-    if: needs.detect-changes.outputs.app == 'true'
+    if: needs.detect-changes.outputs.app == 'true' && github.ref == 'refs/heads/main'
     #    needs: unitTestApi
 
     runs-on: ubuntu-latest
