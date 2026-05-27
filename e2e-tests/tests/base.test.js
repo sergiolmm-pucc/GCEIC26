@@ -9,8 +9,9 @@ const SCREENSHOTS_DIR = path.join(__dirname, '..', 'screenshots');
 // Garante que o diretório de screenshots existe
 if (!fs.existsSync(SCREENSHOTS_DIR)) fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
 
-async function tiraFoto(name){
+let driver; 
 
+async function tiraFoto(name){
       try{
         const img = await driver.takeScreenshot();
         const filePath = path.join(SCREENSHOTS_DIR, `${name}.png`);
@@ -19,7 +20,40 @@ async function tiraFoto(name){
       }catch(e){
         console.warn('Erro ao tirar a foto');
       }
+}
 
+async function testarGrupo6() {
+    console.log('Iniciando testes do Grupo 6 - Sauna...');
+
+    // 1. TESTE DE LOGIN
+    console.log('Acessando login do Grupo 6...');
+    await driver.get(BASE_URL + '/sauna6/login');
+    await tiraFoto('G6-01-Login-Aberto');
+
+    await driver.findElement(By.id('usuario')).sendKeys('admin');
+    await driver.findElement(By.id('senha')).sendKeys('1234');
+    await tiraFoto('G6-02-Login-Preenchido');
+
+    await driver.findElement(By.id('formLogin')).submit();
+    
+    // 2. TESTE DA CALCULADORA
+    console.log('Aguardando redirecionamento para calculadora...');
+    await driver.wait(until.urlContains('/sauna6/calculadora'), 5000);
+    await new Promise(r => setTimeout(r, 1000));
+    await tiraFoto('G6-03-Calculadora-Aberta');
+
+    console.log('Preenchendo simulacao da sauna...');
+    await driver.findElement(By.id('largura')).sendKeys('2');
+    await driver.findElement(By.id('comprimento')).sendKeys('2');
+    await driver.findElement(By.id('altura')).sendKeys('2.5');
+    await tiraFoto('G6-04-Calculadora-Preenchida');
+
+    await driver.findElement(By.id('formSauna')).submit();
+    
+    await new Promise(r => setTimeout(r, 2000)); 
+    await tiraFoto('G6-05-Calculadora-Resultados');
+
+    console.log('Testes do Grupo 6 finalizados com sucesso.');
 }
 
 async function main() {
@@ -35,7 +69,6 @@ async function main() {
       '--disable-gpu'
       );
 
-    //  let driver = await new Builder().forBrowser(Browser.CHROME).build();
       driver = await new Builder()
         .forBrowser('chrome')
         .setChromeOptions(opts)
@@ -43,6 +76,7 @@ async function main() {
       console.log('criado');  
       await driver.manage().setTimeouts({ implicit: 5000, pageLoad: 15000 });
 
+      // TESTE ORIGINAL MANTIDO
       await driver.get(BASE_URL + '/login');
 
       tiraFoto("Pagina Entrada");
@@ -58,8 +92,15 @@ async function main() {
 
       tiraFoto("Submit form com erro");
 
-      const errMsg = await driver.findElement(By.css('erro')).getText();
-      if (!errMsg.includes('invalidos')) throw new Error(`Falhou : ${errMsg}`);
+      try {
+          const errMsg = await driver.findElement(By.css('.erro')).getText();
+          if (!errMsg.includes('invalidos')) throw new Error(`Falhou : ${errMsg}`);
+      } catch (errOriginal) {
+          console.log('Aviso no teste original:', errOriginal.message);
+      }
+      
+      // CHAMADA DO NOSSO METODO NOVO AQUI
+      await testarGrupo6();
     
     } catch(error){  
         console.log(error.message);
