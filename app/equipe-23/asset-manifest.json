@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d7deb3f1.css",
+    "main.js": "/static/js/main.01091e79.js",
+    "static/media/rafael.png": "/static/media/rafael.2400d0cc187db3fc49e5.png",
+    "static/media/caio.jpg": "/static/media/caio.7b1604930a034a913f28.jpg",
+    "index.html": "/index.html",
+    "main.d7deb3f1.css.map": "/static/css/main.d7deb3f1.css.map",
+    "main.01091e79.js.map": "/static/js/main.01091e79.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d7deb3f1.css",
+    "static/js/main.01091e79.js"
+  ]
+}
