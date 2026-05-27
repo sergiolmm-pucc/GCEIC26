@@ -1,12 +1,12 @@
-const express    = require('express');
-const session    = require('express-session');
+const express = require('express');
+const session = require('express-session');
 const bodyParser = require('body-parser');
-const http       = require('node:http');
-const https      = require('node:https');
-const path       = require('path');
+const http = require('node:http');
+const https = require('node:https');
+const path = require('path');
 
-const app     = express();
-const PORT    = process.env.PORT    || 3000;
+const app = express();
+const PORT = process.env.PORT || 3000;
 const API_URL = process.env.API_URL || 'http://localhost:3001';
 const GRUPO14_PATH = '/equipe-14';
 const grupo14DistPath = path.join(__dirname, 'dist');
@@ -28,7 +28,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(GRUPO14_PATH, express.static(grupo14DistPath));
 app.use(GRUPO5_PATH, express.static(grupo5DistPath));
-app.use(GRUPO2_PATH,  express.static(grupo2DistPath));
+app.use(GRUPO2_PATH, express.static(grupo2DistPath));
 
 // ── Proxy API Equipe 2 — IRP ──
 app.post('/IRP/calcular', async (req, res) => {
@@ -122,11 +122,11 @@ grupo9.get('/logout', (req, res) => {
 });
 
 // rotas protegidas
-grupo9.get('/calculo',  requireAuth, (req, res) => res.render('equipe-9/calculo',  { user: req.session.user }));
-grupo9.get('/inverso',  requireAuth, (req, res) => res.render('equipe-9/inverso',  { user: req.session.user }));
+grupo9.get('/calculo', requireAuth, (req, res) => res.render('equipe-9/calculo', { user: req.session.user }));
+grupo9.get('/inverso', requireAuth, (req, res) => res.render('equipe-9/inverso', { user: req.session.user }));
 grupo9.get('/comparar', requireAuth, (req, res) => res.render('equipe-9/comparar', { user: req.session.user }));
-grupo9.get('/sobre',    requireAuth, (req, res) => res.render('equipe-9/sobre',    { user: req.session.user }));
-grupo9.get('/help',     requireAuth, (req, res) => res.render('equipe-9/help',     { user: req.session.user }));
+grupo9.get('/sobre', requireAuth, (req, res) => res.render('equipe-9/sobre', { user: req.session.user }));
+grupo9.get('/help', requireAuth, (req, res) => res.render('equipe-9/help', { user: req.session.user }));
 
 // Proxies
 async function proxyAPI(endpoint, req, res) {
@@ -144,7 +144,7 @@ async function proxyAPI(endpoint, req, res) {
   }
 }
 
-const BASE_PATH    = '/equipe-16';
+const BASE_PATH = '/equipe-16';
 const BASE_PATH_13 = '/equipe-13';
 const EQUIPE21_PATH = '/equipe-21';
 
@@ -152,32 +152,32 @@ app.use(`${EQUIPE21_PATH}/vendor/react`, express.static(path.join(__dirname, 'no
 app.use(`${EQUIPE21_PATH}/vendor/react-dom`, express.static(path.join(__dirname, 'node_modules', 'react-dom', 'umd')));
 
 const equipes = [
-  { numero: 1,  nome: 'TESTE',       rota: '/login' },
-  { numero: 2,  nome: 'Equipe-2',    rota: '/equipe-2' },
-  { numero: 3,  nome: 'Equipe-3',    rota: '/equipe-3' },
-  { numero: 4,  nome: 'Equipe-4',    rota: '/equipe-4' },
-  { numero: 5,  nome: 'Equipe-5',    rota: '/equipe-5' },
-  { numero: 6,  nome: 'Equipe-6',    rota: '/sauna6' },
-  { numero: 7,  nome: 'G7 - Calculadora de Custo de Piscinas',    rota: '/equipe-7' },
-  { numero: 8,  nome: 'Equipe-8 Calculo de Piscina',    rota: '/equipe-08' },
-  { numero: 9,  nome: 'Equipe-9',    rota: '/equipe-9' },
-  { numero: 10, nome: 'Equipe-10',   rota: '/equipe-10' },
-  { numero: 11, nome: 'Equipe-11',   rota: '/equipe-11' },
-  { numero: 12, nome: 'Equipe-12',   rota: '/equipe-12' },
+  { numero: 1, nome: 'TESTE', rota: '/login' },
+  { numero: 2, nome: 'Equipe-2', rota: '/equipe-2' },
+  { numero: 3, nome: 'Equipe-3', rota: '/equipe-3' },
+  { numero: 4, nome: 'Equipe-4', rota: '/equipe-4' },
+  { numero: 5, nome: 'Equipe-5', rota: '/equipe-5' },
+  { numero: 6, nome: 'Equipe-6', rota: '/sauna6' },
+  { numero: 7, nome: 'G7 - Calculadora de Custo de Piscinas', rota: '/equipe-7' },
+  { numero: 8, nome: 'Equipe-8 Calculo de Piscina', rota: '/equipe-08' },
+  { numero: 9, nome: 'Equipe-9', rota: '/equipe-9' },
+  { numero: 10, nome: 'Equipe-10', rota: '/equipe-10' },
+  { numero: 11, nome: 'Equipe-11', rota: '/equipe-11' },
+  { numero: 12, nome: 'Equipe-12', rota: '/equipe-12' },
   { numero: 13, nome: 'G13 - MarkUp', rota: '/equipe-13' },
-  { numero: 14, nome: 'Equipe-14',   rota: '/equipe-14' },
-  { numero: 15, nome: 'Equipe-15',   rota: '/equipe-15' },
+  { numero: 14, nome: 'Equipe-14', rota: '/equipe-14' },
+  { numero: 15, nome: 'Equipe-15', rota: '/equipe-15' },
   { numero: 16, nome: 'G16 - MarkUp Calc', rota: '/equipe-16' },
   { numero: 17, nome: 'G17 - Calc NF Venda', rota: '/equipe-17' },
   { numero: 18, nome: 'G18 - Cálculo de Impostos NF', rota: '/equipe-18' },
-  { numero: 19, nome: 'Equipe-19',   rota: '/equipe-19' },
+  { numero: 19, nome: 'Equipe-19', rota: '/equipe-19' },
   { numero: 20, nome: 'G20 - AguaCalc', rota: '/equipe-20' },
-  { numero: 21, nome: 'G21 - BurgCalc',   rota: '/equipe-21' },
-  { numero: 22, nome: 'Equipe-22',   rota: '/equipe-22' },
-  { numero: 23, nome: 'G23 - Calc Autonomia',   rota: '/equipe-23' },
-  { numero: 24, nome: 'Equipe-24',   rota: '/equipe-24' },
-  { numero: 25, nome: 'Equipe-25',   rota: '/equipe-25' },
-  { numero: 64, nome: 'Equipe-64',   rota: '/equipe-64' },
+  { numero: 21, nome: 'G21 - BurgCalc', rota: '/equipe-21' },
+  { numero: 22, nome: 'Equipe-22', rota: '/equipe-22' },
+  { numero: 23, nome: 'G23 - Calc Autonomia', rota: '/equipe-23' },
+  { numero: 24, nome: 'Equipe-24', rota: '/equipe-24' },
+  { numero: 25, nome: 'Equipe-25', rota: '/equipe-25' },
+  { numero: 64, nome: 'Equipe-64', rota: '/equipe-64' },
 ];
 
 // Página inicial — lista de equipes
@@ -255,9 +255,9 @@ grupo16.post('/calcular', requireAuth, async (req, res) => {
   }
 });
 
-grupo9.post('/calcular',         requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular',         req, res));
+grupo9.post('/calcular', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular', req, res));
 grupo9.post('/calcular-inverso', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular-inverso', req, res));
-grupo9.post('/comparar',         requireAuth, (req, res) => proxyAPI('/api/equipe-9/comparar',         req, res));
+grupo9.post('/comparar', requireAuth, (req, res) => proxyAPI('/api/equipe-9/comparar', req, res));
 
 app.use('/equipe-9', grupo9);
 
@@ -327,9 +327,9 @@ async function mkpProxy(mkpPath, body, res) {
   }
 }
 
-grupo13.post('/markup',    requireAuth13, (req, res) => mkpProxy('/markup',    req.body, res));
-grupo13.post('/lucro',     requireAuth13, (req, res) => mkpProxy('/lucro',     req.body, res));
-grupo13.post('/equilibrio',requireAuth13, (req, res) => mkpProxy('/equilibrio',req.body, res));
+grupo13.post('/markup', requireAuth13, (req, res) => mkpProxy('/markup', req.body, res));
+grupo13.post('/lucro', requireAuth13, (req, res) => mkpProxy('/lucro', req.body, res));
+grupo13.post('/equilibrio', requireAuth13, (req, res) => mkpProxy('/equilibrio', req.body, res));
 
 app.use(BASE_PATH_13, grupo13);
 
@@ -647,7 +647,7 @@ function ensureTrailingSlash(url) {
 
 // ROTAS GRUPO 6 ------------------------------------ //
 app.get('/sauna6', (req, res) => {
-  res.render('sauna_grupo6/splash'); 
+  res.render('sauna_grupo6/splash');
 });
 
 app.get('/sauna6/login', (req, res) => {
@@ -667,5 +667,7 @@ app.get('/sauna6/help', (req, res) => {
 });
 // --------------------------------------------------- //
 // --------------------------------------------------- //
+
+//teste
 
 module.exports = app;
