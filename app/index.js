@@ -66,13 +66,13 @@ app.get("/", (req, res) => {
 
 
 app.get('/login', (req, res) => {
-  if (req.session.user) return res.redirect('/dashboard');
+  if (req.session.user) return res.redirect('/calculo');
   res.render('base/login', { error: null });
 });
 
 app.get('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect('base/login');
+  res.redirect('/login');
 });
 
 
@@ -82,7 +82,7 @@ app.post('/login', (req, res) => {
     req.session.user = { username: 'admin', nome: 'Administrador' };
     return res.redirect('/calculo');
   }
-  res.render('login', { error: 'Usuário ou senha inválidos' });
+  res.render('base/login', { error: 'Usuario ou senha invalidos' });
 });
 
 // Dashboard
