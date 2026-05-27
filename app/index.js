@@ -67,6 +67,10 @@ app.use(session({
 }));
 
 const BASE_PATH = '/equipe-16';
+const EQUIPE21_PATH = '/equipe-21';
+
+app.use(`${EQUIPE21_PATH}/vendor/react`, express.static(path.join(__dirname, 'node_modules', 'react', 'umd')));
+app.use(`${EQUIPE21_PATH}/vendor/react-dom`, express.static(path.join(__dirname, 'node_modules', 'react-dom', 'umd')));
 
 const equipes = [
   { numero: 1,  nome: 'TESTE',       rota: '/login' },
@@ -173,6 +177,71 @@ grupo16.post('/calcular', requireAuth, async (req, res) => {
 
 app.use(BASE_PATH, grupo16);
 
+const equipe21 = express.Router();
+
+equipe21.get('/', (_req, res) => {
+  res.redirect(`${EQUIPE21_PATH}/login`);
+});
+
+equipe21.get('/login', (req, res) => {
+  if (req.query.ready === '1') {
+    return res.render('equipe-21/login', {
+      error: null,
+      basePath: EQUIPE21_PATH,
+    });
+  }
+
+  return res.render('equipe-21/splash', {
+    loginUrl: `${EQUIPE21_PATH}/login?ready=1`,
+  });
+});
+
+equipe21.post('/login', (req, res) => {
+  const { username, password } = req.body;
+
+  if (username === 'admin' && password === 'admin') {
+    return res.redirect(`${EQUIPE21_PATH}/calculo`);
+  }
+
+  return res.render('equipe-21/login', {
+    error: 'Usuario ou senha invalidos',
+    basePath: EQUIPE21_PATH,
+  });
+});
+
+equipe21.get('/calculo', (_req, res) => {
+  res.render('equipe-21/calculo', {
+    apiPath: `${EQUIPE21_PATH}/api/calcular`,
+    basePath: EQUIPE21_PATH,
+  });
+});
+
+equipe21.get('/sobre', (_req, res) => {
+  res.render('equipe-21/sobre', { basePath: EQUIPE21_PATH });
+});
+
+equipe21.get('/help', (_req, res) => {
+  res.render('equipe-21/help', { basePath: EQUIPE21_PATH });
+});
+
+equipe21.post('/api/calcular', async (req, res) => {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}/api/equipe-21/calcular`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+    const data = await response.json();
+
+    res.status(response.status).json(data);
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+app.use(EQUIPE21_PATH, equipe21);
+
 app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo14DistPath, 'index.html'));
 });
@@ -219,7 +288,7 @@ app.get(/^\/equipe-18(?:\/.*)?$/, (_req, res) => {
 
 // Rotas genéricas das demais equipes (grupo 16 tem rota própria acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 14 || i === 16 || i === 18) continue;
+  if (i === 14 || i === 16 || i === 21 || i === 18) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
