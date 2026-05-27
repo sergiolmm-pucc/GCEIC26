@@ -209,7 +209,7 @@ app.use('/PISCINA2/materiais', materiaisRoutes);
 app.use('/PISCINA2/custos',    custosRoutes);
 
 // ── Grupo 23 — Autonomia de Carros ──
-const autonomiaController = require('./grupo23/autonomiaController');
+const autonomiaController = require('./equipe-23/autonomiaController');
 
 // POST /autonomia/calcular
 app.post('/autonomia/calcular', (req, res) => {
