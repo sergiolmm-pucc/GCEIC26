@@ -8,14 +8,16 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-const pricingRouter = require('./equipe-14/pricingRoutes');
+const pricingRouter  = require('./equipe-14/pricingRoutes');
+const nfvendaRouter  = require('./equipe-17/nfvendaRoutes');
 
 // checa se api no ar
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() , by:'SLMM-33', turma:'101'});
 });
 
-app.use('/PBL', pricingRouter);
+app.use('/PBL',     pricingRouter);
+app.use('/nfvenda', nfvendaRouter);
 
 app.get('/api/tabelas', (req, res) => {
   const { TABELA } = require('./equipe-16/funcoes');

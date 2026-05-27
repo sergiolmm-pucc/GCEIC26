@@ -85,7 +85,7 @@ const equipes = [
   { numero: 14, nome: 'Equipe-14',   rota: '/equipe-14' },
   { numero: 15, nome: 'Equipe-15',   rota: '/equipe-15' },
   { numero: 16, nome: 'G16 - MarkUp Calc', rota: '/equipe-16' },
-  { numero: 17, nome: 'Equipe-17',   rota: '/equipe-17' },
+  { numero: 17, nome: 'G17 - Calc NF Venda', rota: '/equipe-17' },
   { numero: 18, nome: 'Equipe-18',   rota: '/equipe-18' },
   { numero: 19, nome: 'Equipe-19',   rota: '/equipe-19' },
   { numero: 20, nome: 'Equipe-20',   rota: '/equipe-20' },
@@ -177,9 +177,47 @@ app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo14DistPath, 'index.html'));
 });
 
-// Rotas genéricas das demais equipes (grupo 16 tem rota própria acima)
+// ── Grupo 17 — Calculadora de Impostos NF de Venda ──
+
+const grupo17 = express.Router();
+
+grupo17.get('/', (_req, res) => res.render('equipe-17/nfvenda'));
+
+grupo17.post('/decodificar', async (req, res) => {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}/nfvenda/decodificar`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+grupo17.post('/calcular', async (req, res) => {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}/nfvenda/calcular`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    res.status(400).json({ success: false, error: err.message });
+  }
+});
+
+app.use('/equipe-17', grupo17);
+
+// Rotas genéricas das demais equipes (grupos 14, 16 e 17 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 14 || i === 16) continue;
+  if (i === 14 || i === 16 || i === 17) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>G17 — Calculadora NF de Venda</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0d0d0d;
+      --surface: #1a1a1a;
+      --border:  #2a2a2a;
+      --accent:  #00e5ff;
+      --text:    #e0e0e0;
+      --muted:   #888;
+      --error:   #ff5252;
+      --success: #69ff47;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    header a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+    }
+
+    header a:hover { color: var(--accent); }
+
+    header h1 {
+      font-size: 1.1rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+
+    .tag {
+      margin-left: auto;
+      background: var(--border);
+      color: var(--muted);
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    main {
+      max-width: 780px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+
+    .card h2 {
+      font-size: 0.95rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #000;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+      margin-top: 0.75rem;
+    }
+
+    label:first-child { margin-top: 0; }
+
+    input, select {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus { border-color: var(--accent); }
+
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+
+    button {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.65rem;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    button:hover { opacity: 0.85; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .alert {
+      padding: 0.6rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+    }
+
+    .alert-error   { background: #2a0000; border: 1px solid var(--error);   color: var(--error); }
+    .alert-success { background: #002a00; border: 1px solid var(--success);  color: var(--success); }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .info-item label { margin-top: 0; color: var(--muted); font-size: 0.75rem; }
+    .info-item span  { font-size: 0.9rem; }
+
+    .badge {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+    }
+
+    .badge-ok  { background: #002a00; color: var(--success); }
+    .badge-err { background: #2a0000; color: var(--error); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.5rem;
+      font-size: 0.88rem;
+    }
+
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-weight: 500;
+      padding: 0.4rem 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 0.5rem 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+    .total-row td { color: var(--accent); font-weight: 700; }
+
+    .hidden { display: none; }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.75rem;
+      padding: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="/">← Voltar</a>
+  <h1>Calculadora de Impostos — NF de Venda</h1>
+  <span class="tag">Grupo 17</span>
+</header>
+
+<main>
+
+  <!-- PASSO 1: Chave de acesso -->
+  <div class="card">
+    <h2><span class="step">1</span> Chave de Acesso da NF-e</h2>
+    <label for="chave">Chave (44 dígitos numéricos)</label>
+    <input type="text" id="chave" maxlength="44" placeholder="Ex: 35260312345678000195550010000000011234567890" />
+    <button id="btnDecodificar">Decodificar Chave</button>
+    <div id="erroChave" class="alert alert-error hidden"></div>
+  </div>
+
+  <!-- PASSO 2: Dados decodificados -->
+  <div class="card hidden" id="cardInfo">
+    <h2><span class="step">2</span> Dados da Nota Fiscal</h2>
+    <div class="info-grid">
+      <div class="info-item"><label>Estado emissor</label><span id="infoEstado">—</span></div>
+      <div class="info-item"><label>Data de emissão</label><span id="infoData">—</span></div>
+      <div class="info-item"><label>CNPJ emissor</label><span id="infoCNPJ">—</span></div>
+      <div class="info-item"><label>Modelo</label><span id="infoModelo">—</span></div>
+      <div class="info-item"><label>Série / Número</label><span id="infoSerieNum">—</span></div>
+      <div class="info-item"><label>Tipo de emissão</label><span id="infoTipo">—</span></div>
+      <div class="info-item"><label>ICMS padrão do estado</label><span id="infoICMS">—</span></div>
+      <div class="info-item"><label>Dígito verificador</label><span id="infoDV">—</span></div>
+    </div>
+  </div>
+
+  <!-- PASSO 3: Valores -->
+  <div class="card hidden" id="cardValores">
+    <h2><span class="step">3</span> Valores e Impostos</h2>
+
+    <div class="row">
+      <div>
+        <label for="valorProduto">Valor do produto (R$)</label>
+        <input type="number" id="valorProduto" min="0.01" step="0.01" placeholder="0.00" />
+      </div>
+      <div>
+        <label for="ipi">IPI (%)</label>
+        <input type="number" id="ipi" min="0" step="0.01" value="0" />
+      </div>
+    </div>
+
+    <div class="row3">
+      <div>
+        <label for="frete">Frete (R$)</label>
+        <input type="number" id="frete" min="0" step="0.01" value="0" />
+      </div>
+      <div>
+        <label for="seguro">Seguro (R$)</label>
+        <input type="number" id="seguro" min="0" step="0.01" value="0" />
+      </div>
+      <div>
+        <label for="descontos">Descontos (R$)</label>
+        <input type="number" id="descontos" min="0" step="0.01" value="0" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="regime">Regime tributário</label>
+        <select id="regime">
+          <option value="lucroReal">Lucro Real</option>
+          <option value="lucroPresumido">Lucro Presumido</option>
+          <option value="simplesNacional">Simples Nacional</option>
+        </select>
+      </div>
+      <div>
+        <label for="icmsPersonalizado">ICMS personalizado (% — deixe vazio para usar o do estado)</label>
+        <input type="number" id="icmsPersonalizado" min="0" max="100" step="0.01" placeholder="Usar padrão do estado" />
+      </div>
+    </div>
+
+    <button id="btnCalcular">Calcular Impostos</button>
+    <div id="erroCalculo" class="alert alert-error hidden"></div>
+  </div>
+
+  <!-- PASSO 4: Resultado -->
+  <div class="card hidden" id="cardResultado">
+    <h2><span class="step">4</span> Resultado</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Imposto</th>
+          <th class="num">Alíquota</th>
+          <th class="num">Valor (R$)</th>
+        </tr>
+      </thead>
+      <tbody id="tbodyImpostos"></tbody>
+      <tfoot>
+        <tr class="total-row">
+          <td>Total de impostos</td>
+          <td></td>
+          <td class="num" id="tdTotalImpostos">—</td>
+        </tr>
+        <tr class="total-row">
+          <td>Total da NF</td>
+          <td></td>
+          <td class="num" id="tdTotalNF">—</td>
+        </tr>
+        <tr class="total-row">
+          <td>Carga tributária</td>
+          <td></td>
+          <td class="num" id="tdCarga">—</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+</main>
+
+<footer>Grupo 17 &mdash; GCEIC 2026</footer>
+
+<script>
+  const API = '';
+
+  function fmt(n) { return Number(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function fmtPct(n) { return Number(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%'; }
+
+  function showError(el, msg) {
+    el.textContent = msg;
+    el.classList.remove('hidden');
+  }
+
+  function hideError(el) { el.classList.add('hidden'); }
+
+  document.getElementById('btnDecodificar').addEventListener('click', async () => {
+    const chave = document.getElementById('chave').value.trim();
+    const errEl = document.getElementById('erroChave');
+    hideError(errEl);
+
+    try {
+      const res  = await fetch('/equipe-17/decodificar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chave }),
+      });
+      const json = await res.json();
+      if (!json.success) { showError(errEl, json.error); return; }
+
+      const d = json.data;
+      document.getElementById('infoEstado').textContent  = d.estado;
+      document.getElementById('infoData').textContent    = d.dataEmissao;
+      document.getElementById('infoCNPJ').textContent    = d.cnpjFormatado;
+      document.getElementById('infoModelo').textContent  = d.modeloDescricao;
+      document.getElementById('infoSerieNum').textContent = `${d.serie} / ${d.numero}`;
+      document.getElementById('infoTipo').textContent    = d.tipoEmissao;
+      document.getElementById('infoICMS').textContent    = `${d.icmsPadrao}%`;
+      document.getElementById('infoDV').innerHTML        = d.dvValido
+        ? '<span class="badge badge-ok">Válido</span>'
+        : '<span class="badge badge-err">Inválido</span>';
+
+      document.getElementById('cardInfo').classList.remove('hidden');
+      document.getElementById('cardValores').classList.remove('hidden');
+      document.getElementById('cardResultado').classList.add('hidden');
+    } catch (e) {
+      showError(errEl, 'Erro de conexão com a API.');
+    }
+  });
+
+  document.getElementById('btnCalcular').addEventListener('click', async () => {
+    const errEl = document.getElementById('erroCalculo');
+    hideError(errEl);
+
+    const icmsCampo = document.getElementById('icmsPersonalizado').value.trim();
+
+    const payload = {
+      chave:            document.getElementById('chave').value.trim(),
+      valorProduto:     parseFloat(document.getElementById('valorProduto').value) || 0,
+      ipi:              parseFloat(document.getElementById('ipi').value) || 0,
+      frete:            parseFloat(document.getElementById('frete').value) || 0,
+      seguro:           parseFloat(document.getElementById('seguro').value) || 0,
+      descontos:        parseFloat(document.getElementById('descontos').value) || 0,
+      regime:           document.getElementById('regime').value,
+      icmsPersonalizado: icmsCampo !== '' ? parseFloat(icmsCampo) : null,
+    };
+
+    try {
+      const res  = await fetch('/equipe-17/calcular', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json();
+      if (!json.success) { showError(errEl, json.error); return; }
+
+      const d = json.data;
+      const impostos = [
+        { nome: 'ICMS', ...d.impostos.icms },
+        { nome: 'IPI',  ...d.impostos.ipi  },
+        { nome: 'PIS',  ...d.impostos.pis  },
+        { nome: 'COFINS', ...d.impostos.cofins },
+      ];
+
+      const tbody = document.getElementById('tbodyImpostos');
+      tbody.innerHTML = impostos.map(imp => `
+        <tr>
+          <td>${imp.nome}</td>
+          <td class="num">${fmtPct(imp.alicota)}</td>
+          <td class="num">${fmt(imp.valor)}</td>
+        </tr>
+      `).join('');
+
+      document.getElementById('tdTotalImpostos').textContent = fmt(d.totalImpostos);
+      document.getElementById('tdTotalNF').textContent       = fmt(d.totalNF);
+      document.getElementById('tdCarga').textContent         = fmtPct(d.cargaTributaria);
+
+      document.getElementById('cardResultado').classList.remove('hidden');
+    } catch (e) {
+      showError(errEl, 'Erro de conexão com a API.');
+    }
+  });
+</script>
+
+</body>
+</html>
