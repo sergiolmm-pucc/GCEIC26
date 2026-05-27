@@ -668,6 +668,13 @@ app.get('/sauna6/help', (req, res) => {
 // --------------------------------------------------- //
 // --------------------------------------------------- //
 
+// ── GRUPO 08 — Calculadora de Piscina ──
+const grupo08 = require('./src/equipe-08/routes.js');
+app.use('/equipe-08', (req, res, next) => {
+  res.locals.basePath = '/equipe-08';
+  next();
+}, grupo08);
+
 //teste
 
 module.exports = app;
