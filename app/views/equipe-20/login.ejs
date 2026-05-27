@@ -31,7 +31,7 @@
     <% if (error) { %>
       <div class="erro">⚠️ <%= error %></div>
     <% } %>
-    <form method="POST" action="<%= base %>/login" id="loginForm">
+    <form method="POST" action="<%= basePath %>/login" id="loginForm">
       <label for="username">Usuário</label>
       <input type="text" id="username" name="username" placeholder="Digite seu usuário" autocomplete="username" required>
       <label for="password">Senha</label>

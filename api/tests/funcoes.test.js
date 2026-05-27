@@ -3,7 +3,7 @@ const {
   calcularCustoMensal,
   calcularEconomia,
   calcular,
-} = require('../src/funcoes');
+} = require('../src/equipe-20/funcoes');
 
 // -------------------------------------------------------
 // API 1 — ANA: calcularConsumoDiario

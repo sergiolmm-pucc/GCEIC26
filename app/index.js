@@ -31,62 +31,59 @@ app.get('/', (req, res) => {
 
 // -------------------------------------------------------
 // Router do Grupo 20 — AguaCalc
-// Prefixo: /equipe-20  (padrão do site do professor)
+// Prefixo: /equipe-20
 // -------------------------------------------------------
-const BASE = '/equipe-20';
+const BASE_PATH = '/equipe-20';
 
 function requireAuth(req, res, next) {
   if (req.session && req.session.user) return next();
-  res.redirect(BASE + '/login');
+  res.redirect(BASE_PATH + '/login');
 }
 
 const grupo20 = express.Router();
 
-// Splash — entrada do grupo
 grupo20.get('/', (req, res) => {
-  res.render('splash', { base: BASE });
+  res.redirect(BASE_PATH + '/splash');
 });
 
 grupo20.get('/splash', (req, res) => {
-  res.render('splash', { base: BASE });
+  res.render('equipe-20/splash', { basePath: BASE_PATH });
 });
 
-// Login
 grupo20.get('/login', (req, res) => {
-  if (req.session.user) return res.redirect(BASE + '/calculo');
-  res.render('login', { error: null, base: BASE });
+  if (req.session.user) return res.redirect(BASE_PATH + '/calculo');
+  res.render('equipe-20/login', { error: null, basePath: BASE_PATH });
 });
 
 grupo20.post('/login', (req, res) => {
   const { username, password } = req.body;
   if (username === 'admin' && password === 'admin') {
     req.session.user = { username: 'admin', nome: 'Administrador' };
-    return res.redirect(BASE + '/calculo');
+    return res.redirect(BASE_PATH + '/calculo');
   }
-  res.render('login', { error: 'Usuário ou senha inválidos', base: BASE });
+  res.render('equipe-20/login', { error: 'Usuário ou senha inválidos', basePath: BASE_PATH });
 });
 
 grupo20.post('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect(BASE + '/login');
+  res.redirect(BASE_PATH + '/login');
 });
 
 grupo20.get('/logout', (req, res) => {
   req.session.destroy();
-  res.redirect(BASE + '/login');
+  res.redirect(BASE_PATH + '/login');
 });
 
-// Telas autenticadas
 grupo20.get('/calculo', requireAuth, (req, res) => {
-  res.render('calculo', { user: req.session.user, base: BASE });
+  res.render('equipe-20/calculo', { user: req.session.user, basePath: BASE_PATH });
 });
 
 grupo20.get('/sobre', requireAuth, (req, res) => {
-  res.render('sobre', { base: BASE });
+  res.render('equipe-20/sobre', { basePath: BASE_PATH });
 });
 
 grupo20.get('/help', requireAuth, (req, res) => {
-  res.render('help', { base: BASE });
+  res.render('equipe-20/help', { basePath: BASE_PATH });
 });
 
 // -------------------------------------------------------
@@ -119,11 +116,10 @@ grupo20.post('/AGUA/custoMensal', requireAuth, (req, res) =>
 grupo20.post('/AGUA/economia', requireAuth, (req, res) =>
   proxyPost(req, res, '/AGUA/economia'));
 
-// Registra o router no prefixo /equipe-20
-app.use(BASE, grupo20);
+app.use(BASE_PATH, grupo20);
 
 // -------------------------------------------------------
-// Rotas genéricas para outras equipes (compatibilidade)
+// Rotas genéricas para outras equipes
 // -------------------------------------------------------
 for (let i = 1; i <= 25; i++) {
   if (i === 20) continue;

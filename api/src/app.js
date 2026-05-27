@@ -7,6 +7,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+// Saúde da API
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -16,8 +17,9 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Tabelas de referência
 app.get('/api/tabelas', (req, res) => {
-  const { TABELA } = require('./funcoes');
+  const { TABELA } = require('./equipe-20/funcoes');
   res.json({
     success: true,
     data: {
@@ -29,10 +31,13 @@ app.get('/api/tabelas', (req, res) => {
   });
 });
 
+// -------------------------------------------------------
 // API 1 — ANA: Consumo Diário
+// POST /AGUA/consumoDiario
+// -------------------------------------------------------
 app.post('/AGUA/consumoDiario', (req, res) => {
   try {
-    const { calcularConsumoDiario } = require('./funcoes');
+    const { calcularConsumoDiario } = require('./equipe-20/funcoes');
     const { tempoBanhoMin, descargasDia, pessoas } = req.body;
     const resultado = calcularConsumoDiario(
       Number(tempoBanhoMin),
@@ -45,10 +50,13 @@ app.post('/AGUA/consumoDiario', (req, res) => {
   }
 });
 
+// -------------------------------------------------------
 // API 2 — HUGO: Custo Mensal
+// POST /AGUA/custoMensal
+// -------------------------------------------------------
 app.post('/AGUA/custoMensal', (req, res) => {
   try {
-    const { calcularCustoMensal } = require('./funcoes');
+    const { calcularCustoMensal } = require('./equipe-20/funcoes');
     const { consumoDiarioLitros, tarifa, dias } = req.body;
     const resultado = calcularCustoMensal(
       Number(consumoDiarioLitros),
@@ -61,28 +69,21 @@ app.post('/AGUA/custoMensal', (req, res) => {
   }
 });
 
+// -------------------------------------------------------
 // API 3 — LETÍCIA: Projeção de Economia
+// POST /AGUA/economia
+// -------------------------------------------------------
 app.post('/AGUA/economia', (req, res) => {
   try {
-    const { calcularEconomia } = require('./funcoes');
+    const { calcularEconomia } = require('./equipe-20/funcoes');
     const { litrosAtuais, reducaoPercentual, tarifa, pessoas } = req.body;
     const resultado = calcularEconomia(
       Number(litrosAtuais),
       Number(reducaoPercentual),
       Number(tarifa),
-      Number(pessoas) 
+      Number(pessoas)
     );
     res.json({ success: true, data: resultado });
-  } catch (err) {
-    res.status(400).json({ success: false, error: err.message });
-  }
-});
-
-app.post('/api/calcular', (req, res) => {
-  try {
-    const { calcular } = require('./funcoes');
-    const resultado = calcular(req.body);
-    res.status(200).json({ success: true, data: resultado });
   } catch (err) {
     res.status(400).json({ success: false, error: err.message });
   }

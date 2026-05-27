@@ -64,6 +64,7 @@ function calcularCustoMensal(consumoDiarioLitros, tarifa, dias = 30) {
 
 // ============================================================
 // API 3 — LETÍCIA: Projeção de Economia
+// pessoas agora é parâmetro para calcular sugestão por pessoa
 // ============================================================
 function calcularEconomia(litrosAtuais, reducaoPercentual, tarifa, pessoas = 1) {
   if (litrosAtuais <= 0)                              throw new Error('Consumo atual deve ser maior que zero');
