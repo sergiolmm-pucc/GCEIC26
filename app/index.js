@@ -350,6 +350,7 @@ grupo20.get('/splash', (req, res) => {
   res.render('equipe-20/splash', { basePath: GRUPO20_PATH });
 });
 
+
 grupo20.get('/login', (req, res) => {
   if (req.session.user20) return res.redirect(GRUPO20_PATH + '/calculo');
   res.render('equipe-20/login', { error: null, basePath: GRUPO20_PATH });
@@ -396,6 +397,7 @@ grupo20.post('/AGUA/economia', requireAuth20, (req, res) =>
   proxyPostAgua(req, res, '/AGUA/economia'));
 
 app.use(GRUPO20_PATH, grupo20);
+
 
 // ── Grupo 17 — Calculadora de Impostos NF de Venda ──
 
