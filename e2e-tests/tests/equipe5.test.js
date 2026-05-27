@@ -128,6 +128,19 @@ async function main() {
     await tiraFoto('09-sobre');
     console.log('   ✅ Página Sobre carregou');
 
+    // ── Teste 8: Página Help ──────────────────────────────────────────────
+    console.log('\n📋 Teste 8: Página Ajuda / Tutorial');
+    const btnVoltar = await driver.findElement(By.css('button.btn-back'));
+    await btnVoltar.click();
+    await new Promise(r => setTimeout(r, 400));
+    const btnHelp = await driver.findElement(
+      By.xpath("//button[contains(@class,'sidebar-nav-item') and contains(.,'Ajuda')]")
+    );
+    await btnHelp.click();
+    await new Promise(r => setTimeout(r, 400));
+    await tiraFoto('10-help');
+    console.log('   ✅ Página Help carregou');
+
     console.log('\n🎉 Todos os testes da Equipe 5 passaram!\n');
 
   } catch (error) {
