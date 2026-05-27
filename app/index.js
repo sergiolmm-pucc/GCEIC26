@@ -16,6 +16,10 @@ const GRUPO14_PATH = '/equipe-14';
 const grupo14DistPath = path.join(__dirname, 'dist');
 const GRUPO5_PATH = '/equipe-5';
 const grupo5DistPath = path.join(__dirname, 'equipe-5', 'dist');
+
+// ── Equipe 2 ──
+const GRUPO2_PATH = '/equipe-2';
+const grupo2DistPath = path.join(__dirname, 'dist', 'equipe-2');
 const grupo14ApiRoutes = new Map([
   ['GET /health', '/PBL/health'],
   ['POST /preco-liquido', '/PBL/preco-liquido'],
@@ -28,6 +32,23 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(GRUPO14_PATH, express.static(grupo14DistPath));
 app.use(GRUPO5_PATH, express.static(grupo5DistPath));
+app.use(GRUPO2_PATH,  express.static(grupo2DistPath));
+
+// ── Proxy API Equipe 2 — IRP ──
+app.post('/IRP/calcular', async (req, res) => {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}/IRP/calcular`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (err) {
+    res.status(502).json({ error: 'Falha ao comunicar com a API da Equipe 2.', message: err.message });
+  }
+});
 
 app.use('/PBL', (req, res) => {
   const targetPath = grupo14ApiRoutes.get(`${req.method} ${req.path}`);
@@ -610,9 +631,14 @@ app.get(/^\/equipe-5(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo5DistPath, 'index.html'));
 });
 
-// Rotas genéricas das demais equipes (grupos 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
+// Suporte para client-side routing do React (BrowserRouter) da Equipe 2
+app.get(/^\/equipe-2(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo2DistPath, 'index.html'));
+});
+
+// Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 7 || i === 6 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21) continue;
+  if (i === 2 || i === 5 || i === 6 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
