@@ -1,16 +1,41 @@
-<nav style="background-color: #0284c7; padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center;">
+<nav
+  style="background-color: #0284c7; padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center;">
   <div style="font-size: 20px; font-weight: bold;">Pool Calculator</div>
   <div style="display: flex; gap: 15px;">
-    <a href="/home" style="color: white; text-decoration: none;">Home</a>
-    <a href="/sobre" style="color: white; text-decoration: none;">Sobre</a>
-    <a href="/help" style="color: white; text-decoration: none;">Ajuda</a>
-    <a href="/logout" style="color: #ffcccc; text-decoration: none;">Sair</a>
+    <a href="<%= basePath %>/home" style="color: white; text-decoration: none;">Home</a>
+    <a href="<%= basePath %>/sobre" style="color: white; text-decoration: none;">Sobre</a>
+    <a href="<%= basePath %>/help" style="color: white; text-decoration: none;">Ajuda</a>
+    <a href="<%= basePath %>/logout" style="color: #ffcccc; text-decoration: none;">Sair</a>
   </div>
 </nav>
 <style>
-  body { font-family: 'Inter', sans-serif; background-color: #f8fafc; margin: 0; padding: 0; }
-  .container { max-width: 1000px; margin: 40px auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-  h1, h2 { color: #0f172a; }
-  a { color: #0284c7; text-decoration: none; }
-  a:hover { text-decoration: underline; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc;
+    margin: 0;
+    padding: 0;
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  h1,
+  h2 {
+    color: #0f172a;
+  }
+
+  a {
+    color: #0284c7;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
 </style>
