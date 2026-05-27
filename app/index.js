@@ -181,7 +181,7 @@ app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
 const grupo18DistPath = path.join(__dirname, 'equipe-18', 'out');
 app.use('/equipe-18', express.static(grupo18DistPath));
 
-// Proxy para o Backend na AWS do Grupo 18
+// Proxy para o Backend do Grupo 18
 app.use('/equipe-18/api', (req, res) => {
   const target = new URL(req.path.replace(/^\//, ''), ensureTrailingSlash('https://d36mf6v2e37tzy.cloudfront.net'));
   const client = https;
@@ -204,7 +204,7 @@ app.use('/equipe-18/api', (req, res) => {
 
   proxyRequest.on('error', (error) => {
     res.status(502).json({
-      error: 'Falha ao comunicar com o Backend do Grupo 18 na AWS.',
+      error: 'Falha ao comunicar com o Backend do Grupo 18.',
       message: error.message
     });
   });

@@ -17,7 +17,7 @@ app.get('/health', (req, res) => {
 
 app.use('/PBL', pricingRouter);
 
-// Proxy para o Backend na AWS do Grupo 18 (Fastify)
+// Proxy para o Backend do Grupo 18
 app.use('/equipe-18', (req, res) => {
   const https = require('https');
   const target = new URL(req.path.replace(/^\//, ''), 'https://d36mf6v2e37tzy.cloudfront.net/');
@@ -40,7 +40,7 @@ app.use('/equipe-18', (req, res) => {
 
   proxyRequest.on('error', (error) => {
     res.status(502).json({
-      error: 'Falha ao comunicar com o Backend do Grupo 18 na AWS.',
+      error: 'Falha ao comunicar com o Backend do Grupo 18.',
       message: error.message
     });
   });
