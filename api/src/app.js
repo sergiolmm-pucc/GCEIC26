@@ -14,6 +14,7 @@ const pricingRouter  = require('./equipe-14/pricingRoutes');
 const nfvendaRouter  = require('./equipe-17/nfvendaRoutes');
 const equipe15Router = require('./equipe-15/freteRoutes');
 const equipe21Router = require('./equipe-21/routes');
+const mkpRouter      = require('./grupo13-markup/routes');
 
 // checa se api no ar
 app.get('/health', (req, res) => {
@@ -23,7 +24,11 @@ app.get('/health', (req, res) => {
 app.use('/PBL',           pricingRouter);
 app.use('/nfvenda',       nfvendaRouter);
 app.use('/api/equipe-21', equipe21Router);
-app.use('/equipe-15', equipe15Router);
+app.use('/equipe-15',     equipe15Router);
+
+// ── Grupo 13 — MarkUp ──
+app.get('/MKP', (req, res) => res.json({ message: 'API MarkUp - Grupo 13 funcionando!' }));
+app.use('/MKP', mkpRouter);
 
 // Proxy para o Backend do Grupo 18
 app.use('/equipe-18', (req, res) => {
