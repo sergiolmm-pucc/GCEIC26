@@ -23,7 +23,7 @@ const materiaisRoutes = require('./equipe-7/materiais');
 const custosRoutes = require('./equipe-7/custos');
 const etec64Routes = require('./etec64/routes/etecRoutes.js');
 
-// checa se api está no ar
+// checa se api está no a
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString(), by: 'SLMM-33', turma: '101' });
 });
