@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "test": "jest --coverage --verbose --ci --reporters=default --testResultsProcessor=jest-junit"
+    "test": "jest --coverage --verbose --ci --reporters=default --reporters=jest-junit"
   },
   "keywords": [],
   "author": "",
