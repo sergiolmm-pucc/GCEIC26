@@ -93,7 +93,7 @@ const equipes = [
   { numero: 17, nome: 'G17 - Calc NF Venda', rota: '/equipe-17' },
   { numero: 18, nome: 'G18 - Cálculo de Impostos NF', rota: '/equipe-18' },
   { numero: 19, nome: 'Equipe-19',   rota: '/equipe-19' },
-  { numero: 20, nome: 'Equipe-20',   rota: '/equipe-20' },
+  { numero: 20, nome: 'G20 - AguaCalc', rota: '/equipe-20' },
   { numero: 21, nome: 'G21 - BurgCalc',   rota: '/equipe-21' },
   { numero: 22, nome: 'Equipe-22',   rota: '/equipe-22' },
   { numero: 23, nome: 'Equipe-23',   rota: '/equipe-23' },
@@ -315,6 +315,10 @@ equipe21.post('/api/calcular', async (req, res) => {
 
 app.use(EQUIPE21_PATH, equipe21);
 
+// ── Grupo 20 — AguaCalc ──
+const { grupo20, BASE_PATH: GRUPO20_PATH } = require('./equipe-20');
+app.use(GRUPO20_PATH, grupo20);
+
 app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo14DistPath, 'index.html'));
 });
@@ -399,7 +403,7 @@ app.get(/^\/equipe-18(?:\/.*)?$/, (_req, res) => {
 
 // Rotas genéricas das demais equipes (grupos 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 6 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 21) continue;
+  if (i === 6 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
