@@ -1,6 +1,7 @@
 const express = require('express');
 const cors    = require('cors');
 const helmet  = require('helmet');
+const energyRoutes = require('./grupo5-calculo_energia/routes/energy');
 
 const app = express();
 
@@ -8,6 +9,8 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+
+app.use('/ENRG', energyRoutes);
 
 // checa se api no ar
 app.get('/health', (req, res) => {
