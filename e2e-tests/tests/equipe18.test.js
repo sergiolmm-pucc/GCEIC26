@@ -50,11 +50,23 @@ async function main() {
     console.log('Acessando página da Equipe 18...');
     await driver.get(BASE_URL + '/equipe-18');
     await new Promise(r => setTimeout(r, 2000));
+    await tiraFoto('01-login-screen');
+
+    console.log('Realizando login (admin/admin)...');
+    const userInp = await driver.findElement(By.id('username'));
+    await userInp.sendKeys('admin');
+    const passInp = await driver.findElement(By.id('password'));
+    await passInp.sendKeys('admin');
+    const submitLogin = await driver.findElement(By.css('button[type="submit"]'));
+    await submitLogin.click();
+
+    console.log('Aguardando carregamento do dashboard...');
+    await new Promise(r => setTimeout(r, 3000));
     await tiraFoto('01-dashboard');
 
     console.log('Navegando para NF Completa...');
-    await driver.get(BASE_URL + '/equipe-18/nf-completa');
-    await new Promise(r => setTimeout(r, 2000));
+    await driver.get(BASE_URL + '/equipe-18/nf-completa.html');
+    await new Promise(r => setTimeout(r, 3000));
     await tiraFoto('02-nf-completa-form');
 
     // Preencher formulário
