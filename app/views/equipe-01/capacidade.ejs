@@ -155,8 +155,6 @@
   </div>
 
   <script>
-    const API_URL = 'http://localhost:3001';
-
     function fmt(val) {
       return Number(val).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
@@ -185,7 +183,7 @@
       btn.textContent = 'Calculando...';
 
       try {
-        const res = await fetch(`${API_URL}/api/capacidade`, {
+        const res = await fetch('/equipe-01/api/capacidade', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
