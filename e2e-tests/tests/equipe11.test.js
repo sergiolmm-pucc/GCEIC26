@@ -106,7 +106,7 @@ async function main() {
     if (campoLength.length === 0) {
       throw new Error('Campo de comprimento não encontrado na página de construção');
     }
-    await driver.findElement(By.css('form')).submit();
+    await driver.findElement(By.css('button[type="submit"]')).click();
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const areaValue = await driver.findElement(By.id('result-area')).getText();
     if (!areaValue || areaValue === '-') {
@@ -123,7 +123,7 @@ async function main() {
     if (campoWater.length === 0) {
       throw new Error('Campo de custo com água não encontrado na página de manutenção');
     }
-    await driver.findElement(By.css('form')).submit();
+    await driver.findElement(By.css('button[type="submit"]')).click();
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const maintenanceValue = await driver.findElement(By.id('result-maintenance-cost')).getText();
     if (!maintenanceValue || maintenanceValue === '-') {
@@ -140,7 +140,7 @@ async function main() {
     if (campoTicketPrice.length === 0) {
       throw new Error('Campo de preço do ingresso não encontrado na página de receita');
     }
-    await driver.findElement(By.css('form')).submit();
+    await driver.findElement(By.css('button[type="submit"]')).click();
     await new Promise((resolve) => setTimeout(resolve, 1000));
     const revenueValue = await driver.findElement(By.id('result-revenue-value')).getText();
     if (!revenueValue || revenueValue === '-') {
