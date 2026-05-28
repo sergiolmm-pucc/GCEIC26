@@ -629,7 +629,7 @@ for (let i = 2; i <= 25; i++) {
 
 // ── Grupo 15 — Cálculo de Frete ──
 const GRUPO15_PATH = '/equipe-15';
-const grupo15DistPath = path.join(__dirname, 'equipe-15', 'dist');
+const grupo15DistPath = path.join(__dirname, 'views', 'grupo15-calc_frete', 'dist');
 app.use(GRUPO15_PATH, express.static(grupo15DistPath));
 app.get(/^\/equipe-15(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo15DistPath, 'index.html'));

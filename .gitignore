@@ -167,6 +167,7 @@ build
 dist
 !app/views/etec64/dist/
 !app/equipe-5/dist/
+!app/views/grupo15-calc_frete/dist/
 docs
 
 # Outros
