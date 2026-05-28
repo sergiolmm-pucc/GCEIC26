@@ -1,0 +1,265 @@
+<% const defaults = {
+  length: 105,
+  width: 68,
+  grassType: 'natural',
+  drainage: 'standard',
+  baseType: 'standard',
+  waterCost: 300,
+  electricityCost: 500,
+  repairCost: 150,
+  usesPerYear: 12,
+  cleaningCost: 200,
+  ticketPrice: 30,
+  averageAttendance: 1000,
+  eventsPerYear: 20,
+  rentalFees: 0,
+}; %>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> - Campo Calc</title>
+  <link rel="stylesheet" href="/equipe-11/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div>
+        <h1>Calculadora de Campo de Futebol</h1>
+        <p><%= title %></p>
+      </div>
+      <div class="header-actions">
+        <a class="secondary-button" href="<%= basePath %>/dashboard">Painel</a>
+        <a class="secondary-button" href="<%= basePath %>/sobre">Sobre</a>
+        <form method="POST" action="<%= basePath %>/logout">
+          <button class="secondary-button" type="submit">Sair</button>
+        </form>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <h2><%= title %></h2>
+          <p class="hint"><%= hint %></p>
+        </div>
+        <a class="secondary-button" href="<%= basePath %>/dashboard">Voltar ao painel</a>
+      </div>
+
+      <form id="calc-form" class="form-grid" data-mode="<%= mode %>">
+        <% if (mode === 'construction') { %>
+          <label>
+            Comprimento (m)
+            <input name="length" type="number" min="1" step="0.1" value="<%= defaults.length %>" required>
+          </label>
+          <label>
+            Largura (m)
+            <input name="width" type="number" min="1" step="0.1" value="<%= defaults.width %>" required>
+          </label>
+          <label>
+            Tipo de grama
+            <select name="grassType">
+              <option value="natural" <%= defaults.grassType === 'natural' ? 'selected' : '' %>>Natural</option>
+              <option value="artificial" <%= defaults.grassType === 'artificial' ? 'selected' : '' %>>Artificial</option>
+            </select>
+          </label>
+          <label>
+            Drenagem
+            <select name="drainage">
+              <option value="standard" <%= defaults.drainage === 'standard' ? 'selected' : '' %>>Padrao</option>
+              <option value="advanced" <%= defaults.drainage === 'advanced' ? 'selected' : '' %>>Avancada</option>
+            </select>
+          </label>
+          <label>
+            Base do campo
+            <select name="baseType">
+              <option value="standard" <%= defaults.baseType === 'standard' ? 'selected' : '' %>>Padrao</option>
+              <option value="reinforced" <%= defaults.baseType === 'reinforced' ? 'selected' : '' %>>Reforcada</option>
+            </select>
+          </label>
+        <% } else if (mode === 'maintenance') { %>
+          <label>
+            Custo com agua (R$)
+            <input name="waterCost" type="number" min="0" step="0.01" value="<%= defaults.waterCost %>" required>
+          </label>
+          <label>
+            Custo com eletricidade (R$)
+            <input name="electricityCost" type="number" min="0" step="0.01" value="<%= defaults.electricityCost %>" required>
+          </label>
+          <label>
+            Custo de reparo (R$)
+            <input name="repairCost" type="number" min="0" step="0.01" value="<%= defaults.repairCost %>" required>
+          </label>
+          <label>
+            Usos por ano
+            <input name="usesPerYear" type="number" min="0" step="1" value="<%= defaults.usesPerYear %>" required>
+          </label>
+          <label>
+            Custo de limpeza (R$)
+            <input name="cleaningCost" type="number" min="0" step="0.01" value="<%= defaults.cleaningCost %>" required>
+          </label>
+        <% } else { %>
+          <label>
+            Preco do ingresso (R$)
+            <input name="ticketPrice" type="number" min="0" step="0.01" value="<%= defaults.ticketPrice %>" required>
+          </label>
+          <label>
+            Media de publico
+            <input name="averageAttendance" type="number" min="0" step="1" value="<%= defaults.averageAttendance %>" required>
+          </label>
+          <label>
+            Eventos por ano
+            <input name="eventsPerYear" type="number" min="0" step="1" value="<%= defaults.eventsPerYear %>" required>
+          </label>
+          <label>
+            Receitas de aluguel (R$/ano)
+            <input name="rentalFees" type="number" min="0" step="0.01" value="<%= defaults.rentalFees %>" required>
+          </label>
+        <% } %>
+        <button type="submit">Calcular</button>
+      </form>
+
+      <p id="error-message" class="error-message" style="display: none; margin-top: 1rem"></p>
+
+      <div id="result-construction" class="result-grid" style="display: none">
+        <div class="result-card">
+          <strong>Area</strong>
+          <span id="result-area">-</span>
+        </div>
+        <div class="result-card">
+          <strong>Perimetro</strong>
+          <span id="result-perimeter">-</span>
+        </div>
+        <div class="result-card">
+          <strong>Custo de construcao</strong>
+          <span id="result-construction-cost">-</span>
+        </div>
+      </div>
+
+      <div id="result-maintenance" class="result-grid" style="display: none">
+        <div class="result-card">
+          <strong>Custo mensal de manutencao</strong>
+          <span id="result-maintenance-cost">-</span>
+        </div>
+      </div>
+
+      <div id="result-revenue" class="result-grid" style="display: none">
+        <div class="result-card">
+          <strong>Receita anual</strong>
+          <span id="result-revenue-value">-</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const basePath = '<%= basePath %>';
+    const mode = '<%= mode %>';
+    const form = document.getElementById('calc-form');
+    const errorMessage = document.getElementById('error-message');
+
+    const resultConstruction = document.getElementById('result-construction');
+    const resultMaintenance = document.getElementById('result-maintenance');
+    const resultRevenue = document.getElementById('result-revenue');
+
+    function resetResults() {
+      resultConstruction.style.display = 'none';
+      resultMaintenance.style.display = 'none';
+      resultRevenue.style.display = 'none';
+    }
+
+    function showError(message) {
+      errorMessage.textContent = message;
+      errorMessage.style.display = 'block';
+    }
+
+    function clearError() {
+      errorMessage.textContent = '';
+      errorMessage.style.display = 'none';
+    }
+
+    function toNumber(value) {
+      const parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : 0;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      clearError();
+      resetResults();
+
+      const formData = new FormData(form);
+
+      if (mode === 'revenue') {
+        const payload = {};
+
+        formData.forEach((value, key) => {
+          payload[key] = toNumber(value);
+        });
+
+        try {
+          const response = await fetch(basePath + '/api/revenue', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+
+          const data = await response.json();
+          if (!response.ok) {
+            showError(data.error || 'Erro ao calcular.');
+            return;
+          }
+
+          document.getElementById('result-revenue-value').textContent = `R$ ${Number(data.annualRevenue).toFixed(2)}`;
+          resultRevenue.style.display = 'grid';
+        } catch (error) {
+          showError('Erro de conexao com o servidor.');
+        }
+
+        return;
+      }
+
+      const endpoint = mode === 'maintenance' ? '/api/maintenance' : '/api/calculate';
+      const payload = {};
+
+      formData.forEach((value, key) => {
+        payload[key] = toNumber(value);
+      });
+
+      if (mode === 'construction') {
+        payload.grassType = formData.get('grassType');
+        payload.drainage = formData.get('drainage');
+        payload.baseType = formData.get('baseType');
+      }
+
+      try {
+        const response = await fetch(basePath + endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          showError(data.error || 'Erro ao calcular.');
+          return;
+        }
+
+        if (mode === 'maintenance') {
+          document.getElementById('result-maintenance-cost').textContent = `R$ ${Number(data.monthlyMaintenanceCost).toFixed(2)}`;
+          resultMaintenance.style.display = 'grid';
+          return;
+        }
+
+        document.getElementById('result-area').textContent = `${Number(data.area).toFixed(2)} m2`;
+        document.getElementById('result-perimeter').textContent = `${Number(data.perimeter).toFixed(2)} m`;
+        document.getElementById('result-construction-cost').textContent = `R$ ${Number(data.constructionCost).toFixed(2)}`;
+        resultConstruction.style.display = 'grid';
+      } catch (error) {
+        showError('Erro de conexao com o servidor.');
+      }
+    });
+  </script>
+</body>
+</html>

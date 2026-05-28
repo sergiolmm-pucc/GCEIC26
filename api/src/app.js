@@ -24,6 +24,7 @@ const materiaisRoutes = require('./equipe-7/materiais');
 const custosRoutes = require('./equipe-7/custos');
 const etec64Routes = require('./etec64/routes/etecRoutes.js');
 const etecRoutes = require('./etec/routes/etecRoutes.js');
+const equipe11Routes = require('./equipe-11/routes');
 
 // checa se api está no a
 app.get('/health', (req, res) => {
@@ -307,6 +308,8 @@ app.post('/AGUA/economia', (req, res) => {
     res.status(400).json({ success: false, error: err.message });
   }
 });
+
+app.use('/equipe-11', equipe11Routes);
 
 app.use('/PISCINA2/volume', volumeRoutes);
 app.use('/PISCINA2/materiais', materiaisRoutes);

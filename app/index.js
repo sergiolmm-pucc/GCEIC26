@@ -476,6 +476,127 @@ equipe21.post('/api/calcular', async (req, res) => {
 
 app.use(EQUIPE21_PATH, equipe21);
 
+// ── Grupo 11 — Campo Calc ──
+
+const GRUPO11_PATH = '/equipe-11';
+
+
+function requireAuth11(req, res, next) {
+  if (req.session && req.session.user11) return next();
+  res.redirect(GRUPO11_PATH + '/login');
+}
+
+async function proxyEquipe11(req, res, endpoint) {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const token = req.session?.user11?.token;
+    const response = await fetch(`${API_URL}/equipe-11${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(req.body),
+    });
+
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+}
+
+const grupo11 = express.Router();
+
+grupo11.get('/', (_req, res) => res.redirect(GRUPO11_PATH + '/splash'));
+
+grupo11.get('/splash', (req, res) => {
+  res.render('equipe-11/splash', { basePath: GRUPO11_PATH });
+});
+
+grupo11.get('/login', (req, res) => {
+  if (req.session.user11) return res.redirect(GRUPO11_PATH + '/dashboard');
+  res.render('equipe-11/login', { error: null, basePath: GRUPO11_PATH });
+});
+
+grupo11.post('/login', async (req, res) => {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}/equipe-11/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return res.status(401).render('equipe-11/login', {
+        error: data.error || 'Credenciais invalidas',
+        basePath: GRUPO11_PATH,
+      });
+    }
+
+    req.session.user11 = { token: data.token, username: data.username };
+    res.redirect(GRUPO11_PATH + '/dashboard');
+  } catch (err) {
+    res.status(502).render('equipe-11/login', {
+      error: 'Falha ao comunicar com a API da Equipe 11.',
+      basePath: GRUPO11_PATH,
+    });
+  }
+});
+
+grupo11.post('/logout', (req, res) => {
+  req.session.user11 = null;
+  res.redirect(GRUPO11_PATH + '/login');
+});
+
+grupo11.get('/dashboard', requireAuth11, (req, res) => {
+  res.render('equipe-11/dashboard', { basePath: GRUPO11_PATH, user: req.session.user11 });
+});
+
+grupo11.get('/construcao', requireAuth11, (req, res) => {
+  res.render('equipe-11/calculo', {
+    basePath: GRUPO11_PATH,
+    mode: 'construction',
+    title: 'Construcao do campo',
+    hint: 'Ajuste os parametros e calcule o custo de construcao.',
+  });
+});
+
+grupo11.get('/manutencao', requireAuth11, (req, res) => {
+  res.render('equipe-11/calculo', {
+    basePath: GRUPO11_PATH,
+    mode: 'maintenance',
+    title: 'Manutencao do campo',
+    hint: 'Informe os custos para calcular a manutencao mensal.',
+  });
+});
+
+grupo11.get('/receita', requireAuth11, (req, res) => {
+  res.render('equipe-11/calculo', {
+    basePath: GRUPO11_PATH,
+    mode: 'revenue',
+    title: 'Receita do campo',
+    hint: 'Informe os dados para estimar a receita anual.',
+  });
+});
+
+grupo11.get('/sobre', requireAuth11, (req, res) => {
+  res.render('equipe-11/sobre', { basePath: GRUPO11_PATH });
+});
+
+grupo11.post('/api/calculate', requireAuth11, (req, res) =>
+  proxyEquipe11(req, res, '/calculate'));
+
+grupo11.post('/api/maintenance', requireAuth11, (req, res) =>
+  proxyEquipe11(req, res, '/maintenance'));
+
+grupo11.post('/api/revenue', requireAuth11, (req, res) =>
+  proxyEquipe11(req, res, '/revenue'));
+
+app.use(GRUPO11_PATH, grupo11);
+
 // ── Grupo 20 — AguaCalc ──
 
 const GRUPO20_PATH = '/equipe-20';
@@ -712,7 +833,7 @@ app.post(`/etec/api/rescisao`, (req, res) => proxyAPI('/ETEC/rescisao', req, res
 
 // Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 2 || i === 4 || i === 5 || i === 6 || i === 7 || i === 12 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
+  if (i === 2 || i === 4 || i === 5 || i === 6 || i === 7 || i === 11 || i === 12 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
