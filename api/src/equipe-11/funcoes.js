@@ -5,7 +5,7 @@ function calculateField({ length, width, grassType, drainage, baseType }) {
   const area = Number((length * width).toFixed(2));
   const perimeter = Number((2 * (length + width)).toFixed(2));
 
-  const grassFactor = grassType === 'artificial' ? 35 : 25;
+  const grassFactor = grassType === 'artificial' ? 30 : 25;
   const drainageFactor = drainage === 'advanced' ? 16 : 10;
   const baseFactor = baseType === 'reinforced' ? 18 : 12;
 
