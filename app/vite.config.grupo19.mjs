@@ -10,7 +10,7 @@ export default defineConfig({
   base: '/equipe-19/',
   plugins: [react()],
   build: {
-    outDir: path.resolve(__dirname, 'grupo-19F/build'),
+    outDir: path.resolve(__dirname, 'grupo-19F/dist'),
     emptyOutDir: true,
   },
 });
