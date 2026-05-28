@@ -350,7 +350,7 @@ function CapacidadePage() {
 // =====================
 function SobrePage() {
   const equipe = [
-    { foto: '/gabriel.jpg', nome: 'Gabriel M Campos', papel: 'Fullstack' },
+    { foto: import.meta.env.BASE_URL + 'gabriel.jpg', nome: 'Gabriel M Campos', papel: 'Fullstack' },
   ];
   return (
     <div className="page">
