@@ -175,6 +175,7 @@ const EQUIPE21_PATH = '/equipe-21';
 
 app.use(`${EQUIPE21_PATH}/vendor/react`, express.static(path.join(__dirname, 'node_modules', 'react', 'umd')));
 app.use(`${EQUIPE21_PATH}/vendor/react-dom`, express.static(path.join(__dirname, 'node_modules', 'react-dom', 'umd')));
+app.use(`${BASE_PATH_12}/assets`, express.static(path.join(__dirname, 'views', 'equipe-12', 'assets')));
 
 const equipes = [
   { numero: 1, nome: 'TESTE', rota: '/login' },
@@ -368,23 +369,6 @@ app.get('/equipe-10/help', requireEquipe10Auth, (req, res) => {
   res.render('equipe-10/help');
 });
 
-// 20 dynamic team endpoints
-for (let i = 5; i <= 20; i++) {
-  app.get(`/equipe-${i}`, (req, res) => {
-    console.log(`/equipe-${i}/equipe`);
-    res.render(`equipe`, {
-      numero: i,
-      nome: `Equipe-${i}`
-    });
-  });
-}
-
-
-
-
-app.listen(PORT, () => {
-  console.log(`✅ App Doméstica rodando: http://localhost:${PORT}`);
-});
 grupo9.post('/calcular', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular', req, res));
 grupo9.post('/calcular-inverso', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular-inverso', req, res));
 grupo9.post('/comparar', requireAuth, (req, res) => proxyAPI('/api/equipe-9/comparar', req, res));
@@ -985,9 +969,11 @@ equipe22.get('/help', (req, res) => res.render('equipe-22/help'));
 
 app.use(EQUIPE22_PATH, equipe22);
 
-// Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
+// Rotas genericas apenas para equipes sem rota propria neste arquivo.
+const equipesComRotasProprias = new Set([2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23]);
 for (let i = 2; i <= 25; i++) {
-  if (i === 2 || i === 4 || i === 5 || i === 6 || i === 7 || i === 11 || i === 12 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 22 || i === 23) continue;
+  if (equipesComRotasProprias.has(i)) continue;
+
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
@@ -999,10 +985,6 @@ const grupo15DistPath = path.join(__dirname, 'views', 'grupo15-calc_frete', 'dis
 app.use(GRUPO15_PATH, express.static(grupo15DistPath));
 app.get(/^\/equipe-15(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo15DistPath, 'index.html'));
-});
-
-app.listen(PORT, () => {
-  console.log(`App rodando: http://localhost:${PORT}`);
 });
 
 // ── Grupo 64 — ETEC64 ──
@@ -1091,5 +1073,11 @@ app.use('/equipe-08', (req, res, next) => {
 }, grupo08);
 
 //teste
+
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`App rodando: http://localhost:${PORT}`);
+  });
+}
 
 module.exports = app;
