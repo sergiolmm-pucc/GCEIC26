@@ -745,6 +745,9 @@ function ensureTrailingSlash(url) {
 }
 
 // ROTAS GRUPO 1 ------------------------------------ //
+app.post('/equipe-01/api/parcela', (req, res) => proxyAPI('/equipe-01/api/parcela', req, res));
+app.post('/equipe-01/api/capacidade', (req, res) => proxyAPI('/equipe-01/api/capacidade', req, res));
+
 app.get('/equipe-01', (req, res) => {
   res.render('equipe-01/splash');
 });
