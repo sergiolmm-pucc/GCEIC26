@@ -774,12 +774,9 @@ app.use(GRUPO20_PATH, grupo20);
 
 
 
-// ── Grupo 7 — PISCINA2 ──
 
-// ── Grupo 7 — PISCINA2 ──
 
 const GRUPO7_PATH = '/equipe-7';
-// ✨ CORREÇÃO: Adicionado 'views' no caminho para achar sua pasta real!
 const grupo7DistPath = path.join(__dirname, 'views', 'equipe-7', 'dist'); 
 
 app.use(GRUPO7_PATH, express.static(grupo7DistPath));
@@ -809,9 +806,9 @@ async function proxyGrupo7(req, res, endpointBackend) {
 }
 
 // 4. Se o seu Front-end react chamar a rota /equipe-7/api/..., passa pelo proxy
-app.post(`${GRUPO7_PATH}/api/volume`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/volume/calcular'));
-app.post(`${GRUPO7_PATH}/api/materiais`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/materiais/calcular'));
-app.post(`${GRUPO7_PATH}/api/custos`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/custos/calcular'));
+app.post(`/api/src/${GRUPO7_PATH}/volume`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/volume/calcular'));
+app.post(`/api/src/${GRUPO7_PATH}/materiais`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/materiais/calcular'));
+app.post(`/api/src/${GRUPO7_PATH}/custos`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/custos/calcular'));
 
 // 5. O MAIS IMPORTANTE: Suporte ao React Router!
 // Se o usuário acessar qualquer sub-rota do React (ex: /equipe-7/login), cai no index.html e o React toma conta
@@ -970,7 +967,7 @@ equipe22.get('/help', (req, res) => res.render('equipe-22/help'));
 app.use(EQUIPE22_PATH, equipe22);
 
 // Rotas genericas apenas para equipes sem rota propria neste arquivo.
-const equipesComRotasProprias = new Set([2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23, 25]);
+const equipesComRotasProprias = new Set([2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 25]);
 for (let i = 2; i <= 25; i++) {
   if (equipesComRotasProprias.has(i)) continue;
 
@@ -985,6 +982,15 @@ const grupo15DistPath = path.join(__dirname, 'views', 'grupo15-calc_frete', 'dis
 app.use(GRUPO15_PATH, express.static(grupo15DistPath));
 app.get(/^\/equipe-15(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo15DistPath, 'index.html'));
+});
+
+// ── Grupo 19 — Financiamento Imobiliário (FinanciApp) ──
+// O front (grupo-19F) é um app React que chama a API direto em /FIN, então aqui só servimos o build estático.
+const GRUPO19_PATH = '/equipe-19';
+const grupo19DistPath = path.join(__dirname, 'grupo-19F', 'dist');
+app.use(GRUPO19_PATH, express.static(grupo19DistPath));
+app.get(/^\/equipe-19(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo19DistPath, 'index.html'));
 });
 
 // ── Grupo 25 — Custo de Serviços em Horas ──
