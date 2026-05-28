@@ -33,6 +33,7 @@ jobs:
             app:
               - 'app/**'
               - 'e2e-tests/**'
+              - '.github/workflows/deploy.yml'
 
   unitTestApi:
     needs: detect-changes
@@ -425,6 +426,35 @@ jobs:
         with:
           name: fotos-grupo20
           path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo20-*.png
+
+  e2e-etec:
+    needs: [deploy-api, deploy-app]
+    if: always() && github.ref == 'refs/heads/main' && needs.deploy-app.outputs.dep_app == 'true' && (needs.deploy-api.result == 'success' || needs.deploy-api.result == 'skipped')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compativeis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 149
+      - name: Roda os testes E2E - ETEC
+        working-directory: e2e-tests
+        run: npm run test:etec
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+      - name: Fotos dos testes ETEC
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-etec
+          path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/etec-*.png
   
 
   teste_funcional2:
