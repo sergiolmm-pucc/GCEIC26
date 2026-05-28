@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FINV – Simulador</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-left">
+      <a class="btn-back" href="/home">← Voltar</a>
+      <span class="logo">Simulador</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="card">
+      <h3 class="card-titulo">Dados do Financiamento</h3>
+
+      <div class="grupo">
+        <label class="label" for="valorVeiculo">Valor do Veículo (R$)</label>
+        <input class="input" type="number" id="valorVeiculo" placeholder="Ex: 60000" min="0">
+      </div>
+
+      <div class="grupo">
+        <label class="label" for="entrada">Entrada (R$)</label>
+        <input class="input" type="number" id="entrada" placeholder="Ex: 12000" min="0">
+      </div>
+
+      <div class="linha">
+        <div class="grupo">
+          <label class="label" for="taxaMensal">Taxa Mensal (%)</label>
+          <input class="input" type="number" id="taxaMensal" step="0.01" value="1.29" min="0">
+        </div>
+        <div class="grupo">
+          <label class="label" for="numParcelas">Nº Parcelas</label>
+          <input class="input" type="number" id="numParcelas" value="48" min="1">
+        </div>
+      </div>
+
+      <p class="erro" id="erro" style="display:none"></p>
+
+      <button class="btn-primary" id="btnCalcular" onclick="calcular()">CALCULAR</button>
+    </div>
+
+    <div class="card" id="resultado" style="display:none">
+      <h3 class="card-titulo">Resultado</h3>
+      <div class="result-linha">
+        <span class="result-label">Valor Financiado</span>
+        <span class="result-valor" id="valorFinanciado"></span>
+      </div>
+      <div class="result-linha">
+        <span class="result-label">Parcela Mensal</span>
+        <span class="result-valor" id="parcela"></span>
+      </div>
+      <div class="result-linha">
+        <span class="result-label">Total Pago</span>
+        <span class="result-valor" id="totalPago"></span>
+      </div>
+      <div class="result-linha">
+        <span class="result-label">Juros Totais</span>
+        <span class="result-valor" id="jurosTotais"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:3001';
+
+    function fmt(val) {
+      return Number(val).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function mostrarErro(msg) {
+      const el = document.getElementById('erro');
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    function ocultarErro() {
+      document.getElementById('erro').style.display = 'none';
+    }
+
+    async function calcular() {
+      ocultarErro();
+      document.getElementById('resultado').style.display = 'none';
+
+      const valorVeiculo = Number(document.getElementById('valorVeiculo').value);
+      if (!valorVeiculo || valorVeiculo <= 0) {
+        return mostrarErro('Informe o valor do veículo.');
+      }
+
+      const btn = document.getElementById('btnCalcular');
+      btn.disabled = true;
+      btn.textContent = 'Calculando...';
+
+      try {
+        const res = await fetch(`${API_URL}/api/parcela`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            valorVeiculo,
+            entrada: Number(document.getElementById('entrada').value) || 0,
+            taxaMensal: Number(document.getElementById('taxaMensal').value),
+            numParcelas: Number(document.getElementById('numParcelas').value),
+          }),
+        });
+
+        const json = await res.json();
+        if (!json.success) throw new Error(json.error);
+
+        const d = json.data;
+        document.getElementById('valorFinanciado').textContent = fmt(d.valorFinanciado);
+        document.getElementById('parcela').textContent = fmt(d.parcela);
+        document.getElementById('totalPago').textContent = fmt(d.totalPago);
+        document.getElementById('jurosTotais').textContent = fmt(d.jurosTotais);
+        document.getElementById('resultado').style.display = 'block';
+      } catch (e) {
+        mostrarErro(e.message || 'Erro ao conectar com a API.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'CALCULAR';
+      }
+    }
+  </script>
+</body>
+</html>

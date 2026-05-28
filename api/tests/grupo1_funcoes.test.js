@@ -1,4 +1,4 @@
-const { calcularParcela, calcularCapacidade } = require('../src/funcoes');
+const { calcularParcela, calcularCapacidade } = require('../src/grupo-01/funcoes');
 
 describe('Teste unitário - calcularParcela', () => {
 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FINV – Ajuda</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-left">
+      <a class="btn-back" href="/home">← Voltar</a>
+      <span class="logo">Ajuda</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="card">
+      <h3 class="card-titulo">Como usar o FINV</h3>
+
+      <div class="help-item">
+        <p class="help-titulo">🧮 Simulador</p>
+        <p class="help-desc">Informe o valor do veículo, entrada, taxa e prazo. O app calcula a parcela mensal e o total pago.</p>
+      </div>
+      <div class="help-item">
+        <p class="help-titulo">💰 Capacidade</p>
+        <p class="help-desc">Informe sua renda mensal. O app mostra o valor máximo de veículo que você pode financiar sem comprometer mais de 30% da renda.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-titulo">Perguntas Frequentes</h3>
+
+      <div class="help-item">
+        <p class="help-titulo">❓ O que é a Tabela Price?</p>
+        <p class="help-desc">É o sistema de amortização mais usado em financiamentos no Brasil. As parcelas são fixas, mas nos primeiros meses você paga mais juros e menos amortização.</p>
+      </div>
+      <div class="help-item">
+        <p class="help-titulo">❓ O que é taxa mensal?</p>
+        <p class="help-desc">É o percentual de juros cobrado por mês sobre o saldo devedor. Ex: 1,29% ao mês.</p>
+      </div>
+      <div class="help-item">
+        <p class="help-titulo">❓ Como é calculada a capacidade de financiamento?</p>
+        <p class="help-desc">Usamos a regra dos 30%: sua parcela mensal não deve ultrapassar 30% da sua renda bruta mensal.</p>
+      </div>
+      <div class="help-item">
+        <p class="help-titulo">❓ A entrada é obrigatória?</p>
+        <p class="help-desc">Não. Se não informar, o sistema considera financiamento de 100% do valor do veículo.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-titulo">Endpoints da API</h3>
+
+      <div class="endpoint-item">
+        <code class="endpoint-rota">POST /api/parcela</code>
+        <span class="help-desc">Calcula parcela mensal e total pago</span>
+      </div>
+      <div class="endpoint-item">
+        <code class="endpoint-rota">POST /api/capacidade</code>
+        <span class="help-desc">Calcula capacidade de financiamento pela renda</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,8 +1,7 @@
-const app = require('./src/app');
+const app = require('./src/server');
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`API rodando em ${PORT}`);
-  console.log(`para verificar saude da API: http://localhost:${PORT}/health`);
+  console.log(`App rodando em http://localhost:${PORT}`);
 });

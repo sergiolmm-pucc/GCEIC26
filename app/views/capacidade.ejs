@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FINV – Capacidade</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-left">
+      <a class="btn-back" href="/home">← Voltar</a>
+      <span class="logo">Capacidade</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="card">
+      <h3 class="card-titulo">Quanto posso financiar?</h3>
+      <p class="descricao">Calcula o valor máximo com base em 30% da sua renda mensal.</p>
+
+      <div class="grupo">
+        <label class="label" for="rendaMensal">Renda Mensal (R$)</label>
+        <input class="input" type="number" id="rendaMensal" placeholder="Ex: 8000" min="0">
+      </div>
+
+      <div class="linha">
+        <div class="grupo">
+          <label class="label" for="taxaMensal">Taxa Mensal (%)</label>
+          <input class="input" type="number" id="taxaMensal" step="0.01" value="1.29" min="0">
+        </div>
+        <div class="grupo">
+          <label class="label" for="numParcelas">Nº Parcelas</label>
+          <input class="input" type="number" id="numParcelas" value="48" min="1">
+        </div>
+      </div>
+
+      <div class="grupo">
+        <label class="label" for="entradaPercent">Entrada (%)</label>
+        <input class="input" type="number" id="entradaPercent" placeholder="Ex: 20" value="20" min="0" max="100">
+      </div>
+
+      <p class="erro" id="erro" style="display:none"></p>
+
+      <button class="btn-primary" id="btnCalcular" onclick="calcular()">CALCULAR</button>
+    </div>
+
+    <div class="card" id="resultado" style="display:none">
+      <h3 class="card-titulo">Resultado</h3>
+      <div class="result-linha">
+        <span class="result-label">Parcela Máxima (30% da renda)</span>
+        <span class="result-valor" id="parcelaMaxima"></span>
+      </div>
+      <div class="result-linha">
+        <span class="result-label">Valor Máximo do Veículo</span>
+        <span class="result-valor" id="valorVeiculoMax"></span>
+      </div>
+      <div class="result-linha">
+        <span class="result-label">Valor Máximo a Financiar</span>
+        <span class="result-valor" id="valorFinanciadoMax"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const API_URL = 'http://localhost:3001';
+
+    function fmt(val) {
+      return Number(val).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function mostrarErro(msg) {
+      const el = document.getElementById('erro');
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    function ocultarErro() {
+      document.getElementById('erro').style.display = 'none';
+    }
+
+    async function calcular() {
+      ocultarErro();
+      document.getElementById('resultado').style.display = 'none';
+
+      const rendaMensal = Number(document.getElementById('rendaMensal').value);
+      if (!rendaMensal || rendaMensal <= 0) {
+        return mostrarErro('Informe sua renda mensal.');
+      }
+
+      const btn = document.getElementById('btnCalcular');
+      btn.disabled = true;
+      btn.textContent = 'Calculando...';
+
+      try {
+        const res = await fetch(`${API_URL}/api/capacidade`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            rendaMensal,
+            taxaMensal: Number(document.getElementById('taxaMensal').value),
+            numParcelas: Number(document.getElementById('numParcelas').value),
+            entradaPercent: Number(document.getElementById('entradaPercent').value),
+          }),
+        });
+
+        const json = await res.json();
+        if (!json.success) throw new Error(json.error);
+
+        const d = json.data;
+        document.getElementById('parcelaMaxima').textContent = fmt(d.parcelaMaxima);
+        document.getElementById('valorVeiculoMax').textContent = fmt(d.valorVeiculoMax);
+        document.getElementById('valorFinanciadoMax').textContent = fmt(d.valorFinanciadoMax);
+        document.getElementById('resultado').style.display = 'block';
+      } catch (e) {
+        mostrarErro(e.message || 'Erro ao conectar com a API.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'CALCULAR';
+      }
+    }
+  </script>
+</body>
+</html>
