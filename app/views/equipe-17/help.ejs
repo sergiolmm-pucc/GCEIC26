@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ajuda — NF Calc</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0f172a; --surface:#1e293b; --surface2:#263348;
+      --border:#334155; --accent:#10b981; --accent2:#059669;
+      --text:#f1f5f9; --muted:#94a3b8;
+    }
+    body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+    nav { background:var(--surface); border-bottom:1px solid var(--border); padding:0 1.75rem; height:56px; display:flex; align-items:center; justify-content:space-between; }
+    .nav-logo { font-size:1.05rem; font-weight:800; color:var(--text); text-decoration:none; }
+    .nav-logo span { color:var(--accent); }
+    .nav-links { display:flex; align-items:center; gap:0.15rem; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:0.83rem; padding:0.4rem 0.75rem; border-radius:6px; transition:color .15s,background .15s; }
+    .nav-links a:hover { color:var(--text); background:rgba(255,255,255,.05); }
+    .nav-links a.active { color:var(--accent); background:rgba(16,185,129,.08); }
+    .nav-user { display:flex; align-items:center; gap:0.75rem; font-size:0.82rem; color:var(--muted); }
+    .nav-user strong { color:var(--text); font-weight:600; }
+    .nav-user a { color:var(--muted); text-decoration:none; font-size:0.78rem; padding:0.3rem 0.7rem; border:1px solid var(--border); border-radius:6px; }
+    .nav-user a:hover { color:var(--text); }
+    main { max-width:720px; margin:2rem auto 4rem; padding:0 1rem; display:flex; flex-direction:column; gap:1.25rem; }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.75rem; }
+    .card h2 { font-size:0.95rem; font-weight:600; margin-bottom:1rem; color:var(--accent); }
+    .card h3 { font-size:0.85rem; font-weight:600; color:var(--text); margin-bottom:0.5rem; margin-top:1.25rem; }
+    .card h3:first-child { margin-top:0; }
+    p,li { color:var(--muted); font-size:0.87rem; line-height:1.65; margin-bottom:0.5rem; }
+    p strong, li strong { color:var(--text); }
+    ul { padding-left:1.25rem; }
+    li { margin-bottom:0.35rem; }
+    .key-example {
+      font-family:monospace;
+      font-size:0.82rem;
+      background:var(--surface2);
+      border:1px solid var(--border);
+      border-radius:6px;
+      padding:0.65rem 0.875rem;
+      color:var(--accent);
+      letter-spacing:0.04em;
+      margin:0.75rem 0;
+      word-break:break-all;
+    }
+    .key-map { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:0.6rem; margin-top:0.75rem; }
+    .km-item { background:var(--surface2); border:1px solid var(--border); border-radius:7px; padding:0.7rem; }
+    .km-item .pos { font-size:0.68rem; color:var(--accent); font-weight:600; margin-bottom:2px; font-family:monospace; }
+    .km-item .desc { font-size:0.76rem; color:var(--muted); }
+    table { width:100%; border-collapse:collapse; font-size:0.84rem; margin-top:0.75rem; }
+    th { text-align:left; color:var(--muted); font-weight:500; font-size:0.75rem; padding:0.45rem 0.6rem; border-bottom:1px solid var(--border); }
+    td { padding:0.55rem 0.6rem; border-bottom:1px solid rgba(51,65,85,.5); color:var(--muted); }
+    td strong { color:var(--text); }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="<%= basePath %>/"><span>NF</span> Calc</a>
+  <div class="nav-links">
+    <a href="<%= basePath %>/calcular">Calcular</a>
+    <a href="<%= basePath %>/help" class="active">Ajuda</a>
+    <a href="<%= basePath %>/sobre">Sobre</a>
+  </div>
+  <div class="nav-user">
+    Olá, <strong><%= user.nome %></strong>
+    <a href="<%= basePath %>/logout">Sair</a>
+  </div>
+</nav>
+
+<main>
+
+  <div class="card">
+    <h2>Como usar o NF Calc</h2>
+    <h3>Passo 1 — Digite a chave de acesso</h3>
+    <p>Cole a chave de 44 dígitos da NF-e no campo indicado. Espaços e traços são removidos automaticamente.</p>
+    <div class="key-example">35260312345678000195550010000000011234567890</div>
+    <p>Clique em <strong>Decodificar Chave</strong>. As informações do documento serão preenchidas automaticamente.</p>
+
+    <h3>Passo 2 — Confira os dados extraídos</h3>
+    <p>Verifique o estado emissor, CNPJ, data e a alíquota de ICMS padrão para aquele estado. O dígito verificador será exibido como <strong>Válido</strong> ou <strong>Inválido</strong>.</p>
+
+    <h3>Passo 3 — Informe os valores</h3>
+    <ul>
+      <li><strong>Valor do produto</strong> — valor base da mercadoria (obrigatório).</li>
+      <li><strong>IPI</strong> — alíquota do IPI em % (padrão: 0).</li>
+      <li><strong>Frete, Seguro, Descontos</strong> — valores adicionais em R$.</li>
+      <li><strong>Regime tributário</strong> — selecione o regime da empresa emissora.</li>
+      <li><strong>ICMS personalizado</strong> — deixe vazio para usar a alíquota padrão do estado.</li>
+    </ul>
+
+    <h3>Passo 4 — Resultado</h3>
+    <p>O cálculo exibirá o valor de cada imposto, o total de impostos, o total da NF e a carga tributária percentual.</p>
+  </div>
+
+  <div class="card">
+    <h2>Estrutura da Chave NF-e (44 dígitos)</h2>
+    <div class="key-map">
+      <div class="km-item"><div class="pos">1–2</div><div class="desc">Código UF do estado emissor</div></div>
+      <div class="km-item"><div class="pos">3–6</div><div class="desc">AAMM — ano e mês de emissão</div></div>
+      <div class="km-item"><div class="pos">7–20</div><div class="desc">CNPJ do emitente (14 dígitos)</div></div>
+      <div class="km-item"><div class="pos">21–22</div><div class="desc">Modelo (55 = NF-e, 65 = NFC-e)</div></div>
+      <div class="km-item"><div class="pos">23–25</div><div class="desc">Série da nota fiscal</div></div>
+      <div class="km-item"><div class="pos">26–34</div><div class="desc">Número da nota fiscal</div></div>
+      <div class="km-item"><div class="pos">35</div><div class="desc">Tipo de emissão</div></div>
+      <div class="km-item"><div class="pos">36–43</div><div class="desc">Código numérico aleatório</div></div>
+      <div class="km-item"><div class="pos">44</div><div class="desc">Dígito verificador (cDV)</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Impostos calculados</h2>
+    <table>
+      <thead><tr><th>Imposto</th><th>Descrição</th><th>Regime — Alíquota</th></tr></thead>
+      <tbody>
+        <tr><td><strong>ICMS</strong></td><td>Imposto sobre Circulação de Mercadorias e Serviços</td><td>Varia por estado (12% a 22%)</td></tr>
+        <tr><td><strong>IPI</strong></td><td>Imposto sobre Produtos Industrializados</td><td>Informado pelo usuário</td></tr>
+        <tr><td><strong>PIS</strong></td><td>Programa de Integração Social</td><td>Lucro Real 1,65% · Presumido 0,65% · Simples 0%</td></tr>
+        <tr><td><strong>COFINS</strong></td><td>Contribuição para o Financiamento da Seguridade Social</td><td>Lucro Real 7,6% · Presumido 3% · Simples 0%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Regimes tributários</h2>
+    <h3>Lucro Real</h3>
+    <p>PIS 1,65% e COFINS 7,6% (regime não-cumulativo). Obrigatório para empresas com faturamento acima de R$ 78 milhões/ano.</p>
+    <h3>Lucro Presumido</h3>
+    <p>PIS 0,65% e COFINS 3% (regime cumulativo). Opção para empresas com faturamento até R$ 78 milhões/ano.</p>
+    <h3>Simples Nacional</h3>
+    <p>PIS e COFINS já estão incluídos na guia unificada do Simples; o cálculo os zera para evitar dupla contagem.</p>
+  </div>
+
+</main>
+</body>
+</html>

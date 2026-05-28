@@ -248,11 +248,56 @@ app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
 
 // ── Grupo 17 — Calculadora de Impostos NF de Venda ──
 
+const EQUIPE17_PATH = '/equipe-17';
+
+function requireAuth17(req, res, next) {
+  if (req.session && req.session.user17) return next();
+  res.redirect(EQUIPE17_PATH + '/login');
+}
+
 const grupo17 = express.Router();
 
-grupo17.get('/', (_req, res) => res.render('equipe-17/nfvenda'));
+grupo17.get('/', (req, res) => {
+  if (req.session.user17) return res.redirect(EQUIPE17_PATH + '/calcular');
+  res.render('equipe-17/splash', { user: req.session.user17 || null, basePath: EQUIPE17_PATH });
+});
 
-grupo17.post('/decodificar', async (req, res) => {
+grupo17.get('/splash', (req, res) => {
+  res.render('equipe-17/splash', { user: req.session.user17 || null, basePath: EQUIPE17_PATH });
+});
+
+grupo17.get('/login', (req, res) => {
+  if (req.session.user17) return res.redirect(EQUIPE17_PATH + '/calcular');
+  res.render('equipe-17/login', { error: null, basePath: EQUIPE17_PATH });
+});
+
+grupo17.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'admin' && password === 'admin') {
+    req.session.user17 = { username: 'admin', nome: 'Administrador' };
+    return res.redirect(EQUIPE17_PATH + '/calcular');
+  }
+  res.render('equipe-17/login', { error: 'Usuário ou senha inválidos', basePath: EQUIPE17_PATH });
+});
+
+grupo17.get('/logout', (req, res) => {
+  req.session.user17 = null;
+  res.redirect(EQUIPE17_PATH + '/login');
+});
+
+grupo17.get('/calcular', requireAuth17, (req, res) => {
+  res.render('equipe-17/nfvenda', { user: req.session.user17, basePath: EQUIPE17_PATH });
+});
+
+grupo17.get('/sobre', requireAuth17, (req, res) => {
+  res.render('equipe-17/sobre', { user: req.session.user17, basePath: EQUIPE17_PATH });
+});
+
+grupo17.get('/help', requireAuth17, (req, res) => {
+  res.render('equipe-17/help', { user: req.session.user17, basePath: EQUIPE17_PATH });
+});
+
+grupo17.post('/decodificar', requireAuth17, async (req, res) => {
   try {
     const fetch = (await import('node-fetch')).default;
     const response = await fetch(`${API_URL}/nfvenda/decodificar`, {
@@ -267,7 +312,7 @@ grupo17.post('/decodificar', async (req, res) => {
   }
 });
 
-grupo17.post('/calcular', async (req, res) => {
+grupo17.post('/calcular', requireAuth17, async (req, res) => {
   try {
     const fetch = (await import('node-fetch')).default;
     const response = await fetch(`${API_URL}/nfvenda/calcular`, {
