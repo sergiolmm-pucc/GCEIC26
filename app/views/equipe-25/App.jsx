@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 
 function resolveApiUrl() {
   if (import.meta.env.VITE_API_URL) return import.meta.env.VITE_API_URL.replace(/\/$/, '');
-  if (typeof window !== 'undefined' && window.location.hostname.includes('gceic26-app.onrender.com')) {
+  if (typeof window !== 'undefined' && window.location.hostname.includes('onrender.com')) {
     return 'https://gceic26.onrender.com';
   }
   return 'http://localhost:3001';
