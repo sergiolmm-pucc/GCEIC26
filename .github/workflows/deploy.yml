@@ -465,3 +465,33 @@ jobs:
         with:
           name: fotos-equipe5
           path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo5-*.png
+
+  e2e-equipe18:
+    needs: [deploy-api, deploy-app]
+    if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compatíveis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 149
+      - name: Roda os testes E2E - Equipe 18 (Impostos NF)
+        if: success()
+        working-directory: e2e-tests
+        run: npm run test:equipe18
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+      - name: Fotos dos testes Equipe 18
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-equipe18
+          path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo18-*.png
