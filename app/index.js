@@ -30,6 +30,18 @@ app.use(GRUPO14_PATH, express.static(grupo14DistPath));
 app.use(GRUPO5_PATH, express.static(grupo5DistPath));
 app.use(GRUPO2_PATH, express.static(grupo2DistPath));
 
+// ETEC - Encargos de empregada domestica (serve estáticos antes do session middleware)
+const ETEC_PATH = '/etec';
+const etecDistPath = path.join(__dirname, 'views', 'etec', 'dist');
+const fs = require('fs');
+if (!fs.existsSync(etecDistPath)) {
+  console.warn('ETEC dist not found at', etecDistPath);
+}
+app.use(ETEC_PATH, express.static(etecDistPath));
+app.get(/^\/etec(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(etecDistPath, 'index.html'));
+});
+
 // ── Proxy API Equipe 2 — IRP ──
 app.post('/IRP/calcular', async (req, res) => {
   try {
@@ -619,19 +631,10 @@ app.get(/^\/equipe-23(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo23DistPath, 'index.html'));
 });
 
-// ETEC - Encargos de empregada domestica
-const ETEC_PATH = '/etec';
-const etecDistPath = path.join(__dirname, 'views', 'etec', 'dist');
-
-app.use(ETEC_PATH, express.static(etecDistPath));
-
-app.post(`${ETEC_PATH}/api/salario`, (req, res) => proxyAPI('/ETEC/salario', req, res));
-app.post(`${ETEC_PATH}/api/ferias`, (req, res) => proxyAPI('/ETEC/ferias', req, res));
-app.post(`${ETEC_PATH}/api/rescisao`, (req, res) => proxyAPI('/ETEC/rescisao', req, res));
-
-app.get(/^\/etec(?:\/.*)?$/, (_req, res) => {
-  res.sendFile(path.join(etecDistPath, 'index.html'));
-});
+// ETEC proxy routes (static files served earlier)
+app.post(`/etec/api/salario`, (req, res) => proxyAPI('/ETEC/salario', req, res));
+app.post(`/etec/api/ferias`, (req, res) => proxyAPI('/ETEC/ferias', req, res));
+app.post(`/etec/api/rescisao`, (req, res) => proxyAPI('/ETEC/rescisao', req, res));
 
 // Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
