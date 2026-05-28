@@ -9,8 +9,11 @@
     "test:grupo13": "node tests/markup.test.js",
     "test:grupo20": "node tests/equipe20.test.js",
     "test:grupo6": "node tests/equipe6.test.js",
-    "test:equipe5": "node tests/equipe5.test.js"
-    ,"test:etec": "node tests/etec.test.js"
+    "test:equipe5": "node tests/equipe5.test.js",
+    "test:etec": "node tests/etec.test.js",
+    "test:equipe5": "node tests/equipe5.test.js",
+    "test:grupo12": "node tests/grupo12.test.js",
+    "test:equipe18": "node tests/equipe18.test.js"
   },
   "keywords": [],
   "author": "",

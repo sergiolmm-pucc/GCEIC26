@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home - MarkUp</title>
+  <link rel="stylesheet" href="/equipe-12/markup.css" />
+</head>
+<body>
+  <div class="mk-shell">
+    <header class="mk-nav">
+      <div class="mk-nav-inner">
+        <a class="mk-brand" href="<%= basePath %>/calculo">
+          <div class="mk-logo">M</div>
+          <span>MarkUp</span>
+        </a>
+        <nav class="mk-tabs">
+          <a class="active" href="<%= basePath %>/calculo">Calcular</a>
+          <a href="<%= basePath %>/sobre">Sobre</a>
+          <a href="<%= basePath %>/help">Ajuda</a>
+        </nav>
+        <div class="mk-actions">
+          <span class="mk-user">admin</span>
+          <a class="mk-logout" href="<%= basePath %>/logout">Sair</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="mk-container">
+      <div class="mk-overline">Calculadoras</div>
+      <h1 class="mk-title">Escolha o calculo desejado.</h1>
+      <p class="mk-copy">Cinco modos de precificacao, do mais simples ao mais completo.</p>
+
+      <section class="mk-card-grid">
+        <a class="mk-card" href="<%= basePath %>/calculo?tipo=sell">
+          <div class="mk-num">01</div>
+          <div class="mk-card-title">Preco de Venda</div>
+          <div class="mk-card-desc">PV = Custo / (1 - MarkUp%)</div>
+        </a>
+        <a class="mk-card" href="<%= basePath %>/calculo?tipo=mkup">
+          <div class="mk-num">02</div>
+          <div class="mk-card-title">MarkUp %</div>
+          <div class="mk-card-desc">MarkUp = ((PV - Custo) / PV) x 100</div>
+        </a>
+        <a class="mk-card" href="<%= basePath %>/calculo?tipo=div">
+          <div class="mk-num">03</div>
+          <div class="mk-card-title">MarkUp Divisor</div>
+          <div class="mk-card-desc">Divisor = 1 - (DF + DV + L) / 100</div>
+        </a>
+        <a class="mk-card" href="<%= basePath %>/calculo?tipo=profit">
+          <div class="mk-num">04</div>
+          <div class="mk-card-title">Lucro</div>
+          <div class="mk-card-desc">Lucro unitario, total e margem</div>
+        </a>
+        <a class="mk-card" href="<%= basePath %>/calculo?tipo=be">
+          <div class="mk-num">05</div>
+          <div class="mk-card-title">Ponto de Equilibrio</div>
+          <div class="mk-card-desc">PE = Custos Fixos / (PV - Custo Var.)</div>
+        </a>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
