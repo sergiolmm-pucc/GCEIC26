@@ -280,3 +280,31 @@ jobs:
         run: |
           echo "dep_api = ${{ needs.deploy-api.outputs.dep_api }}"
           echo "dep_app = ${{ needs.deploy-app.outputs.dep_app }}"          
+
+  e2e-grupo10:
+    needs: [teste_funcional]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compativeis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - name: Roda os testes E2E - Grupo 10
+        working-directory: e2e-tests
+        run: npm run test:grupo10
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+      - name: Fotos dos testes Grupo 10
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-grupo10
+          path: e2e-tests/screenshots/Equipe10_*.png

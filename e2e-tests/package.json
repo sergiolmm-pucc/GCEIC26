@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/base.test.js"
+    "test": "node tests/base.test.js",
+    "test:grupo10": "node tests/equipe.10.test.js"
   },
   "keywords": [],
   "author": "",

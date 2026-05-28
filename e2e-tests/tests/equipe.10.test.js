@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const BASE_URL = process.env.APP_URL || 'http://localhost:3000';
-const SCREENSHOTS_DIR = path.join(__dirname, '..', 'screenshots', 'financeira');
+const SCREENSHOTS_DIR = path.join(__dirname, '..', 'screenshots');
 
 // Garante diretório de evidências
 if (!fs.existsSync(SCREENSHOTS_DIR)) fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
@@ -57,25 +57,25 @@ async function main() {
         // 1. Teste de Acesso (Login da Equipe 10)
         console.log("Teste 1: Acessando calculadora financeira...");
         await loginFinanceira();
-        await tiraFoto("1_Login_Sucesso");
+        await tiraFoto("Equipe10_1_Login_Sucesso");
 
         // 2. Teste Cálculo Juros Simples
         console.log("Teste 2: Calculando Juros Simples...");
         await realizarCalculo('1000', '5', '12', 'simples');
-        await tiraFoto("2_Resultado_Simples");
+        await tiraFoto("Equipe10_2_Resultado_Simples");
 
         // 3. Teste Cálculo Juros Compostos
         console.log("Teste 3: Calculando Juros Compostos...");
         await realizarCalculo('1000', '5', '12', 'compostos');
-        await tiraFoto("3_Resultado_Compostos");
+        await tiraFoto("Equipe10_3_Resultado_Compostos");
 
         // 4. Teste de Navegação Interna
         console.log("Teste 4: Navegando pelas telas financeiras...");
         await driver.get(`${BASE_URL}/equipe-10/sobre`);
-        await tiraFoto("4_Tela_Sobre");
+        await tiraFoto("Equipe10_4_Tela_Sobre");
         
         await driver.get(`${BASE_URL}/equipe-10/help`);
-        await tiraFoto("5_Tela_Help");
+        await tiraFoto("Equipe10_5_Tela_Help");
 
         console.log("✅ Todos os testes da calculadora financeira concluídos.");
 
