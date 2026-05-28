@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../src/app');
+const app = require('../../api/src/app');
 
 describe('Teste de Saude -> GET /health', () => {
 
@@ -14,7 +14,7 @@ describe('Teste de Saude -> GET /health', () => {
 describe('POST /api/parcela', () => {
 
   test('deve retornar parcela para dados válidos', async () => {
-    const res = await request(app).post('/api/parcela').send({
+    const res = await request(app).post('/equipe-01/api/parcela').send({
       valorVeiculo: 30000,
       entrada: 6000,
       taxaMensal: 1.29,
@@ -26,7 +26,7 @@ describe('POST /api/parcela', () => {
   });
 
   test('deve retornar erro 400 para dados inválidos', async () => {
-    const res = await request(app).post('/api/parcela').send({
+    const res = await request(app).post('/equipe-01/api/parcela').send({
       valorVeiculo: 0,
       entrada: 0,
       taxaMensal: 1,
@@ -41,7 +41,7 @@ describe('POST /api/parcela', () => {
 describe('POST /api/capacidade', () => {
 
   test('deve retornar capacidade para dados válidos', async () => {
-    const res = await request(app).post('/api/capacidade').send({
+    const res = await request(app).post('/equipe-01/api/capacidade').send({
       rendaMensal: 5000,
       taxaMensal: 1,
       numParcelas: 48,
@@ -53,7 +53,7 @@ describe('POST /api/capacidade', () => {
   });
 
   test('deve retornar erro 400 para renda inválida', async () => {
-    const res = await request(app).post('/api/capacidade').send({
+    const res = await request(app).post('/equipe-01/api/capacidade').send({
       rendaMensal: 0,
       taxaMensal: 1,
       numParcelas: 48,
