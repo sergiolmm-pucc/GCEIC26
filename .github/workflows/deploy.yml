@@ -296,6 +296,19 @@ jobs:
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
+      - name: Aguardar login da equipe 10 no Render
+        run: |
+          for i in {1..24}; do
+            HTML=$(curl -sL "https://gceic26-app.onrender.com/equipe-10/login" || true)
+            if echo "$HTML" | grep -q 'name="username"'; then
+              echo "Tela de login pronta na tentativa $i."
+              exit 0
+            fi
+            echo "Render ainda aquecendo... tentativa $i/24"
+            sleep 5
+          done
+          echo "Timeout aguardando a tela de login da equipe 10 no Render."
+          exit 1
       - name: Roda os testes E2E - Grupo 10
         working-directory: e2e-tests
         run: npm run test:grupo10
