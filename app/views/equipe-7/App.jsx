@@ -7,7 +7,7 @@ import Calculadora from './pages/Calculadora';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/equipe-7">
       <Routes>
         <Route path="/" element={<SplashScreen />} />
         <Route path="/login" element={<Login />} />
