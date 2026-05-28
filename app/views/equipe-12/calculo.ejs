@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculo - MarkUp</title>
+  <link rel="stylesheet" href="/equipe-12/markup.css" />
+</head>
+<body>
+  <div class="mk-shell">
+    <header class="mk-nav">
+      <div class="mk-nav-inner">
+        <a class="mk-brand" href="<%= basePath %>/calculo">
+          <div class="mk-logo">M</div>
+          <span>MarkUp</span>
+        </a>
+        <nav class="mk-tabs">
+          <a class="active" href="<%= basePath %>/calculo">Calcular</a>
+          <a href="<%= basePath %>/sobre">Sobre</a>
+          <a href="<%= basePath %>/help">Ajuda</a>
+        </nav>
+        <div class="mk-actions">
+          <span class="mk-user">admin</span>
+          <a class="mk-logout" href="<%= basePath %>/logout">Sair</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="mk-calc-grid">
+      <aside class="mk-sidebar">
+        <div class="mk-overline">Calculos</div>
+        <div class="mk-mode-list" id="modeList"></div>
+      </aside>
+
+      <main>
+        <div class="mk-overline" id="modeCode">01 - SELL</div>
+        <h1 class="mk-title" id="modeTitle">Preco de Venda</h1>
+        <p class="mk-card-desc" id="modeDesc" style="margin: 6px 0 28px;">PV = Custo / (1 - MarkUp%)</p>
+
+        <section class="mk-calc-panel">
+          <form id="markupForm" class="mk-calc-form">
+            <div class="mk-formula" id="formula">PV = Custo / (1 - MarkUp%)</div>
+            <div id="fields"></div>
+            <div id="formError" class="mk-error" hidden></div>
+            <div class="mk-calc-actions">
+              <button class="mk-primary-btn" type="submit">Calcular</button>
+              <button class="mk-ghost-btn" type="button" id="clearBtn">Limpar</button>
+            </div>
+            <div class="mk-result-grid" id="resultado">
+              <div class="mk-result">
+                <div class="mk-result-label">Resultado</div>
+                <div class="mk-result-value">-</div>
+              </div>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const basePath = '<%= basePath %>';
+
+    const modes = {
+      sell: {
+        short: '01',
+        code: 'SELL',
+        label: 'Preco de Venda',
+        desc: 'PV = Custo / (1 - MarkUp%)',
+        formula: 'PV = Custo / (1 - MarkUp%)',
+        fields: [
+          ['Custo', 'f-cost', 'R$', '0,00'],
+          ['MarkUp', 'f-mk', '%', '0'],
+        ],
+        payload(values) {
+          return {
+            tipo: 'markupDivisor',
+            custo: n(values['f-cost']),
+            impostos: 0,
+            despesas: 0,
+            margemLucro: n(values['f-mk']),
+          };
+        },
+        results(data) {
+          return [
+            ['Preco de Venda', money(data.precoVenda), 'accent'],
+            ['Divisor', Number(data.markupDivisor).toFixed(4), 'soft'],
+            ['Lucro Unitario', money(data.lucro), 'soft'],
+          ];
+        },
+      },
+      mkup: {
+        short: '02',
+        code: 'MKUP',
+        label: 'MarkUp %',
+        desc: 'MarkUp = ((PV - Custo) / PV) x 100',
+        formula: 'MarkUp = ((PV - Custo) / PV) x 100',
+        fields: [
+          ['Custo', 'f-cost', 'R$', '0,00'],
+          ['Preco de Venda', 'f-price', 'R$', '0,00'],
+        ],
+        payload(values) {
+          return { tipo: 'markup', custo: n(values['f-cost']), precoVenda: n(values['f-price']) };
+        },
+        results(data) {
+          return [
+            ['MarkUp %', `${Number(data.margemPerc).toFixed(2)}%`, 'accent'],
+            ['Margem sobre Custo', `${Number(data.markupPerc).toFixed(2)}%`, 'soft'],
+          ];
+        },
+      },
+      div: {
+        short: '03',
+        code: 'DIV',
+        label: 'MarkUp Divisor',
+        desc: 'Divisor = 1 - (DF + DV + L) / 100',
+        formula: 'Divisor = 1 - (DF + DV + L) / 100',
+        fields: [
+          ['Custo', 'f-cost', 'R$', '0,00'],
+          ['Despesas Fixas', 'f-df', '%', '0'],
+          ['Despesas Variaveis', 'f-dv', '%', '0'],
+          ['Lucro Desejado', 'f-lc', '%', '0'],
+        ],
+        payload(values) {
+          return {
+            tipo: 'markupDivisor',
+            custo: n(values['f-cost']),
+            impostos: n(values['f-df']),
+            despesas: n(values['f-dv']),
+            margemLucro: n(values['f-lc']),
+          };
+        },
+        results(data) {
+          return [
+            ['Divisor', Number(data.markupDivisor).toFixed(4), 'accent'],
+            ['Total %', `${Number(data.totalPercentual).toFixed(2)}%`, 'soft'],
+            ['Preco de Venda', money(data.precoVenda), 'soft'],
+          ];
+        },
+      },
+      profit: {
+        short: '04',
+        code: 'PROFIT',
+        label: 'Lucro',
+        desc: 'Lucro unitario, total e margem',
+        formula: 'Lucro unitario, total e margem',
+        fields: [
+          ['Custo Unitario', 'f-cost', 'R$', '0,00'],
+          ['Preco de Venda', 'f-price', 'R$', '0,00'],
+          ['Quantidade', 'f-qty', '', '1'],
+        ],
+        local(values) {
+          const cost = n(values['f-cost']);
+          const price = n(values['f-price']);
+          const qty = n(values['f-qty']) || 1;
+          if (cost <= 0 || price <= 0) throw new Error('Informe custo e preco validos.');
+          if (price <= cost) throw new Error('Preco deve ser maior que o custo.');
+          const unit = price - cost;
+          return { unit, total: unit * qty, margin: (unit / price) * 100 };
+        },
+        results(data) {
+          return [
+            ['Lucro Unitario', money(data.unit), 'accent'],
+            ['Lucro Total', money(data.total), 'soft'],
+            ['Margem %', `${Number(data.margin).toFixed(2)}%`, 'soft'],
+          ];
+        },
+      },
+      be: {
+        short: '05',
+        code: 'BE',
+        label: 'Ponto de Equilibrio',
+        desc: 'PE = Custos Fixos / (PV - Custo Var.)',
+        formula: 'PE = Custos Fixos / (PV - Custo Var.)',
+        fields: [
+          ['Custos Fixos', 'f-fixos', 'R$', '0,00'],
+          ['Preco de Venda', 'f-price', 'R$', '0,00'],
+          ['Custo Variavel', 'f-varcost', 'R$', '0,00'],
+        ],
+        payload(values) {
+          return {
+            tipo: 'pontoEquilibrio',
+            custosFixos: n(values['f-fixos']),
+            precoVenda: n(values['f-price']),
+            custoVariavelUnitario: n(values['f-varcost']),
+          };
+        },
+        results(data) {
+          return [
+            ['Unidades (PE)', Math.ceil(data.unidades), 'accent'],
+            ['Receita de Equil.', money(data.receitaEquilibrio), 'soft'],
+            ['Margem Contribuicao', money(data.margemContribuicao), 'soft'],
+          ];
+        },
+      },
+    };
+
+    let active = new URLSearchParams(window.location.search).get('tipo') || 'sell';
+    if (!modes[active]) active = 'sell';
+
+    const modeList = document.getElementById('modeList');
+    const fields = document.getElementById('fields');
+    const form = document.getElementById('markupForm');
+    const result = document.getElementById('resultado');
+    const error = document.getElementById('formError');
+
+    function n(value) {
+      if (value === '' || value == null) return 0;
+      const num = parseFloat(String(value).replace(',', '.'));
+      return Number.isFinite(num) ? num : 0;
+    }
+
+    function money(value) {
+      return `R$ ${Number(value).toFixed(2)}`;
+    }
+
+    function renderModes() {
+      modeList.innerHTML = Object.entries(modes).map(([id, mode]) => `
+        <button type="button" class="mk-mode ${id === active ? 'active' : ''}" data-mode="${id}">
+          <div class="mk-mode-num">${mode.short}</div>
+          <div class="mk-mode-label">${mode.label}</div>
+        </button>
+      `).join('');
+    }
+
+    function renderFields() {
+      const mode = modes[active];
+      document.getElementById('modeCode').textContent = `${mode.short} - ${mode.code}`;
+      document.getElementById('modeTitle').textContent = mode.label;
+      document.getElementById('modeDesc').textContent = mode.desc;
+      document.getElementById('formula').textContent = mode.formula;
+      fields.innerHTML = mode.fields.map(([label, id, unit, placeholder]) => `
+        <label class="mk-field">
+          <span class="mk-label">${label}${unit ? ` (${unit})` : ''}</span>
+          <input id="${id}" class="mk-input" type="text" inputmode="decimal" placeholder="${placeholder}" autocomplete="off" />
+        </label>
+      `).join('');
+      result.innerHTML = `
+        <div class="mk-result">
+          <div class="mk-result-label">Resultado</div>
+          <div class="mk-result-value">-</div>
+        </div>
+      `;
+      error.hidden = true;
+      error.textContent = '';
+      renderModes();
+    }
+
+    function readValues() {
+      const values = {};
+      modes[active].fields.forEach(([, id]) => {
+        values[id] = document.getElementById(id).value;
+      });
+      return values;
+    }
+
+    function showResults(items) {
+      result.innerHTML = items.map(([label, value, variant]) => `
+        <div class="mk-result ${variant}">
+          <div class="mk-result-label">${label}</div>
+          <div class="mk-result-value">${value}</div>
+        </div>
+      `).join('');
+    }
+
+    modeList.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-mode]');
+      if (!button) return;
+      active = button.dataset.mode;
+      const url = new URL(window.location.href);
+      url.searchParams.set('tipo', active);
+      window.history.replaceState({}, '', url);
+      renderFields();
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', renderFields);
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const mode = modes[active];
+      error.hidden = true;
+      error.textContent = '';
+
+      try {
+        const values = readValues();
+        let data;
+        if (mode.local) {
+          data = mode.local(values);
+        } else {
+          const response = await fetch(`${basePath}/api/calcular`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(mode.payload(values)),
+          });
+          const payload = await response.json();
+          if (!response.ok || !payload.success) throw new Error(payload.error || 'Erro na requisicao.');
+          data = payload.data;
+        }
+        showResults(mode.results(data));
+      } catch (err) {
+        error.hidden = false;
+        error.textContent = err.message;
+      }
+    });
+
+    renderFields();
+  </script>
+</body>
+</html>

@@ -15,6 +15,7 @@ const nfvendaRouter = require('./equipe-17/nfvendaRoutes');
 const equipe15Router = require('./equipe-15/freteRoutes');
 const equipe21Router = require('./equipe-21/routes');
 const mkpRouter = require('./grupo13-markup/routes');
+const grupo12Router = require('./equipe-12/routes');
 const energyRouter = require('./equipe-5/routes/energy');
 const irpRouter = require('./equipe-2/irpRoutes');
 
@@ -39,6 +40,11 @@ app.use('/equipe-15', equipe15Router);
 // ── Grupo 13 — MarkUp ──
 app.get('/MKP', (req, res) => res.json({ message: 'API MarkUp - Grupo 13 funcionando!' }));
 app.use('/MKP', mkpRouter);
+
+app.get('/api/equipe-12', (req, res) => {
+  res.json({ message: 'API MarkUp - Grupo 12 funcionando!' });
+});
+app.use('/api/equipe-12', grupo12Router);
 
 // ── Grupo 18 — Impostos NF (INFP) ──
 const {
