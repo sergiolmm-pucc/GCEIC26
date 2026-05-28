@@ -9,67 +9,61 @@ const SCREENSHOTS_DIR = path.join(__dirname, '..', 'screenshots');
 // Garante que o diretório de screenshots existe
 if (!fs.existsSync(SCREENSHOTS_DIR)) fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
 
-async function tiraFoto(name){
-
-      try{
-        const img = await driver.takeScreenshot();
-        const filePath = path.join(SCREENSHOTS_DIR, `${name}.png`);
-        fs.writeFileSync(filePath, img, 'base64');
-        console.log(`Foto tirada ${name}.png`);
-      }catch(e){
-        console.warn('Erro ao tirar a foto');
-      }
-
+async function tiraFoto(name) {
+  try {
+    const img = await driver.takeScreenshot();
+    const filePath = path.join(SCREENSHOTS_DIR, `${name}.png`);
+    fs.writeFileSync(filePath, img, 'base64');
+    console.log(`Foto tirada ${name}.png`);
+  } catch (e) {
+    console.warn('Erro ao tirar a foto');
+  }
 }
 
 async function main() {
-    console.log('Iniciand');
-    try{
-      const opts = new chrome.Options();
-      opts.addArguments(
+  try {
+    const opts = new chrome.Options();
+    opts.addArguments(
       '--headless=new',
       '--no-sandbox',
-      '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
       '--window-size=800,640',
       '--disable-gpu'
-      );
+    );
+    driver = await new Builder()
+      .forBrowser('chrome')
+      .setChromeOptions(opts)
+      .build();
+    await driver.manage().setTimeouts({ implicit: 5000, pageLoad: 15000 });
 
-    //  let driver = await new Builder().forBrowser(Browser.CHROME).build();
-      driver = await new Builder()
-        .forBrowser('chrome')
-        .setChromeOptions(opts)
-        .build();
-      console.log('criado');  
-      await driver.manage().setTimeouts({ implicit: 5000, pageLoad: 15000 });
+    await driver.get(BASE_URL + '/equipe-08/login');
 
-      await driver.get(BASE_URL + '/login');
+    // AWAIT ADICIONADO AQUI
+    await tiraFoto("Pagina Entrada");
 
-      tiraFoto("Pagina Entrada");
-      //preenche os campos 
+    //preenche os campos 
+    await driver.findElement(By.id('username')).sendKeys('Adm');
+    await driver.findElement(By.id('password')).sendKeys('admin');
 
-      await driver.findElement(By.id('username')).sendKeys('Adm');
-      await driver.findElement(By.id('password')).sendKeys('admin');
+    // AWAIT ADICIONADO AQUI
+    await tiraFoto("Valores Digitados");
 
-      tiraFoto("Valores Digitados");
-      // vamos acionar o botao de login e ver o que acontece
-      await driver.findElement(By.id('loginForm')).submit();
-      await new Promise(r => setTimeout(r, 800)); 
+    // vamos acionar o botao de login e ver o que acontece
+    await driver.findElement(By.id('loginForm')).submit();
+    await new Promise(r => setTimeout(r, 800));
 
-      tiraFoto("Submit form com erro");
+    // AWAIT ADICIONADO AQUI
+    await tiraFoto("Submit form com erro");
 
-      const errMsg = await driver.findElement(By.css('erro')).getText();
-      if (!errMsg.includes('invalidos')) throw new Error(`Falhou : ${errMsg}`);
-    
-    } catch(error){  
-        console.log(error.message);
-    } finally {
-        if (driver) await driver.quit();
-    }
+    const errMsg = await driver.findElement(By.css('.erro')).getText();
+    if (!errMsg.includes('incorretos')) throw new Error(`Falhou : ${errMsg}`);
 
+  } finally {
+    if (driver) await driver.quit();
+  }
 }
 
-main().catch( err => { 
-    console.error('Erro fatal', err);
-    process.exit(1);
+main().catch(err => {
+  console.error('Erro fatal', err);
+  process.exit(1);
 });

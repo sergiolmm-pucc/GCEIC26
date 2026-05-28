@@ -1,0 +1,20 @@
+/* Remove margens padrão e garante que tudo ocupe a tela inteira */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  min-height: 100vh;
+  /* Colocando a mesma cor de fundo do nosso app para ficar uniforme */
+  background-color: #f8fafc; 
+}
+
+/* Remove a cor de fundo preta que os navegadores podem adicionar em telas largas */
+body {
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
