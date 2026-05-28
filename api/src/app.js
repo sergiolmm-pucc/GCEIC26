@@ -1,4 +1,5 @@
 const express = require('express');
+const calcFinanceiraRouter = require("./equipe-10/calcFinanceiraApp")
 const cors = require('cors');
 const helmet = require('helmet');
 
@@ -15,6 +16,7 @@ const nfvendaRouter = require('./equipe-17/nfvendaRoutes');
 const equipe15Router = require('./equipe-15/freteRoutes');
 const equipe21Router = require('./equipe-21/routes');
 const mkpRouter = require('./grupo13-markup/routes');
+const grupo12Router = require('./equipe-12/routes');
 const energyRouter = require('./equipe-5/routes/energy');
 const irpRouter = require('./equipe-2/irpRoutes');
 
@@ -23,6 +25,7 @@ const materiaisRoutes = require('./equipe-7/materiais');
 const custosRoutes = require('./equipe-7/custos');
 const etec64Routes = require('./etec64/routes/etecRoutes.js');
 const etecRoutes = require('./etec/routes/etecRoutes.js');
+const equipe11Routes = require('./equipe-11/routes');
 
 // checa se api está no a
 app.get('/health', (req, res) => {
@@ -45,6 +48,11 @@ app.use('/equipe-01', equipe_01);
 // ── Grupo 13 — MarkUp ──
 app.get('/MKP', (req, res) => res.json({ message: 'API MarkUp - Grupo 13 funcionando!' }));
 app.use('/MKP', mkpRouter);
+
+app.get('/api/equipe-12', (req, res) => {
+  res.json({ message: 'API MarkUp - Grupo 12 funcionando!' });
+});
+app.use('/api/equipe-12', grupo12Router);
 
 // ── Grupo 18 — Impostos NF (INFP) ──
 const {
@@ -140,6 +148,10 @@ app.post('/api/equipe-9/calcular-inverso', (req, res) => {
     return res.status(400).json({ success: false, error: err.message });
   }
 });
+
+// Rotas da equipe 10 - Calculadora Financeira
+app.use("/api/calc-financeira", calcFinanceiraRouter)
+
 
 // POST /api/equipe-9/comparar
 app.post('/api/equipe-9/comparar', (req, res) => {
@@ -301,6 +313,8 @@ app.post('/AGUA/economia', (req, res) => {
     res.status(400).json({ success: false, error: err.message });
   }
 });
+
+app.use('/equipe-11', equipe11Routes);
 
 app.use('/PISCINA2/volume', volumeRoutes);
 app.use('/PISCINA2/materiais', materiaisRoutes);

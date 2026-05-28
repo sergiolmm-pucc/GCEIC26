@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre - Campo Calc</title>
+  <link rel="stylesheet" href="/equipe-11/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div>
+        <h1>Calculadora de Campo de Futebol</h1>
+        <p>Informacoes da equipe e do projeto.</p>
+      </div>
+      <div class="header-actions">
+        <a class="secondary-button" href="<%= basePath %>/dashboard">Painel</a>
+        <form method="POST" action="<%= basePath %>/logout">
+          <button class="secondary-button" type="submit">Sair</button>
+        </form>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="card-header">
+        <div>
+          <h2>Sobre o Projeto</h2>
+          <p class="hint">Uma visao geral do sistema de calculos para campos de futebol.</p>
+        </div>
+        <a class="secondary-button" href="<%= basePath %>/dashboard">Voltar ao painel</a>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-copy">
+          <p>
+            Trabalho da PUC Campinas - 2026
+            <br>
+            Materia: <strong>Gerencia de Configuracao, Entrega e Integracao Continua</strong>
+          </p>
+
+          <p>
+            <strong>Tema escolhido:</strong> Calculo de custos de um campo de futebol.
+          </p>
+
+          <div>
+            <strong>Integrantes (3 alunos):</strong>
+            <ul>
+              <li>Pedro Ozassa</li>
+              <li>Lucas Canhete</li>
+              <li>Joao Vidal</li>
+            </ul>
+          </div>
+
+          <p>Foi desenvolvido um ecossistema composto por:</p>
+
+          <ul>
+            <li>
+              <strong>API em Node.js:</strong> responsavel por realizar os calculos de custo,
+              manutencao e receita.
+            </li>
+            <li>
+              <strong>Aplicacao em EJS:</strong> interface web contendo as telas solicitadas,
+              como splash, login, sobre e telas de calculo.
+            </li>
+          </ul>
+        </div>
+
+        <div class="about-images">
+          <div class="about-image-card">
+            <img src="/equipe-11/Pedro.jpeg" alt="Pedro">
+          </div>
+          <div class="about-image-card">
+            <img src="/equipe-11/Lucas.jpeg" alt="Lucas">
+          </div>
+          <div class="about-image-card">
+            <img src="/equipe-11/Joao.jpeg" alt="Joao">
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

@@ -17,8 +17,27 @@ async function takeScreenshot(name) {
   fs.writeFileSync(path.join(SCREENSHOTS_DIR, `etec-${name}.png`), img, 'base64');
 }
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function waitForText(text) {
   await driver.wait(until.elementLocated(By.xpath(`//*[contains(normalize-space(.), "${text}")]`)), 10000);
+}
+
+async function waitForTeamPhoto() {
+  const photo = await driver.wait(until.elementLocated(By.css('img[alt="Equipe ETEC"]')), 10000);
+
+  await driver.wait(
+    () => driver.executeScript(
+      'const img = arguments[0]; return img.complete && img.naturalWidth > 0;',
+      photo,
+    ),
+    10000,
+  );
+
+  // Give Chrome a short moment to paint the decoded image before the evidence screenshot.
+  await sleep(700);
 }
 
 async function login() {
@@ -70,6 +89,7 @@ async function main() {
 
     await driver.findElement(By.linkText('Sobre')).click();
     await waitForText('Integrantes');
+    await waitForTeamPhoto();
     await takeScreenshot('07-sobre');
 
     await driver.findElement(By.linkText('Help')).click();

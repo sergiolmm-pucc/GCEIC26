@@ -27,11 +27,28 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 app.use(GRUPO14_PATH, express.static(grupo14DistPath));
+app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo14DistPath, 'index.html'));
+});
 app.use(GRUPO5_PATH, express.static(grupo5DistPath));
 app.use(GRUPO2_PATH, express.static(grupo2DistPath));
 
+// ETEC - Encargos de empregada domestica (serve estáticos antes do session middleware)
+const ETEC_PATH = '/etec';
+const etecDistPath = path.join(__dirname, 'views', 'etec', 'dist');
+const fs = require('fs');
+if (!fs.existsSync(etecDistPath)) {
+  console.warn('ETEC dist not found at', etecDistPath);
+}
+app.use(ETEC_PATH, express.static(etecDistPath));
+app.get(/^\/etec(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(etecDistPath, 'index.html'));
+});
+// Keep legacy route working: redirect /equipe-4 to the new /etec path
+app.get('/equipe-4', (_req, res) => res.redirect('/etec'));
+
 // ── Proxy API Equipe 2 — IRP ──
-app.post('/IRP/calcular', async (req, res) => {
+app.post('/IRP/calcular', bodyParser.json(), async (req, res) => {
   try {
     const fetch = (await import('node-fetch')).default;
     const response = await fetch(`${API_URL}/IRP/calcular`, {
@@ -81,6 +98,7 @@ app.use('/PBL', (req, res) => {
   req.pipe(proxyRequest);
 });
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
@@ -91,7 +109,6 @@ app.use(session({
   cookie: { maxAge: 3600000 },
 }));
 
-
 // Rotas Equipe 9
 const grupo9 = express.Router();
 
@@ -101,6 +118,13 @@ grupo9.get('/', (req, res) => res.redirect('/equipe-9/splash'));
 grupo9.get('/splash', (req, res) => {
   res.render('equipe-9/splash');
 });
+
+app.get("/", (req, res) => {
+  res.render('index', { equipes });
+  //if (req.session.user) return res.redirect("/dashboard");
+  //res.render("inicial", { error: null });
+});
+
 
 grupo9.get('/login', (req, res) => {
   if (req.session.user) return res.redirect('/equipe-9/calculo');
@@ -145,6 +169,7 @@ async function proxyAPI(endpoint, req, res) {
 }
 
 const BASE_PATH = '/equipe-16';
+const BASE_PATH_12 = '/equipe-12';
 const BASE_PATH_13 = '/equipe-13';
 const EQUIPE21_PATH = '/equipe-21';
 
@@ -164,7 +189,7 @@ const equipes = [
   { numero: 9, nome: 'Equipe-9', rota: '/equipe-9' },
   { numero: 10, nome: 'Equipe-10', rota: '/equipe-10' },
   { numero: 11, nome: 'Equipe-11', rota: '/equipe-11' },
-  { numero: 12, nome: 'Equipe-12', rota: '/equipe-12' },
+  { numero: 12, nome: 'G12 - MarkUp', rota: BASE_PATH_12 },
   { numero: 13, nome: 'G13 - MarkUp', rota: '/equipe-13' },
   { numero: 14, nome: 'Equipe-14', rota: '/equipe-14' },
   { numero: 15, nome: 'Equipe-15', rota: '/equipe-15' },
@@ -256,6 +281,110 @@ grupo16.post('/calcular', requireAuth, async (req, res) => {
   }
 });
 
+//Rotas Calculadora Financeira (grupo 10)
+
+function requireEquipe10Auth(req, res, next) {
+  if (req.session && req.session.equipe10User) return next();
+  res.redirect('/equipe-10/login');
+}
+
+app.get('/equipe-10', (req, res) => {
+  res.render('equipe-10/splash');
+});
+
+app.get('/equipe-10/login', (req, res) => {
+  if (req.session.equipe10User) return res.redirect('/equipe-10/calculo');
+  res.render('equipe-10/login', { error: null }); 
+});
+
+app.post('/equipe-10/login', (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password)
+    return res.render('equipe-10/login', { error: 'Preencha todos os campos' });
+
+  if (username === 'admin' && password === '1234') {
+    req.session.equipe10User = { username: 'adm', nome: 'Administrador' };
+    return res.redirect('/equipe-10/calculo');
+  }
+
+  res.render('equipe-10/login', { error: 'Usuário ou senha inválidos' });
+});
+
+app.get('/equipe-10/logout', (req, res) => {
+  req.session.equipe10User = null;
+  res.redirect('/equipe-10/login');
+});
+
+app.get('/equipe-10/calculo', requireEquipe10Auth, (req, res) => {
+  res.render('equipe-10/calculadora', { user: req.session.equipe10User || null, resultado: null });
+});
+
+app.post('/equipe-10/calcular', requireEquipe10Auth, async (req, res) => {
+  const { capital, taxa, tempo, tipo } = req.body;
+
+  try {
+    const endpointAPI = tipo === 'simples' ? '/juros-simples' : '/juros-compostos';
+
+    const urlDaSuaApi = `${API_URL}/api/calc-financeira${endpointAPI}`;
+
+    const respostaApi = await fetch(urlDaSuaApi, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        capital: Number(capital),
+        taxa: Number(taxa),
+        tempo: Number(tempo)
+      })
+    });
+
+    const dados = await respostaApi.json();
+
+    if (dados.success) {
+      res.render('equipe-10/calculadora', { 
+        user: req.session.equipe10User, 
+        resultado: dados.data 
+      });
+    } else {
+      throw new Error(dados.error || 'Erro no cálculo');
+    }
+
+  } catch (error) {
+    console.error("Erro ao comunicar com a API:", error);
+    res.render('equipe-10/calculadora', { 
+      user: req.session.equipe10User, 
+      resultado: null 
+    });
+  }
+});
+
+app.get('/equipe-10/sobre', requireEquipe10Auth, (req, res) => {
+  res.render('equipe-10/sobre');
+});
+
+app.get('/equipe-10/help', requireEquipe10Auth, (req, res) => {
+  res.render('equipe-10/help');
+});
+
+// 20 dynamic team endpoints
+for (let i = 5; i <= 20; i++) {
+  app.get(`/equipe-${i}`, (req, res) => {
+    console.log(`/equipe-${i}/equipe`);
+    res.render(`equipe`, {
+      numero: i,
+      nome: `Equipe-${i}`
+    });
+  });
+}
+
+
+
+
+app.listen(PORT, () => {
+  console.log(`✅ App Doméstica rodando: http://localhost:${PORT}`);
+});
 grupo9.post('/calcular', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular', req, res));
 grupo9.post('/calcular-inverso', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular-inverso', req, res));
 grupo9.post('/comparar', requireAuth, (req, res) => proxyAPI('/api/equipe-9/comparar', req, res));
@@ -263,6 +392,63 @@ grupo9.post('/comparar', requireAuth, (req, res) => proxyAPI('/api/equipe-9/comp
 app.use('/equipe-9', grupo9);
 
 app.use(BASE_PATH, grupo16);
+
+// Grupo 12 - MarkUp
+
+function requireAuth12(req, res, next) {
+  if (req.session && req.session.user12) return next();
+  res.redirect(BASE_PATH_12 + '/login');
+}
+
+const grupo12 = express.Router();
+
+grupo12.get('/', (req, res) => {
+  if (req.session.user12) return res.redirect(BASE_PATH_12 + '/home');
+  res.redirect(BASE_PATH_12 + '/splash');
+});
+
+grupo12.get('/splash', (req, res) => {
+  res.render('equipe-12/splash', { user: req.session.user12 || null, basePath: BASE_PATH_12 });
+});
+
+grupo12.get('/login', (req, res) => {
+  if (req.session.user12) return res.redirect(BASE_PATH_12 + '/home');
+  res.render('equipe-12/login', { error: null, basePath: BASE_PATH_12 });
+});
+
+grupo12.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'admin' && password === 'admin') {
+    req.session.user12 = { username: 'admin', nome: 'Administrador' };
+    return res.redirect(BASE_PATH_12 + '/home');
+  }
+  res.render('equipe-12/login', { error: 'Usuario ou senha invalidos', basePath: BASE_PATH_12 });
+});
+
+grupo12.get('/logout', (req, res) => {
+  req.session.user12 = null;
+  res.redirect(BASE_PATH_12 + '/login');
+});
+
+grupo12.get('/home', requireAuth12, (req, res) => {
+  res.render('equipe-12/home', { user: req.session.user12, basePath: BASE_PATH_12 });
+});
+
+grupo12.get('/calculo', requireAuth12, (req, res) => {
+  res.render('equipe-12/calculo', { user: req.session.user12, basePath: BASE_PATH_12 });
+});
+
+grupo12.get('/sobre', requireAuth12, (req, res) => {
+  res.render('equipe-12/sobre', { user: req.session.user12, basePath: BASE_PATH_12 });
+});
+
+grupo12.get('/help', requireAuth12, (req, res) => {
+  res.render('equipe-12/help', { user: req.session.user12, basePath: BASE_PATH_12 });
+});
+
+grupo12.post('/api/calcular', requireAuth12, (req, res) => proxyAPI('/api/equipe-12/calcular', req, res));
+
+app.use(BASE_PATH_12, grupo12);
 
 // ── Grupo 13 — MarkUp ──
 
@@ -401,6 +587,127 @@ equipe21.post('/api/calcular', async (req, res) => {
 
 app.use(EQUIPE21_PATH, equipe21);
 
+// ── Grupo 11 — Campo Calc ──
+
+const GRUPO11_PATH = '/equipe-11';
+
+
+function requireAuth11(req, res, next) {
+  if (req.session && req.session.user11) return next();
+  res.redirect(GRUPO11_PATH + '/login');
+}
+
+async function proxyEquipe11(req, res, endpoint) {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const token = req.session?.user11?.token;
+    const response = await fetch(`${API_URL}/equipe-11${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(req.body),
+    });
+
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+}
+
+const grupo11 = express.Router();
+
+grupo11.get('/', (_req, res) => res.redirect(GRUPO11_PATH + '/splash'));
+
+grupo11.get('/splash', (req, res) => {
+  res.render('equipe-11/splash', { basePath: GRUPO11_PATH });
+});
+
+grupo11.get('/login', (req, res) => {
+  if (req.session.user11) return res.redirect(GRUPO11_PATH + '/dashboard');
+  res.render('equipe-11/login', { error: null, basePath: GRUPO11_PATH });
+});
+
+grupo11.post('/login', async (req, res) => {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}/equipe-11/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return res.status(401).render('equipe-11/login', {
+        error: data.error || 'Credenciais invalidas',
+        basePath: GRUPO11_PATH,
+      });
+    }
+
+    req.session.user11 = { token: data.token, username: data.username };
+    res.redirect(GRUPO11_PATH + '/dashboard');
+  } catch (err) {
+    res.status(502).render('equipe-11/login', {
+      error: 'Falha ao comunicar com a API da Equipe 11.',
+      basePath: GRUPO11_PATH,
+    });
+  }
+});
+
+grupo11.post('/logout', (req, res) => {
+  req.session.user11 = null;
+  res.redirect(GRUPO11_PATH + '/login');
+});
+
+grupo11.get('/dashboard', requireAuth11, (req, res) => {
+  res.render('equipe-11/dashboard', { basePath: GRUPO11_PATH, user: req.session.user11 });
+});
+
+grupo11.get('/construcao', requireAuth11, (req, res) => {
+  res.render('equipe-11/calculo', {
+    basePath: GRUPO11_PATH,
+    mode: 'construction',
+    title: 'Construcao do campo',
+    hint: 'Ajuste os parametros e calcule o custo de construcao.',
+  });
+});
+
+grupo11.get('/manutencao', requireAuth11, (req, res) => {
+  res.render('equipe-11/calculo', {
+    basePath: GRUPO11_PATH,
+    mode: 'maintenance',
+    title: 'Manutencao do campo',
+    hint: 'Informe os custos para calcular a manutencao mensal.',
+  });
+});
+
+grupo11.get('/receita', requireAuth11, (req, res) => {
+  res.render('equipe-11/calculo', {
+    basePath: GRUPO11_PATH,
+    mode: 'revenue',
+    title: 'Receita do campo',
+    hint: 'Informe os dados para estimar a receita anual.',
+  });
+});
+
+grupo11.get('/sobre', requireAuth11, (req, res) => {
+  res.render('equipe-11/sobre', { basePath: GRUPO11_PATH });
+});
+
+grupo11.post('/api/calculate', requireAuth11, (req, res) =>
+  proxyEquipe11(req, res, '/calculate'));
+
+grupo11.post('/api/maintenance', requireAuth11, (req, res) =>
+  proxyEquipe11(req, res, '/maintenance'));
+
+grupo11.post('/api/revenue', requireAuth11, (req, res) =>
+  proxyEquipe11(req, res, '/revenue'));
+
+app.use(GRUPO11_PATH, grupo11);
+
 // ── Grupo 20 — AguaCalc ──
 
 const GRUPO20_PATH = '/equipe-20';
@@ -485,13 +792,18 @@ app.use(GRUPO20_PATH, grupo20);
 
 // ── Grupo 7 — PISCINA2 ──
 
+// ── Grupo 7 — PISCINA2 ──
+
 const GRUPO7_PATH = '/equipe-7';
-const grupo7 = express.Router();
+// ✨ CORREÇÃO: Adicionado 'views' no caminho para achar sua pasta real!
+const grupo7DistPath = path.join(__dirname, 'views', 'equipe-7', 'dist'); 
 
-grupo7.get('/', (req, res) => {
-  res.render('equipe-7/index', { basePath: GRUPO7_PATH });
-});
+app.use(GRUPO7_PATH, express.static(grupo7DistPath));
 
+// 2. Define que o express deve servir os arquivos js/css/assets estáticos do seu grupo
+app.use(GRUPO7_PATH, express.static(grupo7DistPath));
+
+// 3. Função de proxy para as APIs da equipe 7 (apenas se vocês não arrumaram a porta no front-end para 3001)
 async function proxyGrupo7(req, res, endpointBackend) {
   try {
     const fetch = (await import('node-fetch')).default;
@@ -512,11 +824,16 @@ async function proxyGrupo7(req, res, endpointBackend) {
   }
 }
 
-grupo7.use('/api/volume', (req, res) => proxyGrupo7(req, res, '/PISCINA2/volume'));
-grupo7.use('/api/materiais', (req, res) => proxyGrupo7(req, res, '/PISCINA2/materiais'));
-grupo7.use('/api/custos', (req, res) => proxyGrupo7(req, res, '/PISCINA2/custos'));
+// 4. Se o seu Front-end react chamar a rota /equipe-7/api/..., passa pelo proxy
+app.post(`${GRUPO7_PATH}/api/volume`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/volume/calcular'));
+app.post(`${GRUPO7_PATH}/api/materiais`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/materiais/calcular'));
+app.post(`${GRUPO7_PATH}/api/custos`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/custos/calcular'));
 
-app.use(GRUPO7_PATH, grupo7);
+// 5. O MAIS IMPORTANTE: Suporte ao React Router!
+// Se o usuário acessar qualquer sub-rota do React (ex: /equipe-7/login), cai no index.html e o React toma conta
+app.get(/^\/equipe-7(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo7DistPath, 'index.html'));
+});
 
 
 // ── Grupo 17 — Calculadora de Impostos NF de Venda ──
@@ -620,19 +937,10 @@ app.get(/^\/equipe-23(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo23DistPath, 'index.html'));
 });
 
-// ETEC - Encargos de empregada domestica
-const ETEC_PATH = '/etec';
-const etecDistPath = path.join(__dirname, 'views', 'etec', 'dist');
-
-app.use(ETEC_PATH, express.static(etecDistPath));
-
-app.post(`${ETEC_PATH}/api/salario`, (req, res) => proxyAPI('/ETEC/salario', req, res));
-app.post(`${ETEC_PATH}/api/ferias`, (req, res) => proxyAPI('/ETEC/ferias', req, res));
-app.post(`${ETEC_PATH}/api/rescisao`, (req, res) => proxyAPI('/ETEC/rescisao', req, res));
-
-app.get(/^\/etec(?:\/.*)?$/, (_req, res) => {
-  res.sendFile(path.join(etecDistPath, 'index.html'));
-});
+// ETEC proxy routes (static files served earlier)
+app.post(`/etec/api/salario`, (req, res) => proxyAPI('/ETEC/salario', req, res));
+app.post(`/etec/api/ferias`, (req, res) => proxyAPI('/ETEC/ferias', req, res));
+app.post(`/etec/api/rescisao`, (req, res) => proxyAPI('/ETEC/rescisao', req, res));
 
 // ROTAS GRUPO 22 — SaunaCalc Elite
 const EQUIPE22_PATH = '/equipe-22';
@@ -679,7 +987,7 @@ app.use(EQUIPE22_PATH, equipe22);
 
 // Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 2 || i === 4 || i === 5 || i === 6 || i === 7 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 22 || i === 23) continue;
+  if (i === 2 || i === 4 || i === 5 || i === 6 || i === 7 || i === 11 || i === 12 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 22 || i === 23) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });

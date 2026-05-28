@@ -33,6 +33,7 @@ jobs:
             app:
               - 'app/**'
               - 'e2e-tests/**'
+              - '.github/workflows/deploy.yml'
 
   unitTestApi:
     needs: detect-changes
@@ -63,17 +64,17 @@ jobs:
           name: JEST tests
           path: ./api/j*.xml
           reporter: jest-junit
-
+      
       - name: Subir a API em background
-        working-directory: api
+        working-directory: api 
         run: npm run start &
         env:
           PORT: 3001
           NODE_ENV: test
       - name: Instala as dependencias do projeto
-        working-directory: app
+        working-directory: app 
         run: npm ci
-
+        
       - name: Subir o site em background
         working-directory: app
         run: npm run start &
@@ -81,26 +82,22 @@ jobs:
           PORT: 3000
 
       - name: Aguardar serviços ficarem prontos
-        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 120000
+        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 30000
 
       - name: Instala as dependencias do projeto
-        working-directory: e2e-tests
-        run: npm ci
-      - name: Instalar Chrome e ChromeDriver compatíveis
-        uses: browser-actions/setup-chrome@v1
-        with:
-          chrome-version: 149 # G
+        working-directory: e2e-tests 
+        run: npm ci    
       - name: Roda os testes Funcionais
-        if: success()
+        if: success() 
         working-directory: e2e-tests
-        run: npm run test
+        run: npm run test 
         env:
           API_URL: http://localhost:3001
           APP_URL: http://localhost:3000
-
+        
       - name: verifica se fez corretamente
-        working-directory: e2e-tests
-        run: ls -la
+        working-directory: e2e-tests 
+        run:  ls -la          
       - name: fotos da tela
         if: success()
         uses: actions/upload-artifact@v4
@@ -109,6 +106,7 @@ jobs:
           # Path to the release files
           # Gravar as fotos na raiz do projeto no docker
           path: /home/runner/work//GCEIC26/GCEIC26/e2e-tests/screenshots/*.png
+
 
   deploy-api:
     needs: unitTestApi
@@ -120,14 +118,14 @@ jobs:
       - name: Deploy_Project_API
         id: Deploy_Project_API
         run: |
-          RESPONSE=$(curl --request GET \
-               --url ${{ secrets.DEPLOY_HOOK }} \
-               --header 'accept: application/json' \
-               --header 'content-type: application/json') 
+          RESPONSE=$(curl --request POST \
+                 --url "https://api.render.com/v1/services/${{ secrets.SERVICE_ID }}/deploys" \
+                 --header "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
+                 --header "Accept: application/json") 
 
           echo "Deploy response: $RESPONSE"
 
-          DEPLOY_ID=$(echo $RESPONSE | jq -r '.deploy.id')
+          DEPLOY_ID=$(echo $RESPONSE | jq -r '.id')
           echo "deploy_id=$DEPLOY_ID" >> $GITHUB_OUTPUT
           echo "Deploy ID: $DEPLOY_ID"
 
@@ -142,7 +140,7 @@ jobs:
 
           while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
             STATUS=$(curl --request GET \
-              --url https://api.render.com/v1/services/${{ secrets.SERVICE_ID }}/deploys/${{ steps.Deploy_Project_API.outputs.deploy_id }} \
+              --url "https://api.render.com/v1/services/${{ secrets.SERVICE_ID }}/deploys/$DEPLOY_ID" \
               --header "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
               | jq -r '.status')
 
@@ -366,6 +364,71 @@ jobs:
           name: fotos-grupo13
           path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo13-*.png
 
+  e2e-grupo12:
+    needs: [deploy-api, deploy-app]
+    if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compativeis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 149
+      - name: Roda os testes E2E - Grupo 12 (MarkUp)
+        if: success()
+        working-directory: e2e-tests
+        run: npm run test:grupo12
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+      - name: Fotos dos testes Grupo 12
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-grupo12
+          path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo12-*.png
+
+  e2e-grupo11:
+    needs: [deploy-api, deploy-app]
+    if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+
+      - name: Instalar Chrome e ChromeDriver compatíveis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 149
+
+      - name: Roda os testes E2E - Grupo 11 (Calculadora de campo de futebol)
+        if: success()
+        working-directory: e2e-tests
+        run: npm run test:equipe11
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+
+      - name: Fotos dos testes Grupo 11
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-grupo11
+          path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo11-*.png
+
   e2e-grupo20:
     needs: [deploy-api, deploy-app]
     if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
@@ -395,6 +458,35 @@ jobs:
         with:
           name: fotos-grupo20
           path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo20-*.png
+
+  e2e-etec:
+    needs: [deploy-api, deploy-app]
+    if: always() && github.ref == 'refs/heads/main' && needs.deploy-app.outputs.dep_app == 'true' && (needs.deploy-api.result == 'success' || needs.deploy-api.result == 'skipped')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compativeis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 149
+      - name: Roda os testes E2E - ETEC
+        working-directory: e2e-tests
+        run: npm run test:etec
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+      - name: Fotos dos testes ETEC
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-etec
+          path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/etec-*.png
   
 
   teste_funcional2:
@@ -495,3 +587,45 @@ jobs:
         with:
           name: fotos-equipe18
           path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo18-*.png
+
+
+  e2e-grupo10:
+    needs: [deploy-api, deploy-app]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compativeis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
+      - name: Aguardar login da equipe 10 no Render
+        run: |
+          for i in {1..24}; do
+            HTML=$(curl -sL "https://gceic26-app.onrender.com/equipe-10/login" || true)
+            if echo "$HTML" | grep -q 'name="username"'; then
+              echo "Tela de login pronta na tentativa $i."
+              exit 0
+            fi
+            echo "Render ainda aquecendo... tentativa $i/24"
+            sleep 5
+          done
+          echo "Timeout aguardando a tela de login da equipe 10 no Render."
+          exit 1
+      - name: Roda os testes E2E - Grupo 10
+        working-directory: e2e-tests
+        run: npm run test:grupo10
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+      - name: Fotos dos testes Grupo 10
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-grupo10
+          path: e2e-tests/screenshots/Equipe10_*.png

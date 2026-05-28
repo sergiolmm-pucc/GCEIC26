@@ -165,6 +165,10 @@ vite.config.ts.timestamp-*
 coverage
 build
 dist
+!app/dist/
+!app/dist/**
+!app/views/etec/dist/
+!app/views/etec/dist/**
 !app/views/etec64/dist/
 !app/equipe-5/dist/
 !app/views/grupo15-calc_frete/dist/

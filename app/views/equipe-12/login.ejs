@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login - MarkUp</title>
+  <link rel="stylesheet" href="/equipe-12/markup.css" />
+</head>
+<body>
+  <main class="mk-login-grid">
+    <section class="mk-login-form-side">
+      <a class="mk-brand" href="<%= basePath %>/splash">
+        <div class="mk-logo md">M</div>
+        <span>MarkUp</span>
+      </a>
+
+      <div class="mk-login-panel">
+        <div class="mk-overline">Acesso</div>
+        <h1 class="mk-login-title">Bem-vindo.</h1>
+        <p class="mk-copy">Entre para calcular seus precos de venda.</p>
+
+        <form id="loginForm" class="mk-form" method="post" action="<%= basePath %>/login">
+          <label>
+            <span class="mk-label">Usuario</span>
+            <input id="username" class="mk-input" name="username" type="text" placeholder="admin" required autofocus autocomplete="username" />
+          </label>
+
+          <label>
+            <span class="mk-label">Senha</span>
+            <input id="password" class="mk-input" name="password" type="password" placeholder="admin" required autocomplete="current-password" />
+          </label>
+
+          <% if (error) { %>
+            <div class="erro"><%= error %></div>
+          <% } %>
+
+          <button id="btnLogin" class="mk-primary-btn" type="submit">Entrar</button>
+        </form>
+
+        <div style="margin-top: 28px; text-align: center;">
+          <button id="toggleHint" class="mk-ghost-btn" type="button" style="border:0;text-decoration:underline;text-underline-offset:3px;color:var(--muted);">
+            esqueceu seus dados?
+          </button>
+          <div id="hint" class="mk-hint" hidden>
+            usuario: <strong style="color:var(--ink)">admin</strong> &nbsp;-&nbsp; senha:
+            <strong style="color:var(--ink)">admin</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="mk-overline" style="margin-bottom:0;">(c) 2026 MARKUP</div>
+    </section>
+
+    <section class="mk-login-aside">
+      <div class="mk-overline" style="color:rgba(255,255,255,0.55);">Por que MarkUp</div>
+
+      <div>
+        <h2 class="mk-aside-title">Precificar bem e proteger o lucro do seu negocio.</h2>
+        <p class="mk-aside-copy">Cinco calculos essenciais em uma interface limpa, sem ruido.</p>
+      </div>
+
+      <div class="mk-stat-row">
+        <div>
+          <div class="mk-stat-value">5</div>
+          <div class="mk-stat-label">calculos</div>
+        </div>
+        <div>
+          <div class="mk-stat-value">0</div>
+          <div class="mk-stat-label">planilhas</div>
+        </div>
+        <div>
+          <div class="mk-stat-value">Livre</div>
+          <div class="mk-stat-label">simulacoes</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById('toggleHint').addEventListener('click', () => {
+      const hint = document.getElementById('hint');
+      hint.hidden = !hint.hidden;
+      document.getElementById('toggleHint').textContent = hint.hidden ? 'esqueceu seus dados?' : 'ocultar credenciais';
+    });
+  </script>
+</body>
+</html>
