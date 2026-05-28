@@ -996,6 +996,7 @@ app.get(/^\/equipe-19(?:\/.*)?$/, (_req, res) => {
 // ── Grupo 25 — Custo de Serviços em Horas ──
 const GRUPO25_PATH = '/equipe-25';
 const grupo25DistPath = path.join(__dirname, 'views', 'equipe-25', 'dist');
+console.log(grupo25DistPath);
 app.use(GRUPO25_PATH, express.static(grupo25DistPath));
 app.get(/^\/equipe-25(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo25DistPath, 'index.html'));
