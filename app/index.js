@@ -27,6 +27,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 app.use(GRUPO14_PATH, express.static(grupo14DistPath));
+app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo14DistPath, 'index.html'));
+});
 app.use(GRUPO5_PATH, express.static(grupo5DistPath));
 app.use(GRUPO2_PATH, express.static(grupo2DistPath));
 
