@@ -43,8 +43,8 @@ async function main() {
       .build();
 
     await driver.manage().setTimeouts({
-      implicit: 8000,
-      pageLoad: 20000
+      implicit: 15000,
+      pageLoad: 45000
     });
 
     console.log('Acessando página da Equipe 18...');
