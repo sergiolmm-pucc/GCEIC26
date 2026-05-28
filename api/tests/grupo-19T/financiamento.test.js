@@ -1,7 +1,7 @@
-const FinanciamentoSAC = require('../src/models/FinanciamentoSAC');
-const FinanciamentoPRICE = require('../src/models/FinanciamentoPRICE');
-const ComparadorFinanciamento = require('../src/models/ComparadorFinanciamento');
-const Financiamento = require('../src/models/Financiamento');
+const FinanciamentoSAC = require('../../src/grupo-19/models/FinanciamentoSAC');
+const FinanciamentoPRICE = require('../../src/grupo-19/models/FinanciamentoPRICE');
+const ComparadorFinanciamento = require('../../src/grupo-19/models/ComparadorFinanciamento');
+const Financiamento = require('../../src/grupo-19/models/Financiamento');
 
 describe('Classe Abstrata Financiamento', () => {
   test('Não deve permitir instância direta', () => {

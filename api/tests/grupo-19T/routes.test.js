@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../src/server');
+const app = require('../../src/grupo-19/server');
 
 const BODY_VALIDO = {
   valorImovel: 500000,

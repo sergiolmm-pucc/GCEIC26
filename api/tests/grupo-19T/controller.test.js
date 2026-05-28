@@ -1,4 +1,4 @@
-const controller = require('../src/controllers/FinanciamentoController');
+const controller = require('../../src/grupo-19/controllers/FinanciamentoController');
 
 function mockRes() {
   const res = {};
