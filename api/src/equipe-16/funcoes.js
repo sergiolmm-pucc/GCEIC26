@@ -1,12 +1,12 @@
 const TABELA = {
   CAMPOS: [
-    'custoProduto',
-    'despesasFixas',
-    'despesasVariaveis',
-    'impostos',
-    'margemLucro',
+    "custoProduto",
+    "despesasFixas",
+    "despesasVariaveis",
+    "impostos",
+    "margemLucro",
   ],
-  FORMULA: 'preco_venda = custo_produto / (1 - percentual_total)',
+  FORMULA: "preco_venda = custo_produto / (1 - percentual_total)",
 };
 
 function lerNumero(dados, campo) {
@@ -30,26 +30,26 @@ function lerPercentual(dados, campo) {
 }
 
 function calcularMarkup(dados) {
-  if (!dados || typeof dados !== 'object') {
-    throw new TypeError('Corpo da requisicao invalido');
+  if (!dados || typeof dados !== "object") {
+    throw new TypeError("Corpo da requisicao invalido");
   }
 
-  const custoProduto = lerNumero(dados, 'custoProduto');
+  const custoProduto = lerNumero(dados, "custoProduto");
 
   if (custoProduto <= 0) {
-    throw new Error('Custo do produto deve ser maior que zero');
+    throw new Error("Custo do produto deve ser maior que zero");
   }
 
-  const despesasFixas = lerPercentual(dados, 'despesasFixas');
-  const despesasVariaveis = lerPercentual(dados, 'despesasVariaveis');
-  const impostos = lerPercentual(dados, 'impostos');
-  const margemLucro = lerPercentual(dados, 'margemLucro');
-  const percentualTotal = Number((
-    despesasFixas + despesasVariaveis + impostos + margemLucro
-  ).toFixed(10));
+  const despesasFixas = lerPercentual(dados, "despesasFixas");
+  const despesasVariaveis = lerPercentual(dados, "despesasVariaveis");
+  const impostos = lerPercentual(dados, "impostos");
+  const margemLucro = lerPercentual(dados, "margemLucro");
+  const percentualTotal = Number(
+    (despesasFixas + despesasVariaveis + impostos + margemLucro).toFixed(10),
+  );
 
   if (percentualTotal >= 1) {
-    throw new Error('A soma dos percentuais deve ser menor que 100%');
+    throw new Error("A soma dos percentuais deve ser menor que 100%");
   }
 
   const precoVenda = custoProduto / (1 - percentualTotal);
