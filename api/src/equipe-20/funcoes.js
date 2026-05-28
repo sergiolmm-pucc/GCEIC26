@@ -1,3 +1,4 @@
+// Grupo 20 - AguaCalc
 // ============================================================
 // TABELA DE REFERÊNCIA
 // Baseada em médias de consumo residencial (fonte: CAESB)
@@ -102,6 +103,7 @@ function calcular(dados) {
   const economia = calcularEconomia(mensal.consumoMensalLitros, reducaoPercentual, tarifa, pessoas);
   return { ...diario, ...mensal, economia };
 }
+
 
 module.exports = {
   TABELA,

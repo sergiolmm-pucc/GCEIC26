@@ -129,6 +129,13 @@
 </div>
 
 <script>
+function getApiBase() {
+  if (window.location.hostname.includes('onrender.com')) {
+    return 'https://gceic26.onrender.com/api/equipe-9';
+  }
+  return 'http://localhost:3001/api/equipe-9';
+}
+
 function fmt(v) { return v.toFixed(2); }
 
 function usarPadrao() {
@@ -162,7 +169,7 @@ async function calcular() {
   btn.textContent = 'Calculando...';
 
   try {
-    const response = await fetch('/equipe-9/calcular-inverso', {
+    const response = await fetch(`${getApiBase()}/calcular-inverso`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ totalNF, icms, ipi, pis, cofins }),

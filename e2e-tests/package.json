@@ -4,15 +4,20 @@
   "description": "Testes E2E com Cypress e Selenium",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run",
-    "test:open": "cypress open",
+    "test": "node tests/equipe9.test.js",
     "test:equipe9": "node tests/equipe9.test.js",
-    "test:grupo13": "node tests/markup.test.js"
+    "test:grupo13": "node tests/markup.test.js",
+    "test:grupo20": "node tests/equipe20.test.js",
+    "test:grupo6": "node tests/equipe6.test.js",
+    "test:equipe5": "node tests/equipe5.test.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "selenium-webdriver": "^4.43.0"
+  },
+  "devDependencies": {
+    "cypress": "^15.16.0"
   }
 }

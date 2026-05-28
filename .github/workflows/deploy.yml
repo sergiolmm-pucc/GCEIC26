@@ -2,7 +2,7 @@ name: Teste and Deploy
 
 on:
   push:
-    branches: [main, dev]
+    branches: ["**"]
 
   workflow_dispatch:
     inputs:
@@ -32,6 +32,7 @@ jobs:
               - 'api/**'
             app:
               - 'app/**'
+              - 'e2e-tests/**'
 
   unitTestApi:
     needs: detect-changes
@@ -80,7 +81,7 @@ jobs:
           PORT: 3000
 
       - name: Aguardar serviços ficarem prontos
-        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 30000
+        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 120000
 
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests
@@ -204,7 +205,7 @@ jobs:
           PORT: 3000
 
       - name: Aguardar serviços ficarem prontos
-        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 30000
+        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 120000
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests
         run: npm ci
@@ -365,6 +366,37 @@ jobs:
           name: fotos-grupo13
           path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo13-*.png
 
+  e2e-grupo20:
+    needs: [deploy-api, deploy-app]
+    if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compatíveis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 149
+      - name: Roda os testes E2E - Grupo 20 (AguaCalc)
+        if: success()
+        working-directory: e2e-tests
+        run: npm run test:grupo20
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+      - name: Fotos dos testes Grupo 20
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-grupo20
+          path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo20-*.png
+  
+
   teste_funcional2:
     needs: [deploy-api, deploy-app]
     runs-on: ubuntu-latest
@@ -373,3 +405,63 @@ jobs:
         run: |
           echo "dep_api = ${{ needs.deploy-api.outputs.dep_api }}"
           echo "dep_app = ${{ needs.deploy-app.outputs.dep_app }}"
+
+  e2e-grupo6:
+    needs: [deploy-api, deploy-app]
+    if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compatíveis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 149
+      - name: Roda os testes E2E - Grupo 6 (Sauna)
+        if: success()
+        working-directory: e2e-tests
+        run: npm run test:grupo6
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+      - name: Fotos dos testes Grupo 6
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-grupo6
+          path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/G6-*.png
+
+  e2e-equipe5:
+    needs: [deploy-api, deploy-app]
+    if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code from repository
+        uses: actions/checkout@v6
+      - name: Instala o Node na maquina virtual
+        uses: actions/setup-node@v6
+      - name: Instala as dependencias do projeto
+        working-directory: e2e-tests
+        run: npm ci
+      - name: Instalar Chrome e ChromeDriver compatíveis
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 149
+      - name: Roda os testes E2E - Equipe 5 (Calculadora de Energia)
+        if: success()
+        working-directory: e2e-tests
+        run: npm run test:equipe5
+        env:
+          API_URL: https://gceic26.onrender.com
+          APP_URL: https://gceic26-app.onrender.com
+      - name: Fotos dos testes Equipe 5
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fotos-equipe5
+          path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo5-*.png

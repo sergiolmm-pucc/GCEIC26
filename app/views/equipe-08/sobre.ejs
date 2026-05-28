@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora - Sobre a Equipe</title>
+</head>
+
+<body>
+  <%- include('../partials/header') %>
+    <div class="container">
+      <h1>Sobre a Equipe</h1>
+      <p>Este projeto foi desenvolvido pela seguinte equipe para a disciplina de Engenharia de Software:</p>
+
+      <div style="display: flex; gap: 40px; margin-top: 30px; margin-bottom: 30px;">
+        <div style="text-align: center;">
+          <img src="/equipe-08/images/henrique.jpeg" alt="Henrique"
+            style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 15px;">
+          <div style="font-size: 16px;">
+            <strong>Henrique Della Guardia de Azevedo Martins</strong><br>
+            <span style="color: #64748b;">RA: 24003251</span>
+          </div>
+        </div>
+
+        <div style="text-align: center;">
+          <img src="/equipe-08/images/gabriel.jpeg" alt="Gabriel"
+            style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 15px;">
+          <div style="font-size: 16px;">
+            <strong>Gabriel Angeli Capovilla</strong><br>
+            <span style="color: #64748b;">RA: 24003637</span>
+          </div>
+        </div>
+      </div>
+
+      <p>O projeto consiste em uma API em Node.js (que faz os cálculos complexos) e um frontend simples em Node/EJS para
+        consumir essa API e mostrar os resultados para o usuário.</p>
+    </div>
+</body>
+
+</html>
