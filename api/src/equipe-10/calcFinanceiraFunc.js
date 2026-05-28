@@ -12,7 +12,7 @@ function calcularJurosSimples(dados) {
 function calcularJurosCompostos(dados) {
   const { capital, taxa, tempo } = dados;
   if (!capital || capital <= 0) throw new Error('Capital deve ser maior que zero');
-  if (!taxa || taxa < 0) throw new Error('Taxa deve ser um valor positivo');
+  if (!taxa || taxa < 0) throw new Error('Taxa deve ser um valor positivo!');
   if (!tempo || tempo <= 0) throw new Error('Tempo deve ser maior que zero');
 
   const montante = capital * Math.pow((1 + taxa / 100), tempo);
