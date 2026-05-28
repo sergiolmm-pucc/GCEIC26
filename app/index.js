@@ -673,7 +673,7 @@ app.post('/api/etec64/aprovacao', (req, res) => proxyAPI('/api/etec64/aprovacao'
 
 
 function ensureTrailingSlash(url) {
-  return url.endsWith('/') ? url : `${url}/`
+  return url.endsWith('/') ? url : `${url}/`;
 }
 
 
