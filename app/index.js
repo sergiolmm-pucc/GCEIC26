@@ -616,11 +616,19 @@ app.get(/^\/equipe-23(?:\/.*)?$/, (_req, res) => {
 
 // Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 2 || i === 5 || i === 6 || i === 7 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
+  if (i === 2 || i === 5 || i === 6 || i === 7 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
 }
+
+// ── Grupo 15 — Cálculo de Frete ──
+const GRUPO15_PATH = '/equipe-15';
+const grupo15DistPath = path.join(__dirname, 'equipe-15', 'dist');
+app.use(GRUPO15_PATH, express.static(grupo15DistPath));
+app.get(/^\/equipe-15(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo15DistPath, 'index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`App rodando: http://localhost:${PORT}`);
