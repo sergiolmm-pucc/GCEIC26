@@ -1,4 +1,4 @@
-const { calcular, calcularKit, calcularInstalacao, encontrarPotencia } = require('../../src/equipe-22/funcoes');
+const { calcular, calcularKit, calcularInstalacao, encontrarPotencia } = require('../src/equipe-22/funcoes');
 
 describe('encontrarPotencia', () => {
   test('volume 5m3 retorna 6kW', () => {
