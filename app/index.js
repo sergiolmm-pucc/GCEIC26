@@ -25,13 +25,30 @@ const grupo14ApiRoutes = new Map([
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 app.use(GRUPO14_PATH, express.static(grupo14DistPath));
+app.get(/^\/equipe-14(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo14DistPath, 'index.html'));
+});
 app.use(GRUPO5_PATH, express.static(grupo5DistPath));
 app.use(GRUPO2_PATH, express.static(grupo2DistPath));
 
+// ETEC - Encargos de empregada domestica (serve estáticos antes do session middleware)
+const ETEC_PATH = '/etec';
+const etecDistPath = path.join(__dirname, 'views', 'etec', 'dist');
+const fs = require('fs');
+if (!fs.existsSync(etecDistPath)) {
+  console.warn('ETEC dist not found at', etecDistPath);
+}
+app.use(ETEC_PATH, express.static(etecDistPath));
+app.get(/^\/etec(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(etecDistPath, 'index.html'));
+});
+// Keep legacy route working: redirect /equipe-4 to the new /etec path
+app.get('/equipe-4', (_req, res) => res.redirect('/etec'));
+
 // ── Proxy API Equipe 2 — IRP ──
-app.post('/IRP/calcular', async (req, res) => {
+app.post('/IRP/calcular', bodyParser.json(), async (req, res) => {
   try {
     const fetch = (await import('node-fetch')).default;
     const response = await fetch(`${API_URL}/IRP/calcular`, {
@@ -81,6 +98,7 @@ app.use('/PBL', (req, res) => {
   req.pipe(proxyRequest);
 });
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
@@ -90,7 +108,6 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge: 3600000 },
 }));
-
 
 // Rotas Equipe 9
 const grupo9 = express.Router();
@@ -145,6 +162,7 @@ async function proxyAPI(endpoint, req, res) {
 }
 
 const BASE_PATH = '/equipe-16';
+const BASE_PATH_12 = '/equipe-12';
 const BASE_PATH_13 = '/equipe-13';
 const EQUIPE21_PATH = '/equipe-21';
 
@@ -155,7 +173,7 @@ const equipes = [
   { numero: 1, nome: 'TESTE', rota: '/login' },
   { numero: 2, nome: 'Equipe-2', rota: '/equipe-2' },
   { numero: 3, nome: 'Equipe-3', rota: '/equipe-3' },
-  { numero: 4, nome: 'Equipe-4', rota: '/equipe-4' },
+  { numero: 4, nome: 'ETEC - Domestica', rota: '/etec' },
   { numero: 5, nome: 'Equipe-5', rota: '/equipe-5' },
   { numero: 6, nome: 'Equipe-6', rota: '/sauna6' },
   { numero: 7, nome: 'G7 - Calculadora de Custo de Piscinas', rota: '/equipe-7' },
@@ -163,7 +181,7 @@ const equipes = [
   { numero: 9, nome: 'Equipe-9', rota: '/equipe-9' },
   { numero: 10, nome: 'Equipe-10', rota: '/equipe-10' },
   { numero: 11, nome: 'Equipe-11', rota: '/equipe-11' },
-  { numero: 12, nome: 'Equipe-12', rota: '/equipe-12' },
+  { numero: 12, nome: 'G12 - MarkUp', rota: BASE_PATH_12 },
   { numero: 13, nome: 'G13 - MarkUp', rota: '/equipe-13' },
   { numero: 14, nome: 'Equipe-14', rota: '/equipe-14' },
   { numero: 15, nome: 'Equipe-15', rota: '/equipe-15' },
@@ -262,6 +280,63 @@ grupo9.post('/comparar', requireAuth, (req, res) => proxyAPI('/api/equipe-9/comp
 app.use('/equipe-9', grupo9);
 
 app.use(BASE_PATH, grupo16);
+
+// Grupo 12 - MarkUp
+
+function requireAuth12(req, res, next) {
+  if (req.session && req.session.user12) return next();
+  res.redirect(BASE_PATH_12 + '/login');
+}
+
+const grupo12 = express.Router();
+
+grupo12.get('/', (req, res) => {
+  if (req.session.user12) return res.redirect(BASE_PATH_12 + '/home');
+  res.redirect(BASE_PATH_12 + '/splash');
+});
+
+grupo12.get('/splash', (req, res) => {
+  res.render('equipe-12/splash', { user: req.session.user12 || null, basePath: BASE_PATH_12 });
+});
+
+grupo12.get('/login', (req, res) => {
+  if (req.session.user12) return res.redirect(BASE_PATH_12 + '/home');
+  res.render('equipe-12/login', { error: null, basePath: BASE_PATH_12 });
+});
+
+grupo12.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'admin' && password === 'admin') {
+    req.session.user12 = { username: 'admin', nome: 'Administrador' };
+    return res.redirect(BASE_PATH_12 + '/home');
+  }
+  res.render('equipe-12/login', { error: 'Usuario ou senha invalidos', basePath: BASE_PATH_12 });
+});
+
+grupo12.get('/logout', (req, res) => {
+  req.session.user12 = null;
+  res.redirect(BASE_PATH_12 + '/login');
+});
+
+grupo12.get('/home', requireAuth12, (req, res) => {
+  res.render('equipe-12/home', { user: req.session.user12, basePath: BASE_PATH_12 });
+});
+
+grupo12.get('/calculo', requireAuth12, (req, res) => {
+  res.render('equipe-12/calculo', { user: req.session.user12, basePath: BASE_PATH_12 });
+});
+
+grupo12.get('/sobre', requireAuth12, (req, res) => {
+  res.render('equipe-12/sobre', { user: req.session.user12, basePath: BASE_PATH_12 });
+});
+
+grupo12.get('/help', requireAuth12, (req, res) => {
+  res.render('equipe-12/help', { user: req.session.user12, basePath: BASE_PATH_12 });
+});
+
+grupo12.post('/api/calcular', requireAuth12, (req, res) => proxyAPI('/api/equipe-12/calcular', req, res));
+
+app.use(BASE_PATH_12, grupo12);
 
 // ── Grupo 13 — MarkUp ──
 
@@ -520,11 +595,56 @@ app.use(GRUPO7_PATH, grupo7);
 
 // ── Grupo 17 — Calculadora de Impostos NF de Venda ──
 
+const EQUIPE17_PATH = '/equipe-17';
+
+function requireAuth17(req, res, next) {
+  if (req.session && req.session.user17) return next();
+  res.redirect(EQUIPE17_PATH + '/login');
+}
+
 const grupo17 = express.Router();
 
-grupo17.get('/', (_req, res) => res.render('equipe-17/nfvenda'));
+grupo17.get('/', (req, res) => {
+  if (req.session.user17) return res.redirect(EQUIPE17_PATH + '/calcular');
+  res.render('equipe-17/splash', { user: req.session.user17 || null, basePath: EQUIPE17_PATH });
+});
 
-grupo17.post('/decodificar', async (req, res) => {
+grupo17.get('/splash', (req, res) => {
+  res.render('equipe-17/splash', { user: req.session.user17 || null, basePath: EQUIPE17_PATH });
+});
+
+grupo17.get('/login', (req, res) => {
+  if (req.session.user17) return res.redirect(EQUIPE17_PATH + '/calcular');
+  res.render('equipe-17/login', { error: null, basePath: EQUIPE17_PATH });
+});
+
+grupo17.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === 'admin' && password === 'admin') {
+    req.session.user17 = { username: 'admin', nome: 'Administrador' };
+    return res.redirect(EQUIPE17_PATH + '/calcular');
+  }
+  res.render('equipe-17/login', { error: 'Usuário ou senha inválidos', basePath: EQUIPE17_PATH });
+});
+
+grupo17.get('/logout', (req, res) => {
+  req.session.user17 = null;
+  res.redirect(EQUIPE17_PATH + '/login');
+});
+
+grupo17.get('/calcular', requireAuth17, (req, res) => {
+  res.render('equipe-17/nfvenda', { user: req.session.user17, basePath: EQUIPE17_PATH });
+});
+
+grupo17.get('/sobre', requireAuth17, (req, res) => {
+  res.render('equipe-17/sobre', { user: req.session.user17, basePath: EQUIPE17_PATH });
+});
+
+grupo17.get('/help', requireAuth17, (req, res) => {
+  res.render('equipe-17/help', { user: req.session.user17, basePath: EQUIPE17_PATH });
+});
+
+grupo17.post('/decodificar', requireAuth17, async (req, res) => {
   try {
     const fetch = (await import('node-fetch')).default;
     const response = await fetch(`${API_URL}/nfvenda/decodificar`, {
@@ -539,7 +659,7 @@ grupo17.post('/decodificar', async (req, res) => {
   }
 });
 
-grupo17.post('/calcular', async (req, res) => {
+grupo17.post('/calcular', requireAuth17, async (req, res) => {
   try {
     const fetch = (await import('node-fetch')).default;
     const response = await fetch(`${API_URL}/nfvenda/calcular`, {
@@ -555,46 +675,6 @@ grupo17.post('/calcular', async (req, res) => {
 });
 
 app.use('/equipe-17', grupo17);
-
-// Servir arquivos estáticos do Grupo 18 (Next.js export)
-const grupo18DistPath = path.join(__dirname, 'equipe-18', 'out');
-app.use('/equipe-18', express.static(grupo18DistPath));
-
-// Proxy para o Backend do Grupo 18
-app.use('/equipe-18/api', (req, res) => {
-  const target = new URL(req.path.replace(/^\//, ''), ensureTrailingSlash('https://d36mf6v2e37tzy.cloudfront.net'));
-  const client = https;
-
-  const proxyRequest = client.request(target, {
-    method: req.method,
-    headers: {
-      ...req.headers,
-      host: target.host
-    }
-  }, (proxyResponse) => {
-    res.status(proxyResponse.statusCode || 502);
-    for (const [header, value] of Object.entries(proxyResponse.headers)) {
-      if (value !== undefined) {
-        res.setHeader(header, value);
-      }
-    }
-    proxyResponse.pipe(res);
-  });
-
-  proxyRequest.on('error', (error) => {
-    res.status(502).json({
-      error: 'Falha ao comunicar com o Backend do Grupo 18.',
-      message: error.message
-    });
-  });
-
-  req.pipe(proxyRequest);
-});
-
-// Suporte para client-side routing do Next.js
-app.get(/^\/equipe-18(?:\/.*)?$/, (_req, res) => {
-  res.sendFile(path.join(grupo18DistPath, 'index.html'));
-});
 
 app.get(/^\/equipe-5(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo5DistPath, 'index.html'));
@@ -614,13 +694,26 @@ app.get(/^\/equipe-23(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo23DistPath, 'index.html'));
 });
 
+// ETEC proxy routes (static files served earlier)
+app.post(`/etec/api/salario`, (req, res) => proxyAPI('/ETEC/salario', req, res));
+app.post(`/etec/api/ferias`, (req, res) => proxyAPI('/ETEC/ferias', req, res));
+app.post(`/etec/api/rescisao`, (req, res) => proxyAPI('/ETEC/rescisao', req, res));
+
 // Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 2 || i === 5 || i === 6 || i === 7 || i === 13 || i === 14 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
+  if (i === 2 || i === 4 || i === 5 || i === 6 || i === 7 || i === 12 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
 }
+
+// ── Grupo 15 — Cálculo de Frete ──
+const GRUPO15_PATH = '/equipe-15';
+const grupo15DistPath = path.join(__dirname, 'views', 'grupo15-calc_frete', 'dist');
+app.use(GRUPO15_PATH, express.static(grupo15DistPath));
+app.get(/^\/equipe-15(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo15DistPath, 'index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`App rodando: http://localhost:${PORT}`);

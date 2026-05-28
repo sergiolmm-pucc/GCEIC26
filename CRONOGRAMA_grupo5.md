@@ -14,7 +14,7 @@ Sistema Full Stack para gerenciamento e simulação de consumo de energia elétr
 | Camada | Tecnologia |
 |---|---|
 | Runtime | Node.js v20.x |
-| Linguagem | TypeScript |
+| Linguagem | JavaScript (CommonJS no backend, ESM no frontend) |
 | Backend | Express.js |
 | Frontend | React 19 + Vite 6 |
 | Testes | Jest + Supertest |
@@ -75,8 +75,8 @@ npm test
 
 | Arquivo | % Statements | % Branch | % Lines |
 |---|---|---|---|
-| `energyService.ts` | 100% | 94.44% | 100% |
-| `energyController.ts` | 90.9% | 100% | 90.9% |
+| `energyService.js` | 100% | 94.44% | 100% |
+| `energyController.js` | 90.9% | 100% | 90.9% |
 | **Total** | **95.38%** | **96.29%** | **95.16%** |
 
  23 testes — 100% de aprovação (2 suites: unitários + integração)
@@ -90,8 +90,8 @@ npm test
 | Feature | Responsável | Data |
 |---|---|---|
 | Criação do repositório Git | Equipe | 24/04/2026 |
-| Setup do backend (Node.js + TypeScript + Express) | Enzo | 25/04/2026 |
-| Setup do frontend (React 19 + Vite + TypeScript) | Yuri | 26/04/2026 |
+| Setup do backend (Node.js + JavaScript + Express) | Enzo | 25/04/2026 |
+| Setup do frontend (React 19 + Vite + JavaScript) | Yuri | 26/04/2026 |
 | Configuração do `.gitignore` | Pedro | 26/04/2026 |
 | Configuração de CI/CD (GitHub Actions) | Pedro | 28/04/2026 |
 
@@ -102,7 +102,7 @@ npm test
 | Endpoint `POST /ENRG/consumo` (cálculo de kWh) | Enzo | 29/04/2026 |
 | Endpoint `POST /ENRG/conta` (bandeiras tarifárias) | Pedro | 01/05/2026 |
 | Endpoint `POST /ENRG/simular` (comparação de cenários) | Yuri | 01/05/2026 |
-| Testes unitários do `energyService.ts` | Enzo | 03/05/2026 |
+| Testes unitários do `energyService.js` | Enzo | 03/05/2026 |
 | Testes de integração das rotas | Pedro | 05/05/2026 |
 
 ### Fase 3 — Desenvolvimento do Frontend
