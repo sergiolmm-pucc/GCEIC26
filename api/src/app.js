@@ -23,6 +23,7 @@ const volumeRoutes = require('./equipe-7/volume');
 const materiaisRoutes = require('./equipe-7/materiais');
 const custosRoutes = require('./equipe-7/custos');
 const etec64Routes = require('./etec64/routes/etecRoutes.js');
+const etecRoutes = require('./etec/routes/etecRoutes.js');
 
 // checa se api está no a
 app.get('/health', (req, res) => {
@@ -45,36 +46,32 @@ app.get('/api/equipe-12', (req, res) => {
 });
 app.use('/api/equipe-12', grupo12Router);
 
-// Proxy para o Backend do Grupo 18
-app.use('/equipe-18', (req, res) => {
-  const https = require('https');
-  const target = new URL(req.path.replace(/^\//, ''), 'https://d36mf6v2e37tzy.cloudfront.net/');
+// ── Grupo 18 — Impostos NF (INFP) ──
+const {
+  icmsService,
+  ipiService,
+  pisCofinService,
+  nfCompletaService,
+} = require('./equipe-18/local-nf-service');
 
-  const proxyRequest = https.request(target, {
-    method: req.method,
-    headers: {
-      ...req.headers,
-      host: target.host
+function handleLocalCalculation(serviceFn) {
+  return (req, res) => {
+    try {
+      const result = serviceFn(req.body);
+      res.status(200).json(result);
+    } catch (err) {
+      res.status(400).json({ success: false, error: err.message });
     }
-  }, (proxyResponse) => {
-    res.status(proxyResponse.statusCode || 502);
-    for (const [header, value] of Object.entries(proxyResponse.headers)) {
-      if (value !== undefined) {
-        res.setHeader(header, value);
-      }
-    }
-    proxyResponse.pipe(res);
-  });
+  };
+}
 
-  proxyRequest.on('error', (error) => {
-    res.status(502).json({
-      error: 'Falha ao comunicar com o Backend do Grupo 18.',
-      message: error.message
-    });
-  });
+// Rotas locais oficiais da Equipe 18
+app.get('/equipe-18/health', (req, res) => res.json({ status: 'ok' }));
+app.post('/equipe-18/impostos/icms', handleLocalCalculation(icmsService));
+app.post('/equipe-18/impostos/ipi', handleLocalCalculation(ipiService));
+app.post('/equipe-18/impostos/pis-cofins', handleLocalCalculation(pisCofinService));
+app.post('/equipe-18/impostos/nf-completa', handleLocalCalculation(nfCompletaService));
 
-  req.pipe(proxyRequest);
-});
 
 /** ------------------------------------------------
  * Rotas grupo 6 - Calculo de Sauna
@@ -156,33 +153,6 @@ app.post('/api/equipe-9/comparar', (req, res) => {
   } catch (err) {
     return res.status(400).json({ success: false, error: err.message });
   }
-  const https = require('https');
-  const target = new URL(req.path.replace(/^\//, ''), 'https://d36mf6v2e37tzy.cloudfront.net/');
-
-  const proxyRequest = https.request(target, {
-    method: req.method,
-    headers: {
-      ...req.headers,
-      host: target.host
-    }
-  }, (proxyResponse) => {
-    res.status(proxyResponse.statusCode || 502);
-    for (const [header, value] of Object.entries(proxyResponse.headers)) {
-      if (value !== undefined) {
-        res.setHeader(header, value);
-      }
-    }
-    proxyResponse.pipe(res);
-  });
-
-  proxyRequest.on('error', (error) => {
-    res.status(502).json({
-      error: 'Falha ao comunicar com o Backend do Grupo 18.',
-      message: error.message
-    });
-  });
-
-  req.pipe(proxyRequest);
 });
 
 /** ------------------------------------------------
@@ -385,6 +355,7 @@ app.post('/autonomia/comparar-combustivel', (req, res) => {
 });
 
 app.use('/api/etec64', etec64Routes);
+app.use('/ETEC', etecRoutes);
 
 const piscinaRouter08 = require('./equipe-08/routes/piscina');
 app.use('/api/equipe-08/piscina', piscinaRouter08);
