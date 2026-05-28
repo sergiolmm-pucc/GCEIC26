@@ -601,46 +601,6 @@ grupo17.post('/calcular', requireAuth17, async (req, res) => {
 
 app.use('/equipe-17', grupo17);
 
-// Servir arquivos estáticos do Grupo 18 (Next.js export)
-const grupo18DistPath = path.join(__dirname, 'equipe-18', 'out');
-app.use('/equipe-18', express.static(grupo18DistPath));
-
-// Proxy para o Backend do Grupo 18
-app.use('/equipe-18/api', (req, res) => {
-  const target = new URL(req.path.replace(/^\//, ''), ensureTrailingSlash('https://d36mf6v2e37tzy.cloudfront.net'));
-  const client = https;
-
-  const proxyRequest = client.request(target, {
-    method: req.method,
-    headers: {
-      ...req.headers,
-      host: target.host
-    }
-  }, (proxyResponse) => {
-    res.status(proxyResponse.statusCode || 502);
-    for (const [header, value] of Object.entries(proxyResponse.headers)) {
-      if (value !== undefined) {
-        res.setHeader(header, value);
-      }
-    }
-    proxyResponse.pipe(res);
-  });
-
-  proxyRequest.on('error', (error) => {
-    res.status(502).json({
-      error: 'Falha ao comunicar com o Backend do Grupo 18.',
-      message: error.message
-    });
-  });
-
-  req.pipe(proxyRequest);
-});
-
-// Suporte para client-side routing do Next.js
-app.get(/^\/equipe-18(?:\/.*)?$/, (_req, res) => {
-  res.sendFile(path.join(grupo18DistPath, 'index.html'));
-});
-
 app.get(/^\/equipe-5(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo5DistPath, 'index.html'));
 });
