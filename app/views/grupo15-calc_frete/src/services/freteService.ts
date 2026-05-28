@@ -25,7 +25,7 @@ async function apiFetch<T>(path: string, body?: object): Promise<T> {
 //  GET /frete/distancia/cidades
 // ══════════════════════════════════════════
 export async function getCidades(): Promise<string[]> {
-  return apiFetch<string[]>('/frete/distancia/cidades');
+  return apiFetch<string[]>('/equipe-15/frete/distancia/cidades');
 }
 
 // ══════════════════════════════════════════
@@ -33,7 +33,7 @@ export async function getCidades(): Promise<string[]> {
 //  POST /frete/distancia
 // ══════════════════════════════════════════
 export async function getDistancia(origem: string, destino: string): Promise<DistanciaOutput> {
-  return apiFetch<DistanciaOutput>('/frete/distancia', { origem, destino });
+  return apiFetch<DistanciaOutput>('/equipe-15/frete/distancia', { origem, destino });
 }
 
 // ══════════════════════════════════════════
@@ -41,7 +41,7 @@ export async function getDistancia(origem: string, destino: string): Promise<Dis
 //  POST /frete/prazo
 // ══════════════════════════════════════════
 export async function getPrazo(distanciaKm: number, tipo: string): Promise<PrazoOutput> {
-  return apiFetch<PrazoOutput>('/frete/prazo', { distanciaKm, tipo });
+  return apiFetch<PrazoOutput>('/equipe-15/frete/prazo', { distanciaKm, tipo });
 }
 
 // ══════════════════════════════════════════
@@ -49,7 +49,7 @@ export async function getPrazo(distanciaKm: number, tipo: string): Promise<Prazo
 //  POST /frete/calcular
 // ══════════════════════════════════════════
 export async function calcularFrete(input: FreteInput): Promise<FreteResultado> {
-  return apiFetch<FreteResultado>('/frete/calcular', {
+  return apiFetch<FreteResultado>('/equipe-15/frete/calcular', {
     peso:      input.peso,
     distancia: input.distancia,
     tipo:      input.tipo,
