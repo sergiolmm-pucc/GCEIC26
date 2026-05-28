@@ -48,7 +48,7 @@ app.get(/^\/etec(?:\/.*)?$/, (_req, res) => {
 app.get('/equipe-4', (_req, res) => res.redirect('/etec'));
 
 // ── Proxy API Equipe 2 — IRP ──
-app.post('/IRP/calcular', async (req, res) => {
+app.post('/IRP/calcular', bodyParser.json(), async (req, res) => {
   try {
     const fetch = (await import('node-fetch')).default;
     const response = await fetch(`${API_URL}/IRP/calcular`, {
@@ -98,6 +98,7 @@ app.use('/PBL', (req, res) => {
   req.pipe(proxyRequest);
 });
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
@@ -107,7 +108,6 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge: 3600000 },
 }));
-
 
 // Rotas Equipe 9
 const grupo9 = express.Router();
