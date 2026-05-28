@@ -806,9 +806,9 @@ async function proxyGrupo7(req, res, endpointBackend) {
 }
 
 // 4. Se o seu Front-end react chamar a rota /equipe-7/api/..., passa pelo proxy
-app.post(`/api/src${GRUPO7_PATH}/volume`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/volume'));
-app.post(`/api/src${GRUPO7_PATH}/materiais`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/materiais'));
-app.post(`/api/src${GRUPO7_PATH}/custos`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/custos'));
+app.post(`/api/src${GRUPO7_PATH}/volume`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/volume/calcular'));
+app.post(`/api/src${GRUPO7_PATH}/materiais`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/materiais/calcular'));
+app.post(`/api/src${GRUPO7_PATH}/custos`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/custos/calcular'));
 
 // 5. O MAIS IMPORTANTE: Suporte ao React Router!
 // Se o usuário acessar qualquer sub-rota do React (ex: /equipe-7/login), cai no index.html e o React toma conta
