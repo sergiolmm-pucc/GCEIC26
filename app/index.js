@@ -942,9 +942,52 @@ app.post(`/etec/api/salario`, (req, res) => proxyAPI('/ETEC/salario', req, res))
 app.post(`/etec/api/ferias`, (req, res) => proxyAPI('/ETEC/ferias', req, res));
 app.post(`/etec/api/rescisao`, (req, res) => proxyAPI('/ETEC/rescisao', req, res));
 
+// ROTAS GRUPO 22 — SaunaCalc Elite
+const EQUIPE22_PATH = '/equipe-22';
+const equipe22 = express.Router();
+
+equipe22.get('/', (req, res) => res.render('equipe-22/splash'));
+equipe22.get('/splash', (req, res) => res.render('equipe-22/splash'));
+
+equipe22.get('/login', (req, res) => res.render('equipe-22/login'));
+
+equipe22.post('/login', (req, res) => {
+  const { usuario, senha } = req.body;
+  if (usuario === 'admin' && senha === '123') {
+    req.session.equipe22 = true;
+    return res.redirect(EQUIPE22_PATH + '/simulacao');
+  }
+  res.render('equipe-22/login', { erro: 'Usuário ou senha inválidos.' });
+});
+
+equipe22.get('/simulacao', (req, res) => {
+  if (!req.session.equipe22) return res.redirect(EQUIPE22_PATH + '/login');
+  res.render('equipe-22/simulacao');
+});
+
+equipe22.post('/calcular', async (req, res) => {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}/api/calcular`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (err) {
+    res.status(502).json({ success: false, error: err.message });
+  }
+});
+
+equipe22.get('/sobre', (req, res) => res.render('equipe-22/sobre'));
+equipe22.get('/help', (req, res) => res.render('equipe-22/help'));
+
+app.use(EQUIPE22_PATH, equipe22);
+
 // Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 2 || i === 4 || i === 5 || i === 6 || i === 7 || i === 11 || i === 12 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
+  if (i === 2 || i === 4 || i === 5 || i === 6 || i === 7 || i === 11 || i === 12 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 22 || i === 23) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });

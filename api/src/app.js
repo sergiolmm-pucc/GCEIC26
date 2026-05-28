@@ -374,4 +374,31 @@ app.use('/ETEC', etecRoutes);
 const piscinaRouter08 = require('./equipe-08/routes/piscina');
 app.use('/api/equipe-08/piscina', piscinaRouter08);
 
+
+// ── Grupo 22 — SaunaCalc Elite ──
+app.post('/api/calcular', (req, res) => {
+  try {
+    const { calcular } = require('./equipe-22/funcoes');
+    const dados = req.body;
+    if (!dados || typeof dados !== 'object') return res.status(400).json({ success: false, error: 'Corpo invalido' });
+    return res.status(200).json({ success: true, data: calcular(dados) });
+  } catch (err) { return res.status(400).json({ success: false, error: err.message }); }
+});
+app.post('/api/calcularKit', (req, res) => {
+  try {
+    const { calcularKit } = require('./equipe-22/funcoes');
+    return res.status(200).json({ success: true, data: calcularKit(req.body) });
+  } catch (err) { return res.status(400).json({ success: false, error: err.message }); }
+});
+app.post('/api/calcularInstalacao', (req, res) => {
+  try {
+    const { calcularInstalacao } = require('./equipe-22/funcoes');
+    return res.status(200).json({ success: true, data: calcularInstalacao(req.body) });
+  } catch (err) { return res.status(400).json({ success: false, error: err.message }); }
+});
+
+const rotasEquipe22 = require('./equipe-22/routes');
+app.use('/api/equipe-22', rotasEquipe22);
+
+
 module.exports = app;
