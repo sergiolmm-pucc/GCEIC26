@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConstruSauna - Calculadora</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 2rem; 
+            background-color: #fff; 
+            color: #333; 
+        }
+        nav { 
+            margin-bottom: 2rem; 
+            display: flex; 
+            gap: 1rem; 
+            border-bottom: 1px solid #ccc; 
+            padding-bottom: 1rem; 
+        }
+        nav a { 
+            text-decoration: none; 
+            color: #007bff; 
+        }
+        nav a:hover { 
+            text-decoration: underline; 
+        }
+        fieldset { 
+            padding: 1rem; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+            margin-bottom: 1rem; 
+        }
+        legend { 
+            padding: 0 0.5rem; 
+            font-weight: bold; 
+        }
+        label { 
+            display: block; 
+            margin-bottom: 0.5rem; 
+        }
+        input, select { 
+            padding: 0.5rem; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            box-sizing: border-box;
+        }
+        button { 
+            padding: 0.8rem; 
+            cursor: pointer; 
+            background-color: #007bff; 
+            color: white; 
+            border: none; 
+            border-radius: 4px; 
+            margin-top: 1rem; 
+            font-size: 1rem; 
+            width: 100%;
+            max-width: 400px;
+        }
+        button:hover { 
+            background-color: #0056b3; 
+        }
+        #boxResultados { 
+            margin-top: 2rem; 
+            padding: 1rem; 
+            border: 1px solid #28a745; 
+            border-radius: 8px; 
+            background-color: #f8fff9; 
+            display: none; 
+            max-width: 400px;
+        }
+        #boxResultados h3 { 
+            margin-top: 0; 
+            color: #28a745; 
+        }
+        hr { 
+            border: 0; 
+            border-top: 1px solid #ccc; 
+            margin: 1rem 0; 
+        }
+    </style>
+</head>
+<body>
+
+    <div style="max-width: 600px; margin: 0 auto;">
+        <nav>
+            <a href="/sauna6/sobre">Sobre a Equipe</a>
+            <a href="/sauna6/help">Ajuda</a>
+            <a href="/sauna6/login" style="margin-left: auto; color: red;">Sair</a>
+        </nav>
+
+        <h2>Calculadora de Construção - Sauna</h2>
+        <form id="formSauna" style="display: flex; flex-direction: column; gap: 1rem; max-width: 400px;">
+            
+            <fieldset>
+                <legend>Características da Sauna</legend>
+                <label style="margin-bottom: 1rem;">
+                    Tipo de Sauna:
+                    <select id="tipo" style="margin-left: 1rem;">
+                        <option value="umida">Úmida (Vapor)</option>
+                        <option value="seca">Seca (Finlandesa)</option>
+                    </select>
+                </label>
+
+                <input type="number" id="largura" placeholder="Largura (m)" step="0.1" required style="display: block; margin-bottom: 0.5rem; width: 100%;" />
+                <input type="number" id="comprimento" placeholder="Comprimento (m)" step="0.1" required style="display: block; margin-bottom: 0.5rem; width: 100%;" />
+                <input type="number" id="altura" placeholder="Altura (m)" step="0.1" required style="display: block; width: 100%;" />
+            </fieldset>
+
+            <fieldset>
+                <legend>Uso Estimado</legend>
+                <label>
+                    Horas de uso por mês:
+                    <input type="number" id="horasUsoMes" step="1" required value="20" style="margin-left: 1rem; width: 80px;" />
+                </label>
+                <label style="margin-top: 0.5rem;">
+                    Preço do kWh (R$):
+                    <input type="number" id="precoKWh" step="0.01" required value="0.95" style="margin-left: 1rem; width: 80px;" />
+                </label>
+            </fieldset>
+
+            <button type="submit">Calcular Custos</button>
+        </form>
+
+        <div id="boxResultados">
+            <h3>Resultados do Cálculo:</h3>
+            <p><strong>Área Total:</strong> <span id="resArea"></span> m²</p>
+            <p><strong>Volume Interno:</strong> <span id="resVolume"></span> m³</p>
+            <hr />
+            <p><strong>Custo de Materiais:</strong> R$ <span id="resMateriais"></span></p>
+            <p><strong>Custo de Equipamentos (<span id="resPotencia"></span> kW):</strong> R$ <span id="resEquipamentos"></span></p>
+            <p style="font-size: 1.2rem; font-weight: bold;">Custo Fixo Total: R$ <span id="resFixoTotal"></span></p>
+            <hr />
+            <p><strong>Consumo de Energia Mensal:</strong> <span id="resConsumo"></span> kWh</p>
+            <p><strong>Custo Total de Manutenção/Mês:</strong> R$ <span id="resManutencao"></span></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('formSauna').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const tipo = document.getElementById('tipo').value;
+            const largura = parseFloat(document.getElementById('largura').value);
+            const comprimento = parseFloat(document.getElementById('comprimento').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            const horasUsoMes = parseInt(document.getElementById('horasUsoMes').value);
+            const precoKWh = parseFloat(document.getElementById('precoKWh').value);
+
+            try {
+                // Durante o desenvolvimento local, a API responde na porta 3001.
+                // Ao rodar no Render (onde a API e o App estão no mesmo domínio), usar apenas '/api/SAUNA'
+                const API_BASE = 'https://gceic26.onrender.com/api/SAUNA';
+
+                // 1. Fetch para a API de Materiais
+                const resMateriais = await fetch(`${API_BASE}/materiais`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ largura, comprimento, altura, tipo })
+                });
+                const dadosMateriais = await resMateriais.json();
+
+                // 2. Fetch para a API de Equipamentos
+                const resEquipamentos = await fetch(`${API_BASE}/equipamentos`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ volumeM3: dadosMateriais.volumeM3, tipo })
+                });
+                const dadosEquipamentos = await resEquipamentos.json();
+
+                // 3. Fetch para a API de Manutenção
+                const resManutencao = await fetch(`${API_BASE}/manutencao`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        potenciaGeradorKW: dadosEquipamentos.potenciaGeradorKW,
+                        horasUsoMes,
+                        precoKWh
+                    })
+                });
+                const dadosManutencao = await resManutencao.json();
+
+                // 4. Exibindo os resultados no HTML
+                document.getElementById('resArea').innerText = dadosMateriais.areaTotalM2;
+                document.getElementById('resVolume').innerText = dadosMateriais.volumeM3;
+                document.getElementById('resMateriais').innerText = dadosMateriais.totalMateriais.toFixed(2);
+                
+                document.getElementById('resPotencia').innerText = dadosEquipamentos.potenciaGeradorKW;
+                document.getElementById('resEquipamentos').innerText = dadosEquipamentos.totalEquipamentos.toFixed(2);
+                
+                const custoFixo = dadosMateriais.totalMateriais + dadosEquipamentos.totalEquipamentos;
+                document.getElementById('resFixoTotal').innerText = custoFixo.toFixed(2);
+
+                document.getElementById('resConsumo').innerText = dadosManutencao.consumoMensalKWh;
+                document.getElementById('resManutencao').innerText = dadosManutencao.totalManutencaoMensal.toFixed(2);
+
+                document.getElementById('boxResultados').style.display = 'block';
+
+            } catch (erro) {
+                console.error("Erro ao conectar com a API:", erro);
+                alert("Falha na comunicação com o servidor. Verifique se a API na porta 3001 está rodando.");
+            }
+        });
+    </script>
+
+</body>
+</html>

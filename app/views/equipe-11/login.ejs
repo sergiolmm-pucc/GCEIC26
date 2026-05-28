@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Campo Calc</title>
+  <link rel="stylesheet" href="/equipe-11/styles.css">
+</head>
+<body>
+  <main class="app-shell app-shell--narrow">
+    <section class="card">
+      <h2>Login</h2>
+      <p class="hint">Use <strong>admin</strong> / <strong>admin</strong></p>
+      <% if (error) { %>
+        <p class="error-message"><%= error %></p>
+      <% } %>
+      <form method="POST" action="<%= basePath %>/login" class="form-grid" style="margin-top: 1rem">
+        <label>
+          Usuario
+          <input name="username" autocomplete="username" required>
+        </label>
+        <label>
+          Senha
+          <input name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button type="submit">Entrar</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

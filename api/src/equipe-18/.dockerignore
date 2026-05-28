@@ -1,0 +1,17 @@
+node_modules
+dist
+.git
+.gitignore
+.npmrc
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.*
+README.md
+docs
+biome.json
+vitest.config.ts
+coverage

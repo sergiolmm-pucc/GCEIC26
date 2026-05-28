@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FINV – Ajuda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #07090d; color: #eef1f7;
+      min-height: 100dvh; -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center;
+      padding: 0 20px; height: 56px;
+      background: rgba(7,9,13,.88);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid #1f2638;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .logo { font-size: 17px; font-weight: 700; letter-spacing: -.02em; }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 8px;
+      font-size: 13px; font-weight: 500; color: #8b94a8;
+      border: 1px solid #1f2638; cursor: pointer;
+      transition: color 150ms, border-color 150ms, background 150ms;
+    }
+    .btn-back:hover { color: #eef1f7; border-color: #2a3347; background: #111520; }
+    .content {
+      max-width: 600px; margin: 0 auto;
+      padding: 24px 16px 48px;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .card {
+      background: #111520; border: 1px solid #1f2638;
+      border-radius: 20px; padding: 24px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.5);
+    }
+    .card-titulo {
+      font-size: 15px; font-weight: 600; letter-spacing: -.01em;
+      margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #1f2638;
+    }
+    .help-item {
+      padding: 14px 0; border-bottom: 1px solid #1f2638;
+    }
+    .help-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .help-item:first-child { padding-top: 0; }
+    .help-titulo { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .help-desc   { font-size: 13px; color: #8b94a8; line-height: 1.65; }
+    .endpoint-item {
+      display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+      padding: 12px 0; border-bottom: 1px solid #1f2638;
+    }
+    .endpoint-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .endpoint-rota {
+      font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 500;
+      color: #f59e0b; background: rgba(245,158,11,.12);
+      border: 1px solid rgba(245,158,11,.15);
+      border-radius: 6px; padding: 4px 10px; white-space: nowrap;
+    }
+    @media (max-width: 480px) {
+      .content { padding: 16px 12px 40px; }
+      .card { padding: 18px 16px; }
+      .endpoint-item { flex-direction: column; align-items: flex-start; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar-left">
+      <a class="btn-back" href="/equipe-01/home">← Voltar</a>
+      <span class="logo">Ajuda</span>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="card">
+      <h3 class="card-titulo">Como usar o FINV</h3>
+
+      <div class="help-item">
+        <p class="help-titulo">🧮 Simulador</p>
+        <p class="help-desc">Informe o valor do veículo, entrada, taxa e prazo. O app calcula a parcela mensal e o total pago.</p>
+      </div>
+      <div class="help-item">
+        <p class="help-titulo">💰 Capacidade</p>
+        <p class="help-desc">Informe sua renda mensal. O app mostra o valor máximo de veículo que você pode financiar sem comprometer mais de 30% da renda.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-titulo">Perguntas Frequentes</h3>
+
+      <div class="help-item">
+        <p class="help-titulo">❓ O que é a Tabela Price?</p>
+        <p class="help-desc">É o sistema de amortização mais usado em financiamentos no Brasil. As parcelas são fixas, mas nos primeiros meses você paga mais juros e menos amortização.</p>
+      </div>
+      <div class="help-item">
+        <p class="help-titulo">❓ O que é taxa mensal?</p>
+        <p class="help-desc">É o percentual de juros cobrado por mês sobre o saldo devedor. Ex: 1,29% ao mês.</p>
+      </div>
+      <div class="help-item">
+        <p class="help-titulo">❓ Como é calculada a capacidade de financiamento?</p>
+        <p class="help-desc">Usamos a regra dos 30%: sua parcela mensal não deve ultrapassar 30% da sua renda bruta mensal.</p>
+      </div>
+      <div class="help-item">
+        <p class="help-titulo">❓ A entrada é obrigatória?</p>
+        <p class="help-desc">Não. Se não informar, o sistema considera financiamento de 100% do valor do veículo.</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-titulo">Endpoints da API</h3>
+
+      <div class="endpoint-item">
+        <code class="endpoint-rota">POST /api/parcela</code>
+        <span class="help-desc">Calcula parcela mensal e total pago</span>
+      </div>
+      <div class="endpoint-item">
+        <code class="endpoint-rota">POST /api/capacidade</code>
+        <span class="help-desc">Calcula capacidade de financiamento pela renda</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

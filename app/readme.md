@@ -1,50 +1,24 @@
-# HourlyCost - App Frontend (React)
+cria o diretorio api e app
+no diretorio app via terminal 
+npm init -y
+cria o arquivo principal
 
-Interface web em React para a calculadora financeira de custo de prestação de serviços em horas (CSH). Consome a API REST desenvolvida em Node.js.
+instala o nodemon para mexer no codigo e nao precisar reiniciar o app. ( Dev dependencies)
+npm install -D nodemon
 
-## Tecnologias Utilizadas
-* **React** (v18.3.1)
-* **Vite** como empacotador e servidor de desenvolvimento
-* **Vitest** + **React Testing Library** para testes unitários
-* **Playwright** para testes e2e/funcionais locais
-* **CSS Vanilla** para estilização flexível e customizada
+no package.json adicione
+"dev": "nodemon index.js"
+para rodar
+npm run dev
 
-## Estrutura de Diretórios
-* `src/App.jsx`: Componente principal contendo as telas de Splash, Login, Calculadora, Sobre e Ajuda.
-* `src/styles.css`: Estilização principal do projeto.
-* `src/App.test.jsx`: Testes unitários do frontend utilizando Vitest.
-* `e2e/app.spec.js`: Testes funcionais automatizados de ponta a ponta com Playwright.
+instala dependencia 
 
-## Instalação e Execução Local
+npm install express-session
+npm install body-parser
+npm install ejs
+npm install bcryptjs
 
-No diretório `app`, instale as dependências:
-```bash
-npm install
-```
 
-### Scripts Disponíveis
+npm install express
 
-* **Desenvolvimento**: Inicia o servidor local do Vite.
-  ```bash
-  npm run dev
-  ```
-* **Build**: Gera a versão de produção otimizada na pasta `dist`.
-  ```bash
-  npm run build
-  ```
-* **Preview**: Inicia um servidor local para visualizar a build de produção na porta 3000.
-  ```bash
-  npm run start
-  ```
-* **Testes Unitários**: Executa os testes do Vitest.
-  ```bash
-  npm run test
-  ```
-* **Testes de Cobertura**: Exibe relatório de cobertura dos testes unitários.
-  ```bash
-  npm run test:coverage
-  ```
-* **Testes E2E (Playwright)**: Roda os testes de ponta a ponta e salva evidências em screenshot.
-  ```bash
-  npm run test:e2e
-  ```
+npm install node-fetch

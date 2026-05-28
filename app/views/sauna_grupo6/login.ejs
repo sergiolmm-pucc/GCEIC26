@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConstruSauna - Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container {
+            padding: 2rem;
+            max-width: 400px;
+            width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        input {
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            outline: none;
+        }
+        input:focus {
+            border-color: #0056b3;
+        }
+        button {
+            padding: 0.8rem;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #004085;
+        }
+        .erro {
+            color: red;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>ConstruSauna</h2>
+        <form id="formLogin">
+            <input 
+                type="text" 
+                id="usuario"
+                placeholder="Usuário" 
+                required
+            />
+            <input 
+                type="password" 
+                id="senha"
+                placeholder="Senha" 
+                required
+            />
+            <button type="submit">Entrar</button>
+            <p id="mensagemErro" class="erro" style="display: none;"></p>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('formLogin').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const usuario = document.getElementById('usuario').value;
+            const senha = document.getElementById('senha').value;
+            const mensagemErro = document.getElementById('mensagemErro');
+
+            // Credenciais fixas conforme exigência da atividade
+            if (usuario === 'admin' && senha === '1234') {
+                // Redireciona para a rota da calculadora configurada no index.js
+                window.location.href = '/sauna6/calculadora';
+            } else {
+                // Exibe a mensagem de erro na tela de forma dinâmica
+                mensagemErro.innerText = 'Usuário ou senha inválidos.';
+                mensagemErro.style.display = 'block';
+            }
+        });
+    </script>
+
+</body>
+</html>

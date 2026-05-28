@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav>
+        <a href="/equipe-10/calculo">Calculadora</a>
+        <a href="/equipe-10/sobre">Sobre</a>
+        <a href="/equipe-10/help">Help</a>
+        <a href="/equipe-10/logout">Sair</a>
+    </nav>
+
+    <h2>Calculadora</h2>
+    <form action="/equipe-10/calcular" method="POST">
+        <input type="number" name="capital" placeholder="Capital" required><br>
+        <input type="number" name="taxa" placeholder="Taxa (%)" required><br>
+        <input type="number" name="tempo" placeholder="Tempo (Meses)" required><br>
+        <select name="tipo">
+            <option value="simples">Juros Simples</option>
+            <option value="compostos">Juros Compostos</option>
+        </select><br>
+        <button type="submit">Calcular</button>
+    </form>
+
+    <% if (typeof resultado !== 'undefined' && resultado) { %>
+        <div class="resultado-box">
+            <p>Montante Final: R$ <%= resultado.montante %></p>
+            <p>Juros: R$ <%= resultado.juros %></p>
+        </div>
+    <% } %>
+</body>
+</html>

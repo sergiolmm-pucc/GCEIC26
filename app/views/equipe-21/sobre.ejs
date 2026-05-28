@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre BURGCALC</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f7f4ee;
+      color: #211a16;
+    }
+
+    header {
+      background: #211a16;
+      color: #fff8ef;
+      padding: 18px clamp(16px, 4vw, 48px);
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: #f2c078;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    main {
+      width: min(960px, calc(100% - 32px));
+      margin: 32px auto;
+    }
+
+    .painel {
+      background: #fff;
+      border: 1px solid #e4ddd2;
+      border-radius: 8px;
+      padding: 24px;
+      box-shadow: 0 14px 35px rgba(33, 26, 22, 0.08);
+    }
+
+    .foto-integrantes {
+      margin-top: 22px;
+      margin-bottom: 22px;
+    }
+
+    .foto-integrantes img {
+      display: block;
+      width: 100%;
+      max-height: 520px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 8px;
+      border: 1px solid #e4ddd2;
+    }
+
+    .foto-integrantes figcaption {
+      margin-top: 10px;
+      color: #695f58;
+      font-size: 0.95rem;
+    }
+
+    .integrantes {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BURGCALC</h1>
+    <nav aria-label="Navegacao BURGCALC">
+      <a href="<%= basePath %>/calculo">Calculo</a>
+      <a href="<%= basePath %>/sobre">Sobre</a>
+      <a href="<%= basePath %>/help">Help</a>
+      <a href="<%= basePath %>/login?ready=1">Login</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="painel">
+      <h2>Sobre o projeto</h2>
+      <p>BURGCALC calcula o custo de producao de hamburgueres a partir dos custos dos ingredientes, embalagem, quantidade produzida e margem de lucro desejada.</p>
+
+      <h2>Integrantes</h2>
+      <figure class="foto-integrantes">
+        <img src="<%= basePath %>/images/integrantes-burgcalc.png" alt="Foto dos integrantes do projeto BURGCALC">
+        <figcaption>Foto dos integrantes do BURGCALC</figcaption>
+      </figure>
+      <ul class="integrantes">
+        <li><strong>Andre Domingues Teixeira</strong></li>
+        <li><strong>Pedro Henrique Kachan</strong></li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

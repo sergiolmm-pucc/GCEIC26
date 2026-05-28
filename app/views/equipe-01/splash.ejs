@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FINV</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #07090d;
+      color: #eef1f7;
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .splash-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100dvh;
+      padding: 40px 24px;
+      text-align: center;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(245,158,11,.07) 0%, transparent 70%);
+    }
+    .splash-titulo {
+      font-size: clamp(80px, 22vw, 130px);
+      font-weight: 800;
+      letter-spacing: -.06em;
+      line-height: 1;
+      background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #fde68a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 20px rgba(245,158,11,.3)); }
+      to   { filter: drop-shadow(0 0 55px rgba(245,158,11,.55)); }
+    }
+    .splash-subtitulo {
+      font-size: 16px;
+      color: #8b94a8;
+      margin-top: 18px;
+      letter-spacing: .02em;
+    }
+    .splash-info {
+      font-size: 13px;
+      color: #555e73;
+      margin-top: 8px;
+      letter-spacing: .04em;
+    }
+  </style>
+</head>
+<body>
+  <div class="splash-container">
+    <h1 class="splash-titulo">FINV</h1>
+    <p class="splash-subtitulo">Financiamento de Veículos</p>
+    <p class="splash-info">GCEIC26 · PUC-Campinas</p>
+  </div>
+
+  <script>
+    setTimeout(() => { window.location.href = '/equipe-01/login'; }, 2500);
+  </script>
+</body>
+</html>

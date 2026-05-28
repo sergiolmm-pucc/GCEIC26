@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre — SaunaCalc Elite</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; color: #1a1a2e; }
+    nav {
+      background: #1a1a2e; color: white;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    nav .brand { font-size: 1.2rem; font-weight: 700; }
+    nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 0.9rem; }
+    nav a:hover { color: white; }
+    .container { max-width: 600px; margin: 2rem auto; padding: 0 1rem; }
+    .card {
+      background: white; border-radius: 14px;
+      padding: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    }
+    h2 { margin-bottom: 0.4rem; }
+    .subtitulo { color: #888; margin-bottom: 2rem; font-size: 0.95rem; }
+    .equipe { display: flex; flex-wrap: wrap; gap: 1.2rem; justify-content: center; }
+    .membro {
+      text-align: center; width: 150px;
+      background: #f8f8f8; border-radius: 12px; padding: 1.2rem;
+    }
+    /* Estilo atualizado para imagens! */
+    .avatar-img {
+      width: 72px; height: 72px; border-radius: 50%;
+      margin: 0 auto 0.8rem;
+      object-fit: cover; /* Garante que a foto não fique distorcida */
+      border: 3px solid #e74c3c; /* Borda estilizada opcional */
+    }
+    .membro .nome { font-weight: 600; font-size: 0.95rem; }
+    .membro .ra   { font-size: 0.8rem; color: #888; margin-top: 0.2rem; }
+    .membro .func { font-size: 0.78rem; color: #e74c3c; margin-top: 0.3rem; }
+    .rodape {
+      margin-top: 2rem; padding-top: 1.5rem;
+      border-top: 1px solid #eee;
+      font-size: 0.85rem; color: #aaa; text-align: center;
+    }
+  </style>
+</head>
+<body>
+<nav>
+  <span class="brand">🧖 SaunaCalc Elite</span>
+  <a href="/equipe-22/simulacao">← Voltar</a>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <h2>Sobre a equipe</h2>
+    <p class="subtitulo">SaunaCalc Elite — Simulador de custos de instalação de sauna</p>
+
+    <div class="equipe">
+      <div class="membro">
+        <img src="/equipe-22/anderson.jpeg" alt="Foto do Anderson" class="avatar-img">
+        <p class="nome">Anderson Lucas</p>
+        <p class="ra">RA: 24787293</p>
+        <p class="func">API principal</p>
+      </div>
+
+      <div class="membro">
+        <img src="/equipe-22/filipe.jpg"    alt="Foto do Filipe"   class="avatar-img">
+        <p class="nome">Filipe</p>
+        <p class="ra">RA: 24007657</p>
+        <p class="func">Custo do kit</p>
+      </div>
+
+      <div class="membro">
+        <img src="/equipe-22/murillo.jpeg"  alt="Foto do Murillo"  class="avatar-img">
+        <p class="nome">Murillo</p>
+        <p class="ra">RA: 25014012</p>
+        <p class="func">Instalação</p>
+      </div>
+    </div>
+
+    <p class="rodape">
+      Projeto acadêmico — GCEIC26 · PUC-Campinas · 2026<br> Valores de referência — não constituem orçamento real
+    </p>
+  </div>
+</div>
+</body>
+</html>
