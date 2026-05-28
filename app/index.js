@@ -25,7 +25,7 @@ const grupo14ApiRoutes = new Map([
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 app.use(GRUPO14_PATH, express.static(grupo14DistPath));
 app.use(GRUPO5_PATH, express.static(grupo5DistPath));
 app.use(GRUPO2_PATH, express.static(grupo2DistPath));
