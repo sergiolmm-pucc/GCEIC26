@@ -21,19 +21,19 @@ function Calculadora() {
 
   const calcularCusto = async () => {
     try {
-      const resVolume = await axios.post('/api/src/equipe-7/volume/calcular', {
+      const resVolume = await axios.post('/api/equipe-7/volume/calcular', {
         largura: dados.largura,
         comprimento: dados.comprimento,
         profundidade: dados.profundidade
       });
       const volumeCalculado = resVolume.data.volume;
 
-      const resMateriais = await axios.post('/api/src/equipe-7/materiais/calcular', {
+      const resMateriais = await axios.post('/api/equipe-7/materiais/calcular', {
         precoEletrico: dados.precoEletrico,
         precoHidraulico: dados.precoHidraulico
       });
 
-      const resCustos = await axios.post('/api/src/equipe-7/custos/calcular', {
+      const resCustos = await axios.post('/api/equipe-7/custos/calcular', {
         volume: volumeCalculado,
         precoAgua: dados.precoAgua,
         precoManutencao: dados.precoManutencao
