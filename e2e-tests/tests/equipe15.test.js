@@ -3,7 +3,7 @@ const chrome = require('selenium-webdriver/chrome');
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = process.env.APP_URL || 'http://localhost:3000';
+const BASE_URL = (process.env.APP_URL || 'http://localhost:3000') + '/equipe-15';
 const SCREENSHOTS_DIR = path.join(__dirname, '..', 'screenshots');
 
 if (!fs.existsSync(SCREENSHOTS_DIR)) fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
@@ -32,7 +32,7 @@ async function main() {
       '--no-sandbox',
       '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
-      '--window-size=1280,720',
+      '--window-size=1280,1024',
       '--disable-gpu'
     );
 
@@ -87,7 +87,7 @@ async function main() {
     // ── Teste 4: Login com credenciais corretas (admin / 1234) ────────────
     console.log('\nTeste 4: Login com credenciais corretas (admin / 1234)');
     await driver.get(BASE_URL + '/login');
-    await new Promise(r => setTimeout(r, 500));
+    await new Promise(r => setTimeout(r, 3500));
 
     const userInput2 = await driver.findElement(By.css('input.fc-input[type="text"]'));
     const passInput2 = await driver.findElement(By.css('input.fc-input[type="password"]'));

@@ -14,9 +14,10 @@
     "test:equipe5": "node tests/equipe5.test.js",
     "test:grupo12": "node tests/grupo12.test.js",
     "test:equipe18": "node tests/equipe18.test.js",
-    "test:grupo15": "node tests/equipe15.e2e.test.js",
+    "test:grupo15": "node tests/equipe15.test.js",
     "test:etec": "node tests/etec.test.js",
-    "test:grupo25": "node tests/equipe25.test.js"
+    "test:grupo25": "node tests/equipe25.test.js",
+    "test:grupo19": "node tests/equipe19test.js"
   },
   "keywords": [],
   "author": "",

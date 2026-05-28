@@ -3,7 +3,7 @@ const chrome = require('selenium-webdriver/chrome');
 const fs = require('fs');
 const path = require('path');
 
-const BASE_URL = process.env.APP_URL || 'http://localhost:3000';
+const BASE_URL = (process.env.APP_URL || 'http://localhost:3000') + '/equipe-19';
 const SCREENSHOTS_DIR = path.join(__dirname, '..', 'screenshots');
 
 // A splash navega para o login após 2500ms (App.js -> Splash setTimeout)
