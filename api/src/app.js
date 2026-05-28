@@ -1,4 +1,5 @@
 const express = require('express');
+const calcFinanceiraRouter = require("./equipe-10/calcFinanceiraApp")
 const cors = require('cors');
 const helmet = require('helmet');
 
@@ -147,6 +148,10 @@ app.post('/api/equipe-9/calcular-inverso', (req, res) => {
     return res.status(400).json({ success: false, error: err.message });
   }
 });
+
+// Rotas da equipe 10 - Calculadora Financeira
+app.use("/api/calc-financeira", calcFinanceiraRouter)
+
 
 // POST /api/equipe-9/comparar
 app.post('/api/equipe-9/comparar', (req, res) => {

@@ -119,6 +119,13 @@ grupo9.get('/splash', (req, res) => {
   res.render('equipe-9/splash');
 });
 
+app.get("/", (req, res) => {
+  res.render('index', { equipes });
+  //if (req.session.user) return res.redirect("/dashboard");
+  //res.render("inicial", { error: null });
+});
+
+
 grupo9.get('/login', (req, res) => {
   if (req.session.user) return res.redirect('/equipe-9/calculo');
   res.render('equipe-9/login', { error: null });
@@ -274,6 +281,110 @@ grupo16.post('/calcular', requireAuth, async (req, res) => {
   }
 });
 
+//Rotas Calculadora Financeira (grupo 10)
+
+function requireEquipe10Auth(req, res, next) {
+  if (req.session && req.session.equipe10User) return next();
+  res.redirect('/equipe-10/login');
+}
+
+app.get('/equipe-10', (req, res) => {
+  res.render('equipe-10/splash');
+});
+
+app.get('/equipe-10/login', (req, res) => {
+  if (req.session.equipe10User) return res.redirect('/equipe-10/calculo');
+  res.render('equipe-10/login', { error: null }); 
+});
+
+app.post('/equipe-10/login', (req, res) => {
+  const { username, password } = req.body;
+
+  if (!username || !password)
+    return res.render('equipe-10/login', { error: 'Preencha todos os campos' });
+
+  if (username === 'admin' && password === '1234') {
+    req.session.equipe10User = { username: 'adm', nome: 'Administrador' };
+    return res.redirect('/equipe-10/calculo');
+  }
+
+  res.render('equipe-10/login', { error: 'Usuário ou senha inválidos' });
+});
+
+app.get('/equipe-10/logout', (req, res) => {
+  req.session.equipe10User = null;
+  res.redirect('/equipe-10/login');
+});
+
+app.get('/equipe-10/calculo', requireEquipe10Auth, (req, res) => {
+  res.render('equipe-10/calculadora', { user: req.session.equipe10User || null, resultado: null });
+});
+
+app.post('/equipe-10/calcular', requireEquipe10Auth, async (req, res) => {
+  const { capital, taxa, tempo, tipo } = req.body;
+
+  try {
+    const endpointAPI = tipo === 'simples' ? '/juros-simples' : '/juros-compostos';
+
+    const urlDaSuaApi = `http://localhost:3001/api/calc-financeira${endpointAPI}`;
+
+    const respostaApi = await fetch(urlDaSuaApi, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        capital: Number(capital),
+        taxa: Number(taxa),
+        tempo: Number(tempo)
+      })
+    });
+
+    const dados = await respostaApi.json();
+
+    if (dados.success) {
+      res.render('equipe-10/calculadora', { 
+        user: req.session.equipe10User, 
+        resultado: dados.data 
+      });
+    } else {
+      throw new Error(dados.error || 'Erro no cálculo');
+    }
+
+  } catch (error) {
+    console.error("Erro ao comunicar com a API:", error);
+    res.render('equipe-10/calculadora', { 
+      user: req.session.equipe10User, 
+      resultado: null 
+    });
+  }
+});
+
+app.get('/equipe-10/sobre', requireEquipe10Auth, (req, res) => {
+  res.render('equipe-10/sobre');
+});
+
+app.get('/equipe-10/help', requireEquipe10Auth, (req, res) => {
+  res.render('equipe-10/help');
+});
+
+// 20 dynamic team endpoints
+for (let i = 5; i <= 20; i++) {
+  app.get(`/equipe-${i}`, (req, res) => {
+    console.log(`/equipe-${i}/equipe`);
+    res.render(`equipe`, {
+      numero: i,
+      nome: `Equipe-${i}`
+    });
+  });
+}
+
+
+
+
+app.listen(PORT, () => {
+  console.log(`✅ App Doméstica rodando: http://localhost:${PORT}`);
+});
 grupo9.post('/calcular', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular', req, res));
 grupo9.post('/calcular-inverso', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular-inverso', req, res));
 grupo9.post('/comparar', requireAuth, (req, res) => proxyAPI('/api/equipe-9/comparar', req, res));

@@ -4,7 +4,8 @@
   "description": "Testes E2E com Cypress e Selenium",
   "main": "index.js",
   "scripts": {
-    "test": "node tests/equipe9.test.js",
+    "test": "node tests/base.test.js",
+    "test:grupo10": "node tests/equipe.10.test.js",
     "test:equipe9": "node tests/equipe9.test.js",
     "test:grupo13": "node tests/markup.test.js",
     "test:equipe11": "node tests/equipe11.test.js",

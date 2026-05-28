@@ -26,6 +26,7 @@ async function main() {
     opts.addArguments(
       '--headless=new',
       '--no-sandbox',
+      '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
       '--window-size=800,640',
       '--disable-gpu'
