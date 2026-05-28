@@ -560,9 +560,13 @@ app.use(GRUPO20_PATH, grupo20);
 
 // ── Grupo 7 — PISCINA2 ──
 
+// ── Grupo 7 — PISCINA2 ──
+
 const GRUPO7_PATH = '/equipe-7';
-// 1. Aponta para onde a build (npm run build) do seu React vai gerar a pasta dist
-const grupo7DistPath = path.join(__dirname, 'equipe-7', 'dist'); 
+// ✨ CORREÇÃO: Adicionado 'views' no caminho para achar sua pasta real!
+const grupo7DistPath = path.join(__dirname, 'views', 'equipe-7', 'dist'); 
+
+app.use(GRUPO7_PATH, express.static(grupo7DistPath));
 
 // 2. Define que o express deve servir os arquivos js/css/assets estáticos do seu grupo
 app.use(GRUPO7_PATH, express.static(grupo7DistPath));
