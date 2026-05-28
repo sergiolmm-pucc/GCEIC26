@@ -559,8 +559,6 @@ jobs:
           path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo5-*.png
 
   e2e-equipe18:
-    needs: [deploy-api, deploy-app]
-    if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Get Code from repository
