@@ -1,7 +1,3 @@
-const express    = require('express');
-const session    = require('express-session');
-const bodyParser = require('body-parser');
-const path       = require('path');
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
@@ -9,13 +5,17 @@ const http = require('node:http');
 const https = require('node:https');
 const path = require('path');
 
-const app     = express();
-const PORT    = process.env.PORT    || 3000;
+const app = express();
+const PORT = process.env.PORT || 3000;
 const API_URL = process.env.API_URL || 'http://localhost:3001';
 const GRUPO14_PATH = '/equipe-14';
 const grupo14DistPath = path.join(__dirname, 'dist');
 const GRUPO5_PATH = '/equipe-5';
 const grupo5DistPath = path.join(__dirname, 'equipe-5', 'dist');
+
+// ── Equipe 2 ──
+const GRUPO2_PATH = '/equipe-2';
+const grupo2DistPath = path.join(__dirname, 'dist', 'equipe-2');
 const grupo14ApiRoutes = new Map([
   ['GET /health', '/PBL/health'],
   ['POST /preco-liquido', '/PBL/preco-liquido'],
@@ -28,6 +28,23 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(GRUPO14_PATH, express.static(grupo14DistPath));
 app.use(GRUPO5_PATH, express.static(grupo5DistPath));
+app.use(GRUPO2_PATH, express.static(grupo2DistPath));
+
+// ── Proxy API Equipe 2 — IRP ──
+app.post('/IRP/calcular', async (req, res) => {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}/IRP/calcular`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (err) {
+    res.status(502).json({ error: 'Falha ao comunicar com a API da Equipe 2.', message: err.message });
+  }
+});
 
 app.use('/PBL', (req, res) => {
   const targetPath = grupo14ApiRoutes.get(`${req.method} ${req.path}`);
@@ -74,42 +91,6 @@ app.use(session({
   cookie: { maxAge: 3600000 },
 }));
 
-const equipes = [
-  { numero: 1,  nome: 'TESTE',     rota: '/login'     },
-  { numero: 2,  nome: 'Equipe-2',  rota: '/equipe-2'  },
-  { numero: 3,  nome: 'Equipe-3',  rota: '/equipe-3'  },
-  { numero: 4,  nome: 'Equipe-4',  rota: '/equipe-4'  },
-  { numero: 5,  nome: 'Equipe-5',  rota: '/equipe-5'  },
-  { numero: 6,  nome: 'Equipe-6',  rota: '/equipe-6'  },
-  { numero: 7,  nome: 'Equipe-7',  rota: '/equipe-7'  },
-  { numero: 8,  nome: 'Equipe-8',  rota: '/equipe-8'  },
-  { numero: 9,  nome: 'Equipe-9',  rota: '/equipe-9'  },
-  { numero: 10, nome: 'Equipe-10', rota: '/equipe-10' },
-  { numero: 11, nome: 'Equipe-11', rota: '/equipe-11' },
-  { numero: 12, nome: 'Equipe-12', rota: '/equipe-12' },
-  { numero: 13, nome: 'Equipe-13', rota: '/equipe-13' },
-  { numero: 14, nome: 'Equipe-14', rota: '/equipe-14' },
-  { numero: 15, nome: 'Equipe-15', rota: '/equipe-15' },
-  { numero: 16, nome: 'Equipe-16', rota: '/equipe-16' },
-  { numero: 17, nome: 'Equipe-17', rota: '/equipe-17' },
-  { numero: 18, nome: 'Equipe-18', rota: '/equipe-18' },
-  { numero: 19, nome: 'Equipe-19', rota: '/equipe-19' },
-  { numero: 20, nome: 'Equipe-20', rota: '/equipe-20' },
-  { numero: 21, nome: 'Equipe-21', rota: '/equipe-21' },
-  { numero: 22, nome: 'Equipe-22', rota: '/equipe-22' },
-  { numero: 23, nome: 'Equipe-23', rota: '/equipe-23' },
-  { numero: 24, nome: 'Equipe-24', rota: '/equipe-24' },
-  { numero: 25, nome: 'Equipe-25', rota: '/equipe-25' },
-];
-
-function requireAuth(req, res, next) {
-  if (req.session && req.session.user) return next();
-  res.redirect('/equipe-9/login');
-}
-
-app.get('/', (req, res) => {
-  res.render('index', { equipes });
-});
 
 // Rotas Equipe 9
 const grupo9 = express.Router();
@@ -141,18 +122,29 @@ grupo9.get('/logout', (req, res) => {
 });
 
 // rotas protegidas
-grupo9.get('/calculo',  requireAuth, (req, res) => res.render('equipe-9/calculo',  { user: req.session.user }));
-grupo9.get('/inverso',  requireAuth, (req, res) => res.render('equipe-9/inverso',  { user: req.session.user }));
+grupo9.get('/calculo', requireAuth, (req, res) => res.render('equipe-9/calculo', { user: req.session.user }));
+grupo9.get('/inverso', requireAuth, (req, res) => res.render('equipe-9/inverso', { user: req.session.user }));
 grupo9.get('/comparar', requireAuth, (req, res) => res.render('equipe-9/comparar', { user: req.session.user }));
-grupo9.get('/sobre',    requireAuth, (req, res) => res.render('equipe-9/sobre',    { user: req.session.user }));
-grupo9.get('/help',     requireAuth, (req, res) => res.render('equipe-9/help',     { user: req.session.user }));
+grupo9.get('/sobre', requireAuth, (req, res) => res.render('equipe-9/sobre', { user: req.session.user }));
+grupo9.get('/help', requireAuth, (req, res) => res.render('equipe-9/help', { user: req.session.user }));
 
 // Proxies
 async function proxyAPI(endpoint, req, res) {
   try {
     const fetch = (await import('node-fetch')).default;
     const response = await fetch(`${API_URL}${endpoint}`, {
-const BASE_PATH    = '/equipe-16';
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+}
+
+const BASE_PATH = '/equipe-16';
 const BASE_PATH_13 = '/equipe-13';
 const EQUIPE21_PATH = '/equipe-21';
 
@@ -160,31 +152,32 @@ app.use(`${EQUIPE21_PATH}/vendor/react`, express.static(path.join(__dirname, 'no
 app.use(`${EQUIPE21_PATH}/vendor/react-dom`, express.static(path.join(__dirname, 'node_modules', 'react-dom', 'umd')));
 
 const equipes = [
-  { numero: 1,  nome: 'TESTE',       rota: '/login' },
-  { numero: 2,  nome: 'Equipe-2',    rota: '/equipe-2' },
-  { numero: 3,  nome: 'Equipe-3',    rota: '/equipe-3' },
-  { numero: 4,  nome: 'Equipe-4',    rota: '/equipe-4' },
-  { numero: 5,  nome: 'Equipe-5',    rota: '/equipe-5' },
-  { numero: 6,  nome: 'Equipe-6',    rota: '/sauna6' },
-  { numero: 7,  nome: 'G7 - Calculadora de Custo de Piscinas',    rota: '/equipe-7' },
-  { numero: 8,  nome: 'Equipe-8',    rota: '/equipe-8' },
-  { numero: 9,  nome: 'Equipe-9',    rota: '/equipe-9' },
-  { numero: 10, nome: 'Equipe-10',   rota: '/equipe-10' },
-  { numero: 11, nome: 'Equipe-11',   rota: '/equipe-11' },
-  { numero: 12, nome: 'Equipe-12',   rota: '/equipe-12' },
+  { numero: 1, nome: 'TESTE', rota: '/login' },
+  { numero: 2, nome: 'Equipe-2', rota: '/equipe-2' },
+  { numero: 3, nome: 'Equipe-3', rota: '/equipe-3' },
+  { numero: 4, nome: 'Equipe-4', rota: '/equipe-4' },
+  { numero: 5, nome: 'Equipe-5', rota: '/equipe-5' },
+  { numero: 6, nome: 'Equipe-6', rota: '/sauna6' },
+  { numero: 7, nome: 'G7 - Calculadora de Custo de Piscinas', rota: '/equipe-7' },
+  { numero: 8, nome: 'Equipe-8 Calculo de Piscina', rota: '/equipe-08' },
+  { numero: 9, nome: 'Equipe-9', rota: '/equipe-9' },
+  { numero: 10, nome: 'Equipe-10', rota: '/equipe-10' },
+  { numero: 11, nome: 'Equipe-11', rota: '/equipe-11' },
+  { numero: 12, nome: 'Equipe-12', rota: '/equipe-12' },
   { numero: 13, nome: 'G13 - MarkUp', rota: '/equipe-13' },
-  { numero: 14, nome: 'Equipe-14',   rota: '/equipe-14' },
-  { numero: 15, nome: 'Equipe-15',   rota: '/equipe-15' },
+  { numero: 14, nome: 'Equipe-14', rota: '/equipe-14' },
+  { numero: 15, nome: 'Equipe-15', rota: '/equipe-15' },
   { numero: 16, nome: 'G16 - MarkUp Calc', rota: '/equipe-16' },
   { numero: 17, nome: 'G17 - Calc NF Venda', rota: '/equipe-17' },
   { numero: 18, nome: 'G18 - Cálculo de Impostos NF', rota: '/equipe-18' },
-  { numero: 19, nome: 'Equipe-19',   rota: '/equipe-19' },
+  { numero: 19, nome: 'Equipe-19', rota: '/equipe-19' },
   { numero: 20, nome: 'G20 - AguaCalc', rota: '/equipe-20' },
-  { numero: 21, nome: 'G21 - BurgCalc',   rota: '/equipe-21' },
-  { numero: 22, nome: 'Equipe-22',   rota: '/equipe-22' },
-  { numero: 23, nome: 'G23 - Calc Autonomia',   rota: '/equipe-23' },
-  { numero: 24, nome: 'Equipe-24',   rota: '/equipe-24' },
-  { numero: 25, nome: 'Equipe-25',   rota: '/equipe-25' },
+  { numero: 21, nome: 'G21 - BurgCalc', rota: '/equipe-21' },
+  { numero: 22, nome: 'Equipe-22', rota: '/equipe-22' },
+  { numero: 23, nome: 'G23 - Calc Autonomia', rota: '/equipe-23' },
+  { numero: 24, nome: 'Equipe-24', rota: '/equipe-24' },
+  { numero: 25, nome: 'Equipe-25', rota: '/equipe-25' },
+  { numero: 64, nome: 'Equipe-64', rota: '/equipe-64' },
 ];
 
 // Página inicial — lista de equipes
@@ -258,19 +251,16 @@ grupo16.post('/calcular', requireAuth, async (req, res) => {
     const data = await response.json();
     res.status(response.status).json(data);
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
     res.status(400).json({ success: false, error: err.message });
   }
-}
+});
 
-grupo9.post('/calcular',         requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular',         req, res));
+grupo9.post('/calcular', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular', req, res));
 grupo9.post('/calcular-inverso', requireAuth, (req, res) => proxyAPI('/api/equipe-9/calcular-inverso', req, res));
-grupo9.post('/comparar',         requireAuth, (req, res) => proxyAPI('/api/equipe-9/comparar',         req, res));
+grupo9.post('/comparar', requireAuth, (req, res) => proxyAPI('/api/equipe-9/comparar', req, res));
 
 app.use('/equipe-9', grupo9);
 
-for (let i = 2; i <= 25; i++) {
-  if (i === 9) continue; 
 app.use(BASE_PATH, grupo16);
 
 // ── Grupo 13 — MarkUp ──
@@ -337,9 +327,9 @@ async function mkpProxy(mkpPath, body, res) {
   }
 }
 
-grupo13.post('/markup',    requireAuth13, (req, res) => mkpProxy('/markup',    req.body, res));
-grupo13.post('/lucro',     requireAuth13, (req, res) => mkpProxy('/lucro',     req.body, res));
-grupo13.post('/equilibrio',requireAuth13, (req, res) => mkpProxy('/equilibrio',req.body, res));
+grupo13.post('/markup', requireAuth13, (req, res) => mkpProxy('/markup', req.body, res));
+grupo13.post('/lucro', requireAuth13, (req, res) => mkpProxy('/lucro', req.body, res));
+grupo13.post('/equilibrio', requireAuth13, (req, res) => mkpProxy('/equilibrio', req.body, res));
 
 app.use(BASE_PATH_13, grupo13);
 
@@ -610,19 +600,54 @@ app.get(/^\/equipe-5(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo5DistPath, 'index.html'));
 });
 
-// Rotas genéricas das demais equipes (grupos 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
+// Suporte para client-side routing do React (BrowserRouter) da Equipe 2
+app.get(/^\/equipe-2(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo2DistPath, 'index.html'));
+});
+
+// ── Grupo 23 — Autonomia de Carros ──
+const grupo23DistPath = path.join(__dirname, 'equipe-23');
+app.use('/equipe-23', express.static(grupo23DistPath));
+// CRA build uses absolute /static paths when hosted under /equipe-23.
+app.use('/static', express.static(path.join(grupo23DistPath, 'static')));
+app.get(/^\/equipe-23(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo23DistPath, 'index.html'));
+});
+
+// Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 7 || i === 6 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21) continue;
+  if (i === 2 || i === 5 || i === 6 || i === 7 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
 }
 
+// ── Grupo 15 — Cálculo de Frete ──
+const GRUPO15_PATH = '/equipe-15';
+const grupo15DistPath = path.join(__dirname, 'equipe-15', 'dist');
+app.use(GRUPO15_PATH, express.static(grupo15DistPath));
+app.get(/^\/equipe-15(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo15DistPath, 'index.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`App rodando: http://localhost:${PORT}`);
 });
 
-module.exports = app;
+// ── Grupo 64 — ETEC64 ──
+const ETEC64_PATH = '/equipe-64';
+const etec64DistPath = path.join(__dirname, 'views', 'etec64', 'dist');
+app.use(ETEC64_PATH, express.static(etec64DistPath));
+app.get(/^\/equipe-64(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(etec64DistPath, 'index.html'));
+});
+
+// Proxy API ETEC64
+app.post('/api/etec64/media', (req, res) => proxyAPI('/api/etec64/media', req, res));
+app.post('/api/etec64/frequencia', (req, res) => proxyAPI('/api/etec64/frequencia', req, res));
+app.post('/api/etec64/aprovacao', (req, res) => proxyAPI('/api/etec64/aprovacao', req, res));
+
+
 function ensureTrailingSlash(url) {
   return url.endsWith('/') ? url : `${url}/`;
 }
@@ -630,7 +655,7 @@ function ensureTrailingSlash(url) {
 
 // ROTAS GRUPO 6 ------------------------------------ //
 app.get('/sauna6', (req, res) => {
-  res.render('sauna_grupo6/splash'); 
+  res.render('sauna_grupo6/splash');
 });
 
 app.get('/sauna6/login', (req, res) => {
@@ -649,33 +674,15 @@ app.get('/sauna6/help', (req, res) => {
   res.render('sauna_grupo6/help');
 });
 // --------------------------------------------------- //
+// --------------------------------------------------- //
 
-// ── Grupo 23 — Autonomia de Carros ──
+// ── GRUPO 08 — Calculadora de Piscina ──
+const grupo08 = require('./src/equipe-08/routes.js');
+app.use('/equipe-08', (req, res, next) => {
+  res.locals.basePath = '/equipe-08';
+  next();
+}, grupo08);
 
-const GRUPO23_PATH = '/equipe-23';
-const grupo23DistPath = path.join(__dirname, 'equipe-23');
+//teste
 
-app.use(GRUPO23_PATH, express.static(grupo23DistPath));
-
-app.get(/^\/equipe-23(?:\/.*)?$/, (_req, res) => {
-  res.sendFile(path.join(grupo23DistPath, 'index.html'));
-});
-
-// ── Grupo 23 — Autonomia de Carros ──
-
-app.listen(PORT, () => {
-  console.log(`App rodando: http://localhost:${PORT}`);
-});
 module.exports = app;
-
-
-// ── Grupo 15 - Cálculo de frete ──
-
-const GRUPO15_PATH = '/equipe-15';
-const grupo15DistPath = path.join(__dirname, 'equipe-15', 'dist');
-
-app.use(GRUPO15_PATH, express.static(grupo15DistPath));
-
-app.get(/^\/equipe-15(?:\/.*)?$/, (_req, res) => {
-  res.sendFile(path.join(grupo15DistPath, 'index.html'));
-});
