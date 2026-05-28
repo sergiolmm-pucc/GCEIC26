@@ -987,7 +987,7 @@ app.get(/^\/equipe-15(?:\/.*)?$/, (_req, res) => {
 // ── Grupo 19 — Financiamento Imobiliário (FinanciApp) ──
 // O front (grupo-19F) é um app React que chama a API direto em /FIN, então aqui só servimos o build estático.
 const GRUPO19_PATH = '/equipe-19';
-const grupo19DistPath = path.join(__dirname, 'grupo-19F', 'build');
+const grupo19DistPath = path.join(__dirname, 'grupo-19F', 'dist');
 app.use(GRUPO19_PATH, express.static(grupo19DistPath));
 app.get(/^\/equipe-19(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo19DistPath, 'index.html'));
