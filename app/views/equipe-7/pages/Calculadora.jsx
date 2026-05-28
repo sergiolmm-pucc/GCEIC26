@@ -22,7 +22,7 @@ function Calculadora() {
   const calcularCusto = async () => {
     try {
       // 🌟 Define a URL da API dinamicamente (usa a do Render se existir, senão usa localhost)
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'; 
+      const apiUrl = import.meta.env.VITE_API_URL || 'https://gceic26.onrender.com'; 
 
       const resVolume = await axios.post(`${apiUrl}/PISCINA2/volume/calcular`, {
         largura: dados.largura,
