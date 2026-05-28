@@ -36,6 +36,12 @@ app.use('/nfvenda', nfvendaRouter);
 app.use('/api/equipe-21', equipe21Router);
 app.use('/equipe-15', equipe15Router);
 
+
+// Grupo 1 - Financiamento de Veículos
+const equipe_01 = require('./equipe-1/app.js');
+app.use('/equipe-01', equipe_01);
+
+
 // ── Grupo 13 — MarkUp ──
 app.get('/MKP', (req, res) => res.json({ message: 'API MarkUp - Grupo 13 funcionando!' }));
 app.use('/MKP', mkpRouter);

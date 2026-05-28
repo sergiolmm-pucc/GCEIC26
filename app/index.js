@@ -153,6 +153,7 @@ app.use(`${EQUIPE21_PATH}/vendor/react-dom`, express.static(path.join(__dirname,
 
 const equipes = [
   { numero: 1, nome: 'TESTE', rota: '/login' },
+  { numero: 67, nome: 'Equipe-1', rota: '/equipe-01' },
   { numero: 2, nome: 'Equipe-2', rota: '/equipe-2' },
   { numero: 3, nome: 'Equipe-3', rota: '/equipe-3' },
   { numero: 4, nome: 'ETEC - Domestica', rota: '/etec' },
@@ -670,6 +671,39 @@ app.post('/api/etec64/aprovacao', (req, res) => proxyAPI('/api/etec64/aprovacao'
 function ensureTrailingSlash(url) {
   return url.endsWith('/') ? url : `${url}/`;
 }
+
+// ROTAS GRUPO 1 ------------------------------------ //
+app.get('/equipe-01', (req, res) => {
+  res.render('equipe-01/splash');
+});
+
+app.get('/equipe-01/login', (req, res) => {
+  res.render('equipe-01/login');
+});
+
+app.get('/equipe-01/calculo', (req, res) => {
+  res.render('equipe-01/calculo');
+});
+
+app.get('/equipe-01/capacidade', (req, res) => {
+  res.render('equipe-01/capacidade');
+});
+
+app.get('/equipe-01/simulador', (req, res) => {
+  res.render('equipe-01/simulador');
+});
+
+app.get('/equipe-01/sobre', (req, res) => {
+  res.render('equipe-01/sobre');
+});
+
+app.get('/equipe-01/home', (req, res) => {
+  res.render('equipe-01/home');
+});
+
+app.get('/equipe-01/help', (req, res) => {
+  res.render('equipe-01/help');
+});
 
 
 // ROTAS GRUPO 6 ------------------------------------ //
