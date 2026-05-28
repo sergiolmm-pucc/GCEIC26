@@ -26,9 +26,9 @@ export function Sobre() {
         <div className="text-panel">
           <h2>Integrantes</h2>
           <ul>
-            <li>Integrante 1 - API de salario mensal</li>
-            <li>Integrante 2 - API de ferias</li>
-            <li>Integrante 3 - API de rescisao</li>
+            <li>Diogo Bertozi - API de salario mensal</li>
+            <li>Bruna Rodrigues Cardoso - API de ferias</li>
+            <li>Isaac Bertonha - API de rescisao</li>
           </ul>
         </div>
       </div>
