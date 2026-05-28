@@ -41,6 +41,8 @@ app.use(ETEC_PATH, express.static(etecDistPath));
 app.get(/^\/etec(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(etecDistPath, 'index.html'));
 });
+// Keep legacy route working: redirect /equipe-4 to the new /etec path
+app.get('/equipe-4', (_req, res) => res.redirect('/etec'));
 
 // ── Proxy API Equipe 2 — IRP ──
 app.post('/IRP/calcular', async (req, res) => {
@@ -671,7 +673,7 @@ app.post('/api/etec64/aprovacao', (req, res) => proxyAPI('/api/etec64/aprovacao'
 
 
 function ensureTrailingSlash(url) {
-  return url.endsWith('/') ? url : `${url}/`;
+  return url.endsWith('/') ? url : `${url}/`
 }
 
 
