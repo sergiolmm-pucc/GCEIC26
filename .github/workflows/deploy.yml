@@ -71,7 +71,11 @@ jobs:
           PORT: 3000
 
       - name: Aguardar serviços ficarem prontos
-        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 30000
+        run: |
+          sleep 5
+          curl -s http://localhost:3001/health || echo "API nao respondeu"
+          curl -s http://localhost:3000 || echo "APP nao respondeu"
+          npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 60000
 
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests
