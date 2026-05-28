@@ -46,8 +46,8 @@ async function main() {
     await driver.findElement(By.id('loginForm')).submit();
 
     const errMsg = await driver.findElement(By.css('.erro')).getText();
-    if (!errMsg.includes('inválidos')) {
-      throw new Error(`Esperava "inválidos", recebeu: ${errMsg}`);
+    if (!errMsg.includes('invalidos')) {
+      throw new Error(`Esperava "invalidos", recebeu: ${errMsg}`);
     }
     console.log('Teste de login invalido passou');
 

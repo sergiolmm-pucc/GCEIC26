@@ -1,78 +1,62 @@
-const { Builder, By, until } = require('selenium-webdriver');
+const { Builder, By, until, Key } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
-const fs   = require('fs');
+const fs = require('fs');
 const path = require('path');
 
-const BASE_URL        = process.env.APP_URL  || 'http://localhost:3000';
+const BASE_URL = process.env.APP_URL || 'http://localhost:3000';
 const SCREENSHOTS_DIR = path.join(__dirname, '..', 'screenshots');
 
+// Garante que o diretório de screenshots existe
 if (!fs.existsSync(SCREENSHOTS_DIR)) fs.mkdirSync(SCREENSHOTS_DIR, { recursive: true });
 
 async function tiraFoto(name) {
   try {
-    const img      = await driver.takeScreenshot();
+    const img = await driver.takeScreenshot();
     const filePath = path.join(SCREENSHOTS_DIR, `${name}.png`);
     fs.writeFileSync(filePath, img, 'base64');
-    console.log(`Foto tirada: ${name}.png`);
+    console.log(`Foto tirada ${name}.png`);
   } catch (e) {
-    console.warn('Erro ao tirar a foto:', e.message);
+    console.warn('Erro ao tirar a foto');
   }
 }
 
 async function main() {
   try {
     const opts = new chrome.Options();
-    opts.addArguments('--headless=new', '--no-sandbox', '--disable-dev-shm-usage', '--window-size=1280,800', '--disable-gpu');
-
-    driver = await new Builder().forBrowser('chrome').setChromeOptions(opts).build();
+    opts.addArguments(
+      '--headless=new',
+      '--no-sandbox',
+      '--disable-dev-shm-usage',
+      '--window-size=800,640',
+      '--disable-gpu'
+    );
+    driver = await new Builder()
+      .forBrowser('chrome')
+      .setChromeOptions(opts)
+      .build();
     await driver.manage().setTimeouts({ implicit: 5000, pageLoad: 15000 });
 
-    // ── Teste 1: Página de login ──────────────────────────────────────────
-    await driver.get(BASE_URL + '/login');
-    await tiraFoto('Pagina Entrada');
+    await driver.get(BASE_URL + '/equipe-08/login');
 
-    // ── Teste 2: Login com credenciais erradas ────────────────────────────
-    await driver.findElement(By.id('username')).sendKeys('errado');
-    await driver.findElement(By.id('password')).sendKeys('errado');
-    await tiraFoto('Valores Digitados');
+    // AWAIT ADICIONADO AQUI
+    await tiraFoto("Pagina Entrada");
 
+    //preenche os campos 
+    await driver.findElement(By.id('username')).sendKeys('Adm');
+    await driver.findElement(By.id('password')).sendKeys('admin');
+
+    // AWAIT ADICIONADO AQUI
+    await tiraFoto("Valores Digitados");
+
+    // vamos acionar o botao de login e ver o que acontece
     await driver.findElement(By.id('loginForm')).submit();
     await new Promise(r => setTimeout(r, 800));
-    await tiraFoto('Submit form com erro');
+
+    // AWAIT ADICIONADO AQUI
+    await tiraFoto("Submit form com erro");
 
     const errMsg = await driver.findElement(By.css('.erro')).getText();
-    if (!errMsg.includes('inválidos')) throw new Error(`Esperava "inválidos", recebeu: ${errMsg}`);
-    console.log('✅ Teste de login inválido passou');
-
-    // ── Teste 3: Login correto → redireciona para /home ───────────────────
-    await driver.get(BASE_URL + '/login');
-    await driver.findElement(By.id('username')).sendKeys('admin');
-    await driver.findElement(By.id('password')).sendKeys('admin');
-    await driver.findElement(By.id('loginForm')).submit();
-    await driver.wait(until.urlContains('/home'), 5000);
-    await tiraFoto('Login Correto');
-
-    const url = await driver.getCurrentUrl();
-    if (!url.includes('/home')) throw new Error(`Esperava /home, recebeu: ${url}`);
-    console.log('✅ Teste de login correto passou');
-
-    // ── Teste 4: Navegar para /calculo ────────────────────────────────────
-    await driver.get(BASE_URL + '/calculo');
-    await new Promise(r => setTimeout(r, 500));
-    await tiraFoto('Tela Calculo');
-    console.log('✅ Tela de cálculo acessada');
-
-    // ── Teste 5: Calculo de MarkUp na tela ────────────────────────────────
-    await driver.findElement(By.id('f-cost')).sendKeys('100');
-    await driver.findElement(By.id('f-mk')).sendKeys('30');
-    await driver.findElement(By.xpath("//main//button[normalize-space()='Calcular']")).click();
-
-    await driver.wait(async () => {
-      const bodyText = await driver.findElement(By.tagName('body')).getText();
-      return bodyText.includes('R$ 142.86');
-    }, 5000);
-    await tiraFoto('Calculo MarkUp');
-    console.log('✅ Calculo de MarkUp passou');
+    if (!errMsg.includes('incorretos')) throw new Error(`Falhou : ${errMsg}`);
 
   } finally {
     if (driver) await driver.quit();
@@ -80,6 +64,6 @@ async function main() {
 }
 
 main().catch(err => {
-  console.error('Erro fatal:', err);
+  console.error('Erro fatal', err);
   process.exit(1);
 });

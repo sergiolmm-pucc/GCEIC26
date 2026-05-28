@@ -1,17 +1,18 @@
 {
-  "name": "mkp-app",
+  "name": "app",
   "version": "1.0.0",
-  "description": "Aplicacao web compartilhada GCEIC",
+  "description": "cria o diretorio api e app no diretorio app via terminal  npm init -y cria o arquivo principal",
   "main": "index.js",
   "scripts": {
-    "start": "vite build && vite preview --port 3000",
-    "dev": "vite --port 3000",
-    "build": "vite build",
+    "build": "vite build && vite build --config vite.config.equipe2.mjs && (cd equipe-18 && npm install && npm run build; exit 0) && (cd views/etec64 && npm install && npm run build; exit 0) && (cd equipe-5 && npm install && VITE_API_URL=https://gceic26.onrender.com npm run build; exit 0)",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["markup", "react", "preco-venda"],
-  "author": "Equipe MKP",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
+  "type": "commonjs",
   "dependencies": {
     "@vitejs/plugin-react": "^4.2.1",
     "body-parser": "^2.2.2",

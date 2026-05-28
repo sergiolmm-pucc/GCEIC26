@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cálculo — AguaCalc</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f9ff; color: #1a1a2e; }
+    nav { background: #0077b6; color: #fff; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; }
+    nav .brand { font-size: 1.2rem; font-weight: 700; }
+    nav .links { display: flex; gap: 16px; align-items: center; }
+    nav a { color: #cde; text-decoration: none; font-size: 0.9rem; }
+    nav a:hover { color: #fff; }
+    nav .btn-sair { background: #c62828; color: #fff; border: none; border-radius: 6px; padding: 6px 14px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
+    .container { max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+    .card { background: #fff; border-radius: 16px; padding: 1.8rem; box-shadow: 0 4px 20px rgba(0,119,182,0.08); margin-bottom: 1.2rem; }
+    .card h3 { color: #0077b6; font-size: 1.1rem; margin-bottom: 1.2rem; padding-bottom: 0.6rem; border-bottom: 2px solid #e0f3fb; }
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; font-size: 0.88rem; font-weight: 600; margin-bottom: 4px; color: #444; }
+    .field input { width: 100%; padding: 10px 14px; border: 1.5px solid #d0e8f5; border-radius: 8px; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+    .field input:focus { border-color: #0077b6; }
+    .field .hint { font-size: 0.78rem; color: #888; margin-top: 3px; }
+    .btn { width: 100%; padding: 12px; background: #0077b6; color: #fff; border: none; border-radius: 8px; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 4px; }
+    .btn:hover { background: #005f8e; }
+    .btn:disabled { background: #90cde8; cursor: not-allowed; }
+    .res-etapa { display: none; margin-top: 1rem; background: #f0f9ff; border-radius: 10px; padding: 1rem; border-left: 4px solid #0077b6; }
+    .res-etapa.visivel { display: block; }
+    .res-etapa p { font-size: 0.9rem; color: #333; margin-bottom: 6px; }
+    .res-etapa p:last-child { margin-bottom: 0; }
+    .res-etapa strong { color: #0077b6; }
+    .resultado-final { display: none; }
+    .resultado-final.visivel { display: block; }
+    .resultado-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem; }
+    .resultado-item { background: #f0f9ff; border-radius: 10px; padding: 1rem; text-align: center; }
+    .resultado-item .valor { font-size: 1.4rem; font-weight: 700; color: #0077b6; }
+    .resultado-item .label { font-size: 0.78rem; color: #666; margin-top: 3px; }
+    .total-card { background: linear-gradient(135deg, #0077b6, #00b4d8); color: #fff; border-radius: 12px; padding: 1.2rem; text-align: center; margin-bottom: 1rem; }
+    .total-card .total-valor { font-size: 2.2rem; font-weight: 700; }
+    .total-card .total-label { font-size: 0.88rem; opacity: 0.85; }
+    .economia-box { background: #e0f3fb; border-left: 5px solid #0077b6; border-radius: 8px; padding: 1rem; }
+    .economia-box p { margin-bottom: 8px; font-size: 0.9rem; color: #333; }
+    .economia-box ul { padding-left: 18px; font-size: 0.88rem; color: #005f8e; }
+    .economia-box ul li { margin-bottom: 4px; }
+    .erro-msg { background: #fef2f2; border: 1px solid #fca5a5; color: #b91c1c; border-radius: 8px; padding: 10px 14px; font-size: 0.88rem; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="brand">💧 AguaCalc</div>
+    <div class="links">
+      <a href="<%= basePath %>/calculo">Calculadora</a>
+      <a href="<%= basePath %>/sobre">Sobre</a>
+      <a href="<%= basePath %>/help">Ajuda</a>
+      <form method="POST" action="<%= basePath %>/logout" style="display:inline">
+        <button class="btn-sair" type="submit">Sair</button>
+      </form>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="card">
+      <h3>1. Consumo Diário Básico</h3>
+      <div class="field">
+        <label>Número de moradores</label>
+        <input type="number" id="pessoas" min="1" placeholder="Ex: 4">
+        <span class="hint">Quantas pessoas moram na residência?</span>
+      </div>
+      <div class="field">
+        <label>Minutos de banho por pessoa/dia</label>
+        <input type="number" id="tempoBanho" min="0" placeholder="Ex: 10">
+        <span class="hint">Cada minuto gasta ~4,5 litros</span>
+      </div>
+      <div class="field">
+        <label>Descargas por pessoa/dia</label>
+        <input type="number" id="descargas" min="0" placeholder="Ex: 3">
+        <span class="hint">Cada descarga gasta ~8,5 litros</span>
+      </div>
+      <button class="btn" id="btnEtapa1" onclick="calcularEtapa1()">Calcular Consumo Diário</button>
+      <div id="erroEtapa1" class="erro-msg" style="display:none"></div>
+      <div class="res-etapa" id="resEtapa1">
+        <p>👤 Consumo por pessoa/dia: <strong><span id="r1-porPessoa">-</span> L</strong></p>
+        <p>🏠 Consumo total da residência/dia: <strong><span id="r1-total">-</span> L</strong></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>2. Estimativa de Custo Mensal</h3>
+      <div class="field">
+        <label>Tarifa por litro (R$)</label>
+        <input type="number" id="tarifa" step="0.001" placeholder="Ex: 0.005">
+        <span class="hint">Ex: se o m³ custa R$ 5,00 → tarifa = 0.005</span>
+      </div>
+      <div class="field">
+        <label>Dias do mês</label>
+        <input type="number" id="dias" min="28" max="31" placeholder="Ex: 30">
+      </div>
+      <button class="btn" id="btnEtapa2" onclick="calcularEtapa2()" disabled>Calcular Custo Mensal</button>
+      <div id="erroEtapa2" class="erro-msg" style="display:none"></div>
+      <div class="res-etapa" id="resEtapa2">
+        <p>📅 Consumo mensal: <strong><span id="r2-litrosMes">-</span> L</strong> (<span id="r2-m3Mes">-</span>)</p>
+        <p>💰 Custo estimado: <strong>R$ <span id="r2-custo">-</span></strong></p>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>3. Projeção de Economia</h3>
+      <div class="field">
+        <label>Meta de redução (%)</label>
+        <input type="number" id="reducao" min="1" max="99" placeholder="Ex: 20">
+        <span class="hint">Quanto você quer reduzir do consumo atual?</span>
+      </div>
+      <button class="btn" id="btnEtapa3" onclick="calcularEtapa3()" disabled>Calcular Economia</button>
+      <div id="erroEtapa3" class="erro-msg" style="display:none"></div>
+    </div>
+
+    <div class="resultado-final" id="resultadoFinal">
+      <div class="card">
+        <h3>📊 Resultado Completo</h3>
+        <div class="resultado-grid">
+          <div class="resultado-item"><div class="valor" id="rf-litrosDia">-</div><div class="label">Litros por dia</div></div>
+          <div class="resultado-item"><div class="valor" id="rf-litrosMes">-</div><div class="label">Litros por mês</div></div>
+          <div class="resultado-item"><div class="valor" id="rf-m3Mes">-</div><div class="label">m³ por mês</div></div>
+          <div class="resultado-item"><div class="valor" id="rf-tarifa">-</div><div class="label">Tarifa (R$/m³)</div></div>
+        </div>
+        <div class="total-card">
+          <div class="total-label">Valor estimado da conta mensal</div>
+          <div class="total-valor" id="rf-custo">R$ -</div>
+        </div>
+        <div class="economia-box">
+          <p><strong>📉 Meta de Economia:</strong> <span id="rf-economiaLitros">-</span> Litros/mês</p>
+          <p><strong>💸 Nova Conta Estimada:</strong> R$ <span id="rf-novoCusto">-</span> <span style="color:#2e7d32;font-weight:bold">(Economia de R$ <span id="rf-economiaReais">-</span>)</span></p>
+          <p style="margin-top:10px;font-weight:bold;font-size:0.88rem">Sugestões por pessoa para atingir a meta:</p>
+          <ul>
+            <li>Reduzir <strong><span id="rf-reducaoBanho">-</span> min</strong> de banho por dia</li>
+            <li>Ou diminuir <strong><span id="rf-reducaoDescargas">-</span> descargas</strong> diárias</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const BASE = '<%= basePath %>';
+  let dadosEtapa1 = null;
+  let dadosEtapa2 = null;
+
+  async function calcularEtapa1() {
+    const pessoas    = parseInt(document.getElementById('pessoas').value);
+    const tempoBanho = parseFloat(document.getElementById('tempoBanho').value);
+    const descargas  = parseFloat(document.getElementById('descargas').value);
+    document.getElementById('btnEtapa1').disabled = true;
+    document.getElementById('erroEtapa1').style.display = 'none';
+    document.getElementById('resEtapa1').classList.remove('visivel');
+    try {
+      const r = await fetch(BASE + '/AGUA/consumoDiario', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tempoBanhoMin: tempoBanho, descargasDia: descargas, pessoas }),
+      });
+      const d = await r.json();
+      if (!d.success) throw new Error(d.error);
+      dadosEtapa1 = { ...d.data, pessoas };
+      document.getElementById('r1-porPessoa').textContent = d.data.consumoPorPessoa.toLocaleString('pt-BR');
+      document.getElementById('r1-total').textContent     = d.data.consumoDiarioLitros.toLocaleString('pt-BR');
+      document.getElementById('resEtapa1').classList.add('visivel');
+      document.getElementById('btnEtapa2').disabled = false;
+    } catch(e) {
+      document.getElementById('erroEtapa1').textContent = 'Erro: ' + e.message;
+      document.getElementById('erroEtapa1').style.display = 'block';
+    } finally { document.getElementById('btnEtapa1').disabled = false; }
+  }
+
+  async function calcularEtapa2() {
+    if (!dadosEtapa1) return;
+    const tarifa = parseFloat(document.getElementById('tarifa').value);
+    const dias   = parseInt(document.getElementById('dias').value);
+    document.getElementById('btnEtapa2').disabled = true;
+    document.getElementById('erroEtapa2').style.display = 'none';
+    document.getElementById('resEtapa2').classList.remove('visivel');
+    try {
+      const r = await fetch(BASE + '/AGUA/custoMensal', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ consumoDiarioLitros: dadosEtapa1.consumoDiarioLitros, tarifa, dias }),
+      });
+      const d = await r.json();
+      if (!d.success) throw new Error(d.error);
+      dadosEtapa2 = { ...d.data, tarifa };
+      document.getElementById('r2-litrosMes').textContent = d.data.consumoMensalLitros.toLocaleString('pt-BR');
+      document.getElementById('r2-m3Mes').textContent     = d.data.consumoMensalM3.toLocaleString('pt-BR') + ' m³';
+      document.getElementById('r2-custo').textContent     = d.data.custoEstimado.toFixed(2);
+      document.getElementById('resEtapa2').classList.add('visivel');
+      document.getElementById('btnEtapa3').disabled = false;
+    } catch(e) {
+      document.getElementById('erroEtapa2').textContent = 'Erro: ' + e.message;
+      document.getElementById('erroEtapa2').style.display = 'block';
+    } finally { document.getElementById('btnEtapa2').disabled = false; }
+  }
+
+  async function calcularEtapa3() {
+    if (!dadosEtapa2) return;
+    const reducao = parseFloat(document.getElementById('reducao').value);
+    const pessoas = dadosEtapa1.pessoas;
+    document.getElementById('btnEtapa3').disabled = true;
+    document.getElementById('erroEtapa3').style.display = 'none';
+    document.getElementById('resultadoFinal').classList.remove('visivel');
+    try {
+      const r = await fetch(BASE + '/AGUA/economia', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ litrosAtuais: dadosEtapa2.consumoMensalLitros, reducaoPercentual: reducao, tarifa: dadosEtapa2.tarifa, pessoas }),
+      });
+      const d = await r.json();
+      if (!d.success) throw new Error(d.error);
+      document.getElementById('rf-litrosDia').textContent  = dadosEtapa1.consumoDiarioLitros.toLocaleString('pt-BR') + ' L';
+      document.getElementById('rf-litrosMes').textContent  = dadosEtapa2.consumoMensalLitros.toLocaleString('pt-BR') + ' L';
+      document.getElementById('rf-m3Mes').textContent      = dadosEtapa2.consumoMensalM3.toLocaleString('pt-BR') + ' m³';
+      document.getElementById('rf-tarifa').textContent     = 'R$ ' + dadosEtapa2.faixaTarifa.toFixed(2);
+      document.getElementById('rf-custo').textContent      = 'R$ ' + dadosEtapa2.custoEstimado.toFixed(2);
+      document.getElementById('rf-economiaLitros').textContent   = Number(d.data.economiaLitros).toFixed(2);
+      document.getElementById('rf-novoCusto').textContent        = Number(d.data.novoCusto).toFixed(2);
+      document.getElementById('rf-economiaReais').textContent    = Number(d.data.economiaReais).toFixed(2);
+      document.getElementById('rf-reducaoBanho').textContent     = Number(d.data.reducaoBanhoMinutos).toFixed(1);
+      document.getElementById('rf-reducaoDescargas').textContent = Number(d.data.reducaoDescargas).toFixed(1);
+      document.getElementById('resultadoFinal').classList.add('visivel');
+    } catch(e) {
+      document.getElementById('erroEtapa3').textContent = 'Erro: ' + e.message;
+      document.getElementById('erroEtapa3').style.display = 'block';
+    } finally { document.getElementById('btnEtapa3').disabled = false; }
+  }
+</script>
+</body>
+</html>

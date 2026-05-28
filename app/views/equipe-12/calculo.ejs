@@ -33,7 +33,7 @@
       </aside>
 
       <main>
-        <div class="mk-overline" id="modeCode">01 — SELL</div>
+        <div class="mk-overline" id="modeCode">01 - SELL</div>
         <h1 class="mk-title" id="modeTitle">Preco de Venda</h1>
         <p class="mk-card-desc" id="modeDesc" style="margin: 6px 0 28px;">PV = Custo / (1 - MarkUp%)</p>
 
@@ -49,7 +49,7 @@
             <div class="mk-result-grid" id="resultado">
               <div class="mk-result">
                 <div class="mk-result-label">Resultado</div>
-                <div class="mk-result-value">—</div>
+                <div class="mk-result-value">-</div>
               </div>
             </div>
           </form>
@@ -225,7 +225,7 @@
 
     function renderFields() {
       const mode = modes[active];
-      document.getElementById('modeCode').textContent = `${mode.short} — ${mode.code}`;
+      document.getElementById('modeCode').textContent = `${mode.short} - ${mode.code}`;
       document.getElementById('modeTitle').textContent = mode.label;
       document.getElementById('modeDesc').textContent = mode.desc;
       document.getElementById('formula').textContent = mode.formula;
@@ -238,7 +238,7 @@
       result.innerHTML = `
         <div class="mk-result">
           <div class="mk-result-label">Resultado</div>
-          <div class="mk-result-value">—</div>
+          <div class="mk-result-value">-</div>
         </div>
       `;
       error.hidden = true;

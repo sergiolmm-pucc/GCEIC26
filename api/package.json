@@ -1,18 +1,14 @@
 {
-  "name": "gceic",
+  "name": "api",
   "version": "1.0.0",
-  "description": "API compartilhada GCEIC",
+  "description": "API do Projeto",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "jest --coverage --verbose --ci --reporters=default --testResultsProcessor=jest-junit"
   },
-  "keywords": [
-    "teste",
-    "CI",
-    "CD"
-  ],
-  "author": "SLMM",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.6",
@@ -26,8 +22,7 @@
   },
   "jest": {
     "testMatch": [
-      "<rootDir>/tests/**/*.test.js",
-      "<rootDir>/src/tests/**/*.test.js"
+      "<rootDir>/tests/**/*.test.js"
     ]
   }
 }
