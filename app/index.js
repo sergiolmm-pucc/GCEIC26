@@ -115,6 +115,40 @@ const grupo9 = express.Router();
 // rotas públicas
 grupo9.get('/', (req, res) => res.redirect('/equipe-9/splash'));
 
+const equipes = [
+  { numero: 1, nome: 'TESTE', rota: '/login' },
+  { numero: 2, nome: 'Equipe-2', rota: '/equipe-2' },
+  { numero: 3, nome: 'Equipe-3', rota: '/equipe-3' },
+  { numero: 4, nome: 'Equipe-4', rota: '/equipe-4' },
+  { numero: 5, nome: 'Equipe-5', rota: '/equipe-5' },
+  { numero: 6, nome: 'Equipe-6', rota: '/equipe-6' },
+  { numero: 7, nome: 'Equipe-7', rota: '/equipe-7' },
+  { numero: 8, nome: 'Equipe-8', rota: '/equipe-8' },
+  { numero: 9, nome: 'Equipe-9', rota: '/equipe-9' },
+  { numero: 10, nome: 'Equipe-10', rota: '/equipe-10' },
+  { numero: 11, nome: 'Equipe-11', rota: '/equipe-11' },
+  { numero: 12, nome: 'Equipe-12', rota: '/equipe-12' },
+  { numero: 13, nome: 'Equipe-13', rota: '/equipe-13' },
+  { numero: 14, nome: 'Equipe-14', rota: '/equipe-14' },
+  { numero: 15, nome: 'Equipe-15', rota: '/equipe-15' },
+  { numero: 16, nome: 'Equipe-16', rota: '/equipe-16' },
+  { numero: 17, nome: 'Equipe-17', rota: '/equipe-17' },
+  { numero: 18, nome: 'Equipe-18', rota: '/equipe-18' },
+  { numero: 19, nome: 'Equipe-19', rota: '/equipe-19' },
+  { numero: 20, nome: 'Equipe-20', rota: '/equipe-20' },
+  { numero: 24, nome: 'Equipe-24', rota: '/equipe-24' }
+]
+
+// Auth middleware
+function requireAuth(req, res, next) {
+  if (req.session && req.session.user) return next();
+  res.redirect('/login');
+}
+/*
+app.get('/', (req, res) => {
+  if (req.session.user) return res.redirect('/dashboard');
+  res.render('login', { error: null });
+
 grupo9.get('/splash', (req, res) => {
   res.render('equipe-9/splash');
 });
@@ -960,6 +994,40 @@ equipe22.post('/calcular', async (req, res) => {
     res.status(502).json({ success: false, error: err.message });
   }
 });
+
+<<<<<<< HEAD
+// Página do projeto da Equipe-24 - Cálculo de MarkUp
+app.get('/equipe-24', (req, res) => {
+  res.render('markup', {
+    apiUrl: API_URL
+  });
+});
+
+// Proxy para calcular MarkUp usando a API
+app.post('/equipe-24/calcular', async (req, res) => {
+  try {
+    const fetch = (await import('node-fetch')).default;
+
+    const response = await fetch(`${API_URL}/api/markup/calcular`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+
+    const data = await response.json();
+
+    return res.status(response.status).json(data);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(400).json({
+      success: false,
+      error: err.message,
+    });
+  }
+});
+
+// 20 dynamic team endpoints
+for (let i = 5; i <= 20; i++) {
 
 equipe22.get('/sobre', (req, res) => res.render('equipe-22/sobre'));
 equipe22.get('/help', (req, res) => res.render('equipe-22/help'));
