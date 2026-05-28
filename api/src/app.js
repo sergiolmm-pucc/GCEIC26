@@ -401,4 +401,9 @@ const rotasEquipe22 = require('./equipe-22/routes');
 app.use('/api/equipe-22', rotasEquipe22);
 
 
+// ── Grupo 19 — Financiamento Imobiliário (FIN) ──
+const grupo19Router = require('./grupo-19/routes/financiamento');
+app.use('/FIN', grupo19Router);
+
+
 module.exports = app;

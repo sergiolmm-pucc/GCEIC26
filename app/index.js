@@ -967,7 +967,7 @@ equipe22.get('/help', (req, res) => res.render('equipe-22/help'));
 app.use(EQUIPE22_PATH, equipe22);
 
 // Rotas genericas apenas para equipes sem rota propria neste arquivo.
-const equipesComRotasProprias = new Set([2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20, 21, 22, 23]);
+const equipesComRotasProprias = new Set([2, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]);
 for (let i = 2; i <= 25; i++) {
   if (equipesComRotasProprias.has(i)) continue;
 
@@ -982,6 +982,15 @@ const grupo15DistPath = path.join(__dirname, 'views', 'grupo15-calc_frete', 'dis
 app.use(GRUPO15_PATH, express.static(grupo15DistPath));
 app.get(/^\/equipe-15(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo15DistPath, 'index.html'));
+});
+
+// ── Grupo 19 — Financiamento Imobiliário (FinanciApp) ──
+// O front (grupo-19F) é um app React que chama a API direto em /FIN, então aqui só servimos o build estático.
+const GRUPO19_PATH = '/equipe-19';
+const grupo19DistPath = path.join(__dirname, 'grupo-19F', 'build');
+app.use(GRUPO19_PATH, express.static(grupo19DistPath));
+app.get(/^\/equipe-19(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(grupo19DistPath, 'index.html'));
 });
 
 // ── Grupo 64 — ETEC64 ──
