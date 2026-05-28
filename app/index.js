@@ -708,6 +708,30 @@ app.get('/equipe-01/help', (req, res) => {
   res.render('equipe-01/help');
 });
 
+// ROTAS GRUPO 22 ------------------------------------ //
+app.post('/equipe-22/api/parcela', (req, res) => proxyAPI('/equipe-22/api/parcela', req, res));
+app.post('/equipe-22/api/capacidade', (req, res) => proxyAPI('/equipe-22/api/capacidade', req, res));
+
+app.get('/equipe-22', (req, res) => {
+  res.render('equipe-22/splash');
+});
+
+app.get('/equipe-22/login', (req, res) => {
+  res.render('equipe-22/login');
+});
+
+app.get('/equipe-22/simulacao', (req, res) => {
+  res.render('equipe-22/simulacao');
+});
+
+app.get('/equipe-22/sobre', (req, res) => {
+  res.render('equipe-22/sobre');
+});
+
+
+app.get('/equipe-22/help', (req, res) => {
+  res.render('equipe-22/help');
+});
 
 // ROTAS GRUPO 6 ------------------------------------ //
 app.get('/sauna6', (req, res) => {

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulação — SaunaCalc Elite</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; color: #1a1a2e; }
+
+    nav {
+      background: #1a1a2e; color: white;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    nav .brand { font-size: 1.2rem; font-weight: 700; }
+    nav .links a {
+      color: rgba(255,255,255,0.8); text-decoration: none;
+      margin-left: 1.2rem; font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+    nav .links a:hover { color: white; }
+
+    .container { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
+
+    .card {
+      background: white; border-radius: 14px;
+      padding: 2rem; box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+      margin-bottom: 1.5rem;
+    }
+    h2 { margin-bottom: 1.5rem; font-size: 1.3rem; color: #1a1a2e; }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-full  { grid-column: 1 / -1; }
+
+    label { display: block; font-size: 0.82rem; color: #666; margin-bottom: 0.3rem; }
+    select, input[type="number"] {
+      width: 100%; padding: 0.7rem 0.9rem;
+      border: 1.5px solid #ddd; border-radius: 8px;
+      font-size: 1rem; background: white;
+      transition: border-color 0.2s;
+    }
+    select:focus, input:focus { outline: none; border-color: #e74c3c; }
+
+    .btn-calcular {
+      margin-top: 1.2rem; width: 100%; padding: 0.9rem;
+      background: #e74c3c; color: white;
+      border: none; border-radius: 8px;
+      font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn-calcular:hover { background: #c0392b; }
+    .btn-calcular:disabled { background: #ccc; cursor: not-allowed; }
+
+    .erro { color: #e74c3c; margin-top: 0.8rem; font-size: 0.9rem; }
+
+    /* resultado */
+    #resultado { display: none; }
+    .resultado-titulo {
+      font-size: 1.1rem; font-weight: 700;
+      color: #1a1a2e; margin-bottom: 1rem;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    tr { border-bottom: 1px solid #f0f0f0; }
+    td { padding: 0.55rem 0.2rem; font-size: 0.95rem; }
+    td:last-child { text-align: right; font-weight: 500; }
+    .tr-destaque td { background: #fef0ee; font-weight: 700; color: #c0392b; }
+    .secao { font-size: 0.78rem; color: #aaa; text-transform: uppercase;
+             letter-spacing: 1px; padding-top: 1rem; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">🧖 SaunaCalc Elite</span>
+  <div class="links">
+    <a href="/equipe-22/sobre">Sobre</a>
+    <a href="/equipe-22/help">Ajuda</a>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="card">
+    <h2>Simulador de custos</h2>
+
+    <div class="form-grid">
+      <div class="form-full">
+        <label>Tipo de sauna</label>
+        <select id="tipo">
+          <option value="seca">Seca</option>
+          <option value="vapor">A vapor</option>
+          <option value="infravermelha">Infravermelha</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Volume do ambiente (m³)</label>
+        <input type="number" id="volumeM3" value="10" min="1" max="999" step="0.5">
+      </div>
+
+      <div>
+        <label>Horas de uso por dia</label>
+        <input type="number" id="horasPorDia" value="2" min="0.5" max="24" step="0.5">
+      </div>
+
+      <div>
+        <label>Dias de uso por mês</label>
+        <input type="number" id="diasPorMes" value="20" min="1" max="31">
+      </div>
+
+      <div>
+        <label>Tarifa kWh (R$) — padrão Campinas</label>
+        <input type="number" id="tarifaKwh" value="0.85" min="0.01" step="0.01">
+      </div>
+    </div>
+
+    <button class="btn-calcular" id="btnCalcular" onclick="calcular()">
+      Calcular
+    </button>
+
+    <p class="erro" id="erroMsg"></p>
+  </div>
+
+  <div class="card" id="resultado">
+    <p class="resultado-titulo">📊 Resultados da simulação</p>
+    <table>
+      <tbody id="tabelaResultado"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+async function calcular() {
+  const btn   = document.getElementById('btnCalcular');
+  const erro  = document.getElementById('erroMsg');
+  erro.textContent = '';
+  btn.disabled = true;
+  btn.textContent = 'Calculando...';
+
+  const dados = {
+    tipo:        document.getElementById('tipo').value,
+    volumeM3:    Number(document.getElementById('volumeM3').value),
+    horasPorDia: Number(document.getElementById('horasPorDia').value),
+    diasPorMes:  Number(document.getElementById('diasPorMes').value),
+    tarifaKwh:   Number(document.getElementById('tarifaKwh').value),
+  };
+
+try {
+    const res  = await fetch('/calcular', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(dados),
+    });
+    const json = await res.json();
+
+    if (!json.success) {
+      erro.textContent = '⚠️ ' + json.error;
+      return;
+    }
+
+    renderResultado(json.data);
+  } catch (e) {
+    erro.textContent = '⚠️ Erro ao conectar com a API.';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Calcular';
+  }
+}
+
+function fmt(v) {
+  return 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+}
+
+function renderResultado(d) {
+  const tbody = document.getElementById('tabelaResultado');
+  tbody.innerHTML = `
+    <tr><td class="secao" colspan="2">Kit e equipamento</td></tr>
+    <tr><td>Potência recomendada</td><td>${d.potenciaKW} kW</td></tr>
+    <tr class="tr-destaque"><td>Custo do kit</td><td>${fmt(d.kit.custoKit)}</td></tr>
+
+    <tr><td class="secao" colspan="2">Instalação</td></tr>
+    <tr><td>Instalação elétrica</td><td>${fmt(d.instalacao.eletrica)}</td></tr>
+    <tr><td>Instalação hidráulica</td><td>${fmt(d.instalacao.hidraulica)}</td></tr>
+    <tr><td>Mão de obra</td><td>${fmt(d.instalacao.maoDeObra)}</td></tr>
+    <tr class="tr-destaque"><td>Total instalação</td><td>${fmt(d.instalacao.total)}</td></tr>
+
+    <tr><td class="secao" colspan="2">Operação mensal</td></tr>
+    <tr><td>Custo de energia</td><td>${fmt(d.operacao.custoEnergia)}</td></tr>
+    <tr><td>Manutenção</td><td>${fmt(d.operacao.manutencaoMensal)}</td></tr>
+    <tr class="tr-destaque"><td>Total mensal</td><td>${fmt(d.operacao.totalMensal)}</td></tr>
+  `;
+  document.getElementById('resultado').style.display = 'block';
+  document.getElementById('resultado').scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
