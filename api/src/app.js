@@ -400,5 +400,7 @@ app.post('/api/calcularInstalacao', (req, res) => {
 const rotasEquipe22 = require('./equipe-22/routes');
 app.use('/api/equipe-22', rotasEquipe22);
 
+const equipe25Routes = require('./equipe-25/routes');
+app.use('/api/equipe-25', equipe25Routes);
 
 module.exports = app;

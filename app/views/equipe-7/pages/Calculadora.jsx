@@ -21,22 +21,19 @@ function Calculadora() {
 
   const calcularCusto = async () => {
     try {
-      // 🌟 Define a URL da API dinamicamente (usa a do Render se existir, senão usa localhost)
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'; 
-
-      const resVolume = await axios.post(`${apiUrl}/PISCINA2/volume/calcular`, {
+      const resVolume = await axios.post('http://localhost:3000/PISCINA2/volume/calcular', {
         largura: dados.largura,
         comprimento: dados.comprimento,
         profundidade: dados.profundidade
       });
       const volumeCalculado = resVolume.data.volume;
 
-      const resMateriais = await axios.post(`${apiUrl}/PISCINA2/materiais/calcular`, {
+      const resMateriais = await axios.post('http://localhost:3000/PISCINA2/materiais/calcular', {
         precoEletrico: dados.precoEletrico,
         precoHidraulico: dados.precoHidraulico
       });
 
-      const resCustos = await axios.post(`${apiUrl}/PISCINA2/custos/calcular`, {
+      const resCustos = await axios.post('http://localhost:3000/PISCINA2/custos/calcular', {
         volume: volumeCalculado,
         precoAgua: dados.precoAgua,
         precoManutencao: dados.precoManutencao
@@ -52,7 +49,7 @@ function Calculadora() {
 
     } catch (error) {
       console.error("Erro ao calcular em múltiplas APIs:", error);
-      alert("Erro ao conectar com as APIs. Verifique se o servidor está rodando!");
+      alert("Erro ao conectar com as APIs. Verifique se o servidor Node está rodando!");
     }
   };
 

@@ -1,7 +1,505 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="209" failures="0" errors="0" time="7.378">
-  <testsuite name="taxService" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:28" time="2.332" tests="7">
-    <testcase classname="taxService calcula imposto progressivo por faixa" name="taxService calcula imposto progressivo por faixa" time="0.01">
+<testsuites name="jest tests" tests="322" failures="0" errors="0" time="3.616">
+  <testsuite name="FinanciamentoController._extrairParams" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:51" time="0.6" tests="14">
+    <testcase classname="FinanciamentoController._extrairParams extrai e converte parâmetros numéricos corretamente" name="FinanciamentoController._extrairParams extrai e converte parâmetros numéricos corretamente" time="0.004">
+    </testcase>
+    <testcase classname="FinanciamentoController._extrairParams lança erro quando algum parâmetro não é numérico" name="FinanciamentoController._extrairParams lança erro quando algum parâmetro não é numérico" time="0.014">
+    </testcase>
+    <testcase classname="FinanciamentoController._extrairParams lança erro quando prazoMeses está ausente" name="FinanciamentoController._extrairParams lança erro quando prazoMeses está ausente" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoController.calcularSAC retorna 200 com dados do SAC para requisição válida" name="FinanciamentoController.calcularSAC retorna 200 com dados do SAC para requisição válida" time="0.003">
+    </testcase>
+    <testcase classname="FinanciamentoController.calcularSAC retorna 400 quando parâmetros são inválidos" name="FinanciamentoController.calcularSAC retorna 400 quando parâmetros são inválidos" time="0.002">
+    </testcase>
+    <testcase classname="FinanciamentoController.calcularSAC retorna 400 quando entrada &gt;= valor do imóvel" name="FinanciamentoController.calcularSAC retorna 400 quando entrada &gt;= valor do imóvel" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoController.calcularPRICE retorna 200 com dados do PRICE para requisição válida" name="FinanciamentoController.calcularPRICE retorna 200 com dados do PRICE para requisição válida" time="0.003">
+    </testcase>
+    <testcase classname="FinanciamentoController.calcularPRICE retorna 400 para parâmetros inválidos" name="FinanciamentoController.calcularPRICE retorna 400 para parâmetros inválidos" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoController.comparar retorna 200 com comparação SAC x PRICE" name="FinanciamentoController.comparar retorna 200 com comparação SAC x PRICE" time="0.002">
+    </testcase>
+    <testcase classname="FinanciamentoController.comparar retorna 400 para body vazio" name="FinanciamentoController.comparar retorna 400 para body vazio" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoController.simularCapacidade retorna 200 com capacidade calculada corretamente" name="FinanciamentoController.simularCapacidade retorna 200 com capacidade calculada corretamente" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoController.simularCapacidade retorna 400 para renda mensal zero" name="FinanciamentoController.simularCapacidade retorna 400 para renda mensal zero" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoController.simularCapacidade retorna 400 para renda mensal negativa" name="FinanciamentoController.simularCapacidade retorna 400 para renda mensal negativa" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoController.simularCapacidade retorna 400 para parâmetros ausentes" name="FinanciamentoController.simularCapacidade retorna 400 para parâmetros ausentes" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Unitário - calcularNF" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:51" time="0.659" tests="21">
+    <testcase classname="Unitário - calcularNF deve calcular corretamente com alíquotas padrão" name="Unitário - calcularNF deve calcular corretamente com alíquotas padrão" time="0.007">
+    </testcase>
+    <testcase classname="Unitário - calcularNF deve calcular corretamente com valor diferente" name="Unitário - calcularNF deve calcular corretamente com valor diferente" time="0.002">
+    </testcase>
+    <testcase classname="Unitário - calcularNF deve lançar erro se valorProduto for zero" name="Unitário - calcularNF deve lançar erro se valorProduto for zero" time="0.035">
+    </testcase>
+    <testcase classname="Unitário - calcularNF deve lançar erro se valorProduto for negativo" name="Unitário - calcularNF deve lançar erro se valorProduto for negativo" time="0.001">
+    </testcase>
+    <testcase classname="Unitário - calcularNF deve lançar erro se algum imposto for negativo" name="Unitário - calcularNF deve lançar erro se algum imposto for negativo" time="0.001">
+    </testcase>
+    <testcase classname="Unitário - calcularNF deve funcionar com impostos zerados" name="Unitário - calcularNF deve funcionar com impostos zerados" time="0">
+    </testcase>
+    <testcase classname="Unitário - calcularNF TABELA deve ter as alíquotas padrão corretas" name="Unitário - calcularNF TABELA deve ter as alíquotas padrão corretas" time="0">
+    </testcase>
+    <testcase classname="Unitário - calcularNFInverso deve calcular o valor original corretamente" name="Unitário - calcularNFInverso deve calcular o valor original corretamente" time="0.001">
+    </testcase>
+    <testcase classname="Unitário - calcularNFInverso deve lançar erro se totalNF for zero" name="Unitário - calcularNFInverso deve lançar erro se totalNF for zero" time="0.001">
+    </testcase>
+    <testcase classname="Unitário - calcularNFInverso deve lançar erro se totalNF for negativo" name="Unitário - calcularNFInverso deve lançar erro se totalNF for negativo" time="0.001">
+    </testcase>
+    <testcase classname="Unitário - calcularNFInverso deve lançar erro se imposto for negativo" name="Unitário - calcularNFInverso deve lançar erro se imposto for negativo" time="0.001">
+    </testcase>
+    <testcase classname="Unitário - calcularNFInverso deve funcionar com impostos zerados" name="Unitário - calcularNFInverso deve funcionar com impostos zerados" time="0.001">
+    </testcase>
+    <testcase classname="Unitário - compararAliquotas deve identificar cenário B como mais vantajoso quando tem menor carga tributária" name="Unitário - compararAliquotas deve identificar cenário B como mais vantajoso quando tem menor carga tributária" time="0.004">
+    </testcase>
+    <testcase classname="Unitário - compararAliquotas deve identificar cenário A como mais vantajoso quando tem menor carga tributária" name="Unitário - compararAliquotas deve identificar cenário A como mais vantajoso quando tem menor carga tributária" time="0.003">
+    </testcase>
+    <testcase classname="Unitário - compararAliquotas deve retornar empate quando cenários têm mesmas alíquotas" name="Unitário - compararAliquotas deve retornar empate quando cenários têm mesmas alíquotas" time="0">
+    </testcase>
+    <testcase classname="Unitário - compararAliquotas deve retornar diferencaPercentual correta" name="Unitário - compararAliquotas deve retornar diferencaPercentual correta" time="0.001">
+    </testcase>
+    <testcase classname="Unitário - compararAliquotas deve lançar erro se valorProduto for zero" name="Unitário - compararAliquotas deve lançar erro se valorProduto for zero" time="0">
+    </testcase>
+    <testcase classname="Unitário - compararAliquotas deve lançar erro se valorProduto for negativo" name="Unitário - compararAliquotas deve lançar erro se valorProduto for negativo" time="0.005">
+    </testcase>
+    <testcase classname="Unitário - compararAliquotas deve lançar erro se alguma alíquota do cenário A for negativa" name="Unitário - compararAliquotas deve lançar erro se alguma alíquota do cenário A for negativa" time="0.001">
+    </testcase>
+    <testcase classname="Unitário - compararAliquotas deve lançar erro se alguma alíquota do cenário B for negativa" name="Unitário - compararAliquotas deve lançar erro se alguma alíquota do cenário B for negativa" time="0.001">
+    </testcase>
+    <testcase classname="Unitário - compararAliquotas deve funcionar com cenários sem alíquotas (tudo zero)" name="Unitário - compararAliquotas deve funcionar com cenários sem alíquotas (tudo zero)" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:51" time="0.833" tests="12">
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 1: Freelancer de TI Padrão Passo 1: Deve calcular mão de obra e horas faturáveis corretamente" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 1: Freelancer de TI Padrão Passo 1: Deve calcular mão de obra e horas faturáveis corretamente" time="0.006">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 1: Freelancer de TI Padrão Passo 2: Deve calcular rateio operacional e ponto de equilíbrio corretamente" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 1: Freelancer de TI Padrão Passo 2: Deve calcular rateio operacional e ponto de equilíbrio corretamente" time="0.001">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 1: Freelancer de TI Padrão Passo 3: Deve calcular margem de lucro e preço final por dentro corretamente" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 1: Freelancer de TI Padrão Passo 3: Deve calcular margem de lucro e preço final por dentro corretamente" time="0.002">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 1: Freelancer de TI Padrão Agregador: Deve calcular o consolidado unificado perfeitamente" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 1: Freelancer de TI Padrão Agregador: Deve calcular o consolidado unificado perfeitamente" time="0.001">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 2: Consultor Estratégico Part-time Deve calcular o consolidado da consultoria com valor-hora elevado" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 2: Consultor Estratégico Part-time Deve calcular o consolidado da consultoria com valor-hora elevado" time="0.008">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 3: Autônomo MEI (Microempreendedor Individual) Deve calcular o consolidado de MEI com impostos zerados na precificação" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 3: Autônomo MEI (Microempreendedor Individual) Deve calcular o consolidado de MEI com impostos zerados na precificação" time="0.001">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 4: Validação de Parâmetros e Exceções Deve falhar se o salário for menor ou igual a zero" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 4: Validação de Parâmetros e Exceções Deve falhar se o salário for menor ou igual a zero" time="0.021">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 4: Validação de Parâmetros e Exceções Deve falhar se dias trabalhados por semana for fora de 1-7" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 4: Validação de Parâmetros e Exceções Deve falhar se dias trabalhados por semana for fora de 1-7" time="0.002">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 4: Validação de Parâmetros e Exceções Deve falhar se horas trabalhadas por dia for fora de 1-24" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 4: Validação de Parâmetros e Exceções Deve falhar se horas trabalhadas por dia for fora de 1-24" time="0.001">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 4: Validação de Parâmetros e Exceções Deve falhar se produtividade for fora de 1-100" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 4: Validação de Parâmetros e Exceções Deve falhar se produtividade for fora de 1-100" time="0.001">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 4: Validação de Parâmetros e Exceções Deve falhar se custos fixos ou reserva forem negativos" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 4: Validação de Parâmetros e Exceções Deve falhar se custos fixos ou reserva forem negativos" time="0.002">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 4: Validação de Parâmetros e Exceções Deve falhar se alíquota de impostos for maior ou igual a 100%" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES UNITÁRIOS EQUIPE 25 Cenário 4: Validação de Parâmetros e Exceções Deve falhar se alíquota de impostos for maior ou igual a 100%" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Equipe 12 - funcoes de MarkUp" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:51" time="0.193" tests="25">
+    <testcase classname="Equipe 12 - funcoes de MarkUp calcula preco de venda pelo MarkUp aditivo" name="Equipe 12 - funcoes de MarkUp calcula preco de venda pelo MarkUp aditivo" time="0.002">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp calcula MarkUp divisor e preco de venda" name="Equipe 12 - funcoes de MarkUp calcula MarkUp divisor e preco de venda" time="0.002">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp calcula percentual de MarkUp a partir do preco de venda" name="Equipe 12 - funcoes de MarkUp calcula percentual de MarkUp a partir do preco de venda" time="0">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp calcula margem de lucro" name="Equipe 12 - funcoes de MarkUp calcula margem de lucro" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp calcula ponto de equilibrio" name="Equipe 12 - funcoes de MarkUp calcula ponto de equilibrio" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para markupDivisor" name="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para markupDivisor" time="0">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para precoVenda" name="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para precoVenda" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para markup" name="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para markup" time="0">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para margem" name="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para margem" time="0">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para pontoEquilibrio" name="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para pontoEquilibrio" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita custo invalido no preco de venda" name="Equipe 12 - funcoes de MarkUp rejeita custo invalido no preco de venda" time="0.016">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita markup negativo no preco de venda" name="Equipe 12 - funcoes de MarkUp rejeita markup negativo no preco de venda" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita custo invalido no MarkUp divisor" name="Equipe 12 - funcoes de MarkUp rejeita custo invalido no MarkUp divisor" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita soma percentual maior ou igual a 100" name="Equipe 12 - funcoes de MarkUp rejeita soma percentual maior ou igual a 100" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita custo invalido no calculo de MarkUp" name="Equipe 12 - funcoes de MarkUp rejeita custo invalido no calculo de MarkUp" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita preco menor ou igual ao custo no calculo de MarkUp" name="Equipe 12 - funcoes de MarkUp rejeita preco menor ou igual ao custo no calculo de MarkUp" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita custo invalido no calculo de margem" name="Equipe 12 - funcoes de MarkUp rejeita custo invalido no calculo de margem" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita preco invalido no calculo de margem" name="Equipe 12 - funcoes de MarkUp rejeita preco invalido no calculo de margem" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita preco menor ou igual ao custo no calculo de margem" name="Equipe 12 - funcoes de MarkUp rejeita preco menor ou igual ao custo no calculo de margem" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita custos fixos negativos no ponto de equilibrio" name="Equipe 12 - funcoes de MarkUp rejeita custos fixos negativos no ponto de equilibrio" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita preco invalido no ponto de equilibrio" name="Equipe 12 - funcoes de MarkUp rejeita preco invalido no ponto de equilibrio" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita custo variavel negativo no ponto de equilibrio" name="Equipe 12 - funcoes de MarkUp rejeita custo variavel negativo no ponto de equilibrio" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita preco menor ou igual ao custo variavel no ponto de equilibrio" name="Equipe 12 - funcoes de MarkUp rejeita preco menor ou igual ao custo variavel no ponto de equilibrio" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita dispatcher sem tipo" name="Equipe 12 - funcoes de MarkUp rejeita dispatcher sem tipo" time="0.001">
+    </testcase>
+    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita tipo de calculo desconhecido" name="Equipe 12 - funcoes de MarkUp rejeita tipo de calculo desconhecido" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="GET /" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:51" time="0.992" tests="18">
+    <testcase classname="GET / retorna 200 com informações da API" name="GET / retorna 200 com informações da API" time="0.041">
+    </testcase>
+    <testcase classname="GET /FIN/health retorna status ok" name="GET /FIN/health retorna status ok" time="0.006">
+    </testcase>
+    <testcase classname="POST /FIN/sac retorna 200 com dados do SAC para body válido" name="POST /FIN/sac retorna 200 com dados do SAC para body válido" time="0.017">
+    </testcase>
+    <testcase classname="POST /FIN/sac parcelas têm amortização constante" name="POST /FIN/sac parcelas têm amortização constante" time="0.029">
+    </testcase>
+    <testcase classname="POST /FIN/sac retorna 400 para parâmetros inválidos" name="POST /FIN/sac retorna 400 para parâmetros inválidos" time="0.034">
+    </testcase>
+    <testcase classname="POST /FIN/sac retorna 400 quando entrada &gt;= valor do imóvel" name="POST /FIN/sac retorna 400 quando entrada &gt;= valor do imóvel" time="0.008">
+    </testcase>
+    <testcase classname="POST /FIN/sac retorna 400 para taxa de juros zero" name="POST /FIN/sac retorna 400 para taxa de juros zero" time="0.003">
+    </testcase>
+    <testcase classname="POST /FIN/price retorna 200 com dados do PRICE para body válido" name="POST /FIN/price retorna 200 com dados do PRICE para body válido" time="0.005">
+    </testcase>
+    <testcase classname="POST /FIN/price parcelas PRICE têm prestação fixa" name="POST /FIN/price parcelas PRICE têm prestação fixa" time="0.014">
+    </testcase>
+    <testcase classname="POST /FIN/price retorna 400 para parâmetros inválidos" name="POST /FIN/price retorna 400 para parâmetros inválidos" time="0.005">
+    </testcase>
+    <testcase classname="POST /FIN/comparar retorna 200 com comparação SAC x PRICE" name="POST /FIN/comparar retorna 200 com comparação SAC x PRICE" time="0.007">
+    </testcase>
+    <testcase classname="POST /FIN/comparar SAC tem total pago menor que PRICE" name="POST /FIN/comparar SAC tem total pago menor que PRICE" time="0.006">
+    </testcase>
+    <testcase classname="POST /FIN/comparar sistema recomendado é SAC" name="POST /FIN/comparar sistema recomendado é SAC" time="0.006">
+    </testcase>
+    <testcase classname="POST /FIN/comparar retorna 400 para parâmetros inválidos" name="POST /FIN/comparar retorna 400 para parâmetros inválidos" time="0.003">
+    </testcase>
+    <testcase classname="POST /FIN/capacidade retorna 200 com cálculo de capacidade" name="POST /FIN/capacidade retorna 200 com cálculo de capacidade" time="0.004">
+    </testcase>
+    <testcase classname="POST /FIN/capacidade parcela máxima é 30% da renda" name="POST /FIN/capacidade parcela máxima é 30% da renda" time="0.005">
+    </testcase>
+    <testcase classname="POST /FIN/capacidade retorna 400 para renda menor ou igual a zero" name="POST /FIN/capacidade retorna 400 para renda menor ou igual a zero" time="0.005">
+    </testcase>
+    <testcase classname="POST /FIN/capacidade retorna 400 para parâmetros ausentes" name="POST /FIN/capacidade retorna 400 para parâmetros ausentes" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="Classe Abstrata Financiamento" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:52" time="0.131" tests="18">
+    <testcase classname="Classe Abstrata Financiamento Não deve permitir instância direta" name="Classe Abstrata Financiamento Não deve permitir instância direta" time="0.017">
+    </testcase>
+    <testcase classname="FinanciamentoSAC Deve calcular o valor financiado corretamente" name="FinanciamentoSAC Deve calcular o valor financiado corretamente" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoSAC Deve retornar 120 parcelas" name="FinanciamentoSAC Deve retornar 120 parcelas" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoSAC Amortização deve ser constante" name="FinanciamentoSAC Amortização deve ser constante" time="0.007">
+    </testcase>
+    <testcase classname="FinanciamentoSAC Primeira parcela deve ser maior que a última" name="FinanciamentoSAC Primeira parcela deve ser maior que a última" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoSAC Saldo devedor final deve ser zero" name="FinanciamentoSAC Saldo devedor final deve ser zero" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoSAC Deve lançar erro para entrada maior que valor do imóvel" name="FinanciamentoSAC Deve lançar erro para entrada maior que valor do imóvel" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoSAC Deve lançar erro para taxa de juros zero" name="FinanciamentoSAC Deve lançar erro para taxa de juros zero" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoSAC Resumo deve conter todos os campos esperados" name="FinanciamentoSAC Resumo deve conter todos os campos esperados" time="0">
+    </testcase>
+    <testcase classname="FinanciamentoPRICE Todas as parcelas devem ter o mesmo valor (prestação fixa)" name="FinanciamentoPRICE Todas as parcelas devem ter o mesmo valor (prestação fixa)" time="0.004">
+    </testcase>
+    <testcase classname="FinanciamentoPRICE Deve retornar 120 parcelas" name="FinanciamentoPRICE Deve retornar 120 parcelas" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoPRICE Saldo devedor final deve ser zero" name="FinanciamentoPRICE Saldo devedor final deve ser zero" time="0.001">
+    </testcase>
+    <testcase classname="FinanciamentoPRICE Amortização deve crescer ao longo do tempo" name="FinanciamentoPRICE Amortização deve crescer ao longo do tempo" time="0">
+    </testcase>
+    <testcase classname="FinanciamentoPRICE Juros devem diminuir ao longo do tempo" name="FinanciamentoPRICE Juros devem diminuir ao longo do tempo" time="0.001">
+    </testcase>
+    <testcase classname="ComparadorFinanciamento Deve retornar dados de SAC e PRICE" name="ComparadorFinanciamento Deve retornar dados de SAC e PRICE" time="0.011">
+    </testcase>
+    <testcase classname="ComparadorFinanciamento SAC deve ter total pago menor que PRICE" name="ComparadorFinanciamento SAC deve ter total pago menor que PRICE" time="0.001">
+    </testcase>
+    <testcase classname="ComparadorFinanciamento Deve recomendar SAC quando mais barato" name="ComparadorFinanciamento Deve recomendar SAC quando mais barato" time="0.001">
+    </testcase>
+    <testcase classname="ComparadorFinanciamento Primeira parcela do SAC deve ser maior que do PRICE" name="ComparadorFinanciamento Primeira parcela do SAC deve ser maior que do PRICE" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="calcularConsumo" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:52" time="0.194" tests="17">
+    <testcase classname="calcularConsumo calcula kWh corretamente para lista de aparelhos" name="calcularConsumo calcula kWh corretamente para lista de aparelhos" time="0.004">
+    </testcase>
+    <testcase classname="calcularConsumo usa 30 dias por padrão" name="calcularConsumo usa 30 dias por padrão" time="0">
+    </testcase>
+    <testcase classname="calcularConsumo aceita número de dias personalizado" name="calcularConsumo aceita número de dias personalizado" time="0">
+    </testcase>
+    <testcase classname="calcularConsumo lança erro para lista vazia" name="calcularConsumo lança erro para lista vazia" time="0.02">
+    </testcase>
+    <testcase classname="calcularConsumo lança erro para aparelho com dados incompletos" name="calcularConsumo lança erro para aparelho com dados incompletos" time="0">
+    </testcase>
+    <testcase classname="calcularConsumo lança erro para valores negativos" name="calcularConsumo lança erro para valores negativos" time="0">
+    </testcase>
+    <testcase classname="calcularConta calcula corretamente com bandeira verde (sem adicional)" name="calcularConta calcula corretamente com bandeira verde (sem adicional)" time="0.001">
+    </testcase>
+    <testcase classname="calcularConta aplica adicional de bandeira amarela" name="calcularConta aplica adicional de bandeira amarela" time="0">
+    </testcase>
+    <testcase classname="calcularConta aplica adicional de bandeira vermelha1" name="calcularConta aplica adicional de bandeira vermelha1" time="0">
+    </testcase>
+    <testcase classname="calcularConta aplica adicional de bandeira vermelha2" name="calcularConta aplica adicional de bandeira vermelha2" time="0.001">
+    </testcase>
+    <testcase classname="calcularConta lança erro para kWh negativo" name="calcularConta lança erro para kWh negativo" time="0.001">
+    </testcase>
+    <testcase classname="calcularConta lança erro para tarifa zero ou negativa" name="calcularConta lança erro para tarifa zero ou negativa" time="0">
+    </testcase>
+    <testcase classname="calcularConta lança erro para bandeira inválida" name="calcularConta lança erro para bandeira inválida" time="0.002">
+    </testcase>
+    <testcase classname="simularComparacao retorna cenário mais econômico corretamente" name="simularComparacao retorna cenário mais econômico corretamente" time="0.001">
+    </testcase>
+    <testcase classname="simularComparacao calcula diferença de kWh entre cenários" name="simularComparacao calcula diferença de kWh entre cenários" time="0">
+    </testcase>
+    <testcase classname="simularComparacao calcula economia em reais" name="simularComparacao calcula economia em reais" time="0.006">
+    </testcase>
+    <testcase classname="simularComparacao lança erro se cenários estão vazios" name="simularComparacao lança erro se cenários estão vazios" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao)" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:52" time="1.442" tests="6">
+    <testcase classname="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve aprovar o aluno no final do período com notas e presenças suficientes" name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve aprovar o aluno no final do período com notas e presenças suficientes" time="0.031">
+    </testcase>
+    <testcase classname="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve colocar o aluno em Recuperação no final do período se a média for &lt; 6.0 mas a presença for &gt;= 75%" name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve colocar o aluno em Recuperação no final do período se a média for &lt; 6.0 mas a presença for &gt;= 75%" time="0.007">
+    </testcase>
+    <testcase classname="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve reprovar direto por faltas se a presença for &lt; 75% no final do período, mesmo com nota alta" name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve reprovar direto por faltas se a presença for &lt; 75% no final do período, mesmo com nota alta" time="0.059">
+    </testcase>
+    <testcase classname="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve simular corretamente as notas necessárias no período em andamento" name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve simular corretamente as notas necessárias no período em andamento" time="0.003">
+    </testcase>
+    <testcase classname="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve retornar erro 400 se faltarem parâmetros obrigatórios" name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve retornar erro 400 se faltarem parâmetros obrigatórios" time="0.003">
+    </testcase>
+    <testcase classname="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve retornar erro 400 se a média ou a menção atual for inválida" name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve retornar erro 400 se a média ou a menção atual for inválida" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="rotas IRP da Equipe 2" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:52" time="1.463" tests="11">
+    <testcase classname="rotas IRP da Equipe 2 salário isento (abaixo de R$ 2.500) deve retornar imposto 0" name="rotas IRP da Equipe 2 salário isento (abaixo de R$ 2.500) deve retornar imposto 0" time="0.125">
+    </testcase>
+    <testcase classname="rotas IRP da Equipe 2 salário exatamente no limite isento (R$ 2.500) deve retornar imposto 0" name="rotas IRP da Equipe 2 salário exatamente no limite isento (R$ 2.500) deve retornar imposto 0" time="0.007">
+    </testcase>
+    <testcase classname="rotas IRP da Equipe 2 salário na faixa de 7,5% deve calcular corretamente" name="rotas IRP da Equipe 2 salário na faixa de 7,5% deve calcular corretamente" time="0.004">
+    </testcase>
+    <testcase classname="rotas IRP da Equipe 2 salário R$ 6.000 deve calcular imposto R$ 337,50" name="rotas IRP da Equipe 2 salário R$ 6.000 deve calcular imposto R$ 337,50" time="0.004">
+    </testcase>
+    <testcase classname="rotas IRP da Equipe 2 salário acima de R$ 5.000 deve aplicar as três faixas corretamente" name="rotas IRP da Equipe 2 salário acima de R$ 5.000 deve aplicar as três faixas corretamente" time="0.005">
+    </testcase>
+    <testcase classname="rotas IRP da Equipe 2 salário zero deve retornar imposto 0 e líquido 0" name="rotas IRP da Equipe 2 salário zero deve retornar imposto 0 e líquido 0" time="0.004">
+    </testcase>
+    <testcase classname="rotas IRP da Equipe 2 resposta deve conter o campo detalhamento" name="rotas IRP da Equipe 2 resposta deve conter o campo detalhamento" time="0.005">
+    </testcase>
+    <testcase classname="rotas IRP da Equipe 2 salário ausente deve retornar erro 400" name="rotas IRP da Equipe 2 salário ausente deve retornar erro 400" time="0.003">
+    </testcase>
+    <testcase classname="rotas IRP da Equipe 2 salário como string deve retornar erro 400" name="rotas IRP da Equipe 2 salário como string deve retornar erro 400" time="0.006">
+    </testcase>
+    <testcase classname="rotas IRP da Equipe 2 salário como null deve retornar erro 400" name="rotas IRP da Equipe 2 salário como null deve retornar erro 400" time="0.003">
+    </testcase>
+    <testcase classname="rotas IRP da Equipe 2 salário negativo deve retornar erro 400" name="rotas IRP da Equipe 2 salário negativo deve retornar erro 400" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="GET /api/equipe-9/health" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:51" time="2.491" tests="13">
+    <testcase classname="GET /api/equipe-9/health deve retornar status ok" name="GET /api/equipe-9/health deve retornar status ok" time="0.058">
+    </testcase>
+    <testcase classname="GET /api/equipe-9/tabelas deve retornar a tabela de alíquotas padrão" name="GET /api/equipe-9/tabelas deve retornar a tabela de alíquotas padrão" time="0.01">
+    </testcase>
+    <testcase classname="API - POST /api/equipe-9/calcular deve calcular NF corretamente" name="API - POST /api/equipe-9/calcular deve calcular NF corretamente" time="0.015">
+    </testcase>
+    <testcase classname="API - POST /api/equipe-9/calcular deve retornar erro com valorProduto inválido" name="API - POST /api/equipe-9/calcular deve retornar erro com valorProduto inválido" time="0.005">
+    </testcase>
+    <testcase classname="API - POST /api/equipe-9/calcular deve retornar erro com imposto negativo" name="API - POST /api/equipe-9/calcular deve retornar erro com imposto negativo" time="0.006">
+    </testcase>
+    <testcase classname="API - POST /api/equipe-9/calcular deve retornar erro com corpo vazio" name="API - POST /api/equipe-9/calcular deve retornar erro com corpo vazio" time="0.004">
+    </testcase>
+    <testcase classname="API - POST /api/equipe-9/calcular-inverso deve retornar o valor original do produto" name="API - POST /api/equipe-9/calcular-inverso deve retornar o valor original do produto" time="0.006">
+    </testcase>
+    <testcase classname="API - POST /api/equipe-9/calcular-inverso deve retornar erro com totalNF inválido" name="API - POST /api/equipe-9/calcular-inverso deve retornar erro com totalNF inválido" time="0.004">
+    </testcase>
+    <testcase classname="API - POST /api/equipe-9/comparar deve comparar dois cenários e retornar o mais vantajoso" name="API - POST /api/equipe-9/comparar deve comparar dois cenários e retornar o mais vantajoso" time="0.006">
+    </testcase>
+    <testcase classname="API - POST /api/equipe-9/comparar deve retornar empate quando alíquotas são iguais" name="API - POST /api/equipe-9/comparar deve retornar empate quando alíquotas são iguais" time="0.004">
+    </testcase>
+    <testcase classname="API - POST /api/equipe-9/comparar deve retornar erro com valorProduto inválido" name="API - POST /api/equipe-9/comparar deve retornar erro com valorProduto inválido" time="0.003">
+    </testcase>
+    <testcase classname="API - POST /api/equipe-9/comparar deve retornar erro com alíquota negativa" name="API - POST /api/equipe-9/comparar deve retornar erro com alíquota negativa" time="0.002">
+    </testcase>
+    <testcase classname="API - POST /api/equipe-9/comparar deve retornar erro com corpo vazio" name="API - POST /api/equipe-9/comparar deve retornar erro com corpo vazio" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="encontrarPotencia" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:53" time="0.146" tests="18">
+    <testcase classname="encontrarPotencia volume 5m3 retorna 6kW" name="encontrarPotencia volume 5m3 retorna 6kW" time="0.001">
+    </testcase>
+    <testcase classname="encontrarPotencia volume 10m3 retorna 9kW" name="encontrarPotencia volume 10m3 retorna 9kW" time="0">
+    </testcase>
+    <testcase classname="encontrarPotencia volume 15m3 retorna 12kW" name="encontrarPotencia volume 15m3 retorna 12kW" time="0.004">
+    </testcase>
+    <testcase classname="encontrarPotencia volume negativo lanca erro" name="encontrarPotencia volume negativo lanca erro" time="0.035">
+    </testcase>
+    <testcase classname="calcularKit sauna seca 10m3 custo do kit correto" name="calcularKit sauna seca 10m3 custo do kit correto" time="0.001">
+    </testcase>
+    <testcase classname="calcularKit sauna vapor 10m3 custo do kit correto" name="calcularKit sauna vapor 10m3 custo do kit correto" time="0.001">
+    </testcase>
+    <testcase classname="calcularKit lanca erro para tipo invalido" name="calcularKit lanca erro para tipo invalido" time="0.004">
+    </testcase>
+    <testcase classname="calcularKit lanca erro quando tipo nao informado" name="calcularKit lanca erro quando tipo nao informado" time="0.001">
+    </testcase>
+    <testcase classname="calcularKit lanca erro quando volumeM3 nao informado" name="calcularKit lanca erro quando volumeM3 nao informado" time="0.001">
+    </testcase>
+    <testcase classname="calcularInstalacao vapor inclui custo hidraulico de R$2000" name="calcularInstalacao vapor inclui custo hidraulico de R$2000" time="0">
+    </testcase>
+    <testcase classname="calcularInstalacao sauna seca nao tem custo hidraulico" name="calcularInstalacao sauna seca nao tem custo hidraulico" time="0.001">
+    </testcase>
+    <testcase classname="calcularInstalacao total de instalacao soma corretamente" name="calcularInstalacao total de instalacao soma corretamente" time="0.001">
+    </testcase>
+    <testcase classname="calcularInstalacao custo de energia mensal calculado corretamente" name="calcularInstalacao custo de energia mensal calculado corretamente" time="0.001">
+    </testcase>
+    <testcase classname="calcular retorna objeto com kit, instalacao e operacao" name="calcular retorna objeto com kit, instalacao e operacao" time="0">
+    </testcase>
+    <testcase classname="calcular simulacao completa sauna vapor 15m3" name="calcular simulacao completa sauna vapor 15m3" time="0.003">
+    </testcase>
+    <testcase classname="calcular lanca erro para tipo invalido" name="calcular lanca erro para tipo invalido" time="0.001">
+    </testcase>
+    <testcase classname="calcular lanca erro quando tipo nao informado" name="calcular lanca erro quando tipo nao informado" time="0.001">
+    </testcase>
+    <testcase classname="calcular lanca erro quando volumeM3 nao informado" name="calcular lanca erro quando volumeM3 nao informado" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="decodificarChaveNF" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:51" time="2.52" tests="22">
+    <testcase classname="decodificarChaveNF decodifica estado SP" name="decodificarChaveNF decodifica estado SP" time="0.007">
+    </testcase>
+    <testcase classname="decodificarChaveNF decodifica estado RJ" name="decodificarChaveNF decodifica estado RJ" time="0.001">
+    </testcase>
+    <testcase classname="decodificarChaveNF formata CNPJ corretamente" name="decodificarChaveNF formata CNPJ corretamente" time="0.001">
+    </testcase>
+    <testcase classname="decodificarChaveNF lança erro para chave com menos de 44 dígitos" name="decodificarChaveNF lança erro para chave com menos de 44 dígitos" time="0.044">
+    </testcase>
+    <testcase classname="decodificarChaveNF lança erro para chave com mais de 44 dígitos" name="decodificarChaveNF lança erro para chave com mais de 44 dígitos" time="0.002">
+    </testcase>
+    <testcase classname="decodificarChaveNF ignora caracteres não numéricos" name="decodificarChaveNF ignora caracteres não numéricos" time="0.001">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda calcula ICMS, IPI, PIS e COFINS no Lucro Real" name="calcularImpostosNFVenda calcula ICMS, IPI, PIS e COFINS no Lucro Real" time="0.002">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda calcula carga tributária" name="calcularImpostosNFVenda calcula carga tributária" time="0">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda Lucro Presumido usa alíquotas corretas" name="calcularImpostosNFVenda Lucro Presumido usa alíquotas corretas" time="0.001">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda Simples Nacional zera PIS e COFINS" name="calcularImpostosNFVenda Simples Nacional zera PIS e COFINS" time="0.001">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda aceita ICMS personalizado" name="calcularImpostosNFVenda aceita ICMS personalizado" time="0.001">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda lança erro para valor do produto zero" name="calcularImpostosNFVenda lança erro para valor do produto zero" time="0.001">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda lança erro para IPI negativo" name="calcularImpostosNFVenda lança erro para IPI negativo" time="0">
+    </testcase>
+    <testcase classname="calcularImpostosNFVenda lança erro sem chave" name="calcularImpostosNFVenda lança erro sem chave" time="0.003">
+    </testcase>
+    <testcase classname="POST /nfvenda/decodificar decodifica chave válida" name="POST /nfvenda/decodificar decodifica chave válida" time="0.149">
+    </testcase>
+    <testcase classname="POST /nfvenda/decodificar retorna erro para chave inválida" name="POST /nfvenda/decodificar retorna erro para chave inválida" time="0.011">
+    </testcase>
+    <testcase classname="POST /nfvenda/decodificar retorna erro sem chave" name="POST /nfvenda/decodificar retorna erro sem chave" time="0.012">
+    </testcase>
+    <testcase classname="POST /nfvenda/calcular calcula impostos corretamente" name="POST /nfvenda/calcular calcula impostos corretamente" time="0.003">
+    </testcase>
+    <testcase classname="POST /nfvenda/calcular calcula com Simples Nacional" name="POST /nfvenda/calcular calcula com Simples Nacional" time="0.007">
+    </testcase>
+    <testcase classname="POST /nfvenda/calcular retorna erro para valor inválido" name="POST /nfvenda/calcular retorna erro para valor inválido" time="0.003">
+    </testcase>
+    <testcase classname="POST /nfvenda/calcular retorna erro para chave inválida" name="POST /nfvenda/calcular retorna erro para chave inválida" time="0.003">
+    </testcase>
+    <testcase classname="GET /nfvenda/tabelas retorna tabelas de impostos" name="GET /nfvenda/tabelas retorna tabelas de impostos" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="GET /equipe-15/health" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:51" time="2.586" tests="17">
+    <testcase classname="GET /equipe-15/health deve retornar status ok" name="GET /equipe-15/health deve retornar status ok" time="0.104">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/calcular retorna frete correto para tipo normal" name="POST /equipe-15/frete/calcular retorna frete correto para tipo normal" time="0.067">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/calcular aplica multiplicador expresso corretamente" name="POST /equipe-15/frete/calcular aplica multiplicador expresso corretamente" time="0.012">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/calcular aplica multiplicador economico corretamente" name="POST /equipe-15/frete/calcular aplica multiplicador economico corretamente" time="0.004">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/calcular retorna 400 para peso ausente" name="POST /equipe-15/frete/calcular retorna 400 para peso ausente" time="0.005">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/calcular retorna 400 para tipo inválido" name="POST /equipe-15/frete/calcular retorna 400 para tipo inválido" time="0.004">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/calcular retorna 400 para peso negativo" name="POST /equipe-15/frete/calcular retorna 400 para peso negativo" time="0.004">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/distancia retorna distância correta entre São Paulo e Rio de Janeiro" name="POST /equipe-15/frete/distancia retorna distância correta entre São Paulo e Rio de Janeiro" time="0.004">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/distancia funciona nos dois sentidos (RJ → SP)" name="POST /equipe-15/frete/distancia funciona nos dois sentidos (RJ → SP)" time="0.007">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/distancia retorna 400 para origem ausente" name="POST /equipe-15/frete/distancia retorna 400 para origem ausente" time="0.005">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/distancia retorna 400 para rota não cadastrada" name="POST /equipe-15/frete/distancia retorna 400 para rota não cadastrada" time="0.003">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/distancia retorna 400 para origem igual ao destino" name="POST /equipe-15/frete/distancia retorna 400 para origem igual ao destino" time="0.002">
+    </testcase>
+    <testcase classname="GET /equipe-15/frete/distancia/cidades retorna lista de cidades disponíveis" name="GET /equipe-15/frete/distancia/cidades retorna lista de cidades disponíveis" time="0.005">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/prazo retorna prazo correto para tipo normal e 100km" name="POST /equipe-15/frete/prazo retorna prazo correto para tipo normal e 100km" time="0.025">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/prazo retorna prazo correto para tipo expresso" name="POST /equipe-15/frete/prazo retorna prazo correto para tipo expresso" time="0.004">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/prazo retorna 400 para tipo inválido" name="POST /equipe-15/frete/prazo retorna 400 para tipo inválido" time="0.006">
+    </testcase>
+    <testcase classname="POST /equipe-15/frete/prazo retorna 400 para distanciaKm ausente" name="POST /equipe-15/frete/prazo retorna 400 para distanciaKm ausente" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:51" time="1.942" tests="8">
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 GET /health Deve retornar status HTTP 200 e status &quot;ok&quot;" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 GET /health Deve retornar status HTTP 200 e status &quot;ok&quot;" time="0.139">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 GET /api/equipe-25/tabelas Deve retornar constantes financeiras e tabelas com sucesso" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 GET /api/equipe-25/tabelas Deve retornar constantes financeiras e tabelas com sucesso" time="0.086">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 POST /api/equipe-25/csh/labor-cost (Mão de Obra) Deve calcular custo de mão de obra com sucesso" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 POST /api/equipe-25/csh/labor-cost (Mão de Obra) Deve calcular custo de mão de obra com sucesso" time="0.016">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 POST /api/equipe-25/csh/labor-cost (Mão de Obra) Deve retornar erro 400 para parâmetros inválidos" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 POST /api/equipe-25/csh/labor-cost (Mão de Obra) Deve retornar erro 400 para parâmetros inválidos" time="0.005">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 POST /api/equipe-25/csh/operating-cost (Custos Operacionais) Deve calcular custos operacionais com sucesso" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 POST /api/equipe-25/csh/operating-cost (Custos Operacionais) Deve calcular custos operacionais com sucesso" time="0.01">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 POST /api/equipe-25/csh/final-price (Precificação Final) Deve calcular preço final e impostos com sucesso" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 POST /api/equipe-25/csh/final-price (Precificação Final) Deve calcular preço final e impostos com sucesso" time="0.007">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 POST /api/equipe-25/calcular (Agregador Consolidado) Deve calcular o relatório consolidado completo de CSH" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 POST /api/equipe-25/calcular (Agregador Consolidado) Deve calcular o relatório consolidado completo de CSH" time="0.005">
+    </testcase>
+    <testcase classname="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 POST /api/equipe-25/calcular (Agregador Consolidado) Deve manter retrocompatibilidade com cálculo de área (altura/largura)" name="CUSTO DE SERVIÇOS EM HORAS (CSH) - TESTES DE INTEGRAÇÃO API EQUIPE 25 POST /api/equipe-25/calcular (Agregador Consolidado) Deve manter retrocompatibilidade com cálculo de área (altura/largura)" time="0.009">
+    </testcase>
+  </testsuite>
+  <testsuite name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia)" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:52" time="1.542" tests="7">
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve aprovar o aluno com 100% de frequência (zero faltas)" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve aprovar o aluno com 100% de frequência (zero faltas)" time="0.15">
+    </testcase>
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve aprovar o aluno com exatamente o limite de 75% de frequência" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve aprovar o aluno com exatamente o limite de 75% de frequência" time="0.005">
+    </testcase>
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve reprovar o aluno abaixo de 75% de frequência" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve reprovar o aluno abaixo de 75% de frequência" time="0.012">
+    </testcase>
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se faltarem parâmetros obrigatórios" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se faltarem parâmetros obrigatórios" time="0.003">
+    </testcase>
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se o número de aulas previstas for menor ou igual a zero" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se o número de aulas previstas for menor ou igual a zero" time="0.005">
+    </testcase>
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se as faltas forem negativas" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se as faltas forem negativas" time="0.003">
+    </testcase>
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se as faltas forem superiores às aulas previstas" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se as faltas forem superiores às aulas previstas" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="Testes de API - Equipe 18 - Cálculo de Impostos" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:53" time="0.118" tests="6">
+    <testcase classname="Testes de API - Equipe 18 - Cálculo de Impostos GET /equipe-18/health - Deve retornar status ok" name="Testes de API - Equipe 18 - Cálculo de Impostos GET /equipe-18/health - Deve retornar status ok" time="0.005">
+    </testcase>
+    <testcase classname="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/icms - Deve calcular o ICMS corretamente" name="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/icms - Deve calcular o ICMS corretamente" time="0.006">
+    </testcase>
+    <testcase classname="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/ipi - Deve calcular o IPI corretamente para NCM suportado" name="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/ipi - Deve calcular o IPI corretamente para NCM suportado" time="0.003">
+    </testcase>
+    <testcase classname="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/pis-cofins - Deve calcular PIS/COFINS" name="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/pis-cofins - Deve calcular PIS/COFINS" time="0.003">
+    </testcase>
+    <testcase classname="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/nf-completa - Deve consolidar todos os calculos de impostos" name="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/nf-completa - Deve consolidar todos os calculos de impostos" time="0.005">
+    </testcase>
+    <testcase classname="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/icms - Deve falhar se productValue for menor/igual a zero" name="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/icms - Deve falhar se productValue for menor/igual a zero" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="taxService" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:53" time="0.064" tests="7">
+    <testcase classname="taxService calcula imposto progressivo por faixa" name="taxService calcula imposto progressivo por faixa" time="0.002">
     </testcase>
     <testcase classname="taxService calcula INSS do empregado domestico com teto" name="taxService calcula INSS do empregado domestico com teto" time="0.002">
     </testcase>
@@ -13,451 +511,201 @@
     </testcase>
     <testcase classname="calculation services calcula rescisao com ferias vencidas e aviso previo" name="calculation services calcula rescisao com ferias vencidas e aviso previo" time="0.001">
     </testcase>
-    <testcase classname="calculation services nao paga aviso previo indenizado em pedido de demissao" name="calculation services nao paga aviso previo indenizado em pedido de demissao" time="0.002">
+    <testcase classname="calculation services nao paga aviso previo indenizado em pedido de demissao" name="calculation services nao paga aviso previo indenizado em pedido de demissao" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="ETEC API routes" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:28" time="4.798" tests="7">
-    <testcase classname="ETEC API routes GET /health retorna status ok" name="ETEC API routes GET /health retorna status ok" time="0.161">
+  <testsuite name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media)" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:53" time="0.127" tests="6">
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve calcular corretamente a média e aprovação para notas numéricas válidas" name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve calcular corretamente a média e aprovação para notas numéricas válidas" time="0.008">
     </testcase>
-    <testcase classname="ETEC API routes GET /ETEC retorna metadados da equipe" name="ETEC API routes GET /ETEC retorna metadados da equipe" time="0.017">
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve calcular corretamente a média e aprovação para menções da ETEC (MB, B, R, I)" name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve calcular corretamente a média e aprovação para menções da ETEC (MB, B, R, I)" time="0.003">
     </testcase>
-    <testcase classname="ETEC API routes GET /ETEC/tabelas retorna constantes oficiais usadas" name="ETEC API routes GET /ETEC/tabelas retorna constantes oficiais usadas" time="0.026">
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve deduzir o tipo de nota automaticamente caso o tipo não seja enviado" name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve deduzir o tipo de nota automaticamente caso o tipo não seja enviado" time="0.004">
     </testcase>
-    <testcase classname="ETEC API routes POST /ETEC/salario calcula folha mensal" name="ETEC API routes POST /ETEC/salario calcula folha mensal" time="0.065">
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve retornar erro 400 se o array de notas estiver vazio" name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve retornar erro 400 se o array de notas estiver vazio" time="0.003">
     </testcase>
-    <testcase classname="ETEC API routes POST /ETEC/ferias calcula ferias de 30 dias" name="ETEC API routes POST /ETEC/ferias calcula ferias de 30 dias" time="0.045">
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve retornar erro 400 se houver nota numérica fora do intervalo de 0 a 10" name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve retornar erro 400 se houver nota numérica fora do intervalo de 0 a 10" time="0.004">
     </testcase>
-    <testcase classname="ETEC API routes POST /ETEC/rescisao calcula rescisao sem justa causa" name="ETEC API routes POST /ETEC/rescisao calcula rescisao sem justa causa" time="0.013">
-    </testcase>
-    <testcase classname="ETEC API routes POST /ETEC/salario rejeita payload invalido" name="ETEC API routes POST /ETEC/salario rejeita payload invalido" time="0.009">
+    <testcase classname="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve retornar erro 400 se houver menção inválida no array" name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve retornar erro 400 se houver menção inválida no array" time="0.005">
     </testcase>
   </testsuite>
-  <testsuite name="GET /api/equipe-9/health" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:28" time="4.755" tests="13">
-    <testcase classname="GET /api/equipe-9/health deve retornar status ok" name="GET /api/equipe-9/health deve retornar status ok" time="0.123">
+  <testsuite name="rotas MKP do Grupo 13" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:53" time="0.132" tests="8">
+    <testcase classname="rotas MKP do Grupo 13 retorna mensagem de status da API" name="rotas MKP do Grupo 13 retorna mensagem de status da API" time="0.006">
     </testcase>
-    <testcase classname="GET /api/equipe-9/tabelas deve retornar a tabela de alíquotas padrão" name="GET /api/equipe-9/tabelas deve retornar a tabela de alíquotas padrão" time="0.109">
+    <testcase classname="rotas MKP do Grupo 13 calcula preco de venda via markup" name="rotas MKP do Grupo 13 calcula preco de venda via markup" time="0.013">
     </testcase>
-    <testcase classname="API - POST /api/equipe-9/calcular deve calcular NF corretamente" name="API - POST /api/equipe-9/calcular deve calcular NF corretamente" time="0.115">
+    <testcase classname="rotas MKP do Grupo 13 retorna erro se faltar campos no markup" name="rotas MKP do Grupo 13 retorna erro se faltar campos no markup" time="0.006">
     </testcase>
-    <testcase classname="API - POST /api/equipe-9/calcular deve retornar erro com valorProduto inválido" name="API - POST /api/equipe-9/calcular deve retornar erro com valorProduto inválido" time="0.027">
+    <testcase classname="rotas MKP do Grupo 13 retorna erro se despesas + lucro &gt;= 100 no markup" name="rotas MKP do Grupo 13 retorna erro se despesas + lucro &gt;= 100 no markup" time="0.003">
     </testcase>
-    <testcase classname="API - POST /api/equipe-9/calcular deve retornar erro com imposto negativo" name="API - POST /api/equipe-9/calcular deve retornar erro com imposto negativo" time="0.059">
+    <testcase classname="rotas MKP do Grupo 13 calcula lucro real de uma venda" name="rotas MKP do Grupo 13 calcula lucro real de uma venda" time="0.006">
     </testcase>
-    <testcase classname="API - POST /api/equipe-9/calcular deve retornar erro com corpo vazio" name="API - POST /api/equipe-9/calcular deve retornar erro com corpo vazio" time="0.008">
+    <testcase classname="rotas MKP do Grupo 13 retorna erro se preco de venda for menor que custo no lucro" name="rotas MKP do Grupo 13 retorna erro se preco de venda for menor que custo no lucro" time="0.006">
     </testcase>
-    <testcase classname="API - POST /api/equipe-9/calcular-inverso deve retornar o valor original do produto" name="API - POST /api/equipe-9/calcular-inverso deve retornar o valor original do produto" time="0.008">
+    <testcase classname="rotas MKP do Grupo 13 calcula ponto de equilibrio" name="rotas MKP do Grupo 13 calcula ponto de equilibrio" time="0.003">
     </testcase>
-    <testcase classname="API - POST /api/equipe-9/calcular-inverso deve retornar erro com totalNF inválido" name="API - POST /api/equipe-9/calcular-inverso deve retornar erro com totalNF inválido" time="0.014">
-    </testcase>
-    <testcase classname="API - POST /api/equipe-9/comparar deve comparar dois cenários e retornar o mais vantajoso" name="API - POST /api/equipe-9/comparar deve comparar dois cenários e retornar o mais vantajoso" time="0.073">
-    </testcase>
-    <testcase classname="API - POST /api/equipe-9/comparar deve retornar empate quando alíquotas são iguais" name="API - POST /api/equipe-9/comparar deve retornar empate quando alíquotas são iguais" time="0.014">
-    </testcase>
-    <testcase classname="API - POST /api/equipe-9/comparar deve retornar erro com valorProduto inválido" name="API - POST /api/equipe-9/comparar deve retornar erro com valorProduto inválido" time="0.03">
-    </testcase>
-    <testcase classname="API - POST /api/equipe-9/comparar deve retornar erro com alíquota negativa" name="API - POST /api/equipe-9/comparar deve retornar erro com alíquota negativa" time="0.018">
-    </testcase>
-    <testcase classname="API - POST /api/equipe-9/comparar deve retornar erro com corpo vazio" name="API - POST /api/equipe-9/comparar deve retornar erro com corpo vazio" time="0.009">
+    <testcase classname="rotas MKP do Grupo 13 retorna erro se preco de venda for menor que custo por unidade no equilibrio" name="rotas MKP do Grupo 13 retorna erro se preco de venda for menor que custo por unidade no equilibrio" time="0.002">
     </testcase>
   </testsuite>
-  <testsuite name="rotas IRP da Equipe 2" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:30" time="2.483" tests="11">
-    <testcase classname="rotas IRP da Equipe 2 salário isento (abaixo de R$ 2.500) deve retornar imposto 0" name="rotas IRP da Equipe 2 salário isento (abaixo de R$ 2.500) deve retornar imposto 0" time="0.239">
+  <testsuite name="POST /ENRG/consumo" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:53" time="0.266" tests="6">
+    <testcase classname="POST /ENRG/consumo retorna 200 com resultado correto" name="POST /ENRG/consumo retorna 200 com resultado correto" time="0.024">
     </testcase>
-    <testcase classname="rotas IRP da Equipe 2 salário exatamente no limite isento (R$ 2.500) deve retornar imposto 0" name="rotas IRP da Equipe 2 salário exatamente no limite isento (R$ 2.500) deve retornar imposto 0" time="0.023">
+    <testcase classname="POST /ENRG/consumo retorna 400 sem corpo" name="POST /ENRG/consumo retorna 400 sem corpo" time="0.009">
     </testcase>
-    <testcase classname="rotas IRP da Equipe 2 salário na faixa de 7,5% deve calcular corretamente" name="rotas IRP da Equipe 2 salário na faixa de 7,5% deve calcular corretamente" time="0.024">
+    <testcase classname="POST /ENRG/conta retorna 200 com valor da conta" name="POST /ENRG/conta retorna 200 com valor da conta" time="0.006">
     </testcase>
-    <testcase classname="rotas IRP da Equipe 2 salário R$ 6.000 deve calcular imposto R$ 337,50" name="rotas IRP da Equipe 2 salário R$ 6.000 deve calcular imposto R$ 337,50" time="0.123">
+    <testcase classname="POST /ENRG/conta retorna 400 sem tarifa" name="POST /ENRG/conta retorna 400 sem tarifa" time="0.007">
     </testcase>
-    <testcase classname="rotas IRP da Equipe 2 salário acima de R$ 5.000 deve aplicar as três faixas corretamente" name="rotas IRP da Equipe 2 salário acima de R$ 5.000 deve aplicar as três faixas corretamente" time="0.069">
+    <testcase classname="POST /ENRG/simular retorna 200 com comparação" name="POST /ENRG/simular retorna 200 com comparação" time="0.005">
     </testcase>
-    <testcase classname="rotas IRP da Equipe 2 salário zero deve retornar imposto 0 e líquido 0" name="rotas IRP da Equipe 2 salário zero deve retornar imposto 0 e líquido 0" time="0.053">
-    </testcase>
-    <testcase classname="rotas IRP da Equipe 2 resposta deve conter o campo detalhamento" name="rotas IRP da Equipe 2 resposta deve conter o campo detalhamento" time="0.051">
-    </testcase>
-    <testcase classname="rotas IRP da Equipe 2 salário ausente deve retornar erro 400" name="rotas IRP da Equipe 2 salário ausente deve retornar erro 400" time="0.023">
-    </testcase>
-    <testcase classname="rotas IRP da Equipe 2 salário como string deve retornar erro 400" name="rotas IRP da Equipe 2 salário como string deve retornar erro 400" time="0.042">
-    </testcase>
-    <testcase classname="rotas IRP da Equipe 2 salário como null deve retornar erro 400" name="rotas IRP da Equipe 2 salário como null deve retornar erro 400" time="0.015">
-    </testcase>
-    <testcase classname="rotas IRP da Equipe 2 salário negativo deve retornar erro 400" name="rotas IRP da Equipe 2 salário negativo deve retornar erro 400" time="0.011">
+    <testcase classname="POST /ENRG/simular retorna 400 sem cenários" name="POST /ENRG/simular retorna 400 sem cenários" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia)" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:28" time="4.763" tests="7">
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve aprovar o aluno com 100% de frequência (zero faltas)" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve aprovar o aluno com 100% de frequência (zero faltas)" time="0.335">
+  <testsuite name="ETEC API routes" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:53" time="0.225" tests="7">
+    <testcase classname="ETEC API routes GET /health retorna status ok" name="ETEC API routes GET /health retorna status ok" time="0.015">
     </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve aprovar o aluno com exatamente o limite de 75% de frequência" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve aprovar o aluno com exatamente o limite de 75% de frequência" time="0.09">
+    <testcase classname="ETEC API routes GET /ETEC retorna metadados da equipe" name="ETEC API routes GET /ETEC retorna metadados da equipe" time="0.006">
     </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve reprovar o aluno abaixo de 75% de frequência" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve reprovar o aluno abaixo de 75% de frequência" time="0.009">
+    <testcase classname="ETEC API routes GET /ETEC/tabelas retorna constantes oficiais usadas" name="ETEC API routes GET /ETEC/tabelas retorna constantes oficiais usadas" time="0.008">
     </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se faltarem parâmetros obrigatórios" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se faltarem parâmetros obrigatórios" time="0.057">
+    <testcase classname="ETEC API routes POST /ETEC/salario calcula folha mensal" name="ETEC API routes POST /ETEC/salario calcula folha mensal" time="0.016">
     </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se o número de aulas previstas for menor ou igual a zero" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se o número de aulas previstas for menor ou igual a zero" time="0.009">
+    <testcase classname="ETEC API routes POST /ETEC/ferias calcula ferias de 30 dias" name="ETEC API routes POST /ETEC/ferias calcula ferias de 30 dias" time="0.008">
     </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se as faltas forem negativas" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se as faltas forem negativas" time="0.013">
+    <testcase classname="ETEC API routes POST /ETEC/rescisao calcula rescisao sem justa causa" name="ETEC API routes POST /ETEC/rescisao calcula rescisao sem justa causa" time="0.004">
     </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se as faltas forem superiores às aulas previstas" name="Testes de Integração - Endpoint de Cálculo de Frequência ETEC64 (/api/etec64/frequencia) Deve retornar erro 400 se as faltas forem superiores às aulas previstas" time="0.008">
-    </testcase>
-  </testsuite>
-  <testsuite name="decodificarChaveNF" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:28" time="4.909" tests="22">
-    <testcase classname="decodificarChaveNF decodifica estado SP" name="decodificarChaveNF decodifica estado SP" time="0.013">
-    </testcase>
-    <testcase classname="decodificarChaveNF decodifica estado RJ" name="decodificarChaveNF decodifica estado RJ" time="0.001">
-    </testcase>
-    <testcase classname="decodificarChaveNF formata CNPJ corretamente" name="decodificarChaveNF formata CNPJ corretamente" time="0.032">
-    </testcase>
-    <testcase classname="decodificarChaveNF lança erro para chave com menos de 44 dígitos" name="decodificarChaveNF lança erro para chave com menos de 44 dígitos" time="0.068">
-    </testcase>
-    <testcase classname="decodificarChaveNF lança erro para chave com mais de 44 dígitos" name="decodificarChaveNF lança erro para chave com mais de 44 dígitos" time="0.005">
-    </testcase>
-    <testcase classname="decodificarChaveNF ignora caracteres não numéricos" name="decodificarChaveNF ignora caracteres não numéricos" time="0.001">
-    </testcase>
-    <testcase classname="calcularImpostosNFVenda calcula ICMS, IPI, PIS e COFINS no Lucro Real" name="calcularImpostosNFVenda calcula ICMS, IPI, PIS e COFINS no Lucro Real" time="0.001">
-    </testcase>
-    <testcase classname="calcularImpostosNFVenda calcula carga tributária" name="calcularImpostosNFVenda calcula carga tributária" time="0">
-    </testcase>
-    <testcase classname="calcularImpostosNFVenda Lucro Presumido usa alíquotas corretas" name="calcularImpostosNFVenda Lucro Presumido usa alíquotas corretas" time="0.001">
-    </testcase>
-    <testcase classname="calcularImpostosNFVenda Simples Nacional zera PIS e COFINS" name="calcularImpostosNFVenda Simples Nacional zera PIS e COFINS" time="0.005">
-    </testcase>
-    <testcase classname="calcularImpostosNFVenda aceita ICMS personalizado" name="calcularImpostosNFVenda aceita ICMS personalizado" time="0.002">
-    </testcase>
-    <testcase classname="calcularImpostosNFVenda lança erro para valor do produto zero" name="calcularImpostosNFVenda lança erro para valor do produto zero" time="0.001">
-    </testcase>
-    <testcase classname="calcularImpostosNFVenda lança erro para IPI negativo" name="calcularImpostosNFVenda lança erro para IPI negativo" time="0.005">
-    </testcase>
-    <testcase classname="calcularImpostosNFVenda lança erro sem chave" name="calcularImpostosNFVenda lança erro sem chave" time="0.001">
-    </testcase>
-    <testcase classname="POST /nfvenda/decodificar decodifica chave válida" name="POST /nfvenda/decodificar decodifica chave válida" time="0.33">
-    </testcase>
-    <testcase classname="POST /nfvenda/decodificar retorna erro para chave inválida" name="POST /nfvenda/decodificar retorna erro para chave inválida" time="0.049">
-    </testcase>
-    <testcase classname="POST /nfvenda/decodificar retorna erro sem chave" name="POST /nfvenda/decodificar retorna erro sem chave" time="0.02">
-    </testcase>
-    <testcase classname="POST /nfvenda/calcular calcula impostos corretamente" name="POST /nfvenda/calcular calcula impostos corretamente" time="0.02">
-    </testcase>
-    <testcase classname="POST /nfvenda/calcular calcula com Simples Nacional" name="POST /nfvenda/calcular calcula com Simples Nacional" time="0.029">
-    </testcase>
-    <testcase classname="POST /nfvenda/calcular retorna erro para valor inválido" name="POST /nfvenda/calcular retorna erro para valor inválido" time="0.014">
-    </testcase>
-    <testcase classname="POST /nfvenda/calcular retorna erro para chave inválida" name="POST /nfvenda/calcular retorna erro para chave inválida" time="0.011">
-    </testcase>
-    <testcase classname="GET /nfvenda/tabelas retorna tabelas de impostos" name="GET /nfvenda/tabelas retorna tabelas de impostos" time="0.029">
+    <testcase classname="ETEC API routes POST /ETEC/salario rejeita payload invalido" name="ETEC API routes POST /ETEC/salario rejeita payload invalido" time="0.003">
     </testcase>
   </testsuite>
-  <testsuite name="Testes de API - Equipe 18 - Cálculo de Impostos" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:28" time="5.089" tests="6">
-    <testcase classname="Testes de API - Equipe 18 - Cálculo de Impostos GET /equipe-18/health - Deve retornar status ok" name="Testes de API - Equipe 18 - Cálculo de Impostos GET /equipe-18/health - Deve retornar status ok" time="0.115">
+  <testsuite name="Testes Unitários do Sistema de Piscina - Grupo 7" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:53" time="0.269" tests="5">
+    <testcase classname="Testes Unitários do Sistema de Piscina - Grupo 7 Deve calcular o volume corretamente (Ex: 2m x 4m x 2m = 16m³)" name="Testes Unitários do Sistema de Piscina - Grupo 7 Deve calcular o volume corretamente (Ex: 2m x 4m x 2m = 16m³)" time="0.01">
     </testcase>
-    <testcase classname="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/icms - Deve calcular o ICMS corretamente" name="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/icms - Deve calcular o ICMS corretamente" time="0.124">
+    <testcase classname="Testes Unitários do Sistema de Piscina - Grupo 7 Deve retornar NaN ou lidar com erro se faltarem parâmetros no cálculo de volume" name="Testes Unitários do Sistema de Piscina - Grupo 7 Deve retornar NaN ou lidar com erro se faltarem parâmetros no cálculo de volume" time="0.003">
     </testcase>
-    <testcase classname="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/ipi - Deve calcular o IPI corretamente para NCM suportado" name="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/ipi - Deve calcular o IPI corretamente para NCM suportado" time="0.022">
+    <testcase classname="Testes Unitários do Sistema de Piscina - Grupo 7 Deve somar corretamente os custos de materiais elétricos e hidráulicos" name="Testes Unitários do Sistema de Piscina - Grupo 7 Deve somar corretamente os custos de materiais elétricos e hidráulicos" time="0.004">
     </testcase>
-    <testcase classname="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/pis-cofins - Deve calcular PIS/COFINS" name="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/pis-cofins - Deve calcular PIS/COFINS" time="0.012">
+    <testcase classname="Testes Unitários do Sistema de Piscina - Grupo 7 Deve conseguir somar corretamente mesmo se os valores vierem como string do frontend" name="Testes Unitários do Sistema de Piscina - Grupo 7 Deve conseguir somar corretamente mesmo se os valores vierem como string do frontend" time="0.002">
     </testcase>
-    <testcase classname="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/nf-completa - Deve consolidar todos os calculos de impostos" name="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/nf-completa - Deve consolidar todos os calculos de impostos" time="0.022">
-    </testcase>
-    <testcase classname="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/icms - Deve falhar se productValue for menor/igual a zero" name="Testes de API - Equipe 18 - Cálculo de Impostos POST /equipe-18/impostos/icms - Deve falhar se productValue for menor/igual a zero" time="0.013">
+    <testcase classname="Testes Unitários do Sistema de Piscina - Grupo 7 Deve calcular custo de água e manutenção baseado no volume" name="Testes Unitários do Sistema de Piscina - Grupo 7 Deve calcular custo de água e manutenção baseado no volume" time="0.004">
     </testcase>
   </testsuite>
-  <testsuite name="GET /equipe-15/health" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:28" time="5.234" tests="17">
-    <testcase classname="GET /equipe-15/health deve retornar status ok" name="GET /equipe-15/health deve retornar status ok" time="0.254">
+  <testsuite name="Testes da API - Calculadora de Sauna" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:53" time="0.211" tests="6">
+    <testcase classname="Testes da API - Calculadora de Sauna Deve calcular os materiais da sauna úmida corretamente" name="Testes da API - Calculadora de Sauna Deve calcular os materiais da sauna úmida corretamente" time="0.023">
     </testcase>
-    <testcase classname="POST /equipe-15/frete/calcular retorna frete correto para tipo normal" name="POST /equipe-15/frete/calcular retorna frete correto para tipo normal" time="0.098">
+    <testcase classname="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros no POST de materiais" name="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros no POST de materiais" time="0.007">
     </testcase>
-    <testcase classname="POST /equipe-15/frete/calcular aplica multiplicador expresso corretamente" name="POST /equipe-15/frete/calcular aplica multiplicador expresso corretamente" time="0.028">
+    <testcase classname="Testes da API - Calculadora de Sauna Deve calcular os equipamentos da sauna seca corretamente para volume médio" name="Testes da API - Calculadora de Sauna Deve calcular os equipamentos da sauna seca corretamente para volume médio" time="0.004">
     </testcase>
-    <testcase classname="POST /equipe-15/frete/calcular aplica multiplicador economico corretamente" name="POST /equipe-15/frete/calcular aplica multiplicador economico corretamente" time="0.078">
+    <testcase classname="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros em equipamentos" name="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros em equipamentos" time="0.008">
     </testcase>
-    <testcase classname="POST /equipe-15/frete/calcular retorna 400 para peso ausente" name="POST /equipe-15/frete/calcular retorna 400 para peso ausente" time="0.055">
+    <testcase classname="Testes da API - Calculadora de Sauna Deve calcular os custos de manutenção mensal corretamente" name="Testes da API - Calculadora de Sauna Deve calcular os custos de manutenção mensal corretamente" time="0.008">
     </testcase>
-    <testcase classname="POST /equipe-15/frete/calcular retorna 400 para tipo inválido" name="POST /equipe-15/frete/calcular retorna 400 para tipo inválido" time="0.01">
-    </testcase>
-    <testcase classname="POST /equipe-15/frete/calcular retorna 400 para peso negativo" name="POST /equipe-15/frete/calcular retorna 400 para peso negativo" time="0.008">
-    </testcase>
-    <testcase classname="POST /equipe-15/frete/distancia retorna distância correta entre São Paulo e Rio de Janeiro" name="POST /equipe-15/frete/distancia retorna distância correta entre São Paulo e Rio de Janeiro" time="0.012">
-    </testcase>
-    <testcase classname="POST /equipe-15/frete/distancia funciona nos dois sentidos (RJ → SP)" name="POST /equipe-15/frete/distancia funciona nos dois sentidos (RJ → SP)" time="0.054">
-    </testcase>
-    <testcase classname="POST /equipe-15/frete/distancia retorna 400 para origem ausente" name="POST /equipe-15/frete/distancia retorna 400 para origem ausente" time="0.016">
-    </testcase>
-    <testcase classname="POST /equipe-15/frete/distancia retorna 400 para rota não cadastrada" name="POST /equipe-15/frete/distancia retorna 400 para rota não cadastrada" time="0.015">
-    </testcase>
-    <testcase classname="POST /equipe-15/frete/distancia retorna 400 para origem igual ao destino" name="POST /equipe-15/frete/distancia retorna 400 para origem igual ao destino" time="0.008">
-    </testcase>
-    <testcase classname="GET /equipe-15/frete/distancia/cidades retorna lista de cidades disponíveis" name="GET /equipe-15/frete/distancia/cidades retorna lista de cidades disponíveis" time="0.025">
-    </testcase>
-    <testcase classname="POST /equipe-15/frete/prazo retorna prazo correto para tipo normal e 100km" name="POST /equipe-15/frete/prazo retorna prazo correto para tipo normal e 100km" time="0.242">
-    </testcase>
-    <testcase classname="POST /equipe-15/frete/prazo retorna prazo correto para tipo expresso" name="POST /equipe-15/frete/prazo retorna prazo correto para tipo expresso" time="0.009">
-    </testcase>
-    <testcase classname="POST /equipe-15/frete/prazo retorna 400 para tipo inválido" name="POST /equipe-15/frete/prazo retorna 400 para tipo inválido" time="0.007">
-    </testcase>
-    <testcase classname="POST /equipe-15/frete/prazo retorna 400 para distanciaKm ausente" name="POST /equipe-15/frete/prazo retorna 400 para distanciaKm ausente" time="0.025">
+    <testcase classname="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros em manutenção" name="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros em manutenção" time="0.006">
     </testcase>
   </testsuite>
-  <testsuite name="rotas PBL do Grupo 14" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:33" time="0.415" tests="3">
-    <testcase classname="rotas PBL do Grupo 14 responde health check" name="rotas PBL do Grupo 14 responde health check" time="0.009">
+  <testsuite name="Equipe 21 - BURGCALC API" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:54" time="0.145" tests="5">
+    <testcase classname="Equipe 21 - BURGCALC API GET /api/equipe-21/health deve retornar status ok" name="Equipe 21 - BURGCALC API GET /api/equipe-21/health deve retornar status ok" time="0.007">
     </testcase>
-    <testcase classname="rotas PBL do Grupo 14 calcula preco liquido" name="rotas PBL do Grupo 14 calcula preco liquido" time="0.021">
+    <testcase classname="Equipe 21 - BURGCALC API GET /api/equipe-21/tabelas deve retornar metadados do calculo" name="Equipe 21 - BURGCALC API GET /api/equipe-21/tabelas deve retornar metadados do calculo" time="0.003">
     </testcase>
-    <testcase classname="rotas PBL do Grupo 14 retorna erro para percentual invalido" name="rotas PBL do Grupo 14 retorna erro para percentual invalido" time="0.009">
+    <testcase classname="Equipe 21 - BURGCALC API POST /api/equipe-21/calcular deve retornar dados calculados com payload correto" name="Equipe 21 - BURGCALC API POST /api/equipe-21/calcular deve retornar dados calculados com payload correto" time="0.007">
     </testcase>
-  </testsuite>
-  <testsuite name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media)" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:32" time="0.558" tests="6">
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve calcular corretamente a média e aprovação para notas numéricas válidas" name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve calcular corretamente a média e aprovação para notas numéricas válidas" time="0.033">
+    <testcase classname="Equipe 21 - BURGCALC API POST /api/equipe-21/calcular deve retornar erro com quantidade invalida" name="Equipe 21 - BURGCALC API POST /api/equipe-21/calcular deve retornar erro com quantidade invalida" time="0.005">
     </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve calcular corretamente a média e aprovação para menções da ETEC (MB, B, R, I)" name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve calcular corretamente a média e aprovação para menções da ETEC (MB, B, R, I)" time="0.018">
-    </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve deduzir o tipo de nota automaticamente caso o tipo não seja enviado" name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve deduzir o tipo de nota automaticamente caso o tipo não seja enviado" time="0.024">
-    </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve retornar erro 400 se o array de notas estiver vazio" name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve retornar erro 400 se o array de notas estiver vazio" time="0.026">
-    </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve retornar erro 400 se houver nota numérica fora do intervalo de 0 a 10" name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve retornar erro 400 se houver nota numérica fora do intervalo de 0 a 10" time="0.024">
-    </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve retornar erro 400 se houver menção inválida no array" name="Testes de Integração - Endpoint de Cálculo de Médias ETEC64 (/api/etec64/media) Deve retornar erro 400 se houver menção inválida no array" time="0.017">
+    <testcase classname="Equipe 21 - BURGCALC API POST /api/equipe-21/calcular deve retornar erro com campo nao numerico" name="Equipe 21 - BURGCALC API POST /api/equipe-21/calcular deve retornar erro com campo nao numerico" time="0.01">
     </testcase>
   </testsuite>
-  <testsuite name="Equipe 21 - BURGCALC API" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:32" time="0.547" tests="5">
-    <testcase classname="Equipe 21 - BURGCALC API GET /api/equipe-21/health deve retornar status ok" name="Equipe 21 - BURGCALC API GET /api/equipe-21/health deve retornar status ok" time="0.066">
-    </testcase>
-    <testcase classname="Equipe 21 - BURGCALC API GET /api/equipe-21/tabelas deve retornar metadados do calculo" name="Equipe 21 - BURGCALC API GET /api/equipe-21/tabelas deve retornar metadados do calculo" time="0.014">
-    </testcase>
-    <testcase classname="Equipe 21 - BURGCALC API POST /api/equipe-21/calcular deve retornar dados calculados com payload correto" name="Equipe 21 - BURGCALC API POST /api/equipe-21/calcular deve retornar dados calculados com payload correto" time="0.032">
-    </testcase>
-    <testcase classname="Equipe 21 - BURGCALC API POST /api/equipe-21/calcular deve retornar erro com quantidade invalida" name="Equipe 21 - BURGCALC API POST /api/equipe-21/calcular deve retornar erro com quantidade invalida" time="0.008">
-    </testcase>
-    <testcase classname="Equipe 21 - BURGCALC API POST /api/equipe-21/calcular deve retornar erro com campo nao numerico" name="Equipe 21 - BURGCALC API POST /api/equipe-21/calcular deve retornar erro com campo nao numerico" time="0.005">
-    </testcase>
-  </testsuite>
-  <testsuite name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao)" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:32" time="0.622" tests="6">
-    <testcase classname="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve aprovar o aluno no final do período com notas e presenças suficientes" name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve aprovar o aluno no final do período com notas e presenças suficientes" time="0.047">
-    </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve colocar o aluno em Recuperação no final do período se a média for &lt; 6.0 mas a presença for &gt;= 75%" name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve colocar o aluno em Recuperação no final do período se a média for &lt; 6.0 mas a presença for &gt;= 75%" time="0.008">
-    </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve reprovar direto por faltas se a presença for &lt; 75% no final do período, mesmo com nota alta" name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve reprovar direto por faltas se a presença for &lt; 75% no final do período, mesmo com nota alta" time="0.008">
-    </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve simular corretamente as notas necessárias no período em andamento" name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve simular corretamente as notas necessárias no período em andamento" time="0.009">
-    </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve retornar erro 400 se faltarem parâmetros obrigatórios" name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve retornar erro 400 se faltarem parâmetros obrigatórios" time="0.015">
-    </testcase>
-    <testcase classname="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve retornar erro 400 se a média ou a menção atual for inválida" name="Testes de Integração - Endpoint de Simulação de Aprovação ETEC64 (/api/etec64/aprovacao) Deve retornar erro 400 se a média ou a menção atual for inválida" time="0.015">
-    </testcase>
-  </testsuite>
-  <testsuite name="Testes Unitários do Sistema de Piscina - Grupo 7" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:33" time="0.413" tests="5">
-    <testcase classname="Testes Unitários do Sistema de Piscina - Grupo 7 Deve calcular o volume corretamente (Ex: 2m x 4m x 2m = 16m³)" name="Testes Unitários do Sistema de Piscina - Grupo 7 Deve calcular o volume corretamente (Ex: 2m x 4m x 2m = 16m³)" time="0.03">
-    </testcase>
-    <testcase classname="Testes Unitários do Sistema de Piscina - Grupo 7 Deve retornar NaN ou lidar com erro se faltarem parâmetros no cálculo de volume" name="Testes Unitários do Sistema de Piscina - Grupo 7 Deve retornar NaN ou lidar com erro se faltarem parâmetros no cálculo de volume" time="0.008">
-    </testcase>
-    <testcase classname="Testes Unitários do Sistema de Piscina - Grupo 7 Deve somar corretamente os custos de materiais elétricos e hidráulicos" name="Testes Unitários do Sistema de Piscina - Grupo 7 Deve somar corretamente os custos de materiais elétricos e hidráulicos" time="0.009">
-    </testcase>
-    <testcase classname="Testes Unitários do Sistema de Piscina - Grupo 7 Deve conseguir somar corretamente mesmo se os valores vierem como string do frontend" name="Testes Unitários do Sistema de Piscina - Grupo 7 Deve conseguir somar corretamente mesmo se os valores vierem como string do frontend" time="0.007">
-    </testcase>
-    <testcase classname="Testes Unitários do Sistema de Piscina - Grupo 7 Deve calcular custo de água e manutenção baseado no volume" name="Testes Unitários do Sistema de Piscina - Grupo 7 Deve calcular custo de água e manutenção baseado no volume" time="0.008">
-    </testcase>
-  </testsuite>
-  <testsuite name="Equipe 12 - API MarkUp" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:32" time="0.841" tests="5">
-    <testcase classname="Equipe 12 - API MarkUp GET /api/equipe-12 retorna status da API" name="Equipe 12 - API MarkUp GET /api/equipe-12 retorna status da API" time="0.056">
-    </testcase>
-    <testcase classname="Equipe 12 - API MarkUp GET /api/equipe-12/tabelas retorna metadados" name="Equipe 12 - API MarkUp GET /api/equipe-12/tabelas retorna metadados" time="0.075">
-    </testcase>
-    <testcase classname="Equipe 12 - API MarkUp POST /api/equipe-12/calcular calcula MarkUp divisor" name="Equipe 12 - API MarkUp POST /api/equipe-12/calcular calcula MarkUp divisor" time="0.043">
-    </testcase>
-    <testcase classname="Equipe 12 - API MarkUp POST /api/equipe-12/calcular retorna erro com payload invalido" name="Equipe 12 - API MarkUp POST /api/equipe-12/calcular retorna erro com payload invalido" time="0.099">
-    </testcase>
-    <testcase classname="Equipe 12 - API MarkUp POST /api/equipe-12/calcular retorna erro com corpo ausente" name="Equipe 12 - API MarkUp POST /api/equipe-12/calcular retorna erro com corpo ausente" time="0.011">
-    </testcase>
-  </testsuite>
-  <testsuite name="Equipe 12 - funcoes de MarkUp" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:33" time="0.246" tests="25">
-    <testcase classname="Equipe 12 - funcoes de MarkUp calcula preco de venda pelo MarkUp aditivo" name="Equipe 12 - funcoes de MarkUp calcula preco de venda pelo MarkUp aditivo" time="0.002">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp calcula MarkUp divisor e preco de venda" name="Equipe 12 - funcoes de MarkUp calcula MarkUp divisor e preco de venda" time="0.01">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp calcula percentual de MarkUp a partir do preco de venda" name="Equipe 12 - funcoes de MarkUp calcula percentual de MarkUp a partir do preco de venda" time="0.005">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp calcula margem de lucro" name="Equipe 12 - funcoes de MarkUp calcula margem de lucro" time="0.002">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp calcula ponto de equilibrio" name="Equipe 12 - funcoes de MarkUp calcula ponto de equilibrio" time="0.001">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para markupDivisor" name="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para markupDivisor" time="0.001">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para precoVenda" name="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para precoVenda" time="0.006">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para markup" name="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para markup" time="0.002">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para margem" name="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para margem" time="0.002">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para pontoEquilibrio" name="Equipe 12 - funcoes de MarkUp usa dispatcher calcular para pontoEquilibrio" time="0.02">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita custo invalido no preco de venda" name="Equipe 12 - funcoes de MarkUp rejeita custo invalido no preco de venda" time="0.036">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita markup negativo no preco de venda" name="Equipe 12 - funcoes de MarkUp rejeita markup negativo no preco de venda" time="0.035">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita custo invalido no MarkUp divisor" name="Equipe 12 - funcoes de MarkUp rejeita custo invalido no MarkUp divisor" time="0.005">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita soma percentual maior ou igual a 100" name="Equipe 12 - funcoes de MarkUp rejeita soma percentual maior ou igual a 100" time="0.003">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita custo invalido no calculo de MarkUp" name="Equipe 12 - funcoes de MarkUp rejeita custo invalido no calculo de MarkUp" time="0.002">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita preco menor ou igual ao custo no calculo de MarkUp" name="Equipe 12 - funcoes de MarkUp rejeita preco menor ou igual ao custo no calculo de MarkUp" time="0.002">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita custo invalido no calculo de margem" name="Equipe 12 - funcoes de MarkUp rejeita custo invalido no calculo de margem" time="0.002">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita preco invalido no calculo de margem" name="Equipe 12 - funcoes de MarkUp rejeita preco invalido no calculo de margem" time="0.001">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita preco menor ou igual ao custo no calculo de margem" name="Equipe 12 - funcoes de MarkUp rejeita preco menor ou igual ao custo no calculo de margem" time="0.001">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita custos fixos negativos no ponto de equilibrio" name="Equipe 12 - funcoes de MarkUp rejeita custos fixos negativos no ponto de equilibrio" time="0.003">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita preco invalido no ponto de equilibrio" name="Equipe 12 - funcoes de MarkUp rejeita preco invalido no ponto de equilibrio" time="0.002">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita custo variavel negativo no ponto de equilibrio" name="Equipe 12 - funcoes de MarkUp rejeita custo variavel negativo no ponto de equilibrio" time="0.001">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita preco menor ou igual ao custo variavel no ponto de equilibrio" name="Equipe 12 - funcoes de MarkUp rejeita preco menor ou igual ao custo variavel no ponto de equilibrio" time="0.001">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita dispatcher sem tipo" name="Equipe 12 - funcoes de MarkUp rejeita dispatcher sem tipo" time="0.003">
-    </testcase>
-    <testcase classname="Equipe 12 - funcoes de MarkUp rejeita tipo de calculo desconhecido" name="Equipe 12 - funcoes de MarkUp rejeita tipo de calculo desconhecido" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="rotas MKP do Grupo 13" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:33" time="0.613" tests="8">
-    <testcase classname="rotas MKP do Grupo 13 retorna mensagem de status da API" name="rotas MKP do Grupo 13 retorna mensagem de status da API" time="0.019">
-    </testcase>
-    <testcase classname="rotas MKP do Grupo 13 calcula preco de venda via markup" name="rotas MKP do Grupo 13 calcula preco de venda via markup" time="0.017">
-    </testcase>
-    <testcase classname="rotas MKP do Grupo 13 retorna erro se faltar campos no markup" name="rotas MKP do Grupo 13 retorna erro se faltar campos no markup" time="0.015">
-    </testcase>
-    <testcase classname="rotas MKP do Grupo 13 retorna erro se despesas + lucro &gt;= 100 no markup" name="rotas MKP do Grupo 13 retorna erro se despesas + lucro &gt;= 100 no markup" time="0.014">
-    </testcase>
-    <testcase classname="rotas MKP do Grupo 13 calcula lucro real de uma venda" name="rotas MKP do Grupo 13 calcula lucro real de uma venda" time="0.01">
-    </testcase>
-    <testcase classname="rotas MKP do Grupo 13 retorna erro se preco de venda for menor que custo no lucro" name="rotas MKP do Grupo 13 retorna erro se preco de venda for menor que custo no lucro" time="0.007">
-    </testcase>
-    <testcase classname="rotas MKP do Grupo 13 calcula ponto de equilibrio" name="rotas MKP do Grupo 13 calcula ponto de equilibrio" time="0.096">
-    </testcase>
-    <testcase classname="rotas MKP do Grupo 13 retorna erro se preco de venda for menor que custo por unidade no equilibrio" name="rotas MKP do Grupo 13 retorna erro se preco de venda for menor que custo por unidade no equilibrio" time="0.083">
-    </testcase>
-  </testsuite>
-  <testsuite name="calcularConsumo" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:33" time="0.285" tests="17">
-    <testcase classname="calcularConsumo calcula kWh corretamente para lista de aparelhos" name="calcularConsumo calcula kWh corretamente para lista de aparelhos" time="0.008">
-    </testcase>
-    <testcase classname="calcularConsumo usa 30 dias por padrão" name="calcularConsumo usa 30 dias por padrão" time="0.001">
-    </testcase>
-    <testcase classname="calcularConsumo aceita número de dias personalizado" name="calcularConsumo aceita número de dias personalizado" time="0">
-    </testcase>
-    <testcase classname="calcularConsumo lança erro para lista vazia" name="calcularConsumo lança erro para lista vazia" time="0.067">
-    </testcase>
-    <testcase classname="calcularConsumo lança erro para aparelho com dados incompletos" name="calcularConsumo lança erro para aparelho com dados incompletos" time="0.007">
-    </testcase>
-    <testcase classname="calcularConsumo lança erro para valores negativos" name="calcularConsumo lança erro para valores negativos" time="0.001">
-    </testcase>
-    <testcase classname="calcularConta calcula corretamente com bandeira verde (sem adicional)" name="calcularConta calcula corretamente com bandeira verde (sem adicional)" time="0">
-    </testcase>
-    <testcase classname="calcularConta aplica adicional de bandeira amarela" name="calcularConta aplica adicional de bandeira amarela" time="0.031">
-    </testcase>
-    <testcase classname="calcularConta aplica adicional de bandeira vermelha1" name="calcularConta aplica adicional de bandeira vermelha1" time="0.001">
-    </testcase>
-    <testcase classname="calcularConta aplica adicional de bandeira vermelha2" name="calcularConta aplica adicional de bandeira vermelha2" time="0.001">
-    </testcase>
-    <testcase classname="calcularConta lança erro para kWh negativo" name="calcularConta lança erro para kWh negativo" time="0.005">
-    </testcase>
-    <testcase classname="calcularConta lança erro para tarifa zero ou negativa" name="calcularConta lança erro para tarifa zero ou negativa" time="0.002">
-    </testcase>
-    <testcase classname="calcularConta lança erro para bandeira inválida" name="calcularConta lança erro para bandeira inválida" time="0.001">
-    </testcase>
-    <testcase classname="simularComparacao retorna cenário mais econômico corretamente" name="simularComparacao retorna cenário mais econômico corretamente" time="0.003">
-    </testcase>
-    <testcase classname="simularComparacao calcula diferença de kWh entre cenários" name="simularComparacao calcula diferença de kWh entre cenários" time="0">
-    </testcase>
-    <testcase classname="simularComparacao calcula economia em reais" name="simularComparacao calcula economia em reais" time="0.018">
-    </testcase>
-    <testcase classname="simularComparacao lança erro se cenários estão vazios" name="simularComparacao lança erro se cenários estão vazios" time="0.017">
-    </testcase>
-  </testsuite>
-  <testsuite name="Unitário - calcularNF" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:33" time="0.198" tests="21">
-    <testcase classname="Unitário - calcularNF deve calcular corretamente com alíquotas padrão" name="Unitário - calcularNF deve calcular corretamente com alíquotas padrão" time="0.002">
-    </testcase>
-    <testcase classname="Unitário - calcularNF deve calcular corretamente com valor diferente" name="Unitário - calcularNF deve calcular corretamente com valor diferente" time="0.002">
-    </testcase>
-    <testcase classname="Unitário - calcularNF deve lançar erro se valorProduto for zero" name="Unitário - calcularNF deve lançar erro se valorProduto for zero" time="0.04">
-    </testcase>
-    <testcase classname="Unitário - calcularNF deve lançar erro se valorProduto for negativo" name="Unitário - calcularNF deve lançar erro se valorProduto for negativo" time="0.001">
-    </testcase>
-    <testcase classname="Unitário - calcularNF deve lançar erro se algum imposto for negativo" name="Unitário - calcularNF deve lançar erro se algum imposto for negativo" time="0.002">
-    </testcase>
-    <testcase classname="Unitário - calcularNF deve funcionar com impostos zerados" name="Unitário - calcularNF deve funcionar com impostos zerados" time="0.002">
-    </testcase>
-    <testcase classname="Unitário - calcularNF TABELA deve ter as alíquotas padrão corretas" name="Unitário - calcularNF TABELA deve ter as alíquotas padrão corretas" time="0.004">
-    </testcase>
-    <testcase classname="Unitário - calcularNFInverso deve calcular o valor original corretamente" name="Unitário - calcularNFInverso deve calcular o valor original corretamente" time="0.003">
-    </testcase>
-    <testcase classname="Unitário - calcularNFInverso deve lançar erro se totalNF for zero" name="Unitário - calcularNFInverso deve lançar erro se totalNF for zero" time="0.007">
-    </testcase>
-    <testcase classname="Unitário - calcularNFInverso deve lançar erro se totalNF for negativo" name="Unitário - calcularNFInverso deve lançar erro se totalNF for negativo" time="0.003">
-    </testcase>
-    <testcase classname="Unitário - calcularNFInverso deve lançar erro se imposto for negativo" name="Unitário - calcularNFInverso deve lançar erro se imposto for negativo" time="0.002">
-    </testcase>
-    <testcase classname="Unitário - calcularNFInverso deve funcionar com impostos zerados" name="Unitário - calcularNFInverso deve funcionar com impostos zerados" time="0.001">
-    </testcase>
-    <testcase classname="Unitário - compararAliquotas deve identificar cenário B como mais vantajoso quando tem menor carga tributária" name="Unitário - compararAliquotas deve identificar cenário B como mais vantajoso quando tem menor carga tributária" time="0.001">
-    </testcase>
-    <testcase classname="Unitário - compararAliquotas deve identificar cenário A como mais vantajoso quando tem menor carga tributária" name="Unitário - compararAliquotas deve identificar cenário A como mais vantajoso quando tem menor carga tributária" time="0">
-    </testcase>
-    <testcase classname="Unitário - compararAliquotas deve retornar empate quando cenários têm mesmas alíquotas" name="Unitário - compararAliquotas deve retornar empate quando cenários têm mesmas alíquotas" time="0.014">
-    </testcase>
-    <testcase classname="Unitário - compararAliquotas deve retornar diferencaPercentual correta" name="Unitário - compararAliquotas deve retornar diferencaPercentual correta" time="0">
-    </testcase>
-    <testcase classname="Unitário - compararAliquotas deve lançar erro se valorProduto for zero" name="Unitário - compararAliquotas deve lançar erro se valorProduto for zero" time="0.001">
-    </testcase>
-    <testcase classname="Unitário - compararAliquotas deve lançar erro se valorProduto for negativo" name="Unitário - compararAliquotas deve lançar erro se valorProduto for negativo" time="0.013">
-    </testcase>
-    <testcase classname="Unitário - compararAliquotas deve lançar erro se alguma alíquota do cenário A for negativa" name="Unitário - compararAliquotas deve lançar erro se alguma alíquota do cenário A for negativa" time="0.002">
-    </testcase>
-    <testcase classname="Unitário - compararAliquotas deve lançar erro se alguma alíquota do cenário B for negativa" name="Unitário - compararAliquotas deve lançar erro se alguma alíquota do cenário B for negativa" time="0.004">
-    </testcase>
-    <testcase classname="Unitário - compararAliquotas deve funcionar com cenários sem alíquotas (tudo zero)" name="Unitário - compararAliquotas deve funcionar com cenários sem alíquotas (tudo zero)" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="Equipe 21 - BURGCALC funcoes" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:33" time="0.149" tests="6">
-    <testcase classname="Equipe 21 - BURGCALC funcoes deve expor os campos obrigatorios do calculo" name="Equipe 21 - BURGCALC funcoes deve expor os campos obrigatorios do calculo" time="0.004">
+  <testsuite name="Equipe 21 - BURGCALC funcoes" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:54" time="0.089" tests="6">
+    <testcase classname="Equipe 21 - BURGCALC funcoes deve expor os campos obrigatorios do calculo" name="Equipe 21 - BURGCALC funcoes deve expor os campos obrigatorios do calculo" time="0.005">
     </testcase>
     <testcase classname="Equipe 21 - BURGCALC funcoes deve calcular custo total, custo unitario, preco sugerido e lucro por unidade" name="Equipe 21 - BURGCALC funcoes deve calcular custo total, custo unitario, preco sugerido e lucro por unidade" time="0.001">
     </testcase>
-    <testcase classname="Equipe 21 - BURGCALC funcoes deve rejeitar quantidade igual ou menor que zero" name="Equipe 21 - BURGCALC funcoes deve rejeitar quantidade igual ou menor que zero" time="0.036">
+    <testcase classname="Equipe 21 - BURGCALC funcoes deve rejeitar quantidade igual ou menor que zero" name="Equipe 21 - BURGCALC funcoes deve rejeitar quantidade igual ou menor que zero" time="0.012">
     </testcase>
-    <testcase classname="Equipe 21 - BURGCALC funcoes deve rejeitar entradas invalidas" name="Equipe 21 - BURGCALC funcoes deve rejeitar entradas invalidas" time="0.004">
+    <testcase classname="Equipe 21 - BURGCALC funcoes deve rejeitar entradas invalidas" name="Equipe 21 - BURGCALC funcoes deve rejeitar entradas invalidas" time="0">
     </testcase>
-    <testcase classname="Equipe 21 - BURGCALC funcoes deve rejeitar custos negativos" name="Equipe 21 - BURGCALC funcoes deve rejeitar custos negativos" time="0.002">
+    <testcase classname="Equipe 21 - BURGCALC funcoes deve rejeitar custos negativos" name="Equipe 21 - BURGCALC funcoes deve rejeitar custos negativos" time="0.004">
     </testcase>
     <testcase classname="Equipe 21 - BURGCALC funcoes deve rejeitar margem de lucro negativa" name="Equipe 21 - BURGCALC funcoes deve rejeitar margem de lucro negativa" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="POST /ENRG/consumo" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:33" time="0.416" tests="6">
-    <testcase classname="POST /ENRG/consumo retorna 200 com resultado correto" name="POST /ENRG/consumo retorna 200 com resultado correto" time="0.047">
+  <testsuite name="Teste unitário - calcularParcela" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:54" time="0.055" tests="8">
+    <testcase classname="Teste unitário - calcularParcela deve calcular parcela corretamente" name="Teste unitário - calcularParcela deve calcular parcela corretamente" time="0.001">
     </testcase>
-    <testcase classname="POST /ENRG/consumo retorna 400 sem corpo" name="POST /ENRG/consumo retorna 400 sem corpo" time="0.018">
+    <testcase classname="Teste unitário - calcularParcela deve lançar erro se valor do veículo for inválido" name="Teste unitário - calcularParcela deve lançar erro se valor do veículo for inválido" time="0.015">
     </testcase>
-    <testcase classname="POST /ENRG/conta retorna 200 com valor da conta" name="POST /ENRG/conta retorna 200 com valor da conta" time="0.012">
+    <testcase classname="Teste unitário - calcularParcela deve lançar erro se entrada for maior que valor do veículo" name="Teste unitário - calcularParcela deve lançar erro se entrada for maior que valor do veículo" time="0.002">
     </testcase>
-    <testcase classname="POST /ENRG/conta retorna 400 sem tarifa" name="POST /ENRG/conta retorna 400 sem tarifa" time="0.009">
+    <testcase classname="Teste unitário - calcularParcela deve lançar erro se taxa for negativa" name="Teste unitário - calcularParcela deve lançar erro se taxa for negativa" time="0.002">
     </testcase>
-    <testcase classname="POST /ENRG/simular retorna 200 com comparação" name="POST /ENRG/simular retorna 200 com comparação" time="0.01">
+    <testcase classname="Teste unitário - calcularParcela deve lançar erro se parcelas for inválido" name="Teste unitário - calcularParcela deve lançar erro se parcelas for inválido" time="0.001">
     </testcase>
-    <testcase classname="POST /ENRG/simular retorna 400 sem cenários" name="POST /ENRG/simular retorna 400 sem cenários" time="0.011">
+    <testcase classname="Teste unitário - calcularCapacidade deve calcular capacidade corretamente" name="Teste unitário - calcularCapacidade deve calcular capacidade corretamente" time="0">
+    </testcase>
+    <testcase classname="Teste unitário - calcularCapacidade deve lançar erro se renda for inválida" name="Teste unitário - calcularCapacidade deve lançar erro se renda for inválida" time="0.001">
+    </testcase>
+    <testcase classname="Teste unitário - calcularCapacidade deve lançar erro se entrada for 100%" name="Teste unitário - calcularCapacidade deve lançar erro se entrada for 100%" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="Testes da API - Calculadora de Sauna" errors="0" failures="0" skipped="0" timestamp="2026-05-28T01:58:33" time="0.638" tests="6">
-    <testcase classname="Testes da API - Calculadora de Sauna Deve calcular os materiais da sauna úmida corretamente" name="Testes da API - Calculadora de Sauna Deve calcular os materiais da sauna úmida corretamente" time="0.037">
+  <testsuite name="Equipe 12 - API MarkUp" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:54" time="0.203" tests="5">
+    <testcase classname="Equipe 12 - API MarkUp GET /api/equipe-12 retorna status da API" name="Equipe 12 - API MarkUp GET /api/equipe-12 retorna status da API" time="0.005">
     </testcase>
-    <testcase classname="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros no POST de materiais" name="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros no POST de materiais" time="0.008">
+    <testcase classname="Equipe 12 - API MarkUp GET /api/equipe-12/tabelas retorna metadados" name="Equipe 12 - API MarkUp GET /api/equipe-12/tabelas retorna metadados" time="0.005">
     </testcase>
-    <testcase classname="Testes da API - Calculadora de Sauna Deve calcular os equipamentos da sauna seca corretamente para volume médio" name="Testes da API - Calculadora de Sauna Deve calcular os equipamentos da sauna seca corretamente para volume médio" time="0.01">
+    <testcase classname="Equipe 12 - API MarkUp POST /api/equipe-12/calcular calcula MarkUp divisor" name="Equipe 12 - API MarkUp POST /api/equipe-12/calcular calcula MarkUp divisor" time="0.006">
     </testcase>
-    <testcase classname="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros em equipamentos" name="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros em equipamentos" time="0.009">
+    <testcase classname="Equipe 12 - API MarkUp POST /api/equipe-12/calcular retorna erro com payload invalido" name="Equipe 12 - API MarkUp POST /api/equipe-12/calcular retorna erro com payload invalido" time="0.004">
     </testcase>
-    <testcase classname="Testes da API - Calculadora de Sauna Deve calcular os custos de manutenção mensal corretamente" name="Testes da API - Calculadora de Sauna Deve calcular os custos de manutenção mensal corretamente" time="0.006">
+    <testcase classname="Equipe 12 - API MarkUp POST /api/equipe-12/calcular retorna erro com corpo ausente" name="Equipe 12 - API MarkUp POST /api/equipe-12/calcular retorna erro com corpo ausente" time="0.002">
     </testcase>
-    <testcase classname="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros em manutenção" name="Testes da API - Calculadora de Sauna Deve retornar erro 400 se faltarem parâmetros em manutenção" time="0.004">
+  </testsuite>
+  <testsuite name="FinanceService - Lógica Matemática" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:54" time="0.05" tests="4">
+    <testcase classname="FinanceService - Lógica Matemática Juros Simples: deve calcular corretamente" name="FinanceService - Lógica Matemática Juros Simples: deve calcular corretamente" time="0.006">
+    </testcase>
+    <testcase classname="FinanceService - Lógica Matemática Juros Simples: deve lançar erro com capital zero" name="FinanceService - Lógica Matemática Juros Simples: deve lançar erro com capital zero" time="0.008">
+    </testcase>
+    <testcase classname="FinanceService - Lógica Matemática Juros Compostos: deve calcular corretamente" name="FinanceService - Lógica Matemática Juros Compostos: deve calcular corretamente" time="0.001">
+    </testcase>
+    <testcase classname="FinanceService - Lógica Matemática Investimento: deve calcular aporte" name="FinanceService - Lógica Matemática Investimento: deve calcular aporte" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Testes da API - SaunaCalc Elite" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:54" time="0.114" tests="5">
+    <testcase classname="Testes da API - SaunaCalc Elite GET /health deve retornar status ok" name="Testes da API - SaunaCalc Elite GET /health deve retornar status ok" time="0.003">
+    </testcase>
+    <testcase classname="Testes da API - SaunaCalc Elite POST /api/calcular deve calcular sauna seca corretamente" name="Testes da API - SaunaCalc Elite POST /api/calcular deve calcular sauna seca corretamente" time="0.007">
+    </testcase>
+    <testcase classname="Testes da API - SaunaCalc Elite POST /api/calcular deve retornar erro para tipo invalido" name="Testes da API - SaunaCalc Elite POST /api/calcular deve retornar erro para tipo invalido" time="0.004">
+    </testcase>
+    <testcase classname="Testes da API - SaunaCalc Elite POST /api/calcularKit deve retornar custo do kit" name="Testes da API - SaunaCalc Elite POST /api/calcularKit deve retornar custo do kit" time="0.003">
+    </testcase>
+    <testcase classname="Testes da API - SaunaCalc Elite POST /api/calcularInstalacao vapor inclui hidraulica" name="Testes da API - SaunaCalc Elite POST /api/calcularInstalacao vapor inclui hidraulica" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="Teste de Saude -&gt; GET /health" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:54" time="0.183" tests="5">
+    <testcase classname="Teste de Saude -&gt; GET /health deve retornar status ok" name="Teste de Saude -&gt; GET /health deve retornar status ok" time="0.026">
+    </testcase>
+    <testcase classname="POST /api/parcela deve retornar parcela para dados válidos" name="POST /api/parcela deve retornar parcela para dados válidos" time="0.009">
+    </testcase>
+    <testcase classname="POST /api/parcela deve retornar erro 400 para dados inválidos" name="POST /api/parcela deve retornar erro 400 para dados inválidos" time="0.005">
+    </testcase>
+    <testcase classname="POST /api/capacidade deve retornar capacidade para dados válidos" name="POST /api/capacidade deve retornar capacidade para dados válidos" time="0.003">
+    </testcase>
+    <testcase classname="POST /api/capacidade deve retornar erro 400 para renda inválida" name="POST /api/capacidade deve retornar erro 400 para renda inválida" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="API de Finanças - Endpoints (Validação)" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:54" time="0.143" tests="3">
+    <testcase classname="API de Finanças - Endpoints (Validação) POST /api/calc-financeira/juros-simples (Sucesso) deve retornar status 200 e resultado correto" name="API de Finanças - Endpoints (Validação) POST /api/calc-financeira/juros-simples (Sucesso) deve retornar status 200 e resultado correto" time="0.006">
+    </testcase>
+    <testcase classname="API de Finanças - Endpoints (Validação) POST /api/calc-financeira/juros-simples (Erros) deve retornar 400 se faltar campo capital" name="API de Finanças - Endpoints (Validação) POST /api/calc-financeira/juros-simples (Erros) deve retornar 400 se faltar campo capital" time="0.003">
+    </testcase>
+    <testcase classname="API de Finanças - Endpoints (Validação) POST /api/calc-financeira/juros-simples (Erros) deve retornar 400 para capital zero ou negativo" name="API de Finanças - Endpoints (Validação) POST /api/calc-financeira/juros-simples (Erros) deve retornar 400 para capital zero ou negativo" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="rotas PBL do Grupo 14" errors="0" failures="0" skipped="0" timestamp="2026-05-28T12:42:54" time="0.111" tests="3">
+    <testcase classname="rotas PBL do Grupo 14 responde health check" name="rotas PBL do Grupo 14 responde health check" time="0.01">
+    </testcase>
+    <testcase classname="rotas PBL do Grupo 14 calcula preco liquido" name="rotas PBL do Grupo 14 calcula preco liquido" time="0.005">
+    </testcase>
+    <testcase classname="rotas PBL do Grupo 14 retorna erro para percentual invalido" name="rotas PBL do Grupo 14 retorna erro para percentual invalido" time="0.002">
     </testcase>
   </testsuite>
 </testsuites>
