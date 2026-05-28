@@ -270,7 +270,7 @@ grupo16.get('/help', requireAuth, (req, res) => {
 grupo16.post('/calcular', requireAuth, async (req, res) => {
   try {
     const fetch = (await import('node-fetch')).default;
-    const response = await fetch(`${API_URL}/api/calcular`, {
+    const response = await fetch(`${API_URL}/api/equipe-16/calcular`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req.body),
