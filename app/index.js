@@ -326,7 +326,7 @@ app.post('/equipe-10/calcular', requireEquipe10Auth, async (req, res) => {
   try {
     const endpointAPI = tipo === 'simples' ? '/juros-simples' : '/juros-compostos';
 
-    const urlDaSuaApi = `http://localhost:3001/api/calc-financeira${endpointAPI}`;
+    const urlDaSuaApi = `${API_URL}/api/calc-financeira${endpointAPI}`;
 
     const respostaApi = await fetch(urlDaSuaApi, {
       method: 'POST',
