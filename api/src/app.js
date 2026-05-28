@@ -22,6 +22,7 @@ const volumeRoutes = require('./equipe-7/volume');
 const materiaisRoutes = require('./equipe-7/materiais');
 const custosRoutes = require('./equipe-7/custos');
 const etec64Routes = require('./etec64/routes/etecRoutes.js');
+const etecRoutes = require('./etec/routes/etecRoutes.js');
 
 // checa se api está no a
 app.get('/health', (req, res) => {
@@ -348,6 +349,7 @@ app.post('/autonomia/comparar-combustivel', (req, res) => {
 });
 
 app.use('/api/etec64', etec64Routes);
+app.use('/ETEC', etecRoutes);
 
 const piscinaRouter08 = require('./equipe-08/routes/piscina');
 app.use('/api/equipe-08/piscina', piscinaRouter08);

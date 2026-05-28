@@ -155,7 +155,7 @@ const equipes = [
   { numero: 1, nome: 'TESTE', rota: '/login' },
   { numero: 2, nome: 'Equipe-2', rota: '/equipe-2' },
   { numero: 3, nome: 'Equipe-3', rota: '/equipe-3' },
-  { numero: 4, nome: 'Equipe-4', rota: '/equipe-4' },
+  { numero: 4, nome: 'ETEC - Domestica', rota: '/etec' },
   { numero: 5, nome: 'Equipe-5', rota: '/equipe-5' },
   { numero: 6, nome: 'Equipe-6', rota: '/sauna6' },
   { numero: 7, nome: 'G7 - Calculadora de Custo de Piscinas', rota: '/equipe-7' },
@@ -619,9 +619,23 @@ app.get(/^\/equipe-23(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo23DistPath, 'index.html'));
 });
 
+// ETEC - Encargos de empregada domestica
+const ETEC_PATH = '/etec';
+const etecDistPath = path.join(__dirname, 'views', 'etec', 'dist');
+
+app.use(ETEC_PATH, express.static(etecDistPath));
+
+app.post(`${ETEC_PATH}/api/salario`, (req, res) => proxyAPI('/ETEC/salario', req, res));
+app.post(`${ETEC_PATH}/api/ferias`, (req, res) => proxyAPI('/ETEC/ferias', req, res));
+app.post(`${ETEC_PATH}/api/rescisao`, (req, res) => proxyAPI('/ETEC/rescisao', req, res));
+
+app.get(/^\/etec(?:\/.*)?$/, (_req, res) => {
+  res.sendFile(path.join(etecDistPath, 'index.html'));
+});
+
 // Rotas genéricas das demais equipes (grupos 2, 5, 6, 13, 14, 16, 17, 18 e 21 têm rotas próprias acima)
 for (let i = 2; i <= 25; i++) {
-  if (i === 2 || i === 5 || i === 6 || i === 7 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
+  if (i === 2 || i === 4 || i === 5 || i === 6 || i === 7 || i === 13 || i === 14 || i === 15 || i === 16 || i === 17 || i === 18 || i === 20 || i === 21 || i === 23) continue;
   app.get(`/equipe-${i}`, (req, res) => {
     res.render('equipe', { numero: i, nome: `Equipe-${i}` });
   });
