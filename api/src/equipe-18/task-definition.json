@@ -1,0 +1,68 @@
+{
+  "taskDefinitionArn": "arn:aws:ecs:us-east-1:770385967300:task-definition/impostos-nf-backend-td:1",
+  "containerDefinitions": [
+    {
+      "name": "api",
+      "image": "770385967300.dkr.ecr.us-east-1.amazonaws.com/impostos-nf-backend:latest",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 3333,
+          "hostPort": 3333,
+          "protocol": "tcp",
+          "name": "api-3333-tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "PORT",
+          "value": "3333"
+        },
+        {
+          "name": "NODE_ENV",
+          "value": "production"
+        }
+      ],
+      "environmentFiles": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "ulimits": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/impostos-nf-backend-td",
+          "awslogs-create-group": "true",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        },
+        "secretOptions": []
+      },
+      "systemControls": []
+    }
+  ],
+  "family": "impostos-nf-backend-td",
+  "executionRoleArn": "arn:aws:iam::770385967300:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "revision": 1,
+  "volumes": [],
+  "status": "ACTIVE",
+  "placementConstraints": [],
+  "compatibilities": [
+    "EC2",
+    "FARGATE",
+    "MANAGED_INSTANCES"
+  ],
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "1024",
+  "memory": "2048",
+  "enableFaultInjection": false,
+  "tags": []
+}

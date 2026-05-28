@@ -1,145 +1,85 @@
-# Calculadora de MarkUp
+# Calculadora de Energia Elétrica
 
-Sistema para cálculo de MarkUp e definição do preço de venda de um produto.
+Sistema Full Stack para gerenciamento e simulação de consumo de energia elétrica.
 
 **Equipe:**
-
-* Gabriel Branco de Medeiros
+- Enzo Garofalo Pampana — RA: 24008914
+- Pedro Ximenes Costa — RA: 24000763
+- Yuri Cardoso Balieiro — RA: 24011525
 
 ---
 
 ## Tecnologias
 
-| Camada        | Tecnologia                                  |
-| ------------- | ------------------------------------------- |
-| Runtime       | Node.js                                     |
-| Linguagem     | JavaScript                                  |
-| Backend/API   | Express.js                                  |
-| Interface Web | Node.js + Express + EJS                     |
-| Testes        | Jest + Supertest                            |
-| CI/CD         | GitHub Actions do repositório da disciplina |
-| Deploy        | Render disponibilizado pelo professor       |
+| Camada | Tecnologia |
+|---|---|
+| Runtime | Node.js v20.x |
+| Linguagem | JavaScript (CommonJS no backend, ESM no frontend) |
+| Backend | Express.js |
+| Frontend | React 19 + Vite 6 |
+| Testes | Jest + Supertest |
+| CI/CD | GitHub Actions |
 
 ---
 
 ## Como executar
 
-### API
-
+### Backend (API)
 ```bash
-cd api
+cd backend
 npm install
-npm start
+npm run dev
 ```
+A API sobe em `http://localhost:3001`
 
-A API sobe em:
-
-```text
-http://localhost:3001
-```
-
-Health check:
-
-```text
-http://localhost:3001/health
-```
-
-### App Web
-
+### Frontend
 ```bash
-cd app
-npm install
-npm start
+cd frontend
+npm install --legacy-peer-deps
+npm run dev
 ```
-
-O app sobe em:
-
-```text
-http://localhost:3000
-```
-
-Página do Grupo 24:
-
-```text
-http://localhost:3000/equipe-24
-```
+O app sobe em `http://localhost:5173`
 
 ### Testes
-
 ```bash
-cd api
-npm install
+cd backend
 npm test
 ```
 
 ---
 
-## Endpoints da API
+## Endpoints da API (`/ENRG`)
 
-| Método | Rota                   | Descrição                                                             |
-| ------ | ---------------------- | --------------------------------------------------------------------- |
-| `GET`  | `/health`              | Verifica se a API está no ar                                          |
-| `GET`  | `/api/tabelas`         | Retorna constantes/tabelas do projeto base                            |
-| `POST` | `/api/calcular`        | Endpoint original do projeto base                                     |
-| `POST` | `/api/markup/calcular` | Calcula o MarkUp, preço de venda, valor das despesas e valor do lucro |
-
----
-
-## Rotas do Aplicativo
-
-| Método | Rota                  | Descrição                                               |
-| ------ | --------------------- | ------------------------------------------------------- |
-| `GET`  | `/`                   | Página inicial com listagem das equipes                 |
-| `GET`  | `/equipe-24`          | Página da Calculadora de MarkUp do Grupo 24             |
-| `POST` | `/equipe-24/calcular` | Rota intermediária do app para consumir a API de MarkUp |
+| Método | Rota | Descrição |
+|---|---|---|
+| `GET` | `/` | Health check da API |
+| `POST` | `/ENRG/consumo` | Calcula consumo mensal em kWh por aparelho |
+| `POST` | `/ENRG/conta` | Calcula o valor da conta com bandeira tarifária |
+| `POST` | `/ENRG/simular` | Compara dois cenários e aponta o mais econômico |
 
 ---
 
 ## Telas do Aplicativo
 
-* **Splash Screen** — tela inicial da Calculadora de MarkUp
-* **Login** — autenticação com usuário e senha fixos
-* **Calculadora de MarkUp** — tela principal para informar custo, despesas e lucro desejado
-* **Sobre** — informações do projeto e foto
-* **Help** — instruções de uso da calculadora
-
----
-
-## Dados de Teste
-
-| Campo            | Valor |
-| ---------------- | ----- |
-| Custo do produto | 50    |
-| Despesas         | 20%   |
-| Lucro desejado   | 30%   |
-
-Resultado esperado:
-
-| Resultado          | Valor     |
-| ------------------ | --------- |
-| Índice de MarkUp   | 2         |
-| Preço de venda     | R$ 100,00 |
-| Valor das despesas | R$ 20,00  |
-| Valor do lucro     | R$ 30,00  |
+- **Splash Screen** — tela inicial com carregamento automático
+- **Login** — autenticação com usuário e senha fixos (`admin` / `1234`)
+- **Consumo** — cálculo de kWh por aparelhos cadastrados
+- **Conta** — estimativa do valor da fatura com bandeiras tarifárias
+- **Simulação** — comparação entre dois cenários de consumo
+- **Sobre** — informações e foto da equipe
+- **Ajuda** — tutorial de uso e perguntas frequentes
 
 ---
 
 ## Cobertura de Testes
 
-Foram implementados testes unitários para a função `calcularMarkup` e testes de integração para o endpoint da API.
+| Arquivo | % Statements | % Branch | % Lines |
+|---|---|---|---|
+| `energyService.js` | 100% | 94.44% | 100% |
+| `energyController.js` | 90.9% | 100% | 90.9% |
+| **Total** | **95.38%** | **96.29%** | **95.16%** |
 
-| Arquivo                     | Descrição                        |
-| --------------------------- | -------------------------------- |
-| `api/src/funcoes.js`        | Contém a função `calcularMarkup` |
-| `api/tests/funcoes.test.js` | Testes unitários da função       |
-| `api/tests/api.test.js`     | Testes dos endpoints da API      |
-
-Resultado local dos testes:
-
-```text
-Test Suites: 2 passed
-Tests: 8 passed
-```
+ 23 testes — 100% de aprovação (2 suites: unitários + integração)
 
 ---
 
@@ -147,60 +87,42 @@ Tests: 8 passed
 
 ### Fase 1 — Setup e Estrutura Inicial
 
-| Feature                                    | Responsável | Data       |
-| ------------------------------------------ | ----------- | ---------- |
-| Definição do tema: Cálculo de MarkUp       | Gabriel     | 21/05/2026 |
-| Configuração do ambiente Node.js           | Gabriel     | 21/05/2026 |
-| Criação da branch `grupo24/markup`         | Gabriel     | 26/05/2026 |
-| Integração com o repositório da disciplina | Gabriel     | 26/05/2026 |
+| Feature | Responsável | Data |
+|---|---|---|
+| Criação do repositório Git | Equipe | 24/04/2026 |
+| Setup do backend (Node.js + JavaScript + Express) | Enzo | 25/04/2026 |
+| Setup do frontend (React 19 + Vite + JavaScript) | Yuri | 26/04/2026 |
+| Configuração do `.gitignore` | Pedro | 26/04/2026 |
+| Configuração de CI/CD (GitHub Actions) | Pedro | 28/04/2026 |
 
-### Fase 2 — Desenvolvimento da API
+### Fase 2 — Desenvolvimento das APIs
 
-| Feature                                                       | Responsável | Data       |
-| ------------------------------------------------------------- | ----------- | ---------- |
-| Criação da função `calcularMarkup`                            | Gabriel     | 21/05/2026 |
-| Endpoint `POST /api/markup/calcular`                          | Gabriel     | 21/05/2026 |
-| Validação de dados inválidos                                  | Gabriel     | 21/05/2026 |
-| Retorno do índice de MarkUp, preço de venda, despesas e lucro | Gabriel     | 21/05/2026 |
-| Testes unitários da função                                    | Gabriel     | 21/05/2026 |
-| Testes de integração do endpoint                              | Gabriel     | 21/05/2026 |
+| Feature | Responsável | Data |
+|---|---|---|
+| Endpoint `POST /ENRG/consumo` (cálculo de kWh) | Enzo | 29/04/2026 |
+| Endpoint `POST /ENRG/conta` (bandeiras tarifárias) | Pedro | 01/05/2026 |
+| Endpoint `POST /ENRG/simular` (comparação de cenários) | Yuri | 01/05/2026 |
+| Testes unitários do `energyService.js` | Enzo | 03/05/2026 |
+| Testes de integração das rotas | Pedro | 05/05/2026 |
 
-### Fase 3 — Desenvolvimento do App Web
+### Fase 3 — Desenvolvimento do Frontend
 
-| Feature                                       | Responsável | Data       |
-| --------------------------------------------- | ----------- | ---------- |
-| Criação da rota `/equipe-24`                  | Gabriel     | 26/05/2026 |
-| Rota intermediária `POST /equipe-24/calcular` | Gabriel     | 26/05/2026 |
-| Splash Screen                                 | Gabriel     | 26/05/2026 |
-| Tela de Login com usuário e senha fixos       | Gabriel     | 26/05/2026 |
-| Tela principal da calculadora                 | Gabriel     | 26/05/2026 |
-| Tela Sobre com foto                           | Gabriel     | 26/05/2026 |
-| Tela Help                                     | Gabriel     | 26/05/2026 |
-| Integração da tela com a API                  | Gabriel     | 26/05/2026 |
+| Feature | Responsável | Data |
+|---|---|---|
+| Splash Screen e Tela de Login | Pedro | 05/05/2026 |
+| Tela Home com navegação por abas | Yuri | 07/05/2026 |
+| Aba de Consumo (kWh) | Enzo | 09/05/2026 |
+| Aba de Conta (fatura) | Pedro | 11/05/2026 |
+| Aba de Simulação (cenários) | Yuri | 11/05/2026 |
+| Tela de Sobre com foto da equipe | Enzo | 10/05/2026 |
+| Tela de Help/Tutorial | Yuri | 13/05/2026 |
+| Correções e melhorias no backend | Equipe | 16/05/2026 |
 
-### Fase 4 — Documentação e Entrega Final
+### Fase 4 — Entrega Final
 
-| Entregável                          | Responsável | Data       |
-| ----------------------------------- | ----------- | ---------- |
-| Documento de testes unitários       | Gabriel     | 27/05/2026 |
-| Documento de testes funcionais      | Gabriel     | 27/05/2026 |
-| Relatório de atividade              | Gabriel     | 27/05/2026 |
-| Cronograma de implantação           | Gabriel     | 27/05/2026 |
-| Validação local do app e da API     | Gabriel     | 27/05/2026 |
-| Validação no Render do professor    | Gabriel     | 28/05/2026 |
-| Apresentação para professor e turma | Gabriel     | 28/05/2026 |
-
----
-
-## Status Geral
-
-| Item                    | Status                                      |
-| ----------------------- | ------------------------------------------- |
-| API Node.js             | ✅ Concluída                                 |
-| App Web                 | ✅ Concluído                                 |
-| Testes unitários        | ✅ Concluídos                                |
-| Testes de endpoint      | ✅ Concluídos                                |
-| Documentação            | ✅ Em preparação                             |
-| Branch `grupo24/markup` | ✅ Criada e enviada                          |
-| Render                  | 🔲 Aguardando validação/deploy do professor |
-| Canvas                  | 🔲 Pendente                                 |
+| Entregável | Responsável | Data |
+|---|---|---|
+| App React funcional | Equipe | 17/05/2026 |
+| APIs Node.js funcionais | Equipe | 17/05/2026 |
+| Testes unitários (23 testes, 100%) | Equipe | 18/05/2026 |
+| Relatório de Atividade (inclui testes funcionais) | Equipe | 18/05/2026 |

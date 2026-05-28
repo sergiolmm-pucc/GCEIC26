@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de NF</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; color: #333; }
+    nav {
+      background: #1a237e; color: white; padding: 14px 28px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 600; }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    nav a { color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.85; }
+    nav a:hover { opacity: 1; }
+    .nav-user { font-size: 0.85rem; opacity: 0.7; }
+
+    .container { max-width: 700px; margin: 36px auto; padding: 0 20px; }
+    h2 { font-size: 1.6rem; color: #1a237e; margin-bottom: 6px; }
+    .subtitle { color: #666; font-size: 0.9rem; margin-bottom: 28px; }
+
+    .card {
+      background: white; border-radius: 12px; padding: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 20px;
+    }
+    .card h3 { font-size: 1rem; color: #1a237e; margin-bottom: 18px; }
+
+    .field { margin-bottom: 16px; }
+    label { display: block; font-size: 0.85rem; font-weight: 600; color: #555; margin-bottom: 6px; }
+    input[type=number] {
+      width: 100%; padding: 10px 14px; border: 1.5px solid #dde;
+      border-radius: 8px; font-size: 0.95rem; transition: border 0.2s;
+    }
+    input[type=number]:focus { outline: none; border-color: #1a237e; }
+
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .btn-padrao {
+      background: #e8eaf6; color: #1a237e; border: none; border-radius: 8px;
+      padding: 9px 16px; font-size: 0.85rem; font-weight: 600; cursor: pointer;
+      margin-bottom: 20px; transition: background 0.2s;
+    }
+    .btn-padrao:hover { background: #c5cae9; }
+
+    .btn-calcular {
+      width: 100%; padding: 13px; background: #1a237e; color: white;
+      border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn-calcular:hover { background: #283593; }
+    .btn-calcular:disabled { background: #9fa8da; cursor: not-allowed; }
+
+    .resultado { display: none; }
+    .resultado.visivel { display: block; }
+
+    .resultado-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .resultado-item {
+      background: #f5f7ff; border-radius: 10px; padding: 16px;
+      border: 1px solid #e8eaf6; text-align: center;
+    }
+    .resultado-item .label { font-size: 0.78rem; color: #888; margin-bottom: 4px; }
+    .resultado-item .valor { font-size: 1.15rem; font-weight: 700; color: #1a237e; }
+
+    .total-box {
+      background: #1a237e; color: white; border-radius: 10px;
+      padding: 20px; text-align: center;
+    }
+    .total-box .label { font-size: 0.85rem; opacity: 0.8; margin-bottom: 4px; }
+    .total-box .valor { font-size: 2rem; font-weight: 700; }
+
+    .erro-box {
+      background: #fef2f2; border: 1px solid #fca5a5; color: #b91c1c;
+      border-radius: 8px; padding: 12px 16px; font-size: 0.88rem;
+      display: none; margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span>Cálculo de NF</span>
+  <div style="display:flex;gap:20px">
+    <a href="/equipe-9/inverso">Cálculo Inverso</a>
+    <a href="/equipe-9/comparar">Comparar Alíquotas</a>
+    <a href="/equipe-9/sobre">Sobre</a>
+    <a href="/equipe-9/help">Ajuda</a>
+    <a href="/equipe-9/logout">Sair</a>
+  </div>
+</nav>
+
+<div class="container">
+  <h2>Calculadora de Nota Fiscal</h2>
+  <p class="subtitle">Informe o valor do produto e as alíquotas para calcular os impostos.</p>
+
+  <div class="card">
+    <h3>Dados da Nota</h3>
+
+    <button class="btn-padrao" onclick="usarPadrao()">Usar alíquotas padrão</button>
+
+    <div class="field">
+      <label for="valorProduto">Valor do Produto (R$)</label>
+      <input type="number" id="valorProduto" placeholder="Ex: 1000.00" min="0.01" step="0.01">
+    </div>
+
+    <div class="grid2">
+      <div class="field">
+        <label for="icms">ICMS (%)</label>
+        <input type="number" id="icms" placeholder="18" min="0" step="0.01">
+      </div>
+      <div class="field">
+        <label for="ipi">IPI (%)</label>
+        <input type="number" id="ipi" placeholder="5" min="0" step="0.01">
+      </div>
+      <div class="field">
+        <label for="pis">PIS (%)</label>
+        <input type="number" id="pis" placeholder="1.65" min="0" step="0.01">
+      </div>
+      <div class="field">
+        <label for="cofins">COFINS (%)</label>
+        <input type="number" id="cofins" placeholder="7.6" min="0" step="0.01">
+      </div>
+    </div>
+
+    <button class="btn-calcular" id="btnCalcular" onclick="calcular()">Calcular NF</button>
+    <div class="erro-box" id="erroBox"></div>
+  </div>
+
+  <div class="card resultado" id="resultado">
+    <h3>Resultado:</h3>
+    <div class="resultado-grid">
+      <div class="resultado-item">
+        <div class="label">ICMS</div>
+        <div class="valor" id="valorICMS">-</div>
+      </div>
+      <div class="resultado-item">
+        <div class="label">IPI</div>
+        <div class="valor" id="valorIPI">-</div>
+      </div>
+      <div class="resultado-item">
+        <div class="label">PIS</div>
+        <div class="valor" id="valorPIS">-</div>
+      </div>
+      <div class="resultado-item">
+        <div class="label">COFINS</div>
+        <div class="valor" id="valorCOFINS">-</div>
+      </div>
+    </div>
+    <div class="total-box">
+      <div class="label">TOTAL DA NOTA FISCAL</div>
+      <div class="valor" id="totalNF">-</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function getApiBase() {
+  if (window.location.hostname.includes('onrender.com')) {
+    return 'https://gceic26.onrender.com/api/equipe-9';
+  }
+  return 'http://localhost:3001/api/equipe-9';
+}
+
+function fmt(v) {
+  return 'R$ ' + v.toFixed(2).replace('.', ',');
+}
+
+function usarPadrao() {
+  document.getElementById('icms').value   = '18';
+  document.getElementById('ipi').value    = '5';
+  document.getElementById('pis').value    = '1.65';
+  document.getElementById('cofins').value = '7.6';
+}
+
+async function calcular() {
+  const btn   = document.getElementById('btnCalcular');
+  const erro  = document.getElementById('erroBox');
+  const res   = document.getElementById('resultado');
+
+  erro.style.display = 'none';
+  res.classList.remove('visivel');
+
+  const valorProduto = parseFloat(document.getElementById('valorProduto').value);
+  const icms   = parseFloat(document.getElementById('icms').value);
+  const ipi    = parseFloat(document.getElementById('ipi').value);
+  const pis    = parseFloat(document.getElementById('pis').value);
+  const cofins = parseFloat(document.getElementById('cofins').value);
+
+  if (!valorProduto || isNaN(valorProduto)) {
+    erro.textContent = '⚠️ Informe um valor de produto válido.';
+    erro.style.display = 'block';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Calculando...';
+
+  try {
+    const response = await fetch(`${getApiBase()}/calcular`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ valorProduto, icms: icms||0, ipi: ipi||0, pis: pis||0, cofins: cofins||0 }),
+    });
+
+    const json = await response.json();
+
+    if (!json.success) {
+      erro.textContent = '⚠️ ' + json.error;
+      erro.style.display = 'block';
+      return;
+    }
+
+    const d = json.data;
+    document.getElementById('valorICMS').textContent   = fmt(d.valorICMS);
+    document.getElementById('valorIPI').textContent    = fmt(d.valorIPI);
+    document.getElementById('valorPIS').textContent    = fmt(d.valorPIS);
+    document.getElementById('valorCOFINS').textContent = fmt(d.valorCOFINS);
+    document.getElementById('totalNF').textContent     = fmt(d.total);
+
+    res.classList.add('visivel');
+
+  } catch (e) {
+    erro.textContent = '⚠️ Erro ao comunicar com o servidor: ' + e.message;
+    erro.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Calcular NF';
+  }
+}
+</script>
+
+</body>
+</html>

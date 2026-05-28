@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConstruSauna - Ajuda</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 2rem; 
+            background-color: #fff;
+            color: #333;
+        }
+        .help-container {
+            max-width: 600px; 
+            margin: 0 auto;
+        }
+        nav { 
+            margin-bottom: 2rem; 
+        }
+        nav a { 
+            text-decoration: none; 
+            color: #007bff; 
+        }
+        nav a:hover { 
+            text-decoration: underline; 
+        }
+        p.intro {
+            color: #555; 
+            margin-bottom: 2rem;
+        }
+        ul { 
+            line-height: 1.8; 
+            background-color: #f9f9f9; 
+            padding: 1.5rem 2.5rem; 
+            border-radius: 8px;
+            list-style-type: square;
+        }
+        li { 
+            margin-bottom: 1rem; 
+        }
+        li:last-child {
+            margin-bottom: 0;
+        }
+        .nota-tecnica { 
+            margin-top: 2rem; 
+            padding: 1rem; 
+            border-left: 4px solid #ffc107; 
+            background-color: #fffbe6; 
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="help-container">
+        <nav>
+            <a href="/sauna6/calculadora">&larr; Voltar para Calculadora</a>
+        </nav>
+        
+        <h2>Ajuda e Instruções de Uso</h2>
+        <p class="intro">
+            Veja abaixo como utilizar a Calculadora de Custos de Sauna:
+        </p>
+
+        <ul>
+            <li>
+                <strong>Tipo de Sauna:</strong> Selecione se a sauna será Úmida (a vapor) ou Seca (finlandesa). O sistema usa essa informação para decidir entre revestimento de pastilha ou madeira, além do tipo de aquecedor.
+            </li>
+            <li>
+                <strong>Dimensões:</strong> Insira a largura, comprimento e altura do cômodo em metros. O sistema calculará a área total de revestimento e o volume interno automaticamente.
+            </li>
+            <li>
+                <strong>Cálculo Final:</strong> Ao clicar em "Calcular Custos", o aplicativo fará o processamento dos dados e listará os custos estimados com materiais, gerador de calor e a manutenção mensal (energia elétrica).
+            </li>
+        </ul>
+
+        <div class="nota-tecnica">
+            <strong>Nota Técnica:</strong> Se os resultados não aparecerem, verifique se as APIs Node.js estão ativas no servidor e se a sua conexão de rede está estável.
+        </div>
+    </div>
+
+</body>
+</html>

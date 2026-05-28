@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre — NF Calc</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:     #0f172a; --surface:#1e293b; --surface2:#263348;
+      --border: #334155; --accent:#10b981; --accent2:#059669;
+      --text:   #f1f5f9; --muted:#94a3b8;
+    }
+    body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; min-height:100vh; display:flex; flex-direction:column; }
+    nav { background:var(--surface); border-bottom:1px solid var(--border); padding:0 1.75rem; height:56px; display:flex; align-items:center; justify-content:space-between; }
+    .nav-logo { font-size:1.05rem; font-weight:800; color:var(--text); text-decoration:none; }
+    .nav-logo span { color:var(--accent); }
+    .nav-links { display:flex; align-items:center; gap:0.15rem; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:0.83rem; padding:0.4rem 0.75rem; border-radius:6px; transition:color .15s,background .15s; }
+    .nav-links a:hover { color:var(--text); background:rgba(255,255,255,.05); }
+    .nav-links a.active { color:var(--accent); background:rgba(16,185,129,.08); }
+    .nav-user { display:flex; align-items:center; gap:0.75rem; font-size:0.82rem; color:var(--muted); }
+    .nav-user strong { color:var(--text); font-weight:600; }
+    .nav-user a { color:var(--muted); text-decoration:none; font-size:0.78rem; padding:0.3rem 0.7rem; border:1px solid var(--border); border-radius:6px; }
+    .nav-user a:hover { color:var(--text); }
+    main { max-width:720px; margin:2rem auto 4rem; padding:0 1rem; display:flex; flex-direction:column; gap:1.25rem; }
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.75rem; }
+    .card h2 { font-size:0.95rem; font-weight:600; margin-bottom:1rem; color:var(--accent); }
+    p { color:var(--muted); font-size:0.88rem; line-height:1.65; margin-bottom:0.75rem; }
+    p:last-child { margin-bottom:0; }
+    p strong { color:var(--text); }
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:0.875rem; margin-top:0.75rem; }
+    @media(max-width:480px){.grid2{grid-template-columns:1fr;}}
+    .item { background:var(--surface2); border:1px solid var(--border); border-radius:9px; padding:1rem; }
+    .item .icon { font-size:1.3rem; margin-bottom:0.5rem; }
+    .item h3 { font-size:0.82rem; font-weight:600; color:var(--text); margin-bottom:0.25rem; }
+    .item p { font-size:0.76rem; margin:0; }
+    .tag-list { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.75rem; }
+    .tag { background:var(--surface2); border:1px solid var(--border); color:var(--muted); font-size:0.76rem; padding:3px 10px; border-radius:100px; }
+  </style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="<%= basePath %>/"><span>NF</span> Calc</a>
+  <div class="nav-links">
+    <a href="<%= basePath %>/calcular">Calcular</a>
+    <a href="<%= basePath %>/help">Ajuda</a>
+    <a href="<%= basePath %>/sobre" class="active">Sobre</a>
+  </div>
+  <div class="nav-user">
+    Olá, <strong><%= user.nome %></strong>
+    <a href="<%= basePath %>/logout">Sair</a>
+  </div>
+</nav>
+
+<main>
+  <div class="card">
+    <h2>Sobre o NF Calc</h2>
+    <p>O <strong>NF Calc</strong> é uma calculadora de impostos para Notas Fiscais de Venda desenvolvida pelo Grupo 17 como parte do projeto integrador da disciplina GCEIC 2026.</p>
+    <p>A ferramenta permite decodificar a chave de acesso de uma NF-e e calcular automaticamente os principais impostos incidentes — <strong>ICMS, IPI, PIS e COFINS</strong> — de acordo com o estado do emissor e o regime tributário da empresa.</p>
+  </div>
+
+  <div class="card">
+    <h2>Funcionalidades</h2>
+    <div class="grid2">
+      <div class="item"><div class="icon">🔑</div><h3>Decodificação de chave</h3><p>Extrai estado, CNPJ, data, modelo, série e dígito verificador da chave de 44 dígitos.</p></div>
+      <div class="item"><div class="icon">📊</div><h3>Cálculo de impostos</h3><p>ICMS por estado (alíquota interestadual), IPI, PIS e COFINS conforme o regime.</p></div>
+      <div class="item"><div class="icon">🏢</div><h3>Regimes tributários</h3><p>Suporte a Lucro Real, Lucro Presumido e Simples Nacional com alíquotas corretas.</p></div>
+      <div class="item"><div class="icon">🗺️</div><h3>Todos os estados</h3><p>Alíquotas de ICMS mapeadas para todos os 27 estados + Distrito Federal.</p></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Tecnologias</h2>
+    <div class="tag-list">
+      <span class="tag">Node.js</span>
+      <span class="tag">Express</span>
+      <span class="tag">EJS</span>
+      <span class="tag">Jest</span>
+      <span class="tag">GitHub Actions</span>
+      <span class="tag">Render</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Grupo 17 — GCEIC 2026</h2>
+    <p>Projeto desenvolvido como parte do GCEIC (Gerenciamento e Controle de Engenharia e Inovação na Computação) — PUCC 2026.</p>
+    <p><strong>Participantes:</strong></p>
+    <div class="tag-list">
+      <span class="tag">Matheus Camargo</span>
+      <span class="tag">Arthur Carvalho</span>
+      <span class="tag">Gustavo Zorzo</span>
+    </div>
+  </div>
+</main>
+</body>
+</html>

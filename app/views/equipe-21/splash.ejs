@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BURGCALC</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #211a16;
+      color: #fff8ef;
+      display: grid;
+      place-items: center;
+    }
+
+    main {
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.25rem, 8vw, 4.5rem);
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+      color: #f2c078;
+      font-size: 1.1rem;
+    }
+
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 5px solid rgba(255, 248, 239, 0.25);
+      border-top-color: #f2c078;
+      border-radius: 50%;
+      margin: 28px auto 0;
+      animation: girar 0.9s linear infinite;
+    }
+
+    @keyframes girar {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>BURGCALC</h1>
+    <p>Carregando...</p>
+    <div class="loader" aria-hidden="true"></div>
+  </main>
+  <script>
+    setTimeout(function () {
+      window.location.href = '<%= loginUrl %>';
+    }, 1800);
+  </script>
+</body>
+</html>

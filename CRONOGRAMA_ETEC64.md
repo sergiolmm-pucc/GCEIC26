@@ -1,42 +1,21 @@
-# Cronograma de Implantação - Grupo 24 (Cálculo de MarkUp)
+# Cronograma de Implantação - ETEC64 (Cálculo ETEC)
 
-Linha do tempo detalhando o desenvolvimento, marcos de entrega e fases de testes do projeto Cálculo de MarkUp - Preço de venda de um produto.
+Linha do tempo detalhando o desenvolvimento, marcos de entrega e fases de testes do portal Cálculo ETEC.
 
-* **24/04/2026** - Concepção do Projeto (Concluída)
-  Divulgação da atividade de Gerência de Configuração, Entrega e Integração Contínua. Definição inicial do tema do Grupo 24: Cálculo de MarkUp para formação do preço de venda de um produto.
+- **24/04/2026** - Concepção do Projeto (Concluída)
+  Divulgação do edital do projeto de Gerência de Configuração. Alinhamento inicial da equipe de 3 alunos e escolha do tema Cálculo ETEC.
 
-* **12/05/2026** - Estruturação do Repositório Git (Concluída)
-  Organização do repositório da disciplina, criação da branch `grupo24/markup` e preparação do ambiente de desenvolvimento para integração com o projeto base.
+- **12/05/2026** - Estruturação do Repositório Git (Concluída)
+  Eleição do representante de git do grupo e criação do repositório no GitHub para integração contínua.
 
-* **20/05/2026** - Desenvolvimento do Backend & API (Concluída)
-  Desenvolvimento da API em Node.js para cálculo de MarkUp. Implementação da função `calcularMarkup` e criação do endpoint:
+- **20/05/2026** - Desenvolvimento do Backend & APIs (Concluída)
+  Construção das APIs em Node.js. Implementação dos endpoints de notas (Aluno A), frequência (Aluno B), simulador (Aluno C) e suite completa de testes automatizados com Jest.
 
-```text
-POST /api/markup/calcular
-```
+- **21/05/2026** - Entrega Parcial (30%) (Pendente)
+  Entrega obrigatória da API funcional integrada ao App React e testes unitários no Canvas e GitHub.
 
-Também foram implementados testes unitários e testes de API utilizando Jest e Supertest.
+- **25/05/2026** - Integração de CI/CD e Qualidade (Pendente)
+  Implementação de workflows automáticos no GitHub Actions para rodar lints e testes unitários a cada commit.
 
-* **21/05/2026** - Entrega Parcial (30%) (Concluída)
-  Entrega da API funcional, integração inicial com o app e testes unitários. A aplicação contempla a tela de uso do cálculo de MarkUp e a comunicação com a API.
-
-* **25/05/2026** - Integração com App e CI/CD (Concluída)
-  Integração da página do Grupo 24 ao app base da disciplina por meio da rota:
-
-```text
-GET /equipe-24
-```
-
-Criação da rota intermediária para comunicação entre o app e a API:
-
-```text
-POST /equipe-24/calcular
-```
-
-O projeto foi integrado ao fluxo de GitHub Actions e CI/CD existente no repositório da disciplina.
-
-* **26/05/2026** - Documentação e Ajustes Visuais (Concluída)
-  Criação da tela Splash Screen, tela de Login com usuário e senha fixos, tela Sobre com foto da equipe, tela Help e tela principal de cálculo. Também foram preparados os documentos de relatório, testes unitários, testes funcionais e cronograma.
-
-* **28/05/2026** - Entrega Final e Apresentação (Pendente)
-  Execução dos testes funcionais finais, validação do projeto no Render disponibilizado pelo professor e apresentação oficial do sistema para o professor e a turma.
+- **28/05/2026** - Entrega Final e Apresentação (40%) (Pendente)
+  Execução de testes funcionais integrados e apresentação oficial da plataforma web para o professor e alunos na Escola Politécnica.

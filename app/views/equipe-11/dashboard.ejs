@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel - Campo Calc</title>
+  <link rel="stylesheet" href="/equipe-11/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div>
+        <h1>Calculadora de Campo de Futebol</h1>
+        <p>Construcao, manutencao e receita com login.</p>
+      </div>
+      <div class="header-actions">
+        <a class="secondary-button" href="<%= basePath %>/sobre">Sobre</a>
+        <form method="POST" action="<%= basePath %>/logout">
+          <button class="secondary-button" type="submit">Sair</button>
+        </form>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>Painel</h2>
+      <p class="hint">Escolha o que deseja acessar.</p>
+      <div class="dashboard-grid">
+        <div class="action-card">
+          <div>
+            <h3>Construcao do campo</h3>
+            <p>Calcule o preco de construcao com base nos materiais.</p>
+          </div>
+          <a class="button-link" href="<%= basePath %>/construcao">Abrir construcao</a>
+        </div>
+        <div class="action-card">
+          <div>
+            <h3>Manutencao</h3>
+            <p>Estime os custos de manutencao do campo.</p>
+          </div>
+          <a class="button-link" href="<%= basePath %>/manutencao">Abrir manutencao</a>
+        </div>
+        <div class="action-card">
+          <div>
+            <h3>Receita</h3>
+            <p>Estime a receita anual do campo.</p>
+          </div>
+          <a class="button-link" href="<%= basePath %>/receita">Abrir receita</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

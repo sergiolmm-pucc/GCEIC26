@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConstruSauna - Sobre a Equipe</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 2rem; 
+            text-align: center; 
+            background-color: #fff;
+            color: #333;
+        }
+        nav { 
+            margin-bottom: 2rem; 
+        }
+        nav a { 
+            text-decoration: none; 
+            color: #007bff; 
+        }
+        nav a:hover { 
+            text-decoration: underline; 
+        }
+        .equipe-container { 
+            display: flex; 
+            justify-content: center; 
+            gap: 3rem; 
+            flex-wrap: wrap; 
+        }
+        .membro {
+            width: 200px;
+        }
+        .foto-container {
+            width: 150px; 
+            height: 150px; 
+            background-color: #e0e0e0; 
+            border-radius: 50%; 
+            margin: 0 auto; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden;
+        }
+        .foto-container img {
+            width: 100%;
+        }
+        h3 {
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        p.cargo {
+            margin: 0; 
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/sauna6/calculadora">&larr; Voltar para Calculadora</a>
+    </nav>
+    
+    <h2>Sobre a Equipe</h2>
+    <p style="color: #555; margin-bottom: 3rem;">
+        Projeto de Cálculo de Custos para Construção de Sauna <br/> 
+        Engenharia de Software - PUC-Campinas
+    </p>
+    
+    <div class="equipe-container">
+        <div class="membro">
+            <div class="foto-container">
+                <img src="/grupo6/pelaes.jpeg" alt="Pedro Pelaes" /> 
+            </div>
+            <h3>Pedro Pelaes Malinconico</h3>
+            <p class="cargo">API Materiais / Front-end / CI CD / Testes</p>
+        </div>
+
+        <div class="membro">
+            <div class="foto-container">
+                <img src="/grupo6/nakao.jpeg" alt="William Nakao" /> 
+            </div>
+            <h3>William Kenzo Nakao</h3>
+            <p class="cargo">API Equipamentos / Testes</p>
+        </div>
+
+        <div class="membro">
+            <div class="foto-container">
+                <img src="/grupo6/nery.jpeg" alt="Pedro Nery" /> 
+            </div>
+            <h3>Pedro Facine Nery</h3>
+            <p class="cargo">API Manutenção / Front-End</p>
+        </div>
+    </div>
+
+</body>
+</html>

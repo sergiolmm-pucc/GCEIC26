@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipe 11 - Splash</title>
+  <link rel="stylesheet" href="/equipe-11/styles.css">
+</head>
+<body>
+  <div class="splash-container">
+    <div class="splash-content">
+      <div class="splash-logo">FC</div>
+      <h1>Calculadora de Campo</h1>
+      <p>Calculo de construcao e manutencao</p>
+      <div class="splash-loader">
+        <div class="loader-bar"></div>
+      </div>
+      <span class="splash-version">v1.0 - GCEIC26 - Equipe 11</span>
+    </div>
+  </div>
+  <script>
+    setTimeout(() => {
+      window.location.href = '<%= basePath %>/login';
+    }, 3000);
+  </script>
+</body>
+</html>

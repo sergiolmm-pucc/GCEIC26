@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FINV – Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #07090d;
+      color: #eef1f7;
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 20px; height: 56px;
+      background: rgba(7,9,13,.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid #1f2638;
+    }
+    .logo {
+      font-size: 18px; font-weight: 800; letter-spacing: -.03em;
+      background: linear-gradient(135deg, #f59e0b, #fbbf24);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .btn-sair {
+      display: inline-flex; align-items: center;
+      padding: 6px 12px; border-radius: 8px;
+      font-size: 13px; font-weight: 500; color: #8b94a8;
+      border: 1px solid #1f2638; cursor: pointer;
+      transition: color 150ms, border-color 150ms, background 150ms;
+    }
+    .btn-sair:hover { color: #f87171; border-color: #f87171; background: rgba(248,113,113,.1); }
+    .home-header {
+      padding: 28px 20px 4px;
+      max-width: 600px; margin: 0 auto;
+    }
+    .home-titulo {
+      font-size: 26px; font-weight: 800; letter-spacing: -.03em; line-height: 1.2;
+    }
+    .home-sub { font-size: 14px; color: #8b94a8; margin-top: 4px; }
+    .grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 12px; padding: 20px 16px 48px;
+      max-width: 600px; margin: 0 auto;
+    }
+    .menu-card {
+      display: flex; flex-direction: column;
+      align-items: flex-start; gap: 8px; padding: 20px;
+      background: #111520; border: 1px solid #1f2638;
+      border-radius: 20px; cursor: pointer;
+      transition: border-color 150ms, background 150ms, transform 150ms, box-shadow 150ms;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .menu-card:hover {
+      border-color: #f59e0b; background: #171c28;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.4), 0 0 0 1px #f59e0b;
+    }
+    .menu-card:active { transform: translateY(0); }
+    .menu-emoji { font-size: 26px; line-height: 1; }
+    .menu-titulo { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+    .menu-desc   { font-size: 12px; color: #8b94a8; line-height: 1.4; }
+    @media (max-width: 480px) {
+      .grid { padding: 16px 12px 40px; gap: 10px; }
+      .menu-card { padding: 16px 14px; }
+    }
+    @media (max-width: 360px) { .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <span class="logo">FINV</span>
+    <a class="btn-sair" href="/equipe-01/login">Sair</a>
+  </div>
+
+  <div class="home-header">
+    <h2 class="home-titulo">Bem-vindo! 👋</h2>
+    <p class="home-sub">Simulador de Financiamento de Veículos</p>
+  </div>
+
+  <div class="grid">
+    <a class="menu-card" href="/equipe-01/simulador">
+      <span class="menu-emoji">🧮</span>
+      <span class="menu-titulo">Simulador</span>
+      <span class="menu-desc">Calcule parcelas e juros</span>
+    </a>
+    <a class="menu-card" href="/equipe-01/capacidade">
+      <span class="menu-emoji">💰</span>
+      <span class="menu-titulo">Capacidade</span>
+      <span class="menu-desc">Quanto posso financiar?</span>
+    </a>
+    <a class="menu-card" href="/equipe-01/sobre">
+      <span class="menu-emoji">👥</span>
+      <span class="menu-titulo">Sobre</span>
+      <span class="menu-desc">Equipe do projeto</span>
+    </a>
+    <a class="menu-card" href="/equipe-01/help">
+      <span class="menu-emoji">❓</span>
+      <span class="menu-titulo">Ajuda</span>
+      <span class="menu-desc">Como usar o app</span>
+    </a>
+  </div>
+</body>
+</html>

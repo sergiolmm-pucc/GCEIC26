@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora — NF Calc</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0f172a;
+      --surface: #1e293b;
+      --surface2:#263348;
+      --border:  #334155;
+      --accent:  #10b981;
+      --accent2: #059669;
+      --text:    #f1f5f9;
+      --muted:   #94a3b8;
+      --error:   #ef4444;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.75rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.83rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
+    }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.05); }
+    .nav-links a.active { color: var(--accent); background: rgba(16,185,129,0.08); }
+    .nav-user {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .nav-user strong { color: var(--text); font-weight: 600; }
+    .nav-logout {
+      color: var(--muted) !important;
+      border: 1px solid var(--border) !important;
+      font-size: 0.78rem !important;
+      padding: 0.3rem 0.7rem !important;
+    }
+    .nav-logout:hover { color: var(--error) !important; border-color: rgba(239,68,68,0.4) !important; background: rgba(239,68,68,0.05) !important; }
+
+    /* ── STEPPER ── */
+    .stepper {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 1.75rem 1rem 0.25rem;
+      max-width: 760px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .step-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      position: relative;
+    }
+    .step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 13px;
+      left: calc(50% + 16px);
+      right: calc(-50% + 16px);
+      height: 2px;
+      background: var(--border);
+      transition: background 0.4s;
+    }
+    .step-item.done:not(:last-child)::after { background: var(--accent); }
+    .step-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+      z-index: 1;
+    }
+    .step-item.active .step-num,
+    .step-item.done .step-num { background: var(--accent); color: #000; }
+    .step-label {
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-top: 5px;
+      text-align: center;
+      white-space: nowrap;
+      transition: color 0.3s;
+    }
+    .step-item.active .step-label,
+    .step-item.done .step-label { color: var(--accent); }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 760px;
+      margin: 1.5rem auto 4rem;
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      width: 100%;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+    .card.hidden { display: none; }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.875rem;
+      margin-bottom: 1.25rem;
+    }
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      flex-shrink: 0;
+    }
+    .card h2 { font-size: 0.92rem; font-weight: 600; }
+    .card h2 small { display: block; font-size: 0.72rem; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
+    /* ── FORM ── */
+    label {
+      display: block;
+      font-size: 0.77rem;
+      color: var(--muted);
+      margin-bottom: 5px;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+    label:first-child { margin-top: 0; }
+    input, select {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.6rem 0.875rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus, select:focus { border-color: var(--accent); }
+    select option { background: var(--surface); }
+
+    .row  { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+    @media (max-width: 540px) {
+      .row, .row3 { grid-template-columns: 1fr; }
+    }
+
+    .btn {
+      margin-top: 1.25rem;
+      width: 100%;
+      padding: 0.72rem;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn:hover:not(:disabled) { background: var(--accent2); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-ghost {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .btn-ghost:hover:not(:disabled) { color: var(--text); background: var(--border); }
+
+    .alert {
+      padding: 0.65rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      margin-top: 0.875rem;
+    }
+    .alert-error {
+      background: rgba(239,68,68,0.07);
+      border: 1px solid rgba(239,68,68,0.22);
+      color: var(--error);
+    }
+
+    /* ── INFO GRID ── */
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.875rem 1.5rem;
+    }
+    .info-item label { margin-top: 0; font-size: 0.7rem; }
+    .info-item span  { font-size: 0.88rem; font-weight: 500; }
+    .badge-ok  { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; background: rgba(16,185,129,0.1); color: var(--accent); border: 1px solid rgba(16,185,129,0.2); }
+    .badge-err { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; background: rgba(239,68,68,0.08); color: var(--error); border: 1px solid rgba(239,68,68,0.2); }
+
+    /* ── TABLE ── */
+    table { width: 100%; border-collapse: collapse; font-size: 0.86rem; }
+    th {
+      text-align: left;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.75rem;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    td { padding: 0.65rem 0.75rem; border-bottom: 1px solid rgba(51,65,85,0.5); }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* ── SUMMARY ── */
+    .summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+    @media (max-width: 420px) { .summary { grid-template-columns: 1fr; } }
+    .summary-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 1rem 1.1rem;
+    }
+    .summary-item label { font-size: 0.7rem; margin: 0 0 5px; }
+    .summary-item .val {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .summary-item.hl {
+      border-color: rgba(16,185,129,0.3);
+      background: rgba(16,185,129,0.06);
+    }
+    .summary-item.hl .val { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="<%= basePath %>/"><span>NF</span> Calc</a>
+  <div class="nav-links">
+    <a href="<%= basePath %>/calcular" class="active">Calcular</a>
+    <a href="<%= basePath %>/help">Ajuda</a>
+    <a href="<%= basePath %>/sobre">Sobre</a>
+  </div>
+  <div class="nav-user">
+    Olá, <strong><%= user.nome %></strong>
+    <a href="<%= basePath %>/logout" class="nav-links nav-logout">Sair</a>
+  </div>
+</nav>
+
+<div class="stepper" id="stepper">
+  <div class="step-item active" id="si1"><div class="step-num">1</div><div class="step-label">Chave</div></div>
+  <div class="step-item"        id="si2"><div class="step-num">2</div><div class="step-label">Dados NF</div></div>
+  <div class="step-item"        id="si3"><div class="step-num">3</div><div class="step-label">Valores</div></div>
+  <div class="step-item"        id="si4"><div class="step-num">4</div><div class="step-label">Resultado</div></div>
+</div>
+
+<main>
+
+  <!-- Passo 1 -->
+  <div class="card" id="cardChave">
+    <div class="card-header">
+      <div class="card-icon">🔑</div>
+      <h2>Chave de Acesso NF-e <small>44 dígitos numéricos — pode colar com ou sem espaços</small></h2>
+    </div>
+    <label for="chave">Chave de acesso</label>
+    <input type="text" id="chave" maxlength="60"
+      placeholder="Ex: 35260312345678000195550010000000011234567890" />
+    <button class="btn" id="btnDecodificar">Decodificar Chave</button>
+    <div id="erroChave" class="alert alert-error hidden"></div>
+  </div>
+
+  <!-- Passo 2 -->
+  <div class="card hidden" id="cardInfo">
+    <div class="card-header">
+      <div class="card-icon">📄</div>
+      <h2>Dados da Nota Fiscal <small>Informações extraídas automaticamente da chave</small></h2>
+    </div>
+    <div class="info-grid">
+      <div class="info-item"><label>Estado emissor</label><span id="infoEstado">—</span></div>
+      <div class="info-item"><label>Data de emissão</label><span id="infoData">—</span></div>
+      <div class="info-item"><label>CNPJ emissor</label><span id="infoCNPJ">—</span></div>
+      <div class="info-item"><label>Modelo do documento</label><span id="infoModelo">—</span></div>
+      <div class="info-item"><label>Série / Número</label><span id="infoSerieNum">—</span></div>
+      <div class="info-item"><label>Tipo de emissão</label><span id="infoTipo">—</span></div>
+      <div class="info-item"><label>ICMS padrão do estado</label><span id="infoICMS">—</span></div>
+      <div class="info-item"><label>Dígito verificador</label><span id="infoDV">—</span></div>
+    </div>
+  </div>
+
+  <!-- Passo 3 -->
+  <div class="card hidden" id="cardValores">
+    <div class="card-header">
+      <div class="card-icon">💰</div>
+      <h2>Valores e Parâmetros <small>Informe os dados para o cálculo dos impostos</small></h2>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="valorProduto">Valor do produto (R$)</label>
+        <input type="number" id="valorProduto" min="0.01" step="0.01" placeholder="0,00" />
+      </div>
+      <div>
+        <label for="ipi">IPI (%)</label>
+        <input type="number" id="ipi" min="0" step="0.01" value="0" />
+      </div>
+    </div>
+
+    <div class="row3">
+      <div>
+        <label for="frete">Frete (R$)</label>
+        <input type="number" id="frete" min="0" step="0.01" value="0" />
+      </div>
+      <div>
+        <label for="seguro">Seguro (R$)</label>
+        <input type="number" id="seguro" min="0" step="0.01" value="0" />
+      </div>
+      <div>
+        <label for="descontos">Descontos (R$)</label>
+        <input type="number" id="descontos" min="0" step="0.01" value="0" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="regime">Regime tributário</label>
+        <select id="regime">
+          <option value="lucroReal">Lucro Real</option>
+          <option value="lucroPresumido">Lucro Presumido</option>
+          <option value="simplesNacional">Simples Nacional</option>
+        </select>
+      </div>
+      <div>
+        <label for="icmsPersonalizado">ICMS personalizado (% — opcional)</label>
+        <input type="number" id="icmsPersonalizado" min="0" max="100" step="0.01"
+          placeholder="Usar padrão do estado" />
+      </div>
+    </div>
+
+    <button class="btn" id="btnCalcular">Calcular Impostos</button>
+    <div id="erroCalculo" class="alert alert-error hidden"></div>
+  </div>
+
+  <!-- Passo 4 -->
+  <div class="card hidden" id="cardResultado">
+    <div class="card-header">
+      <div class="card-icon">📊</div>
+      <h2>Resultado do Cálculo <small>Breakdown completo dos impostos incidentes</small></h2>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Imposto</th>
+          <th>Base de cálculo</th>
+          <th class="num">Alíquota</th>
+          <th class="num">Valor (R$)</th>
+        </tr>
+      </thead>
+      <tbody id="tbodyImpostos"></tbody>
+    </table>
+
+    <div class="summary">
+      <div class="summary-item">
+        <label>Total de impostos</label>
+        <div class="val" id="valImpostos">—</div>
+      </div>
+      <div class="summary-item hl">
+        <label>Total da NF</label>
+        <div class="val" id="valNF">—</div>
+      </div>
+      <div class="summary-item">
+        <label>Carga tributária</label>
+        <div class="val" id="valCarga">—</div>
+      </div>
+      <div class="summary-item">
+        <label>Estado / ICMS aplicado</label>
+        <div class="val" id="valEstado">—</div>
+      </div>
+    </div>
+
+    <button class="btn btn-ghost" id="btnNovo" style="margin-top:1.5rem">Nova consulta</button>
+  </div>
+
+</main>
+
+<script>
+  const BASE = '<%= basePath %>';
+
+  function fmt(n)    { return 'R$ ' + Number(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function fmtP(n)   { return Number(n).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%'; }
+  function showErr(el, m) { el.textContent = m; el.classList.remove('hidden'); }
+  function hideErr(el)    { el.classList.add('hidden'); }
+
+  function setStep(n) {
+    for (let i = 1; i <= 4; i++) {
+      const el = document.getElementById('si' + i);
+      el.classList.remove('active', 'done');
+      if (i < n) el.classList.add('done');
+      else if (i === n) el.classList.add('active');
+    }
+  }
+
+  function setLoading(btn, on, label) {
+    btn.disabled = on;
+    btn.textContent = on ? 'Aguardando...' : label;
+  }
+
+  // Passo 1 → 2/3
+  document.getElementById('btnDecodificar').addEventListener('click', async () => {
+    const chave  = document.getElementById('chave').value.replace(/\D/g, '');
+    const errEl  = document.getElementById('erroChave');
+    const btn    = document.getElementById('btnDecodificar');
+    hideErr(errEl);
+    setLoading(btn, true, 'Decodificar Chave');
+    try {
+      const res  = await fetch(BASE + '/decodificar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chave }),
+      });
+      const json = await res.json();
+      if (!json.success) { showErr(errEl, json.error); return; }
+
+      const d = json.data;
+      document.getElementById('infoEstado').textContent    = d.estado;
+      document.getElementById('infoData').textContent      = d.dataEmissao;
+      document.getElementById('infoCNPJ').textContent      = d.cnpjFormatado;
+      document.getElementById('infoModelo').textContent    = d.modeloDescricao;
+      document.getElementById('infoSerieNum').textContent  = `${d.serie} / ${d.numero}`;
+      document.getElementById('infoTipo').textContent      = d.tipoEmissao;
+      document.getElementById('infoICMS').textContent      = `${d.icmsPadrao}%`;
+      document.getElementById('infoDV').innerHTML          = d.dvValido
+        ? '<span class="badge-ok">Válido</span>'
+        : '<span class="badge-err">Inválido</span>';
+
+      document.getElementById('cardInfo').classList.remove('hidden');
+      document.getElementById('cardValores').classList.remove('hidden');
+      document.getElementById('cardResultado').classList.add('hidden');
+      setStep(3);
+      document.getElementById('cardInfo').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } catch {
+      showErr(errEl, 'Erro de conexão com a API.');
+    } finally {
+      setLoading(btn, false, 'Decodificar Chave');
+    }
+  });
+
+  // Passo 3 → 4
+  document.getElementById('btnCalcular').addEventListener('click', async () => {
+    const errEl = document.getElementById('erroCalculo');
+    const btn   = document.getElementById('btnCalcular');
+    hideErr(errEl);
+    setLoading(btn, true, 'Calcular Impostos');
+
+    const icmsField = document.getElementById('icmsPersonalizado').value.trim();
+    const payload = {
+      chave:             document.getElementById('chave').value.replace(/\D/g, ''),
+      valorProduto:      parseFloat(document.getElementById('valorProduto').value) || 0,
+      ipi:               parseFloat(document.getElementById('ipi').value) || 0,
+      frete:             parseFloat(document.getElementById('frete').value) || 0,
+      seguro:            parseFloat(document.getElementById('seguro').value) || 0,
+      descontos:         parseFloat(document.getElementById('descontos').value) || 0,
+      regime:            document.getElementById('regime').value,
+      icmsPersonalizado: icmsField !== '' ? parseFloat(icmsField) : null,
+    };
+
+    try {
+      const res  = await fetch(BASE + '/calcular', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json();
+      if (!json.success) { showErr(errEl, json.error); return; }
+
+      const d = json.data;
+      const lista = [
+        { nome: 'ICMS',   ...d.impostos.icms },
+        { nome: 'IPI',    ...d.impostos.ipi  },
+        { nome: 'PIS',    ...d.impostos.pis  },
+        { nome: 'COFINS', ...d.impostos.cofins },
+      ];
+
+      document.getElementById('tbodyImpostos').innerHTML = lista.map(im => `
+        <tr>
+          <td><strong>${im.nome}</strong></td>
+          <td style="color:var(--muted);font-size:0.78rem">Valor do produto</td>
+          <td class="num">${fmtP(im.alicota)}</td>
+          <td class="num">${fmt(im.valor)}</td>
+        </tr>
+      `).join('');
+
+      document.getElementById('valImpostos').textContent = fmt(d.totalImpostos);
+      document.getElementById('valNF').textContent       = fmt(d.totalNF);
+      document.getElementById('valCarga').textContent    = fmtP(d.cargaTributaria);
+      document.getElementById('valEstado').textContent   =
+        document.getElementById('infoEstado').textContent + ' · ' +
+        document.getElementById('infoICMS').textContent;
+
+      document.getElementById('cardResultado').classList.remove('hidden');
+      setStep(4);
+      document.getElementById('cardResultado').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } catch {
+      showErr(errEl, 'Erro de conexão com a API.');
+    } finally {
+      setLoading(btn, false, 'Calcular Impostos');
+    }
+  });
+
+  // Nova consulta
+  document.getElementById('btnNovo').addEventListener('click', () => {
+    ['chave','valorProduto','icmsPersonalizado'].forEach(id => document.getElementById(id).value = '');
+    ['ipi','frete','seguro','descontos'].forEach(id => document.getElementById(id).value = '0');
+    ['cardInfo','cardValores','cardResultado'].forEach(id =>
+      document.getElementById(id).classList.add('hidden'));
+    hideErr(document.getElementById('erroChave'));
+    hideErr(document.getElementById('erroCalculo'));
+    setStep(1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.getElementById('chave').focus();
+  });
+</script>
+
+</body>
+</html>

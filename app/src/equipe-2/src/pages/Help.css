@@ -1,0 +1,83 @@
+.help-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.help-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.help-titulo {
+  color: #e2b96f;
+  margin: 0 0 28px 0;
+  font-size: 1.6rem;
+}
+
+.topicos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.topico-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(226,185,111,0.2);
+  border-radius: 12px;
+  padding: 24px;
+  animation: slideUp 0.4s ease;
+}
+
+.topico-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.topico-icone { font-size: 1.4rem; }
+
+.topico-header h3 {
+  color: #e2b96f;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.topico-conteudo {
+  color: #a0aec0;
+  line-height: 1.7;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.help-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.help-tabela th {
+  color: #e2b96f;
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(226,185,111,0.3);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.help-tabela td {
+  color: #e2e8f0;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.verde { color: #68d391; font-weight: 600; }
+.amarelo { color: #f6e05e; font-weight: 600; }
+.vermelho { color: #fc8181; font-weight: 600; }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
