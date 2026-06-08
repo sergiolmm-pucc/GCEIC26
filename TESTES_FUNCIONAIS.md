@@ -1,130 +1,38 @@
-# Documento de Testes Funcionais - Calculadora de MarkUp
+# Documento de Testes Funcionais - Calculadora de Piscina
 
-Este documento descreve os cenários de testes funcionais realizados na aplicação do Grupo 24, integrada à API Node.js do projeto da disciplina.
+Este documento descreve os cenários de testes funcionais realizados na aplicação React integrada à API Node.js. Ele deve ser entregue junto ao relatório do Canvas.
 
-## Cenário 1: Acesso à Página da Equipe 24
+## Cenário 1: Splash Screen e Login
+- **Ação:** Acessar a raiz da aplicação (`/`).
+- **Resultado Esperado:** Exibição da Splash Screen (com logo) por 3 segundos e redirecionamento automático para a tela `/login`.
+- **Status:** APROVADO.
 
-* **Ação:** Acessar a rota da aplicação:
+- **Ação:** Tentar login com usuário incorreto.
+- **Resultado Esperado:** Exibição da mensagem de erro "Usuário ou senha incorretos." na cor vermelha.
+- **Status:** APROVADO.
 
-```text
-/equipe-24
-```
+- **Ação:** Tentar login com usuário "admin" e senha "1234".
+- **Resultado Esperado:** Redirecionamento com sucesso para o painel principal (`/home`).
+- **Status:** APROVADO.
 
-* **Resultado Esperado:** Exibição da tela inicial da Calculadora de MarkUp, contendo o nome da Equipe 24, o título do sistema e o botão "Entrar".
-* **Status:** APROVADO.
+## Cenário 2: Cálculo de Volume da Piscina
+- **Ação:** Na Home, clicar em "Volume da Piscina". Inserir Largura = 4, Comprimento = 2, Profundidade = 2. Clicar em Calcular.
+- **Resultado Esperado:** A API processa a requisição e retorna os dados JSON. A tela exibe `volumeMetrosCubicos: 16` e `volumeLitros: 16000` na caixa de sucesso verde.
+- **Status:** APROVADO.
 
----
+## Cenário 3: Cálculo de Custo de Materiais
+- **Ação:** Na tela de Materiais, inserir Volume = 20 e escolher Acabamento = Vinil.
+- **Resultado Esperado:** Retorno de sucesso com o cálculo aplicando o multiplicador de R$800 para vinil + 20% de elétrico/hidráulico. 
+- **Status:** APROVADO.
 
-## Cenário 2: Splash Screen e Navegação para Login
+## Cenário 4: Validação de Erros nas Calculadoras
+- **Ação:** Em qualquer calculadora, deixar um campo em branco e tentar calcular.
+- **Resultado Esperado:** O navegador previne o envio do formulário (validação nativa de campos `required`).
+- **Ação Secundária:** Caso os dados sejam enviados vazios via API diretamente.
+- **Resultado Esperado:** A API deve retornar status HTTP 400 alertando que campos são obrigatórios.
+- **Status:** APROVADO.
 
-* **Ação:** Na tela inicial, clicar no botão "Entrar".
-* **Resultado Esperado:** O sistema deve ocultar a tela inicial e exibir a tela de login.
-* **Status:** APROVADO.
-
----
-
-## Cenário 3: Login com Usuário Incorreto
-
-* **Ação:** Informar usuário ou senha inválidos na tela de login.
-* **Resultado Esperado:** O sistema deve exibir a mensagem de erro "Usuário ou senha inválidos.".
-* **Status:** APROVADO.
-
----
-
-## Cenário 4: Login com Usuário e Senha Fixos
-
-* **Ação:** Informar os dados corretos de login:
-
-```text
-Usuário: admin
-Senha: 123456
-```
-
-* **Resultado Esperado:** O sistema deve liberar o acesso à tela principal da Calculadora de MarkUp.
-* **Status:** APROVADO.
-
----
-
-## Cenário 5: Cálculo de MarkUp com Dados Válidos
-
-* **Ação:** Na tela principal da calculadora, preencher os campos com os seguintes valores:
-
-```text
-Custo do produto: 50
-Despesas: 20
-Lucro desejado: 30
-```
-
-Em seguida, clicar no botão "Calcular".
-
-* **Resultado Esperado:** A aplicação deve enviar os dados para a rota intermediária do app:
-
-```text
-POST /equipe-24/calcular
-```
-
-Essa rota consome a API:
-
-```text
-POST /api/markup/calcular
-```
-
-A tela deve exibir os seguintes resultados:
-
-```text
-Índice de MarkUp: 2
-Preço de venda: R$ 100.00
-Valor das despesas: R$ 20.00
-Valor do lucro: R$ 30.00
-```
-
-* **Status:** APROVADO.
-
----
-
-## Cenário 6: Validação de Dados Inválidos
-
-* **Ação:** Informar valores inválidos, como despesas e lucro cuja soma seja maior ou igual a 100%.
-
-Exemplo:
-
-```text
-Custo do produto: 50
-Despesas: 70
-Lucro desejado: 40
-```
-
-* **Resultado Esperado:** A API deve retornar erro e a tela deve exibir uma mensagem informando que os valores são inválidos.
-* **Status:** APROVADO.
-
----
-
-## Cenário 7: Botão Limpar
-
-* **Ação:** Preencher os campos da calculadora e clicar no botão "Limpar".
-* **Resultado Esperado:** Todos os campos devem ser apagados, a mensagem de erro deve ser removida e o resultado anterior deve ser ocultado.
-* **Status:** APROVADO.
-
----
-
-## Cenário 8: Tela Sobre
-
-* **Ação:** Na tela principal, clicar no botão "Sobre".
-* **Resultado Esperado:** O sistema deve exibir a tela Sobre, contendo a descrição do projeto e a foto da equipe.
-* **Status:** APROVADO.
-
----
-
-## Cenário 9: Tela Help
-
-* **Ação:** Na tela principal, clicar no botão "Help".
-* **Resultado Esperado:** O sistema deve exibir instruções de uso da Calculadora de MarkUp, informando que o usuário deve preencher custo, despesas e lucro desejado.
-* **Status:** APROVADO.
-
----
-
-## Cenário 10: Retorno para a Página Inicial
-
-* **Ação:** Clicar no botão "Início".
-* **Resultado Esperado:** O sistema deve retornar para a página inicial do projeto da disciplina, onde aparecem as equipes cadastradas.
-* **Status:** APROVADO.
+## Cenário 5: Navegação entre Telas
+- **Ação:** Navegar para "Sobre a Equipe" e "Ajuda" usando o menu superior.
+- **Resultado Esperado:** Carregamento correto do conteúdo, sem perdas de estado ou quebra de roteamento do React Router.
+- **Status:** APROVADO.
