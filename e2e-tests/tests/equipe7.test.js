@@ -4,7 +4,10 @@ const fs = require('fs');
 const path = require('path');
 
 // URL padrão ajustada para o seu ambiente local de desenvolvimento
-const BASE_URL = process.env.APP_URL || 'http://localhost:5173';
+const APP_URL = process.env.APP_URL || 'http://localhost:5173';
+const BASE_URL = APP_URL.replace(/\/$/, '').endsWith('/equipe-7')
+  ? APP_URL.replace(/\/$/, '')
+  : `${APP_URL.replace(/\/$/, '')}/equipe-7`;
 const SCREENSHOTS_DIR = path.join(__dirname, '..', 'screenshots');
 
 if (!fs.existsSync(SCREENSHOTS_DIR)) {
@@ -31,7 +34,10 @@ async function waitForText(text) {
 
 // Helper: Equivalente ao cy.contains('texto').click()
 async function clickByText(text) {
-  const element = await driver.wait(until.elementLocated(By.xpath(`//*[contains(normalize-space(.), "${text}")]`)), 10000);
+  const element = await driver.wait(
+    until.elementLocated(By.xpath(`(//button[contains(normalize-space(.), "${text}")] | //a[contains(normalize-space(.), "${text}")])[1]`)),
+    10000
+  );
   await element.click();
 }
 
