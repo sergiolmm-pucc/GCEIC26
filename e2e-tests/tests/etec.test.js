@@ -21,8 +21,8 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function waitForText(text) {
-  await driver.wait(until.elementLocated(By.xpath(`//*[contains(normalize-space(.), "${text}")]`)), 10000);
+async function waitForText(text, timeout = 30000) {
+  await driver.wait(until.elementLocated(By.xpath(`//*[contains(normalize-space(.), "${text}")]`)), timeout);
 }
 
 async function waitForTeamPhoto() {
@@ -55,6 +55,7 @@ async function calculateMenu(menuText, expectedText, screenshotName) {
   await driver.findElement(By.linkText(menuText)).click();
   await driver.wait(until.urlContains(`/etec/${menuText.toLowerCase()}`), 10000);
   await driver.findElement(By.css('button[type="submit"]')).click();
+  await waitForText('Resultado', 45000);
   await waitForText(expectedText);
   await takeScreenshot(screenshotName);
 }

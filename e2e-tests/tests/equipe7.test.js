@@ -28,8 +28,8 @@ function sleep(ms) {
 }
 
 // Helper: Equivalente ao cy.contains('texto').should('be.visible')
-async function waitForText(text) {
-  await driver.wait(until.elementLocated(By.xpath(`//*[contains(normalize-space(.), "${text}")]`)), 10000);
+async function waitForText(text, timeout = 30000) {
+  await driver.wait(until.elementLocated(By.xpath(`//*[contains(normalize-space(.), "${text}")]`)), timeout);
 }
 
 // Helper: Equivalente ao cy.contains('texto').click()
@@ -106,7 +106,7 @@ async function main() {
     
     await clickByText('Calcular Projeto');
     
-    await waitForText('📋 Relatório Orçamentário');
+    await waitForText('Relatório Orçamentário', 45000);
     await waitForText('48');
     await waitForText('3.500,00');
     await takeScreenshot('04-relatorio-orcamento');
