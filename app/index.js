@@ -570,7 +570,7 @@ equipe21.post('/api/calcular', async (req, res) => {
 });
 
 app.use(EQUIPE21_PATH, equipe21);
-
+//a
 // ── Grupo 11 — Campo Calc ──
 
 const GRUPO11_PATH = '/equipe-11';
