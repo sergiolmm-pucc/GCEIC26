@@ -7,7 +7,11 @@ const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const API_URL = process.env.API_URL || 'http://localhost:3001';
+const DEFAULT_API_URL =
+  process.env.NODE_ENV === 'production' || process.env.RENDER
+    ? 'https://gceic26.onrender.com'
+    : 'http://localhost:3001';
+const API_URL = process.env.API_URL || DEFAULT_API_URL;
 const GRUPO14_PATH = '/equipe-14';
 const grupo14DistPath = path.join(__dirname, 'dist');
 const GRUPO5_PATH = '/equipe-5';
