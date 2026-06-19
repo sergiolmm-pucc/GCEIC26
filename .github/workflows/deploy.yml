@@ -367,7 +367,7 @@ jobs:
 
   e2e-grupo7:
     needs: [deploy-api, deploy-app]
-    if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
+    if: always() && (needs.deploy-api.result == 'success' || needs.deploy-api.result == 'skipped') && (needs.deploy-app.result == 'success' || needs.deploy-app.result == 'skipped')
     runs-on: ubuntu-latest
     steps:
       - name: Get Code from repository
@@ -381,7 +381,7 @@ jobs:
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: 149
-      - name: Roda os testes E2E - Grupo 7 (Calculadora de Piscina)
+      - name: Roda os testes E2E - Grupo 7
         if: success()
         working-directory: e2e-tests
         run: npm run test:grupo7
