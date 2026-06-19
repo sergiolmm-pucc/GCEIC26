@@ -19,7 +19,7 @@ function Login() {
       <div style={styles.card}>
 
         <h2 style={styles.title}>Acesse a Plataforma</h2>
-        <p style={styles.subtitle}>Insira suas credenciais corporativas abaixo</p>
+        <p style={styles.subtitle}>Insira suas credenciais abaixo(admin/1234)</p>
         
         <div style={styles.inputGroup}>
           <label style={styles.fieldLabel}>Usuário</label>
