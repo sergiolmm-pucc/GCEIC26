@@ -789,30 +789,64 @@ app.use(GRUPO7_PATH, express.static(grupo7DistPath));
 app.use(GRUPO7_PATH, express.static(grupo7DistPath));
 
 // 3. Função de proxy para as APIs da equipe 7 (apenas se vocês não arrumaram a porta no front-end para 3001)
-async function proxyGrupo7(req, res, endpointBackend) {
-  try {
-    const fetch = (await import('node-fetch')).default;
-    const options = {
-      method: req.method,
-      headers: { 'Content-Type': 'application/json' }
-    };
+function lerNumeroGrupo7(campo, valor) {
+  const numero = Number(valor);
 
-    if (req.method !== 'GET' && req.method !== 'HEAD') {
-      options.body = JSON.stringify(req.body);
-    }
-
-    const response = await fetch(`${API_URL}${endpointBackend}`, options);
-    const data = await response.json();
-    res.status(response.status).json(data);
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+  if (!Number.isFinite(numero) || numero < 0) {
+    const erro = new Error(`Campo ${campo} deve ser um numero maior ou igual a zero.`);
+    erro.statusCode = 400;
+    throw erro;
   }
+
+  return numero;
+}
+
+function responderErroGrupo7(res, erro) {
+  res.status(erro.statusCode || 500).json({
+    success: false,
+    error: erro.message || 'Erro inesperado no calculo.',
+  });
 }
 
 // 4. Se o seu Front-end react chamar a rota /equipe-7/api/..., passa pelo proxy
-app.post(`/api/src${GRUPO7_PATH}/volume`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/volume/calcular'));
-app.post(`/api/src${GRUPO7_PATH}/materiais`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/materiais/calcular'));
-app.post(`/api/src${GRUPO7_PATH}/custos`, (req, res) => proxyGrupo7(req, res, '/PISCINA2/custos/calcular'));
+app.post(`/api/src${GRUPO7_PATH}/volume`, (req, res) => {
+  try {
+    const largura = lerNumeroGrupo7('largura', req.body.largura);
+    const comprimento = lerNumeroGrupo7('comprimento', req.body.comprimento);
+    const profundidade = lerNumeroGrupo7('profundidade', req.body.profundidade);
+
+    res.json({ success: true, volume: (largura * comprimento * profundidade).toFixed(2) });
+  } catch (erro) {
+    responderErroGrupo7(res, erro);
+  }
+});
+
+app.post(`/api/src${GRUPO7_PATH}/materiais`, (req, res) => {
+  try {
+    const precoEletrico = lerNumeroGrupo7('precoEletrico', req.body.precoEletrico);
+    const precoHidraulico = lerNumeroGrupo7('precoHidraulico', req.body.precoHidraulico);
+
+    res.json({ success: true, custoMateriais: (precoEletrico + precoHidraulico).toFixed(2) });
+  } catch (erro) {
+    responderErroGrupo7(res, erro);
+  }
+});
+
+app.post(`/api/src${GRUPO7_PATH}/custos`, (req, res) => {
+  try {
+    const volume = lerNumeroGrupo7('volume', req.body.volume);
+    const precoAgua = lerNumeroGrupo7('precoAgua', req.body.precoAgua);
+    const precoManutencao = lerNumeroGrupo7('precoManutencao', req.body.precoManutencao);
+
+    res.json({
+      success: true,
+      custoAgua: (volume * precoAgua).toFixed(2),
+      custoManutencao: (volume * precoManutencao).toFixed(2),
+    });
+  } catch (erro) {
+    responderErroGrupo7(res, erro);
+  }
+});
 
 // 5. O MAIS IMPORTANTE: Suporte ao React Router!
 // Se o usuário acessar qualquer sub-rota do React (ex: /equipe-7/login), cai no index.html e o React toma conta
@@ -922,10 +956,40 @@ app.get(/^\/equipe-23(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo23DistPath, 'index.html'));
 });
 
-// ETEC proxy routes (static files served earlier)
-app.post(`/etec/api/salario`, (req, res) => proxyAPI('/ETEC/salario', req, res));
-app.post(`/etec/api/ferias`, (req, res) => proxyAPI('/ETEC/ferias', req, res));
-app.post(`/etec/api/rescisao`, (req, res) => proxyAPI('/ETEC/rescisao', req, res));
+const {
+  calculateSalary: calculateEtecSalary,
+} = require('../api/src/etec/services/salaryService');
+const {
+  calculateVacation: calculateEtecVacation,
+} = require('../api/src/etec/services/vacationService');
+const {
+  calculateTermination: calculateEtecTermination,
+} = require('../api/src/etec/services/terminationService');
+const {
+  validateSalaryPayload: validateEtecSalaryPayload,
+  validateVacationPayload: validateEtecVacationPayload,
+  validateTerminationPayload: validateEtecTerminationPayload,
+} = require('../api/src/etec/validators/calculationValidators');
+
+function responderEtec(res, calculadora, validador, body) {
+  try {
+    const payload = validador(body);
+    res.status(200).json({ success: true, data: calculadora(payload) });
+  } catch (erro) {
+    res.status(erro.statusCode || 400).json({
+      success: false,
+      error: erro.message || 'Erro ao calcular.',
+    });
+  }
+}
+
+// ETEC local API routes (static files served earlier)
+app.post('/etec/api/salario', (req, res) =>
+  responderEtec(res, calculateEtecSalary, validateEtecSalaryPayload, req.body));
+app.post('/etec/api/ferias', (req, res) =>
+  responderEtec(res, calculateEtecVacation, validateEtecVacationPayload, req.body));
+app.post('/etec/api/rescisao', (req, res) =>
+  responderEtec(res, calculateEtecTermination, validateEtecTerminationPayload, req.body));
 
 // ROTAS GRUPO 22 — SaunaCalc Elite
 const EQUIPE22_PATH = '/equipe-22';
