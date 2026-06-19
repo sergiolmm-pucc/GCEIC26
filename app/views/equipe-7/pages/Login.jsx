@@ -36,7 +36,7 @@ function Login() {
           <label style={styles.fieldLabel}>Senha</label>
           <input 
             type="password" 
-            placeholder="••••••••" 
+            placeholder="1234" 
             value={pass}
             onChange={(e) => setPass(e.target.value)} 
             style={styles.input}
