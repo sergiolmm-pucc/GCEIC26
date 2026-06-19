@@ -170,6 +170,8 @@ dist
 !app/views/etec/dist/
 !app/views/etec/dist/**
 !app/views/etec64/dist/
+!app/views/equipe-7/dist/
+!app/views/equipe-7/dist/**
 !app/equipe-5/dist/
 !app/views/grupo15-calc_frete/dist/
 !app/grupo-19F/dist/
