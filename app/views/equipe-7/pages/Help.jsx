@@ -28,7 +28,7 @@ function Help() {
 
         <div style={styles.section}>
           <h3 style={styles.sectionTitle}>3. Verificação de Conectividade API</h3>
-          <p style={styles.text}>Caso ocorra falhas no processamento, assegure-se de que o backend da aplicação construído em <strong>Node.js</strong> encontra-se operacional no servidor na porta padrão <code>3000</code>.</p>
+          <p style={styles.text}>Caso ocorram falhas no processamento, assegure-se de que a API em <strong>Node.js</strong> encontra-se operacional no servidor na porta padrao <code>3001</code> e que o app web esta usando o proxy da Equipe 7.</p>
         </div>
 
         <div style={styles.footer}>

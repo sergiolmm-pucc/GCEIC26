@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1779972174556" clover="3.2.0">
-  <project timestamp="1779972174556" name="All files">
-    <metrics statements="1644" coveredstatements="1299" conditionals="981" coveredconditionals="631" methods="213" coveredmethods="163" elements="2838" coveredelements="2093" complexity="0" loc="1644" ncloc="1644" packages="39" files="62" classes="62"/>
+<coverage generated="1781823136283" clover="3.2.0">
+  <project timestamp="1781823136283" name="All files">
+    <metrics statements="1666" coveredstatements="1319" conditionals="989" coveredconditionals="637" methods="215" coveredmethods="165" elements="2870" coveredelements="2121" complexity="0" loc="1666" ncloc="1666" packages="39" files="63" classes="63"/>
     <package name="src">
       <metrics statements="199" coveredstatements="120" conditionals="38" coveredconditionals="12" methods="26" coveredmethods="13"/>
-      <file name="app.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/app.js">
+      <file name="app.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\app.js">
         <metrics statements="199" coveredstatements="120" conditionals="38" coveredconditionals="12" methods="26" coveredmethods="13"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -209,7 +209,7 @@
     </package>
     <package name="src.equipe-08.controllers">
       <metrics statements="39" coveredstatements="5" conditionals="24" coveredconditionals="0" methods="5" coveredmethods="0"/>
-      <file name="piscinaController.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-08/controllers/piscinaController.js">
+      <file name="piscinaController.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-08\controllers\piscinaController.js">
         <metrics statements="39" coveredstatements="5" conditionals="24" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -254,7 +254,7 @@
     </package>
     <package name="src.equipe-08.routes">
       <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="piscina.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-08/routes/piscina.js">
+      <file name="piscina.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-08\routes\piscina.js">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -269,7 +269,7 @@
     </package>
     <package name="src.equipe-1">
       <metrics statements="46" coveredstatements="41" conditionals="30" coveredconditionals="26" methods="5" coveredmethods="4"/>
-      <file name="app.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-1/app.js">
+      <file name="app.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-1\app.js">
         <metrics statements="24" coveredstatements="21" conditionals="8" coveredconditionals="6" methods="3" coveredmethods="2"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -296,7 +296,7 @@
         <line num="44" count="1" type="stmt"/>
         <line num="48" count="18" type="stmt"/>
       </file>
-      <file name="funcoes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-1/funcoes.js">
+      <file name="funcoes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-1\funcoes.js">
         <metrics statements="22" coveredstatements="20" conditionals="22" coveredconditionals="20" methods="2" coveredmethods="2"/>
         <line num="2" count="7" type="cond" truecount="4" falsecount="0"/>
         <line num="3" count="5" type="cond" truecount="2" falsecount="0"/>
@@ -324,7 +324,7 @@
     </package>
     <package name="src.equipe-10">
       <metrics statements="45" coveredstatements="37" conditionals="36" coveredconditionals="28" methods="6" coveredmethods="4"/>
-      <file name="calcFinanceiraApp.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-10/calcFinanceiraApp.js">
+      <file name="calcFinanceiraApp.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-10\calcFinanceiraApp.js">
         <metrics statements="19" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -346,7 +346,7 @@
         <line num="32" count="0" type="stmt"/>
         <line num="36" count="18" type="stmt"/>
       </file>
-      <file name="calcFinanceiraFunc.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-10/calcFinanceiraFunc.js">
+      <file name="calcFinanceiraFunc.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-10\calcFinanceiraFunc.js">
         <metrics statements="26" coveredstatements="26" conditionals="36" coveredconditionals="28" methods="3" coveredmethods="3"/>
         <line num="2" count="5" type="stmt"/>
         <line num="3" count="5" type="cond" truecount="4" falsecount="0"/>
@@ -378,7 +378,7 @@
     </package>
     <package name="src.equipe-11">
       <metrics statements="65" coveredstatements="11" conditionals="54" coveredconditionals="0" methods="8" coveredmethods="0"/>
-      <file name="funcoes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-11/funcoes.js">
+      <file name="funcoes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-11\funcoes.js">
         <metrics statements="16" coveredstatements="3" conditionals="6" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -397,7 +397,7 @@
         <line num="48" count="0" type="stmt"/>
         <line num="57" count="18" type="stmt"/>
       </file>
-      <file name="routes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-11/routes.js">
+      <file name="routes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-11\routes.js">
         <metrics statements="49" coveredstatements="8" conditionals="48" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="1" count="18" type="stmt"/>
         <line num="8" count="18" type="stmt"/>
@@ -452,7 +452,7 @@
     </package>
     <package name="src.equipe-12">
       <metrics statements="64" coveredstatements="64" conditionals="38" coveredconditionals="38" methods="10" coveredmethods="10"/>
-      <file name="funcoes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-12/funcoes.js">
+      <file name="funcoes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-12\funcoes.js">
         <metrics statements="51" coveredstatements="51" conditionals="34" coveredconditionals="34" methods="8" coveredmethods="8"/>
         <line num="1" count="19" type="stmt"/>
         <line num="23" count="4" type="cond" truecount="2" falsecount="0"/>
@@ -506,7 +506,7 @@
         <line num="159" count="8" type="stmt"/>
         <line num="162" count="19" type="stmt"/>
       </file>
-      <file name="routes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-12/routes.js">
+      <file name="routes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-12\routes.js">
         <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -525,7 +525,7 @@
     </package>
     <package name="src.equipe-14">
       <metrics statements="76" coveredstatements="46" conditionals="56" coveredconditionals="27" methods="21" coveredmethods="14"/>
-      <file name="pricingRoutes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-14/pricingRoutes.js">
+      <file name="pricingRoutes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-14\pricingRoutes.js">
         <metrics statements="23" coveredstatements="21" conditionals="13" coveredconditionals="11" methods="12" coveredmethods="7"/>
         <line num="1" count="18" type="stmt"/>
         <line num="6" count="18" type="stmt"/>
@@ -551,7 +551,7 @@
         <line num="69" count="8" type="stmt"/>
         <line num="73" count="18" type="stmt"/>
       </file>
-      <file name="pricingService.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-14/pricingService.js">
+      <file name="pricingService.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-14\pricingService.js">
         <metrics statements="30" coveredstatements="14" conditionals="23" coveredconditionals="2" methods="8" coveredmethods="6"/>
         <line num="1" count="18" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
@@ -584,7 +584,7 @@
         <line num="129" count="13" type="stmt"/>
         <line num="136" count="18" type="stmt"/>
       </file>
-      <file name="validation.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-14/validation.js">
+      <file name="validation.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-14\validation.js">
         <metrics statements="23" coveredstatements="11" conditionals="20" coveredconditionals="14" methods="1" coveredmethods="1"/>
         <line num="2" count="9" type="cond" truecount="5" falsecount="1"/>
         <line num="3" count="0" type="stmt"/>
@@ -613,7 +613,7 @@
     </package>
     <package name="src.equipe-15">
       <metrics statements="97" coveredstatements="86" conditionals="60" coveredconditionals="44" methods="14" coveredmethods="14"/>
-      <file name="freteRoutes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-15/freteRoutes.js">
+      <file name="freteRoutes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-15\freteRoutes.js">
         <metrics statements="48" coveredstatements="44" conditionals="27" coveredconditionals="23" methods="9" coveredmethods="9"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -664,7 +664,7 @@
         <line num="120" count="0" type="stmt"/>
         <line num="125" count="18" type="stmt"/>
       </file>
-      <file name="freteService.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-15/freteService.js">
+      <file name="freteService.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-15\freteService.js">
         <metrics statements="49" coveredstatements="42" conditionals="33" coveredconditionals="21" methods="5" coveredmethods="5"/>
         <line num="4" count="18" type="stmt"/>
         <line num="5" count="18" type="stmt"/>
@@ -719,7 +719,7 @@
     </package>
     <package name="src.equipe-17">
       <metrics statements="61" coveredstatements="60" conditionals="44" coveredconditionals="35" methods="6" coveredmethods="6"/>
-      <file name="funcoes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-17/funcoes.js">
+      <file name="funcoes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-17\funcoes.js">
         <metrics statements="43" coveredstatements="42" conditionals="42" coveredconditionals="33" methods="3" coveredmethods="3"/>
         <line num="1" count="18" type="stmt"/>
         <line num="65" count="12" type="stmt"/>
@@ -765,7 +765,7 @@
         <line num="153" count="7" type="stmt"/>
         <line num="178" count="18" type="stmt"/>
       </file>
-      <file name="nfvendaRoutes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-17/nfvendaRoutes.js">
+      <file name="nfvendaRoutes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-17\nfvendaRoutes.js">
         <metrics statements="18" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -789,7 +789,7 @@
     </package>
     <package name="src.equipe-18">
       <metrics statements="47" coveredstatements="41" conditionals="28" coveredconditionals="16" methods="4" coveredmethods="4"/>
-      <file name="local-nf-service.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-18/local-nf-service.js">
+      <file name="local-nf-service.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-18\local-nf-service.js">
         <metrics statements="47" coveredstatements="41" conditionals="28" coveredconditionals="16" methods="4" coveredmethods="4"/>
         <line num="1" count="18" type="stmt"/>
         <line num="8" count="18" type="stmt"/>
@@ -842,7 +842,7 @@
     </package>
     <package name="src.equipe-2">
       <metrics statements="36" coveredstatements="36" conditionals="14" coveredconditionals="14" methods="2" coveredmethods="2"/>
-      <file name="irpRoutes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-2/irpRoutes.js">
+      <file name="irpRoutes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-2\irpRoutes.js">
         <metrics statements="13" coveredstatements="13" conditionals="10" coveredconditionals="10" methods="1" coveredmethods="1"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -858,7 +858,7 @@
         <line num="21" count="7" type="stmt"/>
         <line num="24" count="18" type="stmt"/>
       </file>
-      <file name="irpService.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-2/irpService.js">
+      <file name="irpService.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-2\irpService.js">
         <metrics statements="23" coveredstatements="23" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="8" count="7" type="stmt"/>
         <line num="9" count="7" type="stmt"/>
@@ -887,7 +887,7 @@
     </package>
     <package name="src.equipe-20">
       <metrics statements="33" coveredstatements="2" conditionals="35" coveredconditionals="0" methods="5" coveredmethods="0"/>
-      <file name="funcoes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-20/funcoes.js">
+      <file name="funcoes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-20\funcoes.js">
         <metrics statements="33" coveredstatements="2" conditionals="35" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="6" count="18" type="stmt"/>
         <line num="26" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -926,7 +926,7 @@
     </package>
     <package name="src.equipe-21">
       <metrics statements="43" coveredstatements="40" conditionals="22" coveredconditionals="19" methods="7" coveredmethods="7"/>
-      <file name="funcoes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-21/funcoes.js">
+      <file name="funcoes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-21\funcoes.js">
         <metrics statements="28" coveredstatements="26" conditionals="17" coveredconditionals="15" methods="4" coveredmethods="4"/>
         <line num="1" count="19" type="stmt"/>
         <line num="11" count="19" type="stmt"/>
@@ -957,7 +957,7 @@
         <line num="70" count="2" type="stmt"/>
         <line num="78" count="19" type="stmt"/>
       </file>
-      <file name="routes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-21/routes.js">
+      <file name="routes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-21\routes.js">
         <metrics statements="15" coveredstatements="14" conditionals="5" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -978,7 +978,7 @@
     </package>
     <package name="src.equipe-22">
       <metrics statements="44" coveredstatements="40" conditionals="28" coveredconditionals="24" methods="6" coveredmethods="5"/>
-      <file name="funcoes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-22/funcoes.js">
+      <file name="funcoes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-22\funcoes.js">
         <metrics statements="35" coveredstatements="35" conditionals="28" coveredconditionals="24" methods="5" coveredmethods="5"/>
         <line num="6" count="19" type="stmt"/>
         <line num="42" count="18" type="cond" truecount="2" falsecount="0"/>
@@ -1016,7 +1016,7 @@
         <line num="125" count="3" type="stmt"/>
         <line num="136" count="19" type="stmt"/>
       </file>
-      <file name="routes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-22/routes.js">
+      <file name="routes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-22\routes.js">
         <metrics statements="9" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -1031,7 +1031,7 @@
     </package>
     <package name="src.equipe-23">
       <metrics statements="30" coveredstatements="1" conditionals="42" coveredconditionals="0" methods="3" coveredmethods="0"/>
-      <file name="autonomiaController.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-23/autonomiaController.js">
+      <file name="autonomiaController.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-23\autonomiaController.js">
         <metrics statements="30" coveredstatements="1" conditionals="42" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="4" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="5" count="0" type="stmt"/>
@@ -1067,7 +1067,7 @@
     </package>
     <package name="src.equipe-25">
       <metrics statements="113" coveredstatements="98" conditionals="101" coveredconditionals="88" methods="9" coveredmethods="9"/>
-      <file name="funcoes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-25/funcoes.js">
+      <file name="funcoes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-25\funcoes.js">
         <metrics statements="65" coveredstatements="60" conditionals="75" coveredconditionals="67" methods="4" coveredmethods="4"/>
         <line num="1" count="19" type="stmt"/>
         <line num="11" count="17" type="stmt"/>
@@ -1135,7 +1135,7 @@
         <line num="169" count="4" type="stmt"/>
         <line num="177" count="19" type="stmt"/>
       </file>
-      <file name="routes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-25/routes.js">
+      <file name="routes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-25\routes.js">
         <metrics statements="48" coveredstatements="38" conditionals="26" coveredconditionals="21" methods="5" coveredmethods="5"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -1189,7 +1189,7 @@
     </package>
     <package name="src.equipe-5">
       <metrics statements="14" coveredstatements="11" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="0"/>
-      <file name="server.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-5/server.js">
+      <file name="server.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-5\server.js">
         <metrics statements="14" coveredstatements="11" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -1209,7 +1209,7 @@
     </package>
     <package name="src.equipe-5.controllers">
       <metrics statements="24" coveredstatements="22" conditionals="9" coveredconditionals="9" methods="3" coveredmethods="3"/>
-      <file name="energyController.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-5/controllers/energyController.js">
+      <file name="energyController.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-5\controllers\energyController.js">
         <metrics statements="24" coveredstatements="22" conditionals="9" coveredconditionals="9" methods="3" coveredmethods="3"/>
         <line num="1" count="19" type="stmt"/>
         <line num="3" count="19" type="stmt"/>
@@ -1239,7 +1239,7 @@
     </package>
     <package name="src.equipe-5.routes">
       <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="energy.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-5/routes/energy.js">
+      <file name="energy.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-5\routes\energy.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="19" type="stmt"/>
         <line num="2" count="19" type="stmt"/>
@@ -1252,7 +1252,7 @@
     </package>
     <package name="src.equipe-5.services">
       <metrics statements="28" coveredstatements="28" conditionals="24" coveredconditionals="23" methods="5" coveredmethods="5"/>
-      <file name="energyService.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-5/services/energyService.js">
+      <file name="energyService.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-5\services\energyService.js">
         <metrics statements="28" coveredstatements="28" conditionals="24" coveredconditionals="23" methods="5" coveredmethods="5"/>
         <line num="1" count="20" type="stmt"/>
         <line num="9" count="17" type="cond" truecount="4" falsecount="0"/>
@@ -1286,7 +1286,7 @@
     </package>
     <package name="src.equipe-6">
       <metrics statements="42" coveredstatements="40" conditionals="31" coveredconditionals="23" methods="3" coveredmethods="3"/>
-      <file name="rotasSaunaGrupo6.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-6/rotasSaunaGrupo6.js">
+      <file name="rotasSaunaGrupo6.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-6\rotasSaunaGrupo6.js">
         <metrics statements="42" coveredstatements="40" conditionals="31" coveredconditionals="23" methods="3" coveredmethods="3"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -1333,42 +1333,67 @@
       </file>
     </package>
     <package name="src.equipe-7">
-      <metrics statements="22" coveredstatements="22" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-      <file name="custos.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-7/custos.js">
-        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="44" coveredstatements="42" conditionals="8" coveredconditionals="6" methods="5" coveredmethods="5"/>
+      <file name="custos.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-7\custos.js">
+        <metrics statements="13" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="19" type="stmt"/>
         <line num="2" count="19" type="stmt"/>
-        <line num="4" count="19" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
+        <line num="3" count="19" type="stmt"/>
+        <line num="5" count="19" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
-        <line num="14" count="19" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="23" count="19" type="stmt"/>
       </file>
-      <file name="materiais.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-7/materiais.js">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="materiais.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-7\materiais.js">
+        <metrics statements="11" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="19" type="stmt"/>
         <line num="2" count="19" type="stmt"/>
-        <line num="4" count="19" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
+        <line num="3" count="19" type="stmt"/>
+        <line num="5" count="19" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
-        <line num="10" count="19" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="17" count="19" type="stmt"/>
       </file>
-      <file name="volume.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-7/volume.js">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="validacao.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-7\validacao.js">
+        <metrics statements="8" coveredstatements="8" conditionals="8" coveredconditionals="6" methods="2" coveredmethods="2"/>
+        <line num="2" count="12" type="stmt"/>
+        <line num="4" count="12" type="cond" truecount="4" falsecount="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="10" count="11" type="stmt"/>
+        <line num="14" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="20" count="19" type="stmt"/>
+      </file>
+      <file name="volume.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-7\volume.js">
+        <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="19" type="stmt"/>
         <line num="2" count="19" type="stmt"/>
-        <line num="4" count="19" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
+        <line num="3" count="19" type="stmt"/>
+        <line num="5" count="19" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
-        <line num="10" count="19" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="18" count="19" type="stmt"/>
       </file>
     </package>
     <package name="src.equipe-9">
       <metrics statements="30" coveredstatements="30" conditionals="35" coveredconditionals="30" methods="3" coveredmethods="3"/>
-      <file name="funcoes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/equipe-9/funcoes.js">
+      <file name="funcoes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\equipe-9\funcoes.js">
         <metrics statements="30" coveredstatements="30" conditionals="35" coveredconditionals="30" methods="3" coveredmethods="3"/>
         <line num="1" count="2" type="stmt"/>
         <line num="18" count="28" type="stmt"/>
@@ -1404,7 +1429,7 @@
     </package>
     <package name="src.etec.constants">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="taxTables2026.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec/constants/taxTables2026.js">
+      <file name="taxTables2026.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec\constants\taxTables2026.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="19" type="stmt"/>
         <line num="11" count="19" type="stmt"/>
@@ -1415,7 +1440,7 @@
     </package>
     <package name="src.etec.controllers">
       <metrics statements="21" coveredstatements="20" conditionals="5" coveredconditionals="4" methods="6" coveredmethods="6"/>
-      <file name="etecController.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec/controllers/etecController.js">
+      <file name="etecController.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec\controllers\etecController.js">
         <metrics statements="21" coveredstatements="20" conditionals="5" coveredconditionals="4" methods="6" coveredmethods="6"/>
         <line num="1" count="18" type="stmt"/>
         <line num="7" count="18" type="stmt"/>
@@ -1442,7 +1467,7 @@
     </package>
     <package name="src.etec.errors">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="ValidationError.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec/errors/ValidationError.js">
+      <file name="ValidationError.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec\errors\ValidationError.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -1452,7 +1477,7 @@
     </package>
     <package name="src.etec.middlewares">
       <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="2" methods="1" coveredmethods="1"/>
-      <file name="errorMiddleware.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec/middlewares/errorMiddleware.js">
+      <file name="errorMiddleware.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec\middlewares\errorMiddleware.js">
         <metrics statements="3" coveredstatements="3" conditionals="4" coveredconditionals="2" methods="1" coveredmethods="1"/>
         <line num="2" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="4" count="1" type="stmt"/>
@@ -1461,7 +1486,7 @@
     </package>
     <package name="src.etec.routes">
       <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="etecRoutes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec/routes/etecRoutes.js">
+      <file name="etecRoutes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec\routes\etecRoutes.js">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="18" type="stmt"/>
         <line num="9" count="18" type="stmt"/>
@@ -1478,7 +1503,7 @@
     </package>
     <package name="src.etec.services">
       <metrics statements="60" coveredstatements="60" conditionals="20" coveredconditionals="9" methods="8" coveredmethods="8"/>
-      <file name="salaryService.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec/services/salaryService.js">
+      <file name="salaryService.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec\services\salaryService.js">
         <metrics statements="16" coveredstatements="16" conditionals="3" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="19" type="stmt"/>
         <line num="2" count="19" type="stmt"/>
@@ -1497,7 +1522,7 @@
         <line num="49" count="2" type="stmt"/>
         <line num="61" count="19" type="stmt"/>
       </file>
-      <file name="taxService.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec/services/taxService.js">
+      <file name="taxService.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec\services\taxService.js">
         <metrics statements="20" coveredstatements="20" conditionals="6" coveredconditionals="3" methods="4" coveredmethods="4"/>
         <line num="4" count="19" type="stmt"/>
         <line num="5" count="19" type="stmt"/>
@@ -1520,7 +1545,7 @@
         <line num="45" count="8" type="stmt"/>
         <line num="48" count="19" type="stmt"/>
       </file>
-      <file name="terminationService.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec/services/terminationService.js">
+      <file name="terminationService.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec\services\terminationService.js">
         <metrics statements="15" coveredstatements="15" conditionals="9" coveredconditionals="6" methods="1" coveredmethods="1"/>
         <line num="1" count="19" type="stmt"/>
         <line num="2" count="19" type="stmt"/>
@@ -1538,7 +1563,7 @@
         <line num="46" count="3" type="stmt"/>
         <line num="62" count="19" type="stmt"/>
       </file>
-      <file name="vacationService.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec/services/vacationService.js">
+      <file name="vacationService.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec\services\vacationService.js">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="19" type="stmt"/>
         <line num="2" count="19" type="stmt"/>
@@ -1553,7 +1578,7 @@
     </package>
     <package name="src.etec.utils">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="money.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec/utils/money.js">
+      <file name="money.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec\utils\money.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="2" count="67" type="stmt"/>
         <line num="5" count="19" type="stmt"/>
@@ -1561,7 +1586,7 @@
     </package>
     <package name="src.etec.validators">
       <metrics statements="29" coveredstatements="21" conditionals="39" coveredconditionals="25" methods="6" coveredmethods="6"/>
-      <file name="calculationValidators.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec/validators/calculationValidators.js">
+      <file name="calculationValidators.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec\validators\calculationValidators.js">
         <metrics statements="29" coveredstatements="21" conditionals="39" coveredconditionals="25" methods="6" coveredmethods="6"/>
         <line num="1" count="18" type="stmt"/>
         <line num="10" count="12" type="stmt"/>
@@ -1596,7 +1621,7 @@
     </package>
     <package name="src.etec64.controllers">
       <metrics statements="123" coveredstatements="112" conditionals="107" coveredconditionals="88" methods="6" coveredmethods="6"/>
-      <file name="aprovacaoController.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec64/controllers/aprovacaoController.js">
+      <file name="aprovacaoController.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec64\controllers\aprovacaoController.js">
         <metrics statements="70" coveredstatements="62" conditionals="61" coveredconditionals="45" methods="2" coveredmethods="2"/>
         <line num="8" count="18" type="stmt"/>
         <line num="16" count="18" type="stmt"/>
@@ -1669,7 +1694,7 @@
         <line num="175" count="4" type="stmt"/>
         <line num="187" count="0" type="stmt"/>
       </file>
-      <file name="frequenciaController.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec64/controllers/frequenciaController.js">
+      <file name="frequenciaController.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec64\controllers\frequenciaController.js">
         <metrics statements="21" coveredstatements="20" conditionals="18" coveredconditionals="18" methods="1" coveredmethods="1"/>
         <line num="17" count="18" type="stmt"/>
         <line num="18" count="7" type="stmt"/>
@@ -1693,7 +1718,7 @@
         <line num="65" count="3" type="stmt"/>
         <line num="82" count="0" type="stmt"/>
       </file>
-      <file name="mediaController.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec64/controllers/mediaController.js">
+      <file name="mediaController.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec64\controllers\mediaController.js">
         <metrics statements="32" coveredstatements="30" conditionals="28" coveredconditionals="25" methods="3" coveredmethods="3"/>
         <line num="7" count="18" type="stmt"/>
         <line num="15" count="18" type="stmt"/>
@@ -1731,7 +1756,7 @@
     </package>
     <package name="src.etec64.routes">
       <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="etecRoutes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/etec64/routes/etecRoutes.js">
+      <file name="etecRoutes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\etec64\routes\etecRoutes.js">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>
@@ -1746,7 +1771,7 @@
     </package>
     <package name="src.grupo-19">
       <metrics statements="15" coveredstatements="12" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="1"/>
-      <file name="server.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/grupo-19/server.js">
+      <file name="server.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\grupo-19\server.js">
         <metrics statements="15" coveredstatements="12" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -1767,7 +1792,7 @@
     </package>
     <package name="src.grupo-19.controllers">
       <metrics statements="39" coveredstatements="39" conditionals="6" coveredconditionals="6" methods="5" coveredmethods="5"/>
-      <file name="FinanciamentoController.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/grupo-19/controllers/FinanciamentoController.js">
+      <file name="FinanciamentoController.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\grupo-19\controllers\FinanciamentoController.js">
         <metrics statements="39" coveredstatements="39" conditionals="6" coveredconditionals="6" methods="5" coveredmethods="5"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
@@ -1812,7 +1837,7 @@
     </package>
     <package name="src.grupo-19.models">
       <metrics statements="57" coveredstatements="56" conditionals="16" coveredconditionals="12" methods="12" coveredmethods="11"/>
-      <file name="ComparadorFinanciamento.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/grupo-19/models/ComparadorFinanciamento.js">
+      <file name="ComparadorFinanciamento.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\grupo-19\models\ComparadorFinanciamento.js">
         <metrics statements="9" coveredstatements="9" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
         <line num="1" count="3" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -1824,7 +1849,7 @@
         <line num="19" count="8" type="stmt"/>
         <line num="34" count="3" type="stmt"/>
       </file>
-      <file name="Financiamento.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/grupo-19/models/Financiamento.js">
+      <file name="Financiamento.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\grupo-19\models\Financiamento.js">
         <metrics statements="20" coveredstatements="19" conditionals="14" coveredconditionals="11" methods="5" coveredmethods="4"/>
         <line num="13" count="42" type="cond" truecount="2" falsecount="0"/>
         <line num="14" count="1" type="stmt"/>
@@ -1847,7 +1872,7 @@
         <line num="43" count="23" type="stmt"/>
         <line num="60" count="3" type="stmt"/>
       </file>
-      <file name="FinanciamentoPRICE.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/grupo-19/models/FinanciamentoPRICE.js">
+      <file name="FinanciamentoPRICE.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\grupo-19\models\FinanciamentoPRICE.js">
         <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="3" type="stmt"/>
         <line num="10" count="17" type="stmt"/>
@@ -1866,7 +1891,7 @@
         <line num="46" count="16" type="stmt"/>
         <line num="50" count="3" type="stmt"/>
       </file>
-      <file name="FinanciamentoSAC.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/grupo-19/models/FinanciamentoSAC.js">
+      <file name="FinanciamentoSAC.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\grupo-19\models\FinanciamentoSAC.js">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="3" type="stmt"/>
         <line num="10" count="24" type="stmt"/>
@@ -1884,7 +1909,7 @@
     </package>
     <package name="src.grupo-19.routes">
       <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
-      <file name="financiamento.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/grupo-19/routes/financiamento.js">
+      <file name="financiamento.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\grupo-19\routes\financiamento.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -1900,7 +1925,7 @@
     </package>
     <package name="src.grupo13-markup">
       <metrics statements="42" coveredstatements="38" conditionals="27" coveredconditionals="23" methods="4" coveredmethods="3"/>
-      <file name="markupController.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/grupo13-markup/markupController.js">
+      <file name="markupController.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\grupo13-markup\markupController.js">
         <metrics statements="34" coveredstatements="30" conditionals="27" coveredconditionals="23" methods="3" coveredmethods="3"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="3" type="stmt"/>
@@ -1937,7 +1962,7 @@
         <line num="51" count="1" type="stmt"/>
         <line num="61" count="18" type="stmt"/>
       </file>
-      <file name="routes.js" path="/home/lu3rf3l/Documentos/GCEIC26/api/src/grupo13-markup/routes.js">
+      <file name="routes.js" path="C:\Users\nicol\Documents\GitHub\GCEIC26\api\src\grupo13-markup\routes.js">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="18" type="stmt"/>
         <line num="2" count="18" type="stmt"/>

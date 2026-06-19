@@ -2,6 +2,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const API_BASE = '/api/src/equipe-7';
+
 function Calculadora() {
   const [dados, setDados] = useState({
     largura: '',
@@ -14,26 +16,30 @@ function Calculadora() {
   });
 
   const [resultado, setResultado] = useState(null);
+  const [erro, setErro] = useState('');
 
   const handleChange = (e) => {
     setDados({ ...dados, [e.target.name]: e.target.value });
   };
 
   const calcularCusto = async () => {
+    setErro('');
+    setResultado(null);
+
     try {
-      const resVolume = await axios.post('/api/equipe-7/volume/calcular', {
+      const resVolume = await axios.post(`${API_BASE}/volume`, {
         largura: dados.largura,
         comprimento: dados.comprimento,
         profundidade: dados.profundidade
       });
       const volumeCalculado = resVolume.data.volume;
 
-      const resMateriais = await axios.post('/api/equipe-7/materiais/calcular', {
+      const resMateriais = await axios.post(`${API_BASE}/materiais`, {
         precoEletrico: dados.precoEletrico,
         precoHidraulico: dados.precoHidraulico
       });
 
-      const resCustos = await axios.post('/api/equipe-7/custos/calcular', {
+      const resCustos = await axios.post(`${API_BASE}/custos`, {
         volume: volumeCalculado,
         precoAgua: dados.precoAgua,
         precoManutencao: dados.precoManutencao
@@ -44,12 +50,16 @@ function Calculadora() {
         custoMateriais: resMateriais.data.custoMateriais,
         custoAgua: resCustos.data.custoAgua,
         custoManutencao: resCustos.data.custoManutencao,
-        totalObra: (parseFloat(resCustos.data.custoAgua) + parseFloat(resMateriais.data.custoMateriais)).toFixed(2)
+        totalObra: (
+          parseFloat(resCustos.data.custoAgua) +
+          parseFloat(resCustos.data.custoManutencao) +
+          parseFloat(resMateriais.data.custoMateriais)
+        ).toFixed(2)
       });
 
     } catch (error) {
       console.error("Erro ao calcular em múltiplas APIs:", error);
-      alert("Erro ao conectar com as APIs. Verifique se o servidor Node está rodando!");
+      setErro(error.response?.data?.error || 'Erro ao conectar com as APIs. Verifique se os servidores Node estao rodando.');
     }
   };
 
@@ -112,6 +122,10 @@ function Calculadora() {
             <button onClick={calcularCusto} style={styles.button}>
               Calcular Projeto
             </button>
+
+            {erro && (
+              <p style={styles.errorMessage}>{erro}</p>
+            )}
           </div>
 
           {/* Seção de Resultados Dinâmica */}
@@ -147,7 +161,7 @@ function Calculadora() {
                 <div style={styles.totalBlock}>
                   <div>
                     <span style={styles.totalLabel}>Investimento de Implantação</span>
-                    <p style={styles.totalSubtext}>Soma de infraestrutura e primeiro abastecimento</p>
+                    <p style={styles.totalSubtext}>Soma de infraestrutura, primeiro abastecimento e manutenção estimada</p>
                   </div>
                   <h4 style={styles.totalValue}>R$ {parseFloat(resultado.totalObra).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</h4>
                 </div>
@@ -296,6 +310,16 @@ const styles = {
     fontWeight: '600',
     marginTop: '12px',
     boxShadow: '0 4px 12px rgba(2, 132, 199, 0.15)',
+  },
+  errorMessage: {
+    margin: '16px 0 0 0',
+    padding: '12px 14px',
+    borderRadius: '10px',
+    backgroundColor: '#fef2f2',
+    color: '#b91c1c',
+    border: '1px solid #fecaca',
+    fontSize: '14px',
+    fontWeight: '600',
   },
   resultContainer: {
     width: '100%',

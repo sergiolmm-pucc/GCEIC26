@@ -1,10 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const { lerNumero, enviarErro } = require('./validacao');
 
 router.post('/calcular', (req, res) => {
-    const { precoEletrico, precoHidraulico } = req.body;
-    const totalMateriais = parseFloat(precoEletrico) + parseFloat(precoHidraulico);
-    res.json({ custoMateriais: totalMateriais.toFixed(2) });
+    try {
+        const precoEletrico = lerNumero('precoEletrico', req.body.precoEletrico);
+        const precoHidraulico = lerNumero('precoHidraulico', req.body.precoHidraulico);
+        const totalMateriais = precoEletrico + precoHidraulico;
+
+        res.json({ success: true, custoMateriais: totalMateriais.toFixed(2) });
+    } catch (erro) {
+        enviarErro(res, erro);
+    }
 });
 
 module.exports = router;
