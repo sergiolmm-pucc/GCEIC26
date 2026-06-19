@@ -35,8 +35,7 @@ describe('Testes Unitários do Sistema de Piscina - Grupo 7', () => {
       .post('/PISCINA2/volume/calcular')
       .send({ largura: 2 }); // Faltando comprimento e profundidade de propósito
     
-    expect(res.statusCode).toEqual(200);
-    expect(res.body.volume).toBe("NaN"); 
+    expect(res.statusCode).toEqual(400);
   });
 
   // 2. Teste da API de Materiais
