@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const API_BASE = '/api/src/equipe-7';
+const API_BASE = '/PISCINA2';
 
 function Calculadora() {
   const [dados, setDados] = useState({
@@ -27,19 +27,19 @@ function Calculadora() {
     setResultado(null);
 
     try {
-      const resVolume = await axios.post(`${API_BASE}/volume`, {
+      const resVolume = await axios.post(`${API_BASE}/volume/calcular`, {
         largura: dados.largura,
         comprimento: dados.comprimento,
         profundidade: dados.profundidade
       });
       const volumeCalculado = resVolume.data.volume;
 
-      const resMateriais = await axios.post(`${API_BASE}/materiais`, {
+      const resMateriais = await axios.post(`${API_BASE}/materiais/calcular`, {
         precoEletrico: dados.precoEletrico,
         precoHidraulico: dados.precoHidraulico
       });
 
-      const resCustos = await axios.post(`${API_BASE}/custos`, {
+      const resCustos = await axios.post(`${API_BASE}/custos/calcular`, {
         volume: volumeCalculado,
         precoAgua: dados.precoAgua,
         precoManutencao: dados.precoManutencao
