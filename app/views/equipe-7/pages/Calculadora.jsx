@@ -138,25 +138,21 @@ return (
                 
                 <div style={styles.resultItem}>
                   <span style={styles.resultLabel}>Capacidade Total Volumétrica:</span>
-                  {/* ADICIONADO: id="resultado-volume" */}
                   <span id="resultado-volume" style={styles.resultValue}>{resultado.volume} m³</span>
                 </div>
                 
                 <div style={styles.resultItem}>
                   <span style={styles.resultLabel}>Abastecimento Inicial (Água):</span>
-                  {/* ADICIONADO: id="resultado-agua" */}
                   <span id="resultado-agua" style={styles.resultValue}>R$ {parseFloat(resultado.custoAgua).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
                 </div>
                 
                 <div style={styles.resultItem}>
                   <span style={styles.resultLabel}>Custos Totais de Materiais:</span>
-                  {/* ADICIONADO: id="resultado-materiais" */}
                   <span id="resultado-materiais" style={styles.resultValue}>R$ {parseFloat(resultado.custoMateriais).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</span>
                 </div>
 
                 <div style={styles.resultItem}>
                   <span style={styles.resultLabel}>Previsão de Manutenção Mensal:</span>
-                  {/* ADICIONADO: id="resultado-manutencao" */}
                   <span id="resultado-manutencao" style={{ ...styles.resultValue, color: '#0284c7' }}>
                     R$ {parseFloat(resultado.custoManutencao).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} / mês
                   </span>
@@ -169,7 +165,6 @@ return (
                     <span style={styles.totalLabel}>Investimento de Implantação</span>
                     <p style={styles.totalSubtext}>Soma de infraestrutura, primeiro abastecimento e manutenção estimada</p>
                   </div>
-                  {/* ADICIONADO: id="resultado-total" */}
                   <h4 id="resultado-total" style={styles.totalValue}>R$ {parseFloat(resultado.totalObra).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</h4>
                 </div>
               </div>
