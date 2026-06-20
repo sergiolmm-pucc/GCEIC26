@@ -826,7 +826,7 @@ app.post(`/api/src${GRUPO7_PATH}/materiais`, (req, res) => {
     const precoEletrico = lerNumeroGrupo7('precoEletrico', req.body.precoEletrico);
     const precoHidraulico = lerNumeroGrupo7('precoHidraulico', req.body.precoHidraulico);
 
-    res.json({ success: true, custoMateriais: -10.00 });
+    res.json({ success: true, custoMateriais: (precoEletrico + precoHidraulico).toFixed(2) });
     //res.json({ success: true, custoMateriais: (precoEletrico + precoHidraulico).toFixed(2) });
   } catch (erro) {
     responderErroGrupo7(res, erro);
