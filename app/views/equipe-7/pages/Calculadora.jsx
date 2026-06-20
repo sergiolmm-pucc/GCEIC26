@@ -58,9 +58,16 @@ function Calculadora() {
       });
 
     } catch (error) {
-      console.error("Erro ao calcular em múltiplas APIs:", error);
-      setErro(error.response?.data?.error || 'Erro ao conectar com as APIs. Verifique se os servidores Node estao rodando.');
-    }
+  console.error("Erro ao calcular em múltiplas APIs:", error);
+
+  console.log('RESPONSE:', error.response?.data);
+  console.log('MESSAGE:', error.message);
+
+  setErro(
+    error.response?.data?.error ||
+    'Erro ao conectar com as APIs. Verifique se os servidores Node estao rodando.'
+  );
+}
   };
 
 return (
