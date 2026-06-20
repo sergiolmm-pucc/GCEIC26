@@ -54,27 +54,35 @@ async function preencherFormulario(dados) {
   }
 }
 
-// Helper para capturar feedback de erro (seja por window.alert ou texto injetado na página)
+// Helper aprimorado para capturar o erro na tela exatamente quando ele aparece
 async function verificarFeedbackDeErro(trechoDoErro, screenshotName) {
   try {
-    // 1. Tenta ver se abriu um alerta do navegador (iguais aos do login)
-    await driver.wait(until.alertIsPresent(), 3000);
+    // 1. Tenta verificar se é um alerta nativo (window.alert)
+    await driver.wait(until.alertIsPresent(), 2000);
     const alert = await driver.switchTo().alert();
     const alertText = await alert.getText();
+    
     if (!alertText.toLowerCase().includes(trechoDoErro.toLowerCase())) {
-      throw new Error(`Alerta exibido diferente do esperado. Obtido: "${alertText}". Esperava conter: "${trechoDoErro}"`);
+      throw new Error(`Alerta diferente do esperado. Obtido: "${alertText}"`);
     }
+    // Nota: Se for alerta nativo, o print sairá sem a caixinha pois o Selenium não a fotografa
     await alert.accept();
     await takeScreenshot(screenshotName);
-    console.log(`   👉 Erro validado via Alerta: "${alertText}"`);
+    console.log(`   👉 Erro validado via Alerta Nativo: "${alertText}"`);
   } catch (error) {
-    if (error.name === 'TimeoutError') {
-      // 2. Se não for alerta nativo, procura o texto do erro renderizado na interface (HTML)
+    // 2. SE NÃO FOR ALERTA NATIVO: Significa que o erro é um elemento HTML na página
+    try {
+      // Aguarda o elemento de texto do erro ser renderizado e ficar visível
       await waitForText(trechoDoErro, 4000);
+      
+      // Pequena pausa de 200ms apenas para o efeito visual/animação do front se consolidar
+      await sleep(200); 
+      
+      // Tira o print IMEDIATAMENTE com o texto do erro visível na tela!
       await takeScreenshot(screenshotName);
-      console.log(`   👉 Erro validado via Interface Gráfica contendo: "${trechoDoErro}"`);
-    } else {
-      throw error;
+      console.log(`   👉 Erro validado e capturado no print via Interface HTML: "${trechoDoErro}"`);
+    } catch (htmlError) {
+      throw new Error(`Não foi possível encontrar a mensagem de erro "${trechoDoErro}" na tela nem via Alerta.`);
     }
   }
 }
