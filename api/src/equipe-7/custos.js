@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { lerNumero, enviarErro } = require('./validacao');
 
-// Função pura de cálculo (usada no teste unitário)
+// Função pura de cálculo (usada no teste unitário) - PERFEITA
 function calcularCustos(volume, precoAgua, precoManutencao) {
     const v = lerNumero('volume', volume);
     const a = lerNumero('precoAgua', precoAgua);
@@ -13,8 +13,7 @@ function calcularCustos(volume, precoAgua, precoManutencao) {
     };
 }
 
-// Rota HTTP da API (usada no app e teste de integração)
-router.post('/calcular', (req, res) => {
+router.post('/', (req, res) => {
     try {
         const resultados = calcularCustos(req.body.volume, req.body.precoAgua, req.body.precoManutencao);
         res.json({

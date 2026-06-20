@@ -25,6 +25,7 @@ function Login() {
           <label style={styles.fieldLabel}>Usuário</label>
           <input 
             type="text" 
+            id="username"
             placeholder="Ex: admin" 
             value={user}
             onChange={(e) => setUser(e.target.value)} 
@@ -36,6 +37,7 @@ function Login() {
           <label style={styles.fieldLabel}>Senha</label>
           <input 
             type="password" 
+            id="password"
             placeholder="1234" 
             value={pass}
             onChange={(e) => setPass(e.target.value)} 
@@ -43,7 +45,7 @@ function Login() {
           />
         </div>
         
-        <button onClick={handleLogin} style={styles.button}>
+        <button id="btn-login" onClick={handleLogin} style={styles.button}>
           Autenticar sistema
         </button>
       </div>
