@@ -75,12 +75,4 @@ function enviarErro(res, erro) {
 }
 
 
-
-
-module.exports = {
-
-  lerNumero,
-
-  enviarErro,
-
-};
+module.exports = { lerNumero, enviarErro };

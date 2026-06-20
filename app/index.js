@@ -780,68 +780,83 @@ app.use(GRUPO20_PATH, grupo20);
 
 // ====== CONFIGURAÇÃO INTEGRADA EQUIPE 7 ======
 const GRUPO7_PATH = '/equipe-7';
+const apiEquipe7 = '/api/src/equipe-7';
 const grupo7DistPath = path.join(__dirname, 'views', 'equipe-7', 'dist');
 
-// 1. Servir os arquivos estáticos (CSS, JS, Imagens) vinculados ao prefixo /equipe-7
-app.use(GRUPO7_PATH, express.static(grupo7DistPath));
-
-
-// 2. Rota explícita para a raiz da equipe retornar o index.html imediatamente para o wait-on
-const apiEquipe7 = '/api/src/equipe-7';
-
-// 3. Fallback para sub-rotas do React Router se o usuário atualizar a página
-// =============================================
-
-app.use(GRUPO7_PATH, express.static(grupo7DistPath));
-
-// 2. Define que o express deve servir os arquivos js/css/assets estáticos do seu grupo
-app.use(GRUPO7_PATH, express.static(grupo7DistPath));
-
-// 3. Função de proxy para as APIs da equipe 7 (apenas se vocês não arrumaram a porta no front-end para 3001)
 function lerNumeroGrupo7(campo, valor) {
-  const numero = Number(valor);
+    if (valor === null || valor === undefined || valor === '') {
+        const erro = new Error(`Campo ${campo} nao pode ser nulo ou vazio.`);
+        erro.statusCode = 400;
+        throw erro;
+    }
 
-  if (!Number.isFinite(numero) || numero < 0) {
-    const erro = new Error(`Campo ${campo} deve ser um numero maior ou igual a zero.`);
-    erro.statusCode = 400;
-    throw erro;
-  }
+    const numero = Number(valor);
+    if (!Number.isFinite(numero)) {
+        const erro = new Error(`Campo ${campo} deve ser um numero valido.`);
+        erro.statusCode = 400;
+        throw erro;
+    }
 
-  return numero;
+    if (numero < 0) {
+        const erro = new Error(`Campo ${campo} deve ser maior ou igual a zero.`);
+        erro.statusCode = 400;
+        throw erro;
+    }
+
+    return numero;
+}
+
+function enviarErroGrupo7(res, erro) {
+    return res.status(erro.statusCode || 500).json({
+        success: false,
+        error: erro.message || 'Erro inesperado no calculo.'
+    });
 }
 
 app.post(`${apiEquipe7}/volume/calcular`, (req, res) => {
-  try {
-    const { largura, comprimento, profundidade } = req.body;
-    // Utilize as funções de validação do validacao.js
-    const l = lerNumero('largura', largura);
-    const c = lerNumero('comprimento', comprimento);
-    const p = lerNumero('profundidade', profundidade);
-    
-    res.json({ success: true, volume: (l * c * p).toFixed(2) });
-  } catch (erro) {
-    enviarErro(res, erro);
-  }
+    try {
+        const largura = lerNumeroGrupo7('largura', req.body.largura);
+        const comprimento = lerNumeroGrupo7('comprimento', req.body.comprimento);
+        const profundidade = lerNumeroGrupo7('profundidade', req.body.profundidade);
+        res.json({ success: true, volume: (largura * comprimento * profundidade).toFixed(2) });
+    } catch (erro) {
+        enviarErroGrupo7(res, erro);
+    }
 });
 
 app.post(`${apiEquipe7}/materiais/calcular`, (req, res) => {
-  try {
-    const { precoEletrico, precoHidraulico } = req.body;
-    const e = lerNumero('precoEletrico', precoEletrico);
-    const h = lerNumero('precoHidraulico', precoHidraulico);
-    
-    res.json({ success: true, custoMateriais: (e + h).toFixed(2) });
-  } catch (erro) {
-    enviarErro(res, erro);
-  }
+    try {
+        const precoEletrico = lerNumeroGrupo7('precoEletrico', req.body.precoEletrico);
+        const precoHidraulico = lerNumeroGrupo7('precoHidraulico', req.body.precoHidraulico);
+        res.json({ success: true, custoMateriais: (precoEletrico + precoHidraulico).toFixed(2) });
+    } catch (erro) {
+        enviarErroGrupo7(res, erro);
+    }
 });
 
-// 3. Suporte ao React Router (DEVE FICAR POR ÚLTIMO)
-// Isso garante que as rotas de API acima sejam processadas ANTES do React pegar o controle
+app.post(`${apiEquipe7}/custos/calcular`, (req, res) => {
+    try {
+        const volume = lerNumeroGrupo7('volume', req.body.volume);
+        const precoAgua = lerNumeroGrupo7('precoAgua', req.body.precoAgua);
+        const precoManutencao = lerNumeroGrupo7('precoManutencao', req.body.precoManutencao);
+        res.json({
+            success: true,
+            custoAgua: (volume * precoAgua).toFixed(2),
+            custoManutencao: (volume * precoManutencao).toFixed(2)
+        });
+    } catch (erro) {
+        enviarErroGrupo7(res, erro);
+    }
+});
+
+app.use('/equipe-7', express.static(path.join(__dirname, 'views', 'equipe-7', 'dist')));
+
+// 3. Suporte ao React Router (Fallback)
+// Deve ser a última regra para o path /equipe-7
 app.get(/^\/equipe-7(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo7DistPath, 'index.html'));
 });
-
+// =============================================
 
 // ── Grupo 17 — Calculadora de Impostos NF de Venda ──
 
