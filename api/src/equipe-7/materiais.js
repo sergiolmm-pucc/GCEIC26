@@ -2,29 +2,22 @@ const express = require('express');
 const router = express.Router();
 const { lerNumero, enviarErro } = require('./validacao');
 
-// 1. Função pura de cálculo
+// Função pura de cálculo (usada no teste unitário)
 function calcularMateriais(precoEletrico, precoHidraulico) {
-    if (precoEletrico < 0 || precoHidraulico < 0) {
-        throw new Error('Valores não podem ser negativos');
-    }
-    const totalMateriais = precoEletrico + precoHidraulico;
-    return totalMateriais.toFixed(2);
+    const e = lerNumero('precoEletrico', precoEletrico);
+    const h = lerNumero('precoHidraulico', precoHidraulico);
+    return (e + h).toFixed(2);
 }
 
-// 2. Rota HTTP do Express
+// Rota HTTP da API (usada no app e teste de integração)
 router.post('/calcular', (req, res) => {
     try {
-        const precoEletrico = lerNumero('precoEletrico', req.body.precoEletrico);
-        const precoHidraulico = lerNumero('precoHidraulico', req.body.precoHidraulico);
-        
-        const custoMateriais = calcularMateriais(precoEletrico, precoHidraulico);
-
+        const custoMateriais = calcularMateriais(req.body.precoEletrico, req.body.precoHidraulico);
         res.json({ success: true, custoMateriais });
     } catch (erro) {
         enviarErro(res, erro);
     }
 });
 
-// 3. Exporta o router e anexa a função a ele
 router.calcularMateriais = calcularMateriais;
 module.exports = router;

@@ -2,30 +2,24 @@ const express = require('express');
 const router = express.Router();
 const { lerNumero, enviarErro } = require('./validacao');
 
-// 1. Função pura de cálculo
+// Função pura de cálculo (usada no teste unitário)
 function calcularVolume(largura, comprimento, profundidade) {
-    if (largura < 0 || comprimento < 0 || profundidade < 0) {
-        throw new Error('Valores não podem ser negativos');
-    }
-    const volume = largura * comprimento * profundidade;
-    return volume.toFixed(2);
+    const l = lerNumero('largura', largura);
+    const c = lerNumero('comprimento', comprimento);
+    const p = lerNumero('profundidade', profundidade);
+    return (l * c * p).toFixed(2);
 }
 
-// 2. Rota HTTP do Express
+// Rota HTTP da API (usada no app e teste de integração)
 router.post('/calcular', (req, res) => {
     try {
-        const largura = lerNumero('largura', req.body.largura);
-        const comprimento = lerNumero('comprimento', req.body.comprimento);
-        const profundidade = lerNumero('profundidade', req.body.profundidade);
-
-        const volume = calcularVolume(largura, comprimento, profundidade);
-
+        const volume = calcularVolume(req.body.largura, req.body.comprimento, req.body.profundidade);
         res.json({ success: true, volume });
     } catch (erro) {
         enviarErro(res, erro);
     }
 });
 
-// 3. Exporta o router e anexa a função a ele
+// Anexa a função ao objeto router para exportação dupla limpa
 router.calcularVolume = calcularVolume;
 module.exports = router;
