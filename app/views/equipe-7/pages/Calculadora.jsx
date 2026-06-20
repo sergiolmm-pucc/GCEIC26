@@ -26,6 +26,17 @@ function Calculadora() {
     setErro('');
     setResultado(null);
 
+    const valoresIniciais = [
+      dados.largura, dados.comprimento, dados.profundidade,
+      dados.precoAgua, dados.precoManutencao, dados.precoEletrico, dados.precoHidraulico
+    ];
+
+    // Checa se alguma string não está vazia e se sua conversão numérica é negativa
+    if (valoresIniciais.some(v => v !== '' && Number(v) < 0)) {
+      setErro('O valor inserido deve ser maior ou igual a zero.');
+      return; // Interrompe a execução aqui sem disparar o Axios
+    }
+    
     try {
       const resVolume = await axios.post(`${API_BASE}/volume/calcular`, {
         largura: dados.largura,
