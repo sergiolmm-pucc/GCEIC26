@@ -793,9 +793,6 @@ app.get('/equipe-7', (_req, res) => {
 });
 
 // 3. Fallback para sub-rotas do React Router se o usuário atualizar a página
-app.get('/equipe-7/*', (_req, res) => {
-  res.sendFile(path.join(grupo7DistPath, 'index.html'));
-});
 // =============================================
 
 app.use(GRUPO7_PATH, express.static(grupo7DistPath));

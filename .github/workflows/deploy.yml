@@ -67,7 +67,7 @@ jobs:
       
       - name: Subir a API em background
         working-directory: api 
-        run: npm run start &
+        run: nohup npm run start > ../api-start.log 2>&1 &
         env:
           PORT: 3001
           NODE_ENV: test
@@ -77,12 +77,19 @@ jobs:
         
       - name: Subir o site em background
         working-directory: app
-        run: npm run start &
+        run: nohup npm run start > ../app-start.log 2>&1 &
         env:
           PORT: 3000
 
       - name: Aguardar serviços ficarem prontos
-        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 30000
+        run: |
+          npx wait-on http://localhost:3001/health http://localhost:3000/equipe-7 --timeout 120000 || {
+            echo "=== API log ==="
+            cat api-start.log || true
+            echo "=== APP log ==="
+            cat app-start.log || true
+            exit 1
+          }
 
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests 
@@ -189,7 +196,7 @@ jobs:
         run: npm ci
       - name: Subir a API em background
         working-directory: api
-        run: npm run start &
+        run: nohup npm run start > ../api-start.log 2>&1 &
         env:
           PORT: 3001
           NODE_ENV: test
@@ -198,12 +205,19 @@ jobs:
         run: npm ci
       - name: Subir o site em background
         working-directory: app
-        run: npm run start &
+        run: nohup npm run start > ../app-start.log 2>&1 &
         env:
           PORT: 3000
 
       - name: Aguardar serviços ficarem prontos
-        run: npx wait-on http://localhost:3001/health http://localhost:3000 --timeout 120000
+        run: |
+          npx wait-on http://localhost:3001/health http://localhost:3000/equipe-7 --timeout 120000 || {
+            echo "=== API log ==="
+            cat api-start.log || true
+            echo "=== APP log ==="
+            cat app-start.log || true
+            exit 1
+          }
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests
         run: npm ci
@@ -379,12 +393,17 @@ jobs:
         run: npm ci
       - name: Subir o app local em background
         working-directory: app
-        run: npm run start &
+        run: nohup npm run start > ../app-start.log 2>&1 &
         env:
           PORT: 3000
           NODE_ENV: test
       - name: Aguardar app local ficar pronto
-        run: npx wait-on http://localhost:3000/equipe-7 --timeout 120000
+        run: |
+          npx wait-on http://localhost:3000/equipe-7 --timeout 120000 || {
+            echo "=== APP log ==="
+            cat app-start.log || true
+            exit 1
+          }
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests
         run: npm ci
@@ -415,17 +434,6 @@ jobs:
         uses: actions/checkout@v6
       - name: Instala o Node na maquina virtual
         uses: actions/setup-node@v6
-      - name: Instala as dependencias do app
-        working-directory: app
-        run: npm ci
-      - name: Subir o app local em background
-        working-directory: app
-        run: npm run start &
-        env:
-          PORT: 3000
-          NODE_ENV: test
-      - name: Aguardar app local ficar pronto
-        run: npx wait-on http://localhost:3000/etec --timeout 120000
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests
         run: npm ci
@@ -526,12 +534,17 @@ jobs:
         run: npm ci
       - name: Subir o app local em background
         working-directory: app
-        run: npm run start &
+        run: nohup npm run start > ../app-start.log 2>&1 &
         env:
           PORT: 3000
           NODE_ENV: test
       - name: Aguardar app local ficar pronto
-        run: npx wait-on http://localhost:3000/etec --timeout 120000
+        run: |
+          npx wait-on http://localhost:3000/etec --timeout 120000 || {
+            echo "=== APP log ==="
+            cat app-start.log || true
+            exit 1
+          }
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests
         run: npm ci
