@@ -41,6 +41,13 @@ async function clickByText(text) {
   await element.click();
 }
 
+async function login(usuario, senha) {
+  await driver.findElement(By.css('#username, input[placeholder="Ex: admin"]')).sendKeys(usuario);
+  await driver.findElement(By.css('#password, input[type="password"]')).sendKeys(senha);
+  const botao = await driver.findElement(By.css('#btn-login, button'));
+  await botao.click();
+}
+
 // Helper para limpar e preencher os campos do formulário com segurança
 async function preencherFormulario(dados) {
   const campos = ['largura', 'comprimento', 'profundidade', 'precoAgua', 'precoManutencao', 'precoEletrico', 'precoHidraulico'];

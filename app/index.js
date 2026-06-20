@@ -818,8 +818,7 @@ function responderErroGrupo7(res, erro) {
   });
 }
 
-// 1. Custos da equipe 7 calculados localmente para o app nao depender do node_modules da API.
-app.post('/api/equipe-7/custos/calcular', (req, res) => {
+function calcularCustosGrupo7(req, res) {
   try {
     const volume = lerNumeroGrupo7('volume', req.body.volume);
     const precoAgua = lerNumeroGrupo7('precoAgua', req.body.precoAgua);
@@ -832,10 +831,9 @@ app.post('/api/equipe-7/custos/calcular', (req, res) => {
   } catch (erro) {
     responderErroGrupo7(res, erro);
   }
-});
+}
 
-// 2. Rotas de volume e materiais (Removi o /src para alinhar com padrões de API)
-app.post(`/api/equipe-7/volume`, (req, res) => {
+function calcularVolumeGrupo7(req, res) {
   try {
     const largura = lerNumeroGrupo7('largura', req.body.largura);
     const comprimento = lerNumeroGrupo7('comprimento', req.body.comprimento);
@@ -844,9 +842,9 @@ app.post(`/api/equipe-7/volume`, (req, res) => {
   } catch (erro) {
     responderErroGrupo7(res, erro);
   }
-});
+}
 
-app.post(`/api/equipe-7/materiais`, (req, res) => {
+function calcularMateriaisGrupo7(req, res) {
   try {
     const precoEletrico = lerNumeroGrupo7('precoEletrico', req.body.precoEletrico);
     const precoHidraulico = lerNumeroGrupo7('precoHidraulico', req.body.precoHidraulico);
@@ -854,7 +852,15 @@ app.post(`/api/equipe-7/materiais`, (req, res) => {
   } catch (erro) {
     responderErroGrupo7(res, erro);
   }
-});
+}
+
+// Rotas usadas pelo bundle atual e aliases mantidos para bundles anteriores.
+app.post('/api/src/equipe-7/custos/calcular', calcularCustosGrupo7);
+app.post('/api/src/equipe-7/volume/calcular', calcularVolumeGrupo7);
+app.post('/api/src/equipe-7/materiais/calcular', calcularMateriaisGrupo7);
+app.post('/api/equipe-7/custos/calcular', calcularCustosGrupo7);
+app.post('/api/equipe-7/volume', calcularVolumeGrupo7);
+app.post('/api/equipe-7/materiais', calcularMateriaisGrupo7);
 
 // 3. Suporte ao React Router (DEVE FICAR POR ÚLTIMO)
 // Isso garante que as rotas de API acima sejam processadas ANTES do React pegar o controle
