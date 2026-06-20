@@ -810,13 +810,15 @@ function responderErroGrupo7(res, erro) {
   });
 }
 
-// 4. Se o seu Front-end react chamar a rota /equipe-7/api/..., passa pelo proxy
+// 4. Vincula o seu arquivo de custos modificado no caminho exigido pelo teste automatizado
+app.use('/api/equipe-7/custos', custosRouter);
+
+// Mantenha as rotas de volume e materiais abaixo caso ainda não tenha modularizado elas em arquivos separados:
 app.post(`/api/src${GRUPO7_PATH}/volume`, (req, res) => {
   try {
     const largura = lerNumeroGrupo7('largura', req.body.largura);
     const comprimento = lerNumeroGrupo7('comprimento', req.body.comprimento);
     const profundidade = lerNumeroGrupo7('profundidade', req.body.profundidade);
-
     res.json({ success: true, volume: (largura * comprimento * profundidade).toFixed(2) });
   } catch (erro) {
     responderErroGrupo7(res, erro);
@@ -827,25 +829,7 @@ app.post(`/api/src${GRUPO7_PATH}/materiais`, (req, res) => {
   try {
     const precoEletrico = lerNumeroGrupo7('precoEletrico', req.body.precoEletrico);
     const precoHidraulico = lerNumeroGrupo7('precoHidraulico', req.body.precoHidraulico);
-
     res.json({ success: true, custoMateriais: (precoEletrico + precoHidraulico).toFixed(2) });
-    //res.json({ success: true, custoMateriais: (precoEletrico + precoHidraulico).toFixed(2) });
-  } catch (erro) {
-    responderErroGrupo7(res, erro);
-  }
-});
-
-app.post(`/api/src${GRUPO7_PATH}/custos`, (req, res) => {
-  try {
-    const volume = lerNumeroGrupo7('volume', req.body.volume);
-    const precoAgua = lerNumeroGrupo7('precoAgua', req.body.precoAgua);
-    const precoManutencao = lerNumeroGrupo7('precoManutencao', req.body.precoManutencao);
-
-    res.json({
-      success: true,
-      custoAgua: (volume * precoAgua).toFixed(2),
-      custoManutencao: (volume * precoManutencao).toFixed(2),
-    });
   } catch (erro) {
     responderErroGrupo7(res, erro);
   }
