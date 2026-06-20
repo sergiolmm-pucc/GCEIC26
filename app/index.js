@@ -780,10 +780,23 @@ app.use(GRUPO20_PATH, grupo20);
 
 
 
-
-
+// ====== CONFIGURAÇÃO INTEGRADA EQUIPE 7 ======
 const GRUPO7_PATH = '/equipe-7';
-const grupo7DistPath = path.join(__dirname, 'views', 'equipe-7', 'dist'); 
+const grupo7DistPath = path.join(__dirname, 'views', 'equipe-7', 'dist');
+
+// 1. Servir os arquivos estáticos (CSS, JS, Imagens) vinculados ao prefixo /equipe-7
+app.use(GRUPO7_PATH, express.static(grupo7DistPath));
+
+// 2. Rota explícita para a raiz da equipe retornar o index.html imediatamente para o wait-on
+app.get('/equipe-7', (_req, res) => {
+  res.sendFile(path.join(grupo7DistPath, 'index.html'));
+});
+
+// 3. Fallback para sub-rotas do React Router se o usuário atualizar a página
+app.get('/equipe-7/*', (_req, res) => {
+  res.sendFile(path.join(grupo7DistPath, 'index.html'));
+});
+// =============================================
 
 app.use(GRUPO7_PATH, express.static(grupo7DistPath));
 
@@ -810,11 +823,11 @@ function responderErroGrupo7(res, erro) {
   });
 }
 
-// 4. Vincula o seu arquivo de custos modificado no caminho exigido pelo teste automatizado
+// 1. Vincula o seu arquivo de custos (O teste espera: POST /api/equipe-7/custos/calcular)
 app.use('/api/equipe-7/custos', custosRouter);
 
-// Mantenha as rotas de volume e materiais abaixo caso ainda não tenha modularizado elas em arquivos separados:
-app.post(`/api/src${GRUPO7_PATH}/volume`, (req, res) => {
+// 2. Rotas de volume e materiais (Removi o /src para alinhar com padrões de API)
+app.post(`/api/equipe-7/volume`, (req, res) => {
   try {
     const largura = lerNumeroGrupo7('largura', req.body.largura);
     const comprimento = lerNumeroGrupo7('comprimento', req.body.comprimento);
@@ -825,7 +838,7 @@ app.post(`/api/src${GRUPO7_PATH}/volume`, (req, res) => {
   }
 });
 
-app.post(`/api/src${GRUPO7_PATH}/materiais`, (req, res) => {
+app.post(`/api/equipe-7/materiais`, (req, res) => {
   try {
     const precoEletrico = lerNumeroGrupo7('precoEletrico', req.body.precoEletrico);
     const precoHidraulico = lerNumeroGrupo7('precoHidraulico', req.body.precoHidraulico);
@@ -835,8 +848,8 @@ app.post(`/api/src${GRUPO7_PATH}/materiais`, (req, res) => {
   }
 });
 
-// 5. O MAIS IMPORTANTE: Suporte ao React Router!
-// Se o usuário acessar qualquer sub-rota do React (ex: /equipe-7/login), cai no index.html e o React toma conta
+// 3. Suporte ao React Router (DEVE FICAR POR ÚLTIMO)
+// Isso garante que as rotas de API acima sejam processadas ANTES do React pegar o controle
 app.get(/^\/equipe-7(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo7DistPath, 'index.html'));
 });
