@@ -8,7 +8,7 @@ const {
     calcularVolume,
     calcularMateriais,
     calcularCustos
-} = require('../src/equipe-7/funcoes');
+} = require('../src/equipe-7');
 
 
 
