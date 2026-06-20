@@ -17,8 +17,6 @@ const grupo14DistPath = path.join(__dirname, 'dist');
 const GRUPO5_PATH = '/equipe-5';
 const grupo5DistPath = path.join(__dirname, 'equipe-5', 'dist');
 
-const custosRouter = require('../api/src/equipe-7/custos.js');
-
 // ── Equipe 2 ──
 const GRUPO2_PATH = '/equipe-2';
 const grupo2DistPath = path.join(__dirname, 'dist', 'equipe-2');
@@ -820,8 +818,21 @@ function responderErroGrupo7(res, erro) {
   });
 }
 
-// 1. Vincula o seu arquivo de custos (O teste espera: POST /api/equipe-7/custos/calcular)
-app.use('/api/equipe-7/custos', custosRouter);
+// 1. Custos da equipe 7 calculados localmente para o app nao depender do node_modules da API.
+app.post('/api/equipe-7/custos/calcular', (req, res) => {
+  try {
+    const volume = lerNumeroGrupo7('volume', req.body.volume);
+    const precoAgua = lerNumeroGrupo7('precoAgua', req.body.precoAgua);
+    const precoManutencao = lerNumeroGrupo7('precoManutencao', req.body.precoManutencao);
+    res.json({
+      success: true,
+      custoAgua: (volume * precoAgua).toFixed(2),
+      custoManutencao: (volume * precoManutencao).toFixed(2),
+    });
+  } catch (erro) {
+    responderErroGrupo7(res, erro);
+  }
+});
 
 // 2. Rotas de volume e materiais (Removi o /src para alinhar com padrões de API)
 app.post(`/api/equipe-7/volume`, (req, res) => {
