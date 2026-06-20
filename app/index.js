@@ -17,6 +17,8 @@ const grupo14DistPath = path.join(__dirname, 'dist');
 const GRUPO5_PATH = '/equipe-5';
 const grupo5DistPath = path.join(__dirname, 'equipe-5', 'dist');
 
+const custosRouter = require('../api/src/equipe-7/custos.js');
+
 // ── Equipe 2 ──
 const GRUPO2_PATH = '/equipe-2';
 const grupo2DistPath = path.join(__dirname, 'dist', 'equipe-2');

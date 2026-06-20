@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { lerNumero, enviarErro } = require('./validacao');
 
-// Função pura de cálculo (usada no teste unitário) - PERFEITA
+// Função pura de cálculo (usada no teste unitário)
 function calcularCustos(volume, precoAgua, precoManutencao) {
     const v = lerNumero('volume', volume);
     const a = lerNumero('precoAgua', precoAgua);
@@ -13,7 +13,8 @@ function calcularCustos(volume, precoAgua, precoManutencao) {
     };
 }
 
-router.post('/', (req, res) => {
+
+router.post('/calcular', (req, res) => {
     try {
         const resultados = calcularCustos(req.body.volume, req.body.precoAgua, req.body.precoManutencao);
         res.json({
@@ -22,7 +23,8 @@ router.post('/', (req, res) => {
             custoManutencao: resultados.custoManutencao
         });
     } catch (erro) {
-        enviarErro(res, erro);
+        // Garanta que sua função enviarErro envie o status 400 em caso de erro de validação
+        enviarErro(res, erro); 
     }
 });
 
