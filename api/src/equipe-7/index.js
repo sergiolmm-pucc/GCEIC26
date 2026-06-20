@@ -1,9 +1,9 @@
-const calcularVolume = require('./volume');
-const calcularMateriais = require('./materiais');
-const calcularCustos = require('./custos');
+const volumeRouter = require('./volume');
+const materiaisRouter = require('./materiais');
+const custosRouter = require('./custos');
 
 module.exports = {
-    calcularVolume,
-    calcularMateriais,
-    calcularCustos
+    calcularVolume: volumeRouter.calcularVolume,
+    calcularMateriais: materiaisRouter.calcularMateriais,
+    calcularCustos: custosRouter.calcularCustos
 };
