@@ -122,29 +122,29 @@ async function main() {
     console.log('✅ Splash Screen validada');
 
     // 2. Erro ao tentar login com credenciais incorretas
-    await driver.get(`${BASE_URL}/login`);
-    await driver.findElement(By.css('input[placeholder="Ex: admin"]')).sendKeys('admin');
-    await driver.findElement(By.css('input[placeholder="••••••••"]')).sendKeys('senha_errada');
-    await clickByText('Autenticar sistema');
-    
-    await driver.wait(until.alertIsPresent(), 5000);
-    const alert = await driver.switchTo().alert();
-    const alertText = await alert.getText();
-    if (!alertText.includes('Usuário ou senha incorretos!')) {
-      throw new Error(`Texto do alerta inesperado: ${alertText}`);
-    }
-    await alert.accept();
-    await takeScreenshot('02-login-invalido');
-    console.log('✅ Validação de credenciais incorretas passou');
+await driver.get(`${BASE_URL}/login`);
+await driver.findElement(By.css('input[placeholder="Ex: admin"]')).sendKeys('admin');
+await driver.findElement(By.id('password')).sendKeys('senha_errada');
+await clickByText('Autenticar sistema');
 
-    // 3. Login com sucesso e redirecionamento
-    await driver.get(`${BASE_URL}/login`);
-    await driver.findElement(By.css('input[placeholder="Ex: admin"]')).sendKeys('admin');
-    await driver.findElement(By.css('input[placeholder="••••••••"]')).sendKeys('1234');
-    await clickByText('Autenticar sistema');
-    await driver.wait(until.urlContains('/calculadora'), 10000);
-    await takeScreenshot('03-login-sucesso');
-    console.log('✅ Autenticação com sucesso validada');
+await driver.wait(until.alertIsPresent(), 5000);
+const alert = await driver.switchTo().alert();
+const alertText = await alert.getText();
+if (!alertText.includes('Usuário ou senha incorretos!')) {
+  throw new Error(`Texto do alerta inesperado: ${alertText}`);
+}
+await alert.accept();
+await takeScreenshot('02-login-invalido');
+console.log('✅ Validação de credenciais incorretas passou');
+
+// 3. Login com sucesso e redirecionamento
+await driver.get(`${BASE_URL}/login`);
+await driver.findElement(By.css('input[placeholder="Ex: admin"]')).sendKeys('admin');
+await driver.findElement(By.id('password')).sendKeys('1234');
+await clickByText('Autenticar sistema');
+await driver.wait(until.urlContains('/calculadora'), 10000);
+await takeScreenshot('03-login-sucesso');
+console.log('✅ Autenticação com sucesso validada');
 
 
     // =========================================================================
@@ -241,7 +241,7 @@ async function main() {
     // Logout e retorno ao login
     await clickByText('Sair');
     await driver.wait(until.urlContains('/login'), 10000);
-    await waitForText('Insira suas credenciais corporativas abaixo');
+    await waitForText('Insira suas credenciais abaixo');
     await takeScreenshot('07-logout');
     console.log('✅ Logout efetuado com sucesso');
 
