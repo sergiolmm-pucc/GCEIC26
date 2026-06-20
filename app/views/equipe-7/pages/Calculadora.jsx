@@ -26,6 +26,17 @@ function Calculadora() {
     setErro('');
     setResultado(null);
 
+    const valoresIniciais = [
+      dados.largura, dados.comprimento, dados.profundidade,
+      dados.precoAgua, dados.precoManutencao, dados.precoEletrico, dados.precoHidraulico
+    ];
+
+    // Checa se alguma string não está vazia e se sua conversão numérica é negativa
+    if (valoresIniciais.some(v => v !== '' && Number(v) < 0)) {
+      setErro('O valor inserido deve ser maior ou igual a zero.');
+      return; // Interrompe a execução aqui sem disparar o Axios
+    }
+    
     try {
       const resVolume = await axios.post(`${API_BASE}/volume/calcular`, {
         largura: dados.largura,
@@ -58,16 +69,9 @@ function Calculadora() {
       });
 
     } catch (error) {
-  console.error("Erro ao calcular em múltiplas APIs:", error);
-
-  console.log('RESPONSE:', error.response?.data);
-  console.log('MESSAGE:', error.message);
-
-  setErro(
-    error.response?.data?.error ||
-    'Erro ao conectar com as APIs. Verifique se os servidores Node estao rodando.'
-  );
-}
+      console.error("Erro ao calcular em múltiplas APIs:", error);
+      setErro(error.response?.data?.error || 'Erro ao conectar com as APIs. Verifique se os servidores Node estao rodando.');
+    }
   };
 
 return (
