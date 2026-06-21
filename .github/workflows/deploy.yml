@@ -379,44 +379,54 @@ jobs:
           path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo13-*.png
 
   # Grupo 7
-    # Grupo 7
-    e2e-grupo7:
+  e2e-grupo7:
     needs: [deploy-api, deploy-app]
-    if: needs.deploy-api.outputs.dep_api == 'true' && needs.deploy-app.outputs.dep_app == 'true'
+    if: always() && (needs.deploy-api.result == 'success' || needs.deploy-api.result == 'skipped') && (needs.deploy-app.result == 'success' || needs.deploy-app.result == 'skipped')
     runs-on: ubuntu-latest
-
     steps:
       - name: Get Code from repository
         uses: actions/checkout@v6
-
       - name: Instala o Node na maquina virtual
         uses: actions/setup-node@v6
-
+      - name: Instala as dependencias da API
+        working-directory: api
+        run: npm ci
+      - name: Instala as dependencias do app
+        working-directory: app
+        run: npm ci
+      - name: Subir o app local em background
+        working-directory: app
+        run: nohup npm run start > ../app-start.log 2>&1 &
+        env:
+          PORT: 3000
+          NODE_ENV: test
+      - name: Aguardar app local ficar pronto
+        run: |
+          npx wait-on http://localhost:3000/equipe-7 --timeout 120000 || {
+            echo "=== APP log ==="
+            cat app-start.log || true
+            exit 1
+          }
       - name: Instala as dependencias do projeto
         working-directory: e2e-tests
         run: npm ci
-
       - name: Instalar Chrome e ChromeDriver compatíveis
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: 149
-
       - name: Roda os testes E2E - Grupo 7
         if: success()
         working-directory: e2e-tests
         run: npm run test:grupo7
         env:
-          API_URL: https://gceic26.onrender.com
-          APP_URL: https://gceic26-app.onrender.com
-
+          API_URL: http://localhost:3001
+          APP_URL: http://localhost:3000
       - name: Fotos dos testes Grupo 7
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: fotos-grupo7
           path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo7-*.png
-
-
 
   e2e-grupo12:
     needs: [deploy-api, deploy-app]
