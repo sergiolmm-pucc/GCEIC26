@@ -9,6 +9,7 @@ const express = require('express');
 const volumeRoutes = require('../src/equipe-7/volume');
 const materiaisRoutes = require('../src/equipe-7/materiais');
 const custosRoutes = require('../src/equipe-7/custos');
+const apiApp = require('../src/app');
 
 
 
@@ -26,6 +27,24 @@ app.use('/api/equipe-7/custos', custosRoutes);
 
 describe('SISTEMA DE CÁLCULO DE PISCINAS - TESTES DE API GRUPO 7', () => {
 
+
+
+    test('Deve retornar status 200 usando a rota oficial da API principal', async () => {
+
+            const res = await request(apiApp)
+                .post('/api/equipe-7/volume/calcular')
+                .send({
+                    largura:2,
+                    comprimento:4,
+                    profundidade:2
+                });
+
+
+            expect(res.statusCode).toBe(200);
+            expect(res.body.success).toBe(true);
+            expect(res.body.volume).toBe("16.00");
+
+    });
 
 
     // ============================================

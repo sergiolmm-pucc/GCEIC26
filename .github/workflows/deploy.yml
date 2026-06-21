@@ -391,18 +391,30 @@ jobs:
       - name: Instala as dependencias da API
         working-directory: api
         run: npm ci
+      - name: Subir a API local em background
+        working-directory: api
+        run: nohup npm run start > ../api-start.log 2>&1 &
+        env:
+          PORT: 3001
+          NODE_ENV: test
       - name: Instala as dependencias do app
         working-directory: app
         run: npm ci
+      - name: Build frontend Grupo 7
+        working-directory: app/views/equipe-7
+        run: npx vite build
       - name: Subir o app local em background
         working-directory: app
         run: nohup npm run start > ../app-start.log 2>&1 &
         env:
           PORT: 3000
           NODE_ENV: test
+          API_URL: http://localhost:3001
       - name: Aguardar app local ficar pronto
         run: |
-          npx wait-on http://localhost:3000/equipe-7 --timeout 120000 || {
+          npx wait-on http://localhost:3001/health http://localhost:3000/equipe-7 --timeout 120000 || {
+            echo "=== API log ==="
+            cat api-start.log || true
             echo "=== APP log ==="
             cat app-start.log || true
             exit 1

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const API_BASE = '/api/src/equipe-7';
+const API_BASE = '/equipe-7/api';
 
 function Calculadora() {
   const [dados, setDados] = useState({

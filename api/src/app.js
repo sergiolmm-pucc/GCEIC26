@@ -316,6 +316,9 @@ app.post('/AGUA/economia', (req, res) => {
 
 app.use('/equipe-11', equipe11Routes);
 
+app.use('/api/equipe-7/volume', volumeRoutes);
+app.use('/api/equipe-7/materiais', materiaisRoutes);
+app.use('/api/equipe-7/custos', custosRoutes);
 app.use('/PISCINA2/volume', volumeRoutes);
 app.use('/PISCINA2/materiais', materiaisRoutes);
 app.use('/PISCINA2/custos', custosRoutes);

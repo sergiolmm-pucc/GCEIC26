@@ -782,13 +782,29 @@ app.use(GRUPO20_PATH, grupo20);
 const GRUPO7_PATH = '/equipe-7';
 const grupo7DistPath = path.join(__dirname, 'views', 'equipe-7', 'dist');
 
-const volumeRouter = require('../api/src/equipe-7/volume');
-const materiaisRouter = require('../api/src/equipe-7/materiais');
-const custosRouter = require('../api/src/equipe-7/custos');
+async function proxyPostEquipe7(req, res, rota) {
+  try {
+    const fetch = (await import('node-fetch')).default;
+    const response = await fetch(`${API_URL}${rota}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req.body),
+    });
+    const data = await response.json();
+    res.status(response.status).json(data);
+  } catch (err) {
+    res.status(502).json({ success: false, error: err.message });
+  }
+}
 
-app.use('/api/src/equipe-7/volume', volumeRouter);
-app.use('/api/src/equipe-7/materiais', materiaisRouter);
-app.use('/api/src/equipe-7/custos', custosRouter);
+app.post('/equipe-7/api/volume/calcular', (req, res) =>
+  proxyPostEquipe7(req, res, '/api/equipe-7/volume/calcular'));
+
+app.post('/equipe-7/api/materiais/calcular', (req, res) =>
+  proxyPostEquipe7(req, res, '/api/equipe-7/materiais/calcular'));
+
+app.post('/equipe-7/api/custos/calcular', (req, res) =>
+  proxyPostEquipe7(req, res, '/api/equipe-7/custos/calcular'));
 
 app.use('/equipe-7', express.static(grupo7DistPath));
 
