@@ -780,79 +780,18 @@ app.use(GRUPO20_PATH, grupo20);
 
 // ====== CONFIGURAÇÃO INTEGRADA EQUIPE 7 ======
 const GRUPO7_PATH = '/equipe-7';
-const apiEquipe7 = '/api/src/equipe-7';
 const grupo7DistPath = path.join(__dirname, 'views', 'equipe-7', 'dist');
 
-function lerNumeroGrupo7(campo, valor) {
-    if (valor === null || valor === undefined || valor === '') {
-        const erro = new Error(`Campo ${campo} nao pode ser nulo ou vazio.`);
-        erro.statusCode = 400;
-        throw erro;
-    }
+const volumeRouter = require('../api/src/equipe-7/volume');
+const materiaisRouter = require('../api/src/equipe-7/materiais');
+const custosRouter = require('../api/src/equipe-7/custos');
 
-    const numero = Number(valor);
-    if (!Number.isFinite(numero)) {
-        const erro = new Error(`Campo ${campo} deve ser um numero valido.`);
-        erro.statusCode = 400;
-        throw erro;
-    }
+app.use('/api/src/equipe-7/volume', volumeRouter);
+app.use('/api/src/equipe-7/materiais', materiaisRouter);
+app.use('/api/src/equipe-7/custos', custosRouter);
 
-    if (numero < 0) {
-        const erro = new Error(`Campo ${campo} deve ser maior ou igual a zero.`);
-        erro.statusCode = 400;
-        throw erro;
-    }
+app.use('/equipe-7', express.static(grupo7DistPath));
 
-    return numero;
-}
-
-function enviarErroGrupo7(res, erro) {
-    return res.status(erro.statusCode || 500).json({
-        success: false,
-        error: erro.message || 'Erro inesperado no calculo.'
-    });
-}
-
-app.post(`${apiEquipe7}/volume/calcular`, (req, res) => {
-    try {
-        const largura = lerNumeroGrupo7('largura', req.body.largura);
-        const comprimento = lerNumeroGrupo7('comprimento', req.body.comprimento);
-        const profundidade = lerNumeroGrupo7('profundidade', req.body.profundidade);
-        res.json({ success: true, volume: (largura * comprimento * profundidade).toFixed(2) });
-    } catch (erro) {
-        enviarErroGrupo7(res, erro);
-    }
-});
-
-app.post(`${apiEquipe7}/materiais/calcular`, (req, res) => {
-    try {
-        const precoEletrico = lerNumeroGrupo7('precoEletrico', req.body.precoEletrico);
-        const precoHidraulico = lerNumeroGrupo7('precoHidraulico', req.body.precoHidraulico);
-        res.json({ success: true, custoMateriais: (precoEletrico + precoHidraulico).toFixed(2) });
-    } catch (erro) {
-        enviarErroGrupo7(res, erro);
-    }
-});
-
-app.post(`${apiEquipe7}/custos/calcular`, (req, res) => {
-    try {
-        const volume = lerNumeroGrupo7('volume', req.body.volume);
-        const precoAgua = lerNumeroGrupo7('precoAgua', req.body.precoAgua);
-        const precoManutencao = lerNumeroGrupo7('precoManutencao', req.body.precoManutencao);
-        res.json({
-            success: true,
-            custoAgua: "Ta de sacanagem", //(volume * precoAgua).toFixed(2),
-            custoManutencao: (volume * precoManutencao).toFixed(2)
-        });
-    } catch (erro) {
-        enviarErroGrupo7(res, erro);
-    }
-});
-
-app.use('/equipe-7', express.static(path.join(__dirname, 'views', 'equipe-7', 'dist')));
-
-// 3. Suporte ao React Router (Fallback)
-// Deve ser a última regra para o path /equipe-7
 app.get(/^\/equipe-7(?:\/.*)?$/, (_req, res) => {
   res.sendFile(path.join(grupo7DistPath, 'index.html'));
 });
