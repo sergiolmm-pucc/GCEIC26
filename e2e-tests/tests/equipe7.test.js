@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 // URL padrão ajustada para o seu ambiente local de desenvolvimento
-const APP_URL = process.env.APP_URL || 'http://localhost:5173';
+const APP_URL = process.env.APP_URL || 'http://localhost:3000';
 const BASE_URL = APP_URL.replace(/\/$/, '').endsWith('/equipe-7')
   ? APP_URL.replace(/\/$/, '')
   : `${APP_URL.replace(/\/$/, '')}/equipe-7`;
@@ -56,7 +56,18 @@ async function preencherFormulario(dados) {
       const input = await driver.findElement(By.name(campo));
       await input.clear();
       // Em alguns frameworks JS, apenas .clear() não dispara eventos de mudança, preencher com string vazia ajuda se necessário
-      await input.sendKeys(dados[campo]);
+      await driver.executeScript(
+        `
+        const input = arguments[0];
+        const value = arguments[1];
+        const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+        setter.call(input, value);
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+        `,
+        input,
+        String(dados[campo])
+      );
     }
   }
 }
