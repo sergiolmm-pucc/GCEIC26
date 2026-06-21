@@ -11,9 +11,6 @@ const materiaisRoutes = require('../src/equipe-7/materiais');
 const custosRoutes = require('../src/equipe-7/custos');
 const apiApp = require('../src/app');
 
-
-
-
 const app = express();
 
 app.use(express.json());
