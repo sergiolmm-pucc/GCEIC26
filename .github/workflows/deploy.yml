@@ -378,7 +378,7 @@ jobs:
           name: fotos-grupo13
           path: /home/runner/work/GCEIC26/GCEIC26/e2e-tests/screenshots/grupo13-*.png
 
-  //Grupo 7
+  # Grupo 7
   e2e-grupo7:
     needs: [deploy-api, deploy-app]
     if: always() && (needs.deploy-api.result == 'success' || needs.deploy-api.result == 'skipped') && (needs.deploy-app.result == 'success' || needs.deploy-app.result == 'skipped')
