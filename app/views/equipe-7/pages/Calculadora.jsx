@@ -38,6 +38,7 @@ function Calculadora() {
       return; // Interrompe a execução aqui sem disparar o Axios
     }
     
+    
     try {
       const resVolume = await axios.post(`${API_BASE}/volume/calcular`, {
         largura: dados.largura,
