@@ -24,6 +24,7 @@ function Calculadora() {
   };
 
   
+  
   const calcularCusto = async () => {
     setErro('');
     setResultado(null);

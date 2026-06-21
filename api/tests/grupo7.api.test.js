@@ -10,9 +10,6 @@ const volumeRoutes = require('../src/equipe-7/volume');
 const materiaisRoutes = require('../src/equipe-7/materiais');
 const custosRoutes = require('../src/equipe-7/custos');
 
-
-
-
 const app = express();
 
 app.use(express.json());
