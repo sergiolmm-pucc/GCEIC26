@@ -14,6 +14,7 @@ function Calculadora() {
     precoHidraulico: '',
     precoManutencao: ''
   });
+  
 
   const [resultado, setResultado] = useState(null);
   const [erro, setErro] = useState('');

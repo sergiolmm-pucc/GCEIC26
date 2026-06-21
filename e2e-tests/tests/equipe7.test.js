@@ -3,6 +3,7 @@ const chrome = require('selenium-webdriver/chrome');
 const fs = require('fs');
 const path = require('path');
 
+
 // URL padrão ajustada para o seu ambiente local de desenvolvimento
 const APP_URL = process.env.APP_URL || 'http://localhost:3000';
 const BASE_URL = APP_URL.replace(/\/$/, '').endsWith('/equipe-7')
