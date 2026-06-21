@@ -5,7 +5,7 @@ on:
     branches: ["**"]
 
   workflow_dispatch:
-    inputs:
+    inputs:  
       environment:
         description: 'Environment'
         type: choice
