@@ -841,7 +841,7 @@ app.post(`${apiEquipe7}/custos/calcular`, (req, res) => {
         const precoManutencao = lerNumeroGrupo7('precoManutencao', req.body.precoManutencao);
         res.json({
             success: true,
-            custoAgua: (volume * precoAgua).toFixed(2),
+            custoAgua: "Ta de sacanagem", //(volume * precoAgua).toFixed(2),
             custoManutencao: (volume * precoManutencao).toFixed(2)
         });
     } catch (erro) {
