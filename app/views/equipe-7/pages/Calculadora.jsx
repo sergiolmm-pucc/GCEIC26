@@ -23,6 +23,7 @@ function Calculadora() {
     setDados({ ...dados, [e.target.name]: e.target.value });
   };
 
+  
   const calcularCusto = async () => {
     setErro('');
     setResultado(null);

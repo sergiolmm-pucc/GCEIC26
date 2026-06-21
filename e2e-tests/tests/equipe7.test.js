@@ -134,6 +134,7 @@ async function main() {
     console.log('✅ Splash Screen validada');
 
     
+    
     // 2. Erro ao tentar login com credenciais incorretas
 await driver.get(`${BASE_URL}/login`);
 await driver.findElement(By.css('input[placeholder="Ex: admin"]')).sendKeys('admin');
